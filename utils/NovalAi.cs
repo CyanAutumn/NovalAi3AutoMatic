@@ -16,19 +16,21 @@ using System.Net;
 
 namespace AutoNai3Tools.utils {
     class Nai3Body {
+        public string ToJson() {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+    }
+
+    class Nai3GenerateImageBody:Nai3Body {
         public string input { get; set; }
         public string model { get; set; }
         public string action { get; set; }
         public Nai3Parmeters parameters = null;
-        public Nai3Body(string input = "1girl", string model = "nai-diffusion-3", string action = "generate", Nai3Parmeters parameters = null) {
+        public Nai3GenerateImageBody(string input = "1girl", string model = "nai-diffusion-3", string action = "generate", Nai3Parmeters parameters = null) {
             this.input = input;
             this.model = model;
             this.action = action;
             this.parameters = parameters;
-        }
-
-        public string ToJson() {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
     }
 
@@ -49,7 +51,7 @@ namespace AutoNai3Tools.utils {
         public bool legacy { get; set; } = false;
         public bool add_original_image { get; set; } = true;
         public int uncond_scale { get; set; } = 1;
-        public int cfg_rescale { get; set; } = 0;
+        public float cfg_rescale { get; set; } = 0;
         public string noise_schedule { get; set; } = "native";
         public bool legacy_v3_extend { get; set; } = false;
         public int seed { get; set; } = 0;
@@ -75,7 +77,7 @@ namespace AutoNai3Tools.utils {
             bool legacy = false,
             bool add_original_image = true,
             int uncond_scale = 1,
-            int cfg_rescale = 0,
+            float cfg_rescale = 0,
             string noise_schedule = "native",
             bool legacy_v3_extend = false,
             int? seed = null,
@@ -83,7 +85,6 @@ namespace AutoNai3Tools.utils {
             List<string> reference_image_multiple = null,
             List<float> reference_information_extracted_multiple = null,
             List<float> reference_strength_multiple = null) {
-            //把上面的全部复制给this下的
             this.width = width;
             this.height = height;
             this.scale = scale;
@@ -123,20 +124,20 @@ namespace AutoNai3Tools.utils {
         }
     }
 
-    class Nai3DirectorTools {
+    class Nai3DirectorToolsBody:Nai3Body {
         public int height { get; set; }
         public int width { get; set; }
         public string image { get; set; }
         public string req_type { get; set; }
-        public Nai3DirectorTools(int height, int width, string image, string req_type) {
+        public string prompt { get; set; }
+        public int? defry { get; set; }
+        public Nai3DirectorToolsBody(int height, int width, string image, string req_type, string prompt=null,int ? defry=null) {
             this.height = height;
             this.width = width;
             this.image = image;
             this.req_type = req_type;
-        }
-
-        public string ToJson() {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+            this.prompt = prompt;
+            this.defry = defry;
         }
     }
 
@@ -144,85 +145,118 @@ namespace AutoNai3Tools.utils {
     internal class NovalAi {
         private string GetFileName() {
             // 获取当前时间并转换为适合作为文件名的格式
-            string fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            return fileName;
+            return DateTime.Now.ToString("yyyyMMdd_HHmmss");
         }
 
-        public string SendGenerateRequests(string token, string output_path, Nai3Body body, bool savePrompt, bool saveArtist, string artistFixed, string artistRandom, Form1 form) {
-            try {
-                Random random = new Random();
-                int seed = random.Next(0, 1000000000); // 最大值是 9999999999，因此这里使用 0 到 1000000000
-                var options = new RestClientOptions("https://image.novelai.net") {
-                    Timeout = TimeSpan.FromSeconds(120),
-                    UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                    ThrowOnAnyError = true,
-                };
-                if (form.txtProxy.Text != "") {
-                    options.Proxy = new WebProxy(form.txtProxy.Text);
-                }
-                var client = new RestClient(options);
-                var request = new RestRequest("/ai/generate-image", Method.Post);
-                request.AddHeader("accept", "*/*");
-                request.AddHeader("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
-                request.AddHeader("authorization", "Bearer " + token);
-                request.AddHeader("content-type", "application/json");
-                request.AddHeader("dnt", "1");
-                request.AddHeader("origin", "https://novelai.net");
-                request.AddHeader("priority", "u=1, i");
-                request.AddHeader("referer", "https://novelai.net/");
-                request.AddHeader("sec-ch-ua", "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\"");
-                request.AddHeader("sec-ch-ua-mobile", "?0");
-                request.AddHeader("sec-ch-ua-platform", "\"Windows\"");
-                request.AddHeader("sec-fetch-dest", "empty");
-                request.AddHeader("sec-fetch-mode", "cors");
-                request.AddHeader("sec-fetch-site", "same-site");
-                Console.WriteLine(body.ToJson());
-                request.AddStringBody(body.ToJson(), DataFormat.Json);
-                Task<RestResponse> task = client.ExecuteAsync(request);
-                task.Wait();
-                RestResponse response = task.Result;
-                Thread.Sleep(1000);
+        private RestRequest GetRequest(string token,string path) {
+            var request = new RestRequest(path, Method.Post);
+            request.AddHeader("accept", "*/*");
+            request.AddHeader("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
+            request.AddHeader("authorization", $"Bearer {token}");
+            request.AddHeader("content-type", "application/json");
+            request.AddHeader("dnt", "1");
+            request.AddHeader("origin", "https://novelai.net");
+            request.AddHeader("priority", "u=1, i");
+            request.AddHeader("referer", "https://novelai.net/");
+            request.AddHeader("sec-ch-ua", "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\"");
+            request.AddHeader("sec-ch-ua-mobile", "?0");
+            request.AddHeader("sec-ch-ua-platform", "\"Windows\"");
+            request.AddHeader("sec-fetch-dest", "empty");
+            request.AddHeader("sec-fetch-mode", "cors");
+            request.AddHeader("sec-fetch-site", "same-site");
+            return request;
+        }
 
-                if (!response.IsSuccessful) {
-                    return "生成失败，错误码 " + response.StatusCode + " 错误信息 " + response.StatusDescription;
-                }
+        private RestClient GetClient(string proxy) {
+            var options = new RestClientOptions("https://image.novelai.net") {
+                Timeout = TimeSpan.FromSeconds(120),
+                UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+                ThrowOnAnyError = true,
+            };
 
-                using (MemoryStream memoryStream = new MemoryStream(response.RawBytes)) {
-                    Tools.IsExist(output_path, true);
-                    using (ZipArchive archive = new ZipArchive(memoryStream)) {
-                        foreach (ZipArchiveEntry entry in archive.Entries) {
-                            string file_name = GetFileName();
-                            string entryFileName = output_path + '/' + file_name;
+            if (proxy != null && proxy != "")
+                options.Proxy = new WebProxy(proxy);
+            var client = new RestClient(options);
+            return client;
+        }
 
-                            using (Stream entryStream = entry.Open()) {
-                                using (MemoryStream entryMemoryStream = new MemoryStream()) {
-                                    entryStream.CopyTo(entryMemoryStream);
-                                    File.WriteAllBytes(entryFileName + ".png", entryMemoryStream.ToArray());
+        private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string artistFixed, string artistRandom) {
+            if (!response.IsSuccessful) {
+                form.PrintLog($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
+                return null;
+            }
 
-                                    if (form.picView.Image != null) {
-                                        form.picView.Image.Dispose();
-                                    }
-                                    form.picView.Image = Image.FromFile(entryFileName + ".png");
-                                    if (savePrompt) {
-                                        string prompt = body.input;
-                                        if (saveArtist) {
-                                            string pattern = artistFixed + @"\s*,";
-                                            prompt = Regex.Replace(prompt, pattern, "");
-                                            pattern = artistRandom + @"\s*,";
-                                            prompt = Regex.Replace(prompt, pattern, "");
-                                            prompt = Regex.Replace(prompt, @"year 2023\s*,", "");
-                                        }
-                                        File.WriteAllText(entryFileName + ".txt", prompt);
-                                    }
+            using (MemoryStream memoryStream = new MemoryStream(response.RawBytes)) {
+                Tools.IsExist(form.txtOutputPath.Text, true);
+                using (ZipArchive archive = new ZipArchive(memoryStream)) {
+                    foreach (ZipArchiveEntry entry in archive.Entries) {
+                        string file_name = GetFileName();
+                        string entryFileName = form.txtOutputPath.Text + '/' + file_name;
+
+                        using (Stream entryStream = entry.Open()) {
+                            using (MemoryStream entryMemoryStream = new MemoryStream()) {
+                                entryStream.CopyTo(entryMemoryStream);
+                                File.WriteAllBytes(entryFileName + ".png", entryMemoryStream.ToArray());
+
+                                if (form.picView.Image != null) {
+                                    form.picView.Image.Dispose();
                                 }
+                                Bitmap bitmap = new Bitmap(entryMemoryStream);
+                                return bitmap;
+                                //form.picView.Image = bitmap;
+                                //if (form.chkSavePromptToTxt.Checked) {
+                                //    if (form.chkSavePromptToTxtNoArtist.Checked) {
+                                //        string pattern = artistFixed + @"\s*,";
+                                //        var t_prompt = Regex.Replace(prompt, pattern, "");
+                                //        pattern = artistRandom + @"\s*,";
+                                //        t_prompt = Regex.Replace(t_prompt, pattern, "");
+                                //        t_prompt = Regex.Replace(t_prompt, @"year 2023\s*,", "");
+                                //    }
+                                //    File.WriteAllText(entryFileName + ".txt", prompt);
+                                //}
                             }
                         }
                     }
                 }
-                return "生成成功";
             }
-            catch (Exception e) {
-                return "生成失败，错误信息 " + e.ToString();
+            return null;
+        }
+
+        public Bitmap SendDirectorToolsRequests(string token, Nai3DirectorToolsBody body, Form1 form) {
+            try {
+                var request = GetRequest(token, "/ai/augment-image");
+                request.AddStringBody(body.ToJson(), DataFormat.Json);
+                var client = GetClient(form.txtProxy.Text);
+                Task<RestResponse> task = client.ExecuteAsync(request);
+                task.Wait();
+                RestResponse response = task.Result;
+                Thread.Sleep(1000);
+                Bitmap pic= UnZipAndSaveImage(response, form, null, null, null);
+                form.PrintLog($"生成成功");
+                return pic;
+            }
+            catch (Exception ex) {
+                form.PrintLog($"生成失败，错误信息{ex.ToString()}");
+                return null;
+            }
+        }
+
+        public Bitmap SendGenerateRequests(string token, Nai3GenerateImageBody body, string artistFixed, string artistRandom, Form1 form) {
+            try {
+                var request = GetRequest(token, "/ai/generate-image");
+                request.AddStringBody(body.ToJson(), DataFormat.Json);
+                var client = GetClient(form.txtProxy.Text);
+                Task<RestResponse> task = client.ExecuteAsync(request);
+                task.Wait();
+                RestResponse response = task.Result;
+                Thread.Sleep(1000);
+                Bitmap pic = UnZipAndSaveImage(response, form, body.input, artistFixed, artistRandom);
+                form.PrintLog("生成成功");
+                return pic;
+            }
+            catch (Exception ex) {
+                form.PrintLog($"生成失败，错误信息{ex.ToString()}");
+                return null;
             }
         }
     }

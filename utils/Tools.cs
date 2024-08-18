@@ -133,5 +133,44 @@ namespace AutoNai3Tools.utils
                 textBox.SelectionStart = cursorPosition + insertPrompt.Length+(needRightComma?1:0);
             }
         }
+
+        public static string ConvertImageToBase64(string imagePath) {
+            try {
+                using (System.Drawing.Image image = System.Drawing.Image.FromFile(imagePath)) {
+                    using (MemoryStream memoryStream = new MemoryStream()) {
+                        image.Save(memoryStream, image.RawFormat);
+                        byte[] imageBytes = memoryStream.ToArray();
+                        string base64String = Convert.ToBase64String(imageBytes);
+                        return base64String;
+                    }
+                }
+            }
+            catch (Exception ex) {
+                Console.WriteLine("发生错误: " + ex.Message);
+                return null;
+            }
+        }
+
+        public static string SelectAndMappingPicToPictureBox(PictureBox pictureBox) {
+            string path = Tools.SelectIMGFile();
+            if (path != null) {
+                // 如果 form.picView.Image 已经存在，先释放它
+                if (pictureBox.Image != null) {
+                    pictureBox.Image.Dispose();
+                    pictureBox.Image = null; // 确保引用被清空
+                }
+
+                // 使用 MemoryStream 加载图片
+                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read)) {
+                    using (MemoryStream ms = new MemoryStream()) {
+                        fs.CopyTo(ms);
+                        ms.Position = 0; // 重置流位置
+                        pictureBox.Image = System.Drawing.Image.FromStream(ms);
+                    }
+                }
+                return path;
+            }
+            return null;
+        }
     }
 }

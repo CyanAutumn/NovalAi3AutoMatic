@@ -36,8 +36,6 @@
             this.txtPicInfo = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.txtPromptBlackList = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.rdoResolutionFixed = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,6 +48,10 @@
             this.rdoResolutionOrder = new System.Windows.Forms.RadioButton();
             this.rdoResolutionRandom = new System.Windows.Forms.RadioButton();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label31 = new System.Windows.Forms.Label();
+            this.cmbNoiseSchedule = new System.Windows.Forms.ComboBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.nudCFG = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.numSteps = new System.Windows.Forms.NumericUpDown();
             this.chkDyn = new System.Windows.Forms.CheckBox();
@@ -118,6 +120,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtNegativePrompt = new System.Windows.Forms.TextBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.txtPromptBlackList = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtPrompt = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -142,6 +146,40 @@
             this.numGenerateMaxNum = new System.Windows.Forms.NumericUpDown();
             this.numKeepParams = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.picDirectorToolsOutput = new System.Windows.Forms.PictureBox();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.picDirectorToolsInput = new System.Windows.Forms.PictureBox();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.rdoLineArtParseSignPic = new System.Windows.Forms.RadioButton();
+            this.label23 = new System.Windows.Forms.Label();
+            this.rdoLineArtParseFolderPic = new System.Windows.Forms.RadioButton();
+            this.txtLineArtInputFolder = new System.Windows.Forms.TextBox();
+            this.nudLineArtParseNum = new System.Windows.Forms.NumericUpDown();
+            this.btnSelectLineArtInputFolderPath = new System.Windows.Forms.Button();
+            this.tabDirectorTools = new System.Windows.Forms.TabControl();
+            this.tabPage16 = new System.Windows.Forms.TabPage();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tabPage17 = new System.Windows.Forms.TabPage();
+            this.label26 = new System.Windows.Forms.Label();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.label24 = new System.Windows.Forms.Label();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtColorizePrompt = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.cmbColorizeDerfy = new System.Windows.Forms.ComboBox();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.label29 = new System.Windows.Forms.Label();
+            this.cmbEmotionDefry = new System.Windows.Forms.ComboBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.txtEmotionPrompt = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.cmbEmotionEmotion = new System.Windows.Forms.ComboBox();
+            this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.label28 = new System.Windows.Forms.Label();
+            this.btnDirectorToolsRemoveBGRun = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btnClearLog = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.TextBox();
@@ -152,21 +190,17 @@
             this.btnGetMorePrompt = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
-            this.tabControl3 = new System.Windows.Forms.TabControl();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picView)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numResolutionWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numResolutionHeight)).BeginInit();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCFG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSteps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScale)).BeginInit();
             this.tabPage3.SuspendLayout();
@@ -195,16 +229,31 @@
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numGenerateMaxNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numKeepParams)).BeginInit();
+            this.tabPage9.SuspendLayout();
+            this.panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDirectorToolsOutput)).BeginInit();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDirectorToolsInput)).BeginInit();
+            this.panel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLineArtParseNum)).BeginInit();
+            this.tabDirectorTools.SuspendLayout();
+            this.tabPage16.SuspendLayout();
+            this.tabPage17.SuspendLayout();
+            this.tabPage10.SuspendLayout();
+            this.tabPage11.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.tabPage12.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.tabPage13.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabPage9.SuspendLayout();
-            this.tabControl3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -280,7 +329,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox8);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.panel6);
             this.tabPage2.Location = new System.Drawing.Point(4, 26);
@@ -290,28 +338,6 @@
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "生成参数";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.txtPromptBlackList);
-            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox8.Location = new System.Drawing.Point(3, 283);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(321, 182);
-            this.groupBox8.TabIndex = 1;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "提示词黑名单";
-            // 
-            // txtPromptBlackList
-            // 
-            this.txtPromptBlackList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPromptBlackList.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtPromptBlackList.Location = new System.Drawing.Point(3, 19);
-            this.txtPromptBlackList.Multiline = true;
-            this.txtPromptBlackList.Name = "txtPromptBlackList";
-            this.txtPromptBlackList.Size = new System.Drawing.Size(315, 160);
-            this.txtPromptBlackList.TabIndex = 0;
-            this.txtPromptBlackList.Text = resources.GetString("txtPromptBlackList.Text");
             // 
             // groupBox5
             // 
@@ -325,10 +351,10 @@
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.rdoResolutionOrder);
             this.groupBox5.Controls.Add(this.rdoResolutionRandom);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox5.Location = new System.Drawing.Point(3, 74);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox5.Location = new System.Drawing.Point(3, 108);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(321, 209);
+            this.groupBox5.Size = new System.Drawing.Size(321, 357);
             this.groupBox5.TabIndex = 61;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "生图尺寸";
@@ -337,7 +363,7 @@
             // 
             this.rdoResolutionFixed.AutoSize = true;
             this.rdoResolutionFixed.Checked = true;
-            this.rdoResolutionFixed.Location = new System.Drawing.Point(118, 19);
+            this.rdoResolutionFixed.Location = new System.Drawing.Point(252, 19);
             this.rdoResolutionFixed.Name = "rdoResolutionFixed";
             this.rdoResolutionFixed.Size = new System.Drawing.Size(50, 21);
             this.rdoResolutionFixed.TabIndex = 56;
@@ -348,7 +374,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 165);
+            this.label5.Location = new System.Drawing.Point(13, 314);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(284, 34);
             this.label5.TabIndex = 55;
@@ -365,12 +391,12 @@
             "1024x1024"});
             this.lstResolutionList.Location = new System.Drawing.Point(10, 46);
             this.lstResolutionList.Name = "lstResolutionList";
-            this.lstResolutionList.Size = new System.Drawing.Size(295, 67);
+            this.lstResolutionList.Size = new System.Drawing.Size(295, 214);
             this.lstResolutionList.TabIndex = 47;
             // 
             // numResolutionWidth
             // 
-            this.numResolutionWidth.Location = new System.Drawing.Point(36, 127);
+            this.numResolutionWidth.Location = new System.Drawing.Point(36, 276);
             this.numResolutionWidth.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -392,7 +418,7 @@
             // 
             // numResolutionHeight
             // 
-            this.numResolutionHeight.Location = new System.Drawing.Point(106, 127);
+            this.numResolutionHeight.Location = new System.Drawing.Point(106, 276);
             this.numResolutionHeight.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -414,7 +440,7 @@
             // 
             // btnAddResolution
             // 
-            this.btnAddResolution.Location = new System.Drawing.Point(167, 126);
+            this.btnAddResolution.Location = new System.Drawing.Point(167, 275);
             this.btnAddResolution.Name = "btnAddResolution";
             this.btnAddResolution.Size = new System.Drawing.Size(48, 23);
             this.btnAddResolution.TabIndex = 50;
@@ -424,7 +450,7 @@
             // 
             // btnDeleteResolution
             // 
-            this.btnDeleteResolution.Location = new System.Drawing.Point(221, 126);
+            this.btnDeleteResolution.Location = new System.Drawing.Point(221, 275);
             this.btnDeleteResolution.Name = "btnDeleteResolution";
             this.btnDeleteResolution.Size = new System.Drawing.Size(48, 23);
             this.btnDeleteResolution.TabIndex = 51;
@@ -435,7 +461,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(94, 129);
+            this.label1.Location = new System.Drawing.Point(94, 278);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 17);
             this.label1.TabIndex = 52;
@@ -454,7 +480,7 @@
             // rdoResolutionRandom
             // 
             this.rdoResolutionRandom.AutoSize = true;
-            this.rdoResolutionRandom.Location = new System.Drawing.Point(62, 19);
+            this.rdoResolutionRandom.Location = new System.Drawing.Point(123, 19);
             this.rdoResolutionRandom.Name = "rdoResolutionRandom";
             this.rdoResolutionRandom.Size = new System.Drawing.Size(50, 21);
             this.rdoResolutionRandom.TabIndex = 54;
@@ -463,6 +489,10 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.label31);
+            this.panel6.Controls.Add(this.cmbNoiseSchedule);
+            this.panel6.Controls.Add(this.label30);
+            this.panel6.Controls.Add(this.nudCFG);
             this.panel6.Controls.Add(this.label11);
             this.panel6.Controls.Add(this.numSteps);
             this.panel6.Controls.Add(this.chkDyn);
@@ -474,8 +504,57 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(3, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(321, 71);
+            this.panel6.Size = new System.Drawing.Size(321, 105);
             this.panel6.TabIndex = 62;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(7, 68);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(44, 17);
+            this.label31.TabIndex = 58;
+            this.label31.Text = "噪声：";
+            // 
+            // cmbNoiseSchedule
+            // 
+            this.cmbNoiseSchedule.FormattingEnabled = true;
+            this.cmbNoiseSchedule.Items.AddRange(new object[] {
+            "native",
+            "karras",
+            "exponential",
+            "polyexponential"});
+            this.cmbNoiseSchedule.Location = new System.Drawing.Point(78, 66);
+            this.cmbNoiseSchedule.Name = "cmbNoiseSchedule";
+            this.cmbNoiseSchedule.Size = new System.Drawing.Size(72, 25);
+            this.cmbNoiseSchedule.TabIndex = 57;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(165, 68);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(43, 17);
+            this.label30.TabIndex = 48;
+            this.label30.Text = "CFG：";
+            // 
+            // nudCFG
+            // 
+            this.nudCFG.DecimalPlaces = 2;
+            this.nudCFG.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudCFG.Location = new System.Drawing.Point(233, 66);
+            this.nudCFG.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudCFG.Name = "nudCFG";
+            this.nudCFG.Size = new System.Drawing.Size(72, 23);
+            this.nudCFG.TabIndex = 47;
             // 
             // label11
             // 
@@ -512,7 +591,7 @@
             // 
             this.chkDyn.AutoSize = true;
             this.chkDyn.Enabled = false;
-            this.chkDyn.Location = new System.Drawing.Point(82, 38);
+            this.chkDyn.Location = new System.Drawing.Point(82, 40);
             this.chkDyn.Name = "chkDyn";
             this.chkDyn.Size = new System.Drawing.Size(53, 21);
             this.chkDyn.TabIndex = 46;
@@ -531,7 +610,7 @@
             // chkSmea
             // 
             this.chkSmea.AutoSize = true;
-            this.chkSmea.Location = new System.Drawing.Point(10, 37);
+            this.chkSmea.Location = new System.Drawing.Point(10, 39);
             this.chkSmea.Name = "chkSmea";
             this.chkSmea.Size = new System.Drawing.Size(61, 21);
             this.chkSmea.TabIndex = 45;
@@ -542,11 +621,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(163, 37);
+            this.label8.Location = new System.Drawing.Point(163, 39);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 17);
+            this.label8.Size = new System.Drawing.Size(50, 17);
             this.label8.TabIndex = 38;
-            this.label8.Text = "CFG：";
+            this.label8.Text = "Scale：";
             // 
             // cmbSampler
             // 
@@ -571,7 +650,7 @@
             0,
             0,
             65536});
-            this.numScale.Location = new System.Drawing.Point(233, 35);
+            this.numScale.Location = new System.Drawing.Point(233, 37);
             this.numScale.Maximum = new decimal(new int[] {
             10,
             0,
@@ -1080,6 +1159,7 @@
             // 
             // picVibeView
             // 
+            this.picVibeView.BackColor = System.Drawing.Color.LightGray;
             this.picVibeView.Dock = System.Windows.Forms.DockStyle.Left;
             this.picVibeView.Location = new System.Drawing.Point(0, 0);
             this.picVibeView.Name = "picVibeView";
@@ -1268,6 +1348,7 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.groupBox2);
+            this.panel4.Controls.Add(this.groupBox8);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 149);
             this.panel4.Name = "panel4";
@@ -1280,7 +1361,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(959, 153);
+            this.groupBox2.Size = new System.Drawing.Size(562, 153);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "负面提示词";
@@ -1292,9 +1373,31 @@
             this.txtNegativePrompt.Location = new System.Drawing.Point(3, 19);
             this.txtNegativePrompt.Multiline = true;
             this.txtNegativePrompt.Name = "txtNegativePrompt";
-            this.txtNegativePrompt.Size = new System.Drawing.Size(953, 131);
+            this.txtNegativePrompt.Size = new System.Drawing.Size(556, 131);
             this.txtNegativePrompt.TabIndex = 0;
             this.txtNegativePrompt.Text = resources.GetString("txtNegativePrompt.Text");
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.txtPromptBlackList);
+            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox8.Location = new System.Drawing.Point(562, 0);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(397, 153);
+            this.groupBox8.TabIndex = 1;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "提示词黑名单";
+            // 
+            // txtPromptBlackList
+            // 
+            this.txtPromptBlackList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPromptBlackList.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtPromptBlackList.Location = new System.Drawing.Point(3, 19);
+            this.txtPromptBlackList.Multiline = true;
+            this.txtPromptBlackList.Name = "txtPromptBlackList";
+            this.txtPromptBlackList.Size = new System.Drawing.Size(391, 131);
+            this.txtPromptBlackList.TabIndex = 0;
+            this.txtPromptBlackList.Text = resources.GetString("txtPromptBlackList.Text");
             // 
             // groupBox1
             // 
@@ -1561,6 +1664,408 @@
             this.label20.TabIndex = 48;
             this.label20.Text = "参数不变：";
             // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.panel13);
+            this.tabPage9.Controls.Add(this.panel12);
+            this.tabPage9.Location = new System.Drawing.Point(4, 26);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(1293, 806);
+            this.tabPage9.TabIndex = 5;
+            this.tabPage9.Text = "导演工具";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.picDirectorToolsOutput);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel13.Location = new System.Drawing.Point(379, 3);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(911, 800);
+            this.panel13.TabIndex = 73;
+            // 
+            // picDirectorToolsOutput
+            // 
+            this.picDirectorToolsOutput.BackColor = System.Drawing.Color.Gray;
+            this.picDirectorToolsOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picDirectorToolsOutput.Location = new System.Drawing.Point(0, 0);
+            this.picDirectorToolsOutput.Name = "picDirectorToolsOutput";
+            this.picDirectorToolsOutput.Size = new System.Drawing.Size(911, 800);
+            this.picDirectorToolsOutput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDirectorToolsOutput.TabIndex = 3;
+            this.picDirectorToolsOutput.TabStop = false;
+            this.picDirectorToolsOutput.Click += new System.EventHandler(this.picDirectorToolsRemoveBGOutput_Click);
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.picDirectorToolsInput);
+            this.panel12.Controls.Add(this.panel14);
+            this.panel12.Controls.Add(this.tabDirectorTools);
+            this.panel12.Controls.Add(this.btnDirectorToolsRemoveBGRun);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel12.Location = new System.Drawing.Point(3, 3);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(376, 800);
+            this.panel12.TabIndex = 72;
+            // 
+            // picDirectorToolsInput
+            // 
+            this.picDirectorToolsInput.BackColor = System.Drawing.Color.DarkGray;
+            this.picDirectorToolsInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picDirectorToolsInput.Location = new System.Drawing.Point(0, 0);
+            this.picDirectorToolsInput.Name = "picDirectorToolsInput";
+            this.picDirectorToolsInput.Size = new System.Drawing.Size(376, 470);
+            this.picDirectorToolsInput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picDirectorToolsInput.TabIndex = 2;
+            this.picDirectorToolsInput.TabStop = false;
+            this.picDirectorToolsInput.Click += new System.EventHandler(this.picDirectorToolsRemoveBGInput_Click);
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.rdoLineArtParseSignPic);
+            this.panel14.Controls.Add(this.label23);
+            this.panel14.Controls.Add(this.rdoLineArtParseFolderPic);
+            this.panel14.Controls.Add(this.txtLineArtInputFolder);
+            this.panel14.Controls.Add(this.nudLineArtParseNum);
+            this.panel14.Controls.Add(this.btnSelectLineArtInputFolderPath);
+            this.panel14.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel14.Location = new System.Drawing.Point(0, 470);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(376, 93);
+            this.panel14.TabIndex = 72;
+            // 
+            // rdoLineArtParseSignPic
+            // 
+            this.rdoLineArtParseSignPic.AutoSize = true;
+            this.rdoLineArtParseSignPic.Checked = true;
+            this.rdoLineArtParseSignPic.Location = new System.Drawing.Point(5, 3);
+            this.rdoLineArtParseSignPic.Name = "rdoLineArtParseSignPic";
+            this.rdoLineArtParseSignPic.Size = new System.Drawing.Size(98, 21);
+            this.rdoLineArtParseSignPic.TabIndex = 0;
+            this.rdoLineArtParseSignPic.TabStop = true;
+            this.rdoLineArtParseSignPic.Text = "处理所选图片";
+            this.rdoLineArtParseSignPic.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(5, 59);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(116, 17);
+            this.label23.TabIndex = 65;
+            this.label23.Text = "每张图片处理次数：";
+            // 
+            // rdoLineArtParseFolderPic
+            // 
+            this.rdoLineArtParseFolderPic.AutoSize = true;
+            this.rdoLineArtParseFolderPic.Location = new System.Drawing.Point(5, 30);
+            this.rdoLineArtParseFolderPic.Name = "rdoLineArtParseFolderPic";
+            this.rdoLineArtParseFolderPic.Size = new System.Drawing.Size(86, 21);
+            this.rdoLineArtParseFolderPic.TabIndex = 1;
+            this.rdoLineArtParseFolderPic.Text = "处理文件夹";
+            this.rdoLineArtParseFolderPic.UseVisualStyleBackColor = true;
+            // 
+            // txtLineArtInputFolder
+            // 
+            this.txtLineArtInputFolder.Location = new System.Drawing.Point(97, 29);
+            this.txtLineArtInputFolder.Name = "txtLineArtInputFolder";
+            this.txtLineArtInputFolder.Size = new System.Drawing.Size(218, 23);
+            this.txtLineArtInputFolder.TabIndex = 62;
+            this.txtLineArtInputFolder.Text = ".\\output";
+            // 
+            // nudLineArtParseNum
+            // 
+            this.nudLineArtParseNum.Location = new System.Drawing.Point(127, 57);
+            this.nudLineArtParseNum.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudLineArtParseNum.Name = "nudLineArtParseNum";
+            this.nudLineArtParseNum.Size = new System.Drawing.Size(234, 23);
+            this.nudLineArtParseNum.TabIndex = 64;
+            this.nudLineArtParseNum.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // btnSelectLineArtInputFolderPath
+            // 
+            this.btnSelectLineArtInputFolderPath.Location = new System.Drawing.Point(321, 28);
+            this.btnSelectLineArtInputFolderPath.Name = "btnSelectLineArtInputFolderPath";
+            this.btnSelectLineArtInputFolderPath.Size = new System.Drawing.Size(40, 23);
+            this.btnSelectLineArtInputFolderPath.TabIndex = 63;
+            this.btnSelectLineArtInputFolderPath.Text = "...";
+            this.btnSelectLineArtInputFolderPath.UseVisualStyleBackColor = true;
+            this.btnSelectLineArtInputFolderPath.Click += new System.EventHandler(this.btnSelectLineArtInputFolderPath_Click);
+            // 
+            // tabDirectorTools
+            // 
+            this.tabDirectorTools.Controls.Add(this.tabPage16);
+            this.tabDirectorTools.Controls.Add(this.tabPage17);
+            this.tabDirectorTools.Controls.Add(this.tabPage10);
+            this.tabDirectorTools.Controls.Add(this.tabPage11);
+            this.tabDirectorTools.Controls.Add(this.tabPage12);
+            this.tabDirectorTools.Controls.Add(this.tabPage13);
+            this.tabDirectorTools.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tabDirectorTools.Location = new System.Drawing.Point(0, 563);
+            this.tabDirectorTools.Name = "tabDirectorTools";
+            this.tabDirectorTools.SelectedIndex = 0;
+            this.tabDirectorTools.Size = new System.Drawing.Size(376, 151);
+            this.tabDirectorTools.TabIndex = 71;
+            // 
+            // tabPage16
+            // 
+            this.tabPage16.Controls.Add(this.label22);
+            this.tabPage16.Location = new System.Drawing.Point(4, 26);
+            this.tabPage16.Name = "tabPage16";
+            this.tabPage16.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage16.Size = new System.Drawing.Size(368, 121);
+            this.tabPage16.TabIndex = 0;
+            this.tabPage16.Text = "RemoveBG";
+            this.tabPage16.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Location = new System.Drawing.Point(29, 3);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(314, 105);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "            该功能仅为方便而设计\r\n  请注意，大尺寸图片将会消耗点数！！！\r\n为了更直观地查看点数变化请在网页端使用\r\n\r\n            " +
+    "  该功能无附加参数\r\n";
+            // 
+            // tabPage17
+            // 
+            this.tabPage17.Controls.Add(this.label26);
+            this.tabPage17.Location = new System.Drawing.Point(4, 26);
+            this.tabPage17.Name = "tabPage17";
+            this.tabPage17.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage17.Size = new System.Drawing.Size(368, 121);
+            this.tabPage17.TabIndex = 1;
+            this.tabPage17.Text = "LineArt";
+            this.tabPage17.UseVisualStyleBackColor = true;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.Location = new System.Drawing.Point(104, 47);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(138, 21);
+            this.label26.TabIndex = 1;
+            this.label26.Text = "该功能无附加参数\r\n";
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.label24);
+            this.tabPage10.Location = new System.Drawing.Point(4, 26);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Size = new System.Drawing.Size(368, 121);
+            this.tabPage10.TabIndex = 2;
+            this.tabPage10.Text = "Sketch";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.Location = new System.Drawing.Point(115, 50);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(138, 21);
+            this.label24.TabIndex = 2;
+            this.label24.Text = "该功能无附加参数\r\n";
+            // 
+            // tabPage11
+            // 
+            this.tabPage11.Controls.Add(this.groupBox3);
+            this.tabPage11.Controls.Add(this.label25);
+            this.tabPage11.Controls.Add(this.cmbColorizeDerfy);
+            this.tabPage11.Location = new System.Drawing.Point(4, 26);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Size = new System.Drawing.Size(368, 121);
+            this.tabPage11.TabIndex = 3;
+            this.tabPage11.Text = "Colorize";
+            this.tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtColorizePrompt);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox3.Location = new System.Drawing.Point(0, 27);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(368, 94);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "prompt";
+            // 
+            // txtColorizePrompt
+            // 
+            this.txtColorizePrompt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtColorizePrompt.Location = new System.Drawing.Point(3, 19);
+            this.txtColorizePrompt.Multiline = true;
+            this.txtColorizePrompt.Name = "txtColorizePrompt";
+            this.txtColorizePrompt.Size = new System.Drawing.Size(362, 72);
+            this.txtColorizePrompt.TabIndex = 2;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 6);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(51, 17);
+            this.label25.TabIndex = 1;
+            this.label25.Text = "Derfy：";
+            // 
+            // cmbColorizeDerfy
+            // 
+            this.cmbColorizeDerfy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbColorizeDerfy.FormattingEnabled = true;
+            this.cmbColorizeDerfy.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.cmbColorizeDerfy.Location = new System.Drawing.Point(63, 3);
+            this.cmbColorizeDerfy.Name = "cmbColorizeDerfy";
+            this.cmbColorizeDerfy.Size = new System.Drawing.Size(302, 25);
+            this.cmbColorizeDerfy.TabIndex = 0;
+            // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.label29);
+            this.tabPage12.Controls.Add(this.cmbEmotionDefry);
+            this.tabPage12.Controls.Add(this.groupBox6);
+            this.tabPage12.Controls.Add(this.label27);
+            this.tabPage12.Controls.Add(this.cmbEmotionEmotion);
+            this.tabPage12.Location = new System.Drawing.Point(4, 26);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(368, 121);
+            this.tabPage12.TabIndex = 4;
+            this.tabPage12.Text = "Emotion";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(209, 6);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(50, 17);
+            this.label29.TabIndex = 6;
+            this.label29.Text = "defry：";
+            // 
+            // cmbEmotionDefry
+            // 
+            this.cmbEmotionDefry.FormattingEnabled = true;
+            this.cmbEmotionDefry.Items.AddRange(new object[] {
+            "Normal",
+            "Slightly Weak",
+            "Weak",
+            "Even Weaker",
+            "Very Weak",
+            "Weakest"});
+            this.cmbEmotionDefry.Location = new System.Drawing.Point(283, 3);
+            this.cmbEmotionDefry.Name = "cmbEmotionDefry";
+            this.cmbEmotionDefry.Size = new System.Drawing.Size(82, 25);
+            this.cmbEmotionDefry.TabIndex = 5;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.txtEmotionPrompt);
+            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox6.Location = new System.Drawing.Point(0, 34);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(368, 87);
+            this.groupBox6.TabIndex = 4;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "prompt";
+            // 
+            // txtEmotionPrompt
+            // 
+            this.txtEmotionPrompt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtEmotionPrompt.Location = new System.Drawing.Point(3, 19);
+            this.txtEmotionPrompt.Multiline = true;
+            this.txtEmotionPrompt.Name = "txtEmotionPrompt";
+            this.txtEmotionPrompt.Size = new System.Drawing.Size(362, 65);
+            this.txtEmotionPrompt.TabIndex = 2;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(3, 6);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(68, 17);
+            this.label27.TabIndex = 1;
+            this.label27.Text = "Emotion：";
+            // 
+            // cmbEmotionEmotion
+            // 
+            this.cmbEmotionEmotion.FormattingEnabled = true;
+            this.cmbEmotionEmotion.Items.AddRange(new object[] {
+            "neutral",
+            "happy",
+            "sad",
+            "angry",
+            "scared",
+            "surprised",
+            "tried",
+            "excited",
+            "nervous",
+            "thinking",
+            "confused",
+            "shy",
+            "worried",
+            "love",
+            "determined",
+            "hurt",
+            "playful",
+            "disgusted",
+            "smug",
+            "bored",
+            "laughing",
+            "irritated",
+            "aroused",
+            "embarrassed"});
+            this.cmbEmotionEmotion.Location = new System.Drawing.Point(77, 3);
+            this.cmbEmotionEmotion.Name = "cmbEmotionEmotion";
+            this.cmbEmotionEmotion.Size = new System.Drawing.Size(82, 25);
+            this.cmbEmotionEmotion.TabIndex = 0;
+            // 
+            // tabPage13
+            // 
+            this.tabPage13.Controls.Add(this.label28);
+            this.tabPage13.Location = new System.Drawing.Point(4, 26);
+            this.tabPage13.Name = "tabPage13";
+            this.tabPage13.Size = new System.Drawing.Size(368, 121);
+            this.tabPage13.TabIndex = 5;
+            this.tabPage13.Text = "Declutter";
+            this.tabPage13.UseVisualStyleBackColor = true;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label28.Location = new System.Drawing.Point(110, 50);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(138, 21);
+            this.label28.TabIndex = 2;
+            this.label28.Text = "该功能无附加参数\r\n";
+            // 
+            // btnDirectorToolsRemoveBGRun
+            // 
+            this.btnDirectorToolsRemoveBGRun.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnDirectorToolsRemoveBGRun.Location = new System.Drawing.Point(0, 714);
+            this.btnDirectorToolsRemoveBGRun.Name = "btnDirectorToolsRemoveBGRun";
+            this.btnDirectorToolsRemoveBGRun.Size = new System.Drawing.Size(376, 86);
+            this.btnDirectorToolsRemoveBGRun.TabIndex = 1;
+            this.btnDirectorToolsRemoveBGRun.Text = "运行";
+            this.btnDirectorToolsRemoveBGRun.UseVisualStyleBackColor = true;
+            this.btnDirectorToolsRemoveBGRun.Click += new System.EventHandler(this.btnDirectorToolsRemoveBGRun_Click);
+            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.btnClearLog);
@@ -1663,54 +2168,11 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("喵字动漫体v1.002", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label16.Location = new System.Drawing.Point(300, 281);
+            this.label16.Location = new System.Drawing.Point(354, 190);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(663, 275);
+            this.label16.Size = new System.Drawing.Size(663, 325);
             this.label16.TabIndex = 0;
-            this.label16.Text = "本软件仅用于学习跟交流使用\r\n\r\n请确保文件来源可信，避免拿到被有心人二次修改过的软件\r\n\r\n运行前请确认魔法工具已开启且能正常访问nai3页面\r\n\r\n软件设置每" +
-    "次运行中间有延迟是为了防止账号被恶意使用而导致的封号\r\n\r\n请不要连续执行过多次数\r\n\r\n意见与bug反馈群：119125703";
-            // 
-            // tabPage9
-            // 
-            this.tabPage9.Controls.Add(this.tabControl3);
-            this.tabPage9.Location = new System.Drawing.Point(4, 26);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage9.Size = new System.Drawing.Size(1293, 806);
-            this.tabPage9.TabIndex = 5;
-            this.tabPage9.Text = "导演工具";
-            this.tabPage9.UseVisualStyleBackColor = true;
-            // 
-            // tabControl3
-            // 
-            this.tabControl3.Controls.Add(this.tabPage10);
-            this.tabControl3.Controls.Add(this.tabPage11);
-            this.tabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl3.Location = new System.Drawing.Point(3, 3);
-            this.tabControl3.Name = "tabControl3";
-            this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(1287, 800);
-            this.tabControl3.TabIndex = 0;
-            // 
-            // tabPage10
-            // 
-            this.tabPage10.Location = new System.Drawing.Point(4, 26);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(1279, 770);
-            this.tabPage10.TabIndex = 0;
-            this.tabPage10.Text = "tabPage10";
-            this.tabPage10.UseVisualStyleBackColor = true;
-            // 
-            // tabPage11
-            // 
-            this.tabPage11.Location = new System.Drawing.Point(4, 26);
-            this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(348, 135);
-            this.tabPage11.TabIndex = 1;
-            this.tabPage11.Text = "tabPage11";
-            this.tabPage11.UseVisualStyleBackColor = true;
+            this.label16.Text = resources.GetString("label16.Text");
             // 
             // Form1
             // 
@@ -1720,7 +2182,7 @@
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Nai3自动生图脚本v2.1.0";
+            this.Text = "Nai3自动生图脚本v2.1.2";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
@@ -1730,14 +2192,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.picView)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numResolutionWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numResolutionHeight)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCFG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSteps)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScale)).EndInit();
             this.tabPage3.ResumeLayout(false);
@@ -1776,6 +2237,8 @@
             this.panel4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -1783,13 +2246,36 @@
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numGenerateMaxNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numKeepParams)).EndInit();
+            this.tabPage9.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDirectorToolsOutput)).EndInit();
+            this.panel12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDirectorToolsInput)).EndInit();
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLineArtParseNum)).EndInit();
+            this.tabDirectorTools.ResumeLayout(false);
+            this.tabPage16.ResumeLayout(false);
+            this.tabPage16.PerformLayout();
+            this.tabPage17.ResumeLayout(false);
+            this.tabPage17.PerformLayout();
+            this.tabPage10.ResumeLayout(false);
+            this.tabPage10.PerformLayout();
+            this.tabPage11.ResumeLayout(false);
+            this.tabPage11.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.tabPage13.ResumeLayout(false);
+            this.tabPage13.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabPage9.ResumeLayout(false);
-            this.tabControl3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1920,9 +2406,43 @@
         public System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         public System.Windows.Forms.Button btnTagSnippetEdit;
         private System.Windows.Forms.TabPage tabPage9;
-        private System.Windows.Forms.TabControl tabControl3;
+        private System.Windows.Forms.Button btnDirectorToolsRemoveBGRun;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.PictureBox picDirectorToolsOutput;
+        private System.Windows.Forms.PictureBox picDirectorToolsInput;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.TabControl tabDirectorTools;
+        private System.Windows.Forms.TabPage tabPage16;
+        private System.Windows.Forms.TabPage tabPage17;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.RadioButton rdoLineArtParseFolderPic;
+        private System.Windows.Forms.RadioButton rdoLineArtParseSignPic;
         private System.Windows.Forms.TabPage tabPage10;
         private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.TabPage tabPage13;
+        public System.Windows.Forms.Label label23;
+        public System.Windows.Forms.NumericUpDown nudLineArtParseNum;
+        public System.Windows.Forms.Button btnSelectLineArtInputFolderPath;
+        public System.Windows.Forms.TextBox txtLineArtInputFolder;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox txtColorizePrompt;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox cmbColorizeDerfy;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.ComboBox cmbEmotionEmotion;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox txtEmotionPrompt;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.ComboBox cmbEmotionDefry;
+        public System.Windows.Forms.Label label30;
+        public System.Windows.Forms.NumericUpDown nudCFG;
+        public System.Windows.Forms.ComboBox cmbNoiseSchedule;
+        public System.Windows.Forms.Label label31;
     }
 }
 

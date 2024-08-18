@@ -60,6 +60,8 @@ namespace AutoNai3Tools.utils {
         public int SamplerIndex { get; set; }
         public int Steps { get; set; }
         public float Scale { get; set; }
+        public float CFG { get; set; }
+        public int Noise { get; set; }
         public bool Smea { get; set; }
         public bool Dyn { get; set; }
         public string[] ResolutionList { get; set; }
@@ -106,6 +108,8 @@ namespace AutoNai3Tools.utils {
             obj.SamplerIndex = form.cmbSampler.SelectedIndex;
             obj.Steps = ((int)form.numSteps.Value);
             obj.Scale = ((float)form.numScale.Value);
+            obj.CFG = ((float)form.nudCFG.Value);
+            obj.Noise = form.cmbNoiseSchedule.SelectedIndex;
             obj.Smea = form.chkSmea.Checked;
             obj.Dyn = form.chkDyn.Checked;
             List<string> resolutionList = new List<string>();
@@ -147,6 +151,8 @@ namespace AutoNai3Tools.utils {
             form.cmbSampler.SelectedIndex = obj.SamplerIndex;
             form.numSteps.Value = obj.Steps;
             form.numScale.Value = ((decimal)obj.Scale);
+            form.nudCFG.Value = ((decimal)obj.CFG);
+            form.cmbNoiseSchedule.SelectedIndex = obj.Noise;
             form.chkSmea.Checked = obj.Smea;
             form.chkDyn.Checked = obj.Dyn;
             form.lstResolutionList.Items.Clear();

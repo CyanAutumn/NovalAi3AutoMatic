@@ -102,5 +102,8 @@
   <ItemGroup>
     <Content Include="a4ru9-lkcj4-001.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tag\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
