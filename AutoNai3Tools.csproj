@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="artist\Artist.cs" />
+    <Compile Include="artist\ArtistTools.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,7 +60,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="utils\Artist.cs" />
+    <Compile Include="tag\TagBase.cs" />
+    <Compile Include="tag\TagDefault.cs" />
+    <Compile Include="tag\TagFixedArtist.cs" />
+    <Compile Include="tag\TagRandomArtist.cs" />
+    <Compile Include="tag\TagRandomPrompt.cs" />
+    <Compile Include="tag\TagTools.cs" />
+    <Compile Include="tag\TagWildcard.cs" />
     <Compile Include="utils\Config.cs" />
     <Compile Include="utils\Tools.cs" />
     <Compile Include="utils\NovalAi.cs" />
@@ -102,8 +110,6 @@
   <ItemGroup>
     <Content Include="a4ru9-lkcj4-001.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="tag\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

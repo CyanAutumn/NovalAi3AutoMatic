@@ -115,6 +115,14 @@
             this.label17 = new System.Windows.Forms.Label();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.picImg2ImgView = new System.Windows.Forms.PictureBox();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.btnImg2ImgDel = new System.Windows.Forms.Button();
+            this.nudImg2ImgNoise = new System.Windows.Forms.NumericUpDown();
+            this.nudImg2ImgStrength = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -184,21 +192,13 @@
             this.btnClearLog = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.btnTutorial = new System.Windows.Forms.Button();
             this.btnPushBackPic = new System.Windows.Forms.Button();
             this.btnParsePrompt = new System.Windows.Forms.Button();
             this.btnGetRollDoc = new System.Windows.Forms.Button();
             this.btnGetMorePrompt = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.tabPage14 = new System.Windows.Forms.TabPage();
-            this.picImg2ImgView = new System.Windows.Forms.PictureBox();
-            this.panel15 = new System.Windows.Forms.Panel();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.nudImg2ImgStrength = new System.Windows.Forms.NumericUpDown();
-            this.nudImg2ImgNoise = new System.Windows.Forms.NumericUpDown();
-            this.btnImg2ImgDel = new System.Windows.Forms.Button();
-            this.btnTutorial = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -234,6 +234,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvVibe)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.tabPage14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).BeginInit();
+            this.panel15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgNoise)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgStrength)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -263,11 +268,6 @@
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabPage14.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).BeginInit();
-            this.panel15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgStrength)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgNoise)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -1342,6 +1342,117 @@
             this.label4.TabIndex = 58;
             this.label4.Text = "Token：";
             // 
+            // tabPage14
+            // 
+            this.tabPage14.Controls.Add(this.picImg2ImgView);
+            this.tabPage14.Controls.Add(this.panel15);
+            this.tabPage14.Location = new System.Drawing.Point(4, 26);
+            this.tabPage14.Name = "tabPage14";
+            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage14.Size = new System.Drawing.Size(327, 468);
+            this.tabPage14.TabIndex = 5;
+            this.tabPage14.Text = "图生图";
+            this.tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // picImg2ImgView
+            // 
+            this.picImg2ImgView.BackColor = System.Drawing.Color.LightGray;
+            this.picImg2ImgView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picImg2ImgView.Location = new System.Drawing.Point(3, 3);
+            this.picImg2ImgView.Name = "picImg2ImgView";
+            this.picImg2ImgView.Size = new System.Drawing.Size(321, 428);
+            this.picImg2ImgView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picImg2ImgView.TabIndex = 1;
+            this.picImg2ImgView.TabStop = false;
+            this.picImg2ImgView.Click += new System.EventHandler(this.picImg2ImgView_Click);
+            // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.btnImg2ImgDel);
+            this.panel15.Controls.Add(this.nudImg2ImgNoise);
+            this.panel15.Controls.Add(this.nudImg2ImgStrength);
+            this.panel15.Controls.Add(this.label33);
+            this.panel15.Controls.Add(this.label32);
+            this.panel15.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel15.Location = new System.Drawing.Point(3, 431);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(321, 34);
+            this.panel15.TabIndex = 2;
+            // 
+            // btnImg2ImgDel
+            // 
+            this.btnImg2ImgDel.Location = new System.Drawing.Point(258, 5);
+            this.btnImg2ImgDel.Name = "btnImg2ImgDel";
+            this.btnImg2ImgDel.Size = new System.Drawing.Size(60, 23);
+            this.btnImg2ImgDel.TabIndex = 4;
+            this.btnImg2ImgDel.Text = "删";
+            this.btnImg2ImgDel.UseVisualStyleBackColor = true;
+            this.btnImg2ImgDel.Click += new System.EventHandler(this.btnImg2ImgDel_Click);
+            // 
+            // nudImg2ImgNoise
+            // 
+            this.nudImg2ImgNoise.DecimalPlaces = 2;
+            this.nudImg2ImgNoise.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgNoise.Location = new System.Drawing.Point(200, 6);
+            this.nudImg2ImgNoise.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgNoise.Name = "nudImg2ImgNoise";
+            this.nudImg2ImgNoise.Size = new System.Drawing.Size(52, 23);
+            this.nudImg2ImgNoise.TabIndex = 3;
+            // 
+            // nudImg2ImgStrength
+            // 
+            this.nudImg2ImgStrength.DecimalPlaces = 2;
+            this.nudImg2ImgStrength.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgStrength.Location = new System.Drawing.Point(80, 6);
+            this.nudImg2ImgStrength.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgStrength.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgStrength.Name = "nudImg2ImgStrength";
+            this.nudImg2ImgStrength.Size = new System.Drawing.Size(52, 23);
+            this.nudImg2ImgStrength.TabIndex = 2;
+            this.nudImg2ImgStrength.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(140, 8);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(54, 17);
+            this.label33.TabIndex = 1;
+            this.label33.Text = "Noise：";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(5, 8);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(69, 17);
+            this.label32.TabIndex = 0;
+            this.label32.Text = "Strength：";
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.panel2);
@@ -2135,6 +2246,16 @@
             this.tabPage6.Text = "关于";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // btnTutorial
+            // 
+            this.btnTutorial.Location = new System.Drawing.Point(523, 160);
+            this.btnTutorial.Name = "btnTutorial";
+            this.btnTutorial.Size = new System.Drawing.Size(315, 32);
+            this.btnTutorial.TabIndex = 6;
+            this.btnTutorial.Text = "快速入门教程";
+            this.btnTutorial.UseVisualStyleBackColor = true;
+            this.btnTutorial.Click += new System.EventHandler(this.btnTutorial_Click);
+            // 
             // btnPushBackPic
             // 
             this.btnPushBackPic.Location = new System.Drawing.Point(523, 122);
@@ -2195,127 +2316,6 @@
             this.label16.TabIndex = 0;
             this.label16.Text = resources.GetString("label16.Text");
             // 
-            // tabPage14
-            // 
-            this.tabPage14.Controls.Add(this.picImg2ImgView);
-            this.tabPage14.Controls.Add(this.panel15);
-            this.tabPage14.Location = new System.Drawing.Point(4, 26);
-            this.tabPage14.Name = "tabPage14";
-            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage14.Size = new System.Drawing.Size(327, 468);
-            this.tabPage14.TabIndex = 5;
-            this.tabPage14.Text = "图生图";
-            this.tabPage14.UseVisualStyleBackColor = true;
-            // 
-            // picImg2ImgView
-            // 
-            this.picImg2ImgView.BackColor = System.Drawing.Color.LightGray;
-            this.picImg2ImgView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picImg2ImgView.Location = new System.Drawing.Point(3, 3);
-            this.picImg2ImgView.Name = "picImg2ImgView";
-            this.picImg2ImgView.Size = new System.Drawing.Size(321, 428);
-            this.picImg2ImgView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picImg2ImgView.TabIndex = 1;
-            this.picImg2ImgView.TabStop = false;
-            this.picImg2ImgView.Click += new System.EventHandler(this.picImg2ImgView_Click);
-            // 
-            // panel15
-            // 
-            this.panel15.Controls.Add(this.btnImg2ImgDel);
-            this.panel15.Controls.Add(this.nudImg2ImgNoise);
-            this.panel15.Controls.Add(this.nudImg2ImgStrength);
-            this.panel15.Controls.Add(this.label33);
-            this.panel15.Controls.Add(this.label32);
-            this.panel15.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel15.Location = new System.Drawing.Point(3, 431);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(321, 34);
-            this.panel15.TabIndex = 2;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(5, 8);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(69, 17);
-            this.label32.TabIndex = 0;
-            this.label32.Text = "Strength：";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(140, 8);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(54, 17);
-            this.label33.TabIndex = 1;
-            this.label33.Text = "Noise：";
-            // 
-            // nudImg2ImgStrength
-            // 
-            this.nudImg2ImgStrength.DecimalPlaces = 2;
-            this.nudImg2ImgStrength.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudImg2ImgStrength.Location = new System.Drawing.Point(80, 6);
-            this.nudImg2ImgStrength.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            131072});
-            this.nudImg2ImgStrength.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudImg2ImgStrength.Name = "nudImg2ImgStrength";
-            this.nudImg2ImgStrength.Size = new System.Drawing.Size(52, 23);
-            this.nudImg2ImgStrength.TabIndex = 2;
-            this.nudImg2ImgStrength.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            // 
-            // nudImg2ImgNoise
-            // 
-            this.nudImg2ImgNoise.DecimalPlaces = 2;
-            this.nudImg2ImgNoise.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudImg2ImgNoise.Location = new System.Drawing.Point(200, 6);
-            this.nudImg2ImgNoise.Maximum = new decimal(new int[] {
-            99,
-            0,
-            0,
-            131072});
-            this.nudImg2ImgNoise.Name = "nudImg2ImgNoise";
-            this.nudImg2ImgNoise.Size = new System.Drawing.Size(52, 23);
-            this.nudImg2ImgNoise.TabIndex = 3;
-            // 
-            // btnImg2ImgDel
-            // 
-            this.btnImg2ImgDel.Location = new System.Drawing.Point(258, 5);
-            this.btnImg2ImgDel.Name = "btnImg2ImgDel";
-            this.btnImg2ImgDel.Size = new System.Drawing.Size(60, 23);
-            this.btnImg2ImgDel.TabIndex = 4;
-            this.btnImg2ImgDel.Text = "删";
-            this.btnImg2ImgDel.UseVisualStyleBackColor = true;
-            this.btnImg2ImgDel.Click += new System.EventHandler(this.btnImg2ImgDel_Click);
-            // 
-            // btnTutorial
-            // 
-            this.btnTutorial.Location = new System.Drawing.Point(523, 160);
-            this.btnTutorial.Name = "btnTutorial";
-            this.btnTutorial.Size = new System.Drawing.Size(315, 32);
-            this.btnTutorial.TabIndex = 6;
-            this.btnTutorial.Text = "快速入门教程";
-            this.btnTutorial.UseVisualStyleBackColor = true;
-            this.btnTutorial.Click += new System.EventHandler(this.btnTutorial_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2324,7 +2324,7 @@
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Nai3自动生图脚本v2.1.4";
+            this.Text = "Nai3自动生图脚本v2.1.4.1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
@@ -2374,6 +2374,12 @@
             this.tabPage5.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.tabPage14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).EndInit();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgNoise)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgStrength)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -2418,12 +2424,6 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabPage14.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).EndInit();
-            this.panel15.ResumeLayout(false);
-            this.panel15.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgStrength)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgNoise)).EndInit();
             this.ResumeLayout(false);
 
         }

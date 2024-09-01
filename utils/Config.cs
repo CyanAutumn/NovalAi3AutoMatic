@@ -178,3 +178,4 @@ namespace AutoNai3Tools.utils {
         public string Value { get; set; }
     }
 }
+

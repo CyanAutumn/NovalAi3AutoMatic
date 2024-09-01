@@ -172,5 +172,23 @@ namespace AutoNai3Tools.utils
             }
             return null;
         }
+
+        public static string[] GetFileLine(string folderPath, string fileName) {
+            string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
+            string filePath = folderPath + "\\" + fileName + ".txt";
+            string[] results = File.ReadAllLines(filePath);
+            return results;
+        }
+
+        public static string[] GetFolderLine(string folderPath) {
+            string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
+            string[] results = new string[txtFiles.Length];
+
+            for (int i = 0; i < txtFiles.Length; i++) {
+                string content = File.ReadAllText(txtFiles[i]).Replace(Environment.NewLine, " ");
+                results[i] = content;
+            }
+            return results;
+        }
     }
 }

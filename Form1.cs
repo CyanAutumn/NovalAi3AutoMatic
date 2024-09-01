@@ -18,6 +18,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace AutoNai3Tools {
     public partial class Form1 : Form {
+        public int runNum;
         public Form1() {
             InitializeComponent();
             lstResolutionList.SelectedIndex = 0;
@@ -216,7 +217,7 @@ namespace AutoNai3Tools {
                 var rs = row.Cells["Column3"].Value;
                 parmeters.reference_strength_multiple.Add(float.Parse(rs.ToString()));
             }
-            Nai3GenerateImageBody nai3Body = new Nai3GenerateImageBody(input: Prompt.GetPrompt(txtPrompt.Text, this, runNum), parameters: parmeters);
+            Nai3GenerateImageBody nai3Body = new Nai3GenerateImageBody(input: Prompt.GetPrompt(txtPrompt.Text, this), parameters: parmeters);
             if (img2ImgCurrentPath != null)
                 nai3Body.action = "img2img";
             return nai3Body;
@@ -227,6 +228,7 @@ namespace AutoNai3Tools {
         private void TimerElapsed(object sender, ElapsedEventArgs e) {
             int max_num = int.Parse(numGenerateMaxNum.Value.ToString());
             for (int i = 0; i < max_num; i++) {
+                runNum = i;
                 string output_path = txtOutputPath.Text;
                 NovalAi novalAi = new NovalAi();
                 try {
@@ -481,6 +483,7 @@ namespace AutoNai3Tools {
             }
         }
 
+        #region 详情页
         private void btnGetMorePrompt_Click(object sender, EventArgs e) {
             System.Diagnostics.Process.Start("https://pan.baidu.com/s/1CTFTVIo7vKzDRy62LNxMMw?pwd=ktur");
         }
@@ -500,6 +503,7 @@ namespace AutoNai3Tools {
         private void btnTutorial_Click(object sender, EventArgs e) {
             System.Diagnostics.Process.Start("https://www.bilibili.com/read/cv37165511/");
         }
+        #endregion
 
         #region wildcard
         private void InitTagSnippetDGV() {
