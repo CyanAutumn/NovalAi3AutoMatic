@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ziItupdknJYNs0g8mpoTpQSUv13Oq3Pf7aBZIr5DYSSkgHNl71k9lvu1Xj/ocpHs52mdO5w5aH897HRxSAjEmg==",
+  "dgSpecHash": "Az609OyMrdxi0T0R8BfClX9tyleQkVBz+KUFlaubK5/+r6SlMXDslUO06BTSqitaNYBdy9fLvDZbUXyDtq1iHA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\11963\\source\\repos\\wpf\\AutoNai3Tools\\AutoNai3Tools.csproj",
+  "projectFilePath": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\AutoNai3Tools.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\11963\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\11963\\.nuget\\packages\\nett\\0.15.0\\nett.0.15.0.nupkg.sha512",

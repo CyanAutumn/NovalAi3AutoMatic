@@ -194,6 +194,15 @@ namespace AutoNai3Tools {
             parmeters.sm = chkSmea.Checked;
             parmeters.sm_dyn = chkDyn.Checked;
             parmeters.negative_prompt = txtNegativePrompt.Text;
+            //img2img
+            if (img2ImgCurrentPath != null) {
+                string base64img = Tools.ConvertImageToBase64(img2ImgCurrentPath);
+                parmeters.image = base64img;
+                parmeters.strength = ((float)nudImg2ImgStrength.Value);
+                parmeters.noise = ((float)nudImg2ImgNoise.Value);
+            }
+
+            //vibe
             foreach (DataGridViewRow row in dgvVibe.Rows) {
                 var picPath = row.Cells["Column1"].Value;
                 string base64img = Tools.ConvertImageToBase64(picPath.ToString());
@@ -208,6 +217,8 @@ namespace AutoNai3Tools {
                 parmeters.reference_strength_multiple.Add(float.Parse(rs.ToString()));
             }
             Nai3GenerateImageBody nai3Body = new Nai3GenerateImageBody(input: Prompt.GetPrompt(txtPrompt.Text, this, runNum), parameters: parmeters);
+            if (img2ImgCurrentPath != null)
+                nai3Body.action = "img2img";
             return nai3Body;
         }
 
@@ -486,6 +497,10 @@ namespace AutoNai3Tools {
             System.Diagnostics.Process.Start("https://huggingface.co/spaces/SmilingWolf/wd-tagger");
         }
 
+        private void btnTutorial_Click(object sender, EventArgs e) {
+            System.Diagnostics.Process.Start("https://www.bilibili.com/read/cv37165511/");
+        }
+
         #region wildcard
         private void InitTagSnippetDGV() {
             string folderPath = txtWildcardFolderPath.Text;
@@ -623,7 +638,7 @@ namespace AutoNai3Tools {
                         body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type), $"{cmbEmotionEmotion.Text};;{txtEmotionPrompt.Text}", cmbEmotionDefry.SelectedIndex);
 
                     if (body == null)
-                        return ;
+                        return;
                     NovalAi novalAi = new NovalAi();
                     Bitmap img = novalAi.SendDirectorToolsRequests(txtToken.Text, body, this);
                     picDirectorToolsOutput.Image = img;
@@ -651,7 +666,7 @@ namespace AutoNai3Tools {
                         picDirectorToolsInput.Image = System.Drawing.Image.FromStream(ms);
                     }
                 }
-               ParseLineArtSign(count);
+                ParseLineArtSign(count);
             }
             btnDirectorToolsRemoveBGRun.Text = "运行";
             btnDirectorToolsRemoveBGRun.Enabled = true;
@@ -723,6 +738,22 @@ namespace AutoNai3Tools {
             if (folderPath != null) {
                 txtLineArtInputFolder.Text = folderPath;
             }
+        }
+        #endregion
+
+        #region img2img
+        string img2ImgCurrentPath;
+
+        private void picImg2ImgView_Click(object sender, EventArgs e) {
+            var t_path = Tools.SelectAndMappingPicToPictureBox(picImg2ImgView);
+            if (t_path != null)
+                img2ImgCurrentPath = t_path;
+        }
+
+        private void btnImg2ImgDel_Click(object sender, EventArgs e) {
+            img2ImgCurrentPath = null;
+            picImg2ImgView.Image.Dispose();
+            picImg2ImgView.Image = null;
         }
         #endregion
     }

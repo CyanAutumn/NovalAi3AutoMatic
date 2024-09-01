@@ -190,6 +190,15 @@
             this.btnGetMorePrompt = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.picImg2ImgView = new System.Windows.Forms.PictureBox();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.nudImg2ImgStrength = new System.Windows.Forms.NumericUpDown();
+            this.nudImg2ImgNoise = new System.Windows.Forms.NumericUpDown();
+            this.btnImg2ImgDel = new System.Windows.Forms.Button();
+            this.btnTutorial = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -254,6 +263,11 @@
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabPage14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).BeginInit();
+            this.panel15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgStrength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgNoise)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -320,6 +334,7 @@
             this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Controls.Add(this.tabPage7);
             this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage14);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Left;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
@@ -697,6 +712,7 @@
             this.txtArtistRandom.Location = new System.Drawing.Point(3, 99);
             this.txtArtistRandom.Multiline = true;
             this.txtArtistRandom.Name = "txtArtistRandom";
+            this.txtArtistRandom.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtArtistRandom.Size = new System.Drawing.Size(315, 135);
             this.txtArtistRandom.TabIndex = 31;
             this.txtArtistRandom.Text = "画师A\r\n画师B,1,2,1,2\r\n画师C,0,0,1,2\r\n画师D,0,0,1,2|画师E,1,2,0,0";
@@ -888,6 +904,7 @@
             this.txtArtistFixed.Location = new System.Drawing.Point(3, 19);
             this.txtArtistFixed.Multiline = true;
             this.txtArtistFixed.Name = "txtArtistFixed";
+            this.txtArtistFixed.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtArtistFixed.Size = new System.Drawing.Size(315, 124);
             this.txtArtistFixed.TabIndex = 0;
             this.txtArtistFixed.Text = "artist:画师1,artist:画师2";
@@ -1373,6 +1390,7 @@
             this.txtNegativePrompt.Location = new System.Drawing.Point(3, 19);
             this.txtNegativePrompt.Multiline = true;
             this.txtNegativePrompt.Name = "txtNegativePrompt";
+            this.txtNegativePrompt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtNegativePrompt.Size = new System.Drawing.Size(556, 131);
             this.txtNegativePrompt.TabIndex = 0;
             this.txtNegativePrompt.Text = resources.GetString("txtNegativePrompt.Text");
@@ -1395,6 +1413,7 @@
             this.txtPromptBlackList.Location = new System.Drawing.Point(3, 19);
             this.txtPromptBlackList.Multiline = true;
             this.txtPromptBlackList.Name = "txtPromptBlackList";
+            this.txtPromptBlackList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtPromptBlackList.Size = new System.Drawing.Size(391, 131);
             this.txtPromptBlackList.TabIndex = 0;
             this.txtPromptBlackList.Text = resources.GetString("txtPromptBlackList.Text");
@@ -1417,6 +1436,7 @@
             this.txtPrompt.Location = new System.Drawing.Point(3, 19);
             this.txtPrompt.Multiline = true;
             this.txtPrompt.Name = "txtPrompt";
+            this.txtPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtPrompt.Size = new System.Drawing.Size(953, 127);
             this.txtPrompt.TabIndex = 0;
             this.txtPrompt.Text = " <原神>,<固定画师>,<随机画师>,1girl,loli,solo,catgirl,white hair,blue eyes,<衣服>,<随机提示词>";
@@ -2100,6 +2120,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.btnTutorial);
             this.tabPage6.Controls.Add(this.btnPushBackPic);
             this.tabPage6.Controls.Add(this.btnParsePrompt);
             this.tabPage6.Controls.Add(this.btnGetRollDoc);
@@ -2168,11 +2189,132 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("喵字动漫体v1.002", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label16.Location = new System.Drawing.Point(354, 190);
+            this.label16.Location = new System.Drawing.Point(347, 211);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(663, 325);
             this.label16.TabIndex = 0;
             this.label16.Text = resources.GetString("label16.Text");
+            // 
+            // tabPage14
+            // 
+            this.tabPage14.Controls.Add(this.picImg2ImgView);
+            this.tabPage14.Controls.Add(this.panel15);
+            this.tabPage14.Location = new System.Drawing.Point(4, 26);
+            this.tabPage14.Name = "tabPage14";
+            this.tabPage14.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage14.Size = new System.Drawing.Size(327, 468);
+            this.tabPage14.TabIndex = 5;
+            this.tabPage14.Text = "图生图";
+            this.tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // picImg2ImgView
+            // 
+            this.picImg2ImgView.BackColor = System.Drawing.Color.LightGray;
+            this.picImg2ImgView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picImg2ImgView.Location = new System.Drawing.Point(3, 3);
+            this.picImg2ImgView.Name = "picImg2ImgView";
+            this.picImg2ImgView.Size = new System.Drawing.Size(321, 428);
+            this.picImg2ImgView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picImg2ImgView.TabIndex = 1;
+            this.picImg2ImgView.TabStop = false;
+            this.picImg2ImgView.Click += new System.EventHandler(this.picImg2ImgView_Click);
+            // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.btnImg2ImgDel);
+            this.panel15.Controls.Add(this.nudImg2ImgNoise);
+            this.panel15.Controls.Add(this.nudImg2ImgStrength);
+            this.panel15.Controls.Add(this.label33);
+            this.panel15.Controls.Add(this.label32);
+            this.panel15.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel15.Location = new System.Drawing.Point(3, 431);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(321, 34);
+            this.panel15.TabIndex = 2;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(5, 8);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(69, 17);
+            this.label32.TabIndex = 0;
+            this.label32.Text = "Strength：";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(140, 8);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(54, 17);
+            this.label33.TabIndex = 1;
+            this.label33.Text = "Noise：";
+            // 
+            // nudImg2ImgStrength
+            // 
+            this.nudImg2ImgStrength.DecimalPlaces = 2;
+            this.nudImg2ImgStrength.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgStrength.Location = new System.Drawing.Point(80, 6);
+            this.nudImg2ImgStrength.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgStrength.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgStrength.Name = "nudImg2ImgStrength";
+            this.nudImg2ImgStrength.Size = new System.Drawing.Size(52, 23);
+            this.nudImg2ImgStrength.TabIndex = 2;
+            this.nudImg2ImgStrength.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            // 
+            // nudImg2ImgNoise
+            // 
+            this.nudImg2ImgNoise.DecimalPlaces = 2;
+            this.nudImg2ImgNoise.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgNoise.Location = new System.Drawing.Point(200, 6);
+            this.nudImg2ImgNoise.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            131072});
+            this.nudImg2ImgNoise.Name = "nudImg2ImgNoise";
+            this.nudImg2ImgNoise.Size = new System.Drawing.Size(52, 23);
+            this.nudImg2ImgNoise.TabIndex = 3;
+            // 
+            // btnImg2ImgDel
+            // 
+            this.btnImg2ImgDel.Location = new System.Drawing.Point(258, 5);
+            this.btnImg2ImgDel.Name = "btnImg2ImgDel";
+            this.btnImg2ImgDel.Size = new System.Drawing.Size(60, 23);
+            this.btnImg2ImgDel.TabIndex = 4;
+            this.btnImg2ImgDel.Text = "删";
+            this.btnImg2ImgDel.UseVisualStyleBackColor = true;
+            this.btnImg2ImgDel.Click += new System.EventHandler(this.btnImg2ImgDel_Click);
+            // 
+            // btnTutorial
+            // 
+            this.btnTutorial.Location = new System.Drawing.Point(523, 160);
+            this.btnTutorial.Name = "btnTutorial";
+            this.btnTutorial.Size = new System.Drawing.Size(315, 32);
+            this.btnTutorial.TabIndex = 6;
+            this.btnTutorial.Text = "快速入门教程";
+            this.btnTutorial.UseVisualStyleBackColor = true;
+            this.btnTutorial.Click += new System.EventHandler(this.btnTutorial_Click);
             // 
             // Form1
             // 
@@ -2182,7 +2324,7 @@
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Nai3自动生图脚本v2.1.2";
+            this.Text = "Nai3自动生图脚本v2.1.4";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
@@ -2276,6 +2418,12 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).EndInit();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgStrength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgNoise)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2443,6 +2591,15 @@
         public System.Windows.Forms.NumericUpDown nudCFG;
         public System.Windows.Forms.ComboBox cmbNoiseSchedule;
         public System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TabPage tabPage14;
+        public System.Windows.Forms.PictureBox picImg2ImgView;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Button btnImg2ImgDel;
+        public System.Windows.Forms.NumericUpDown nudImg2ImgNoise;
+        public System.Windows.Forms.NumericUpDown nudImg2ImgStrength;
+        private System.Windows.Forms.Label label33;
+        public System.Windows.Forms.Button btnTutorial;
     }
 }
 

@@ -1512,11 +1512,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\11963\\source\\repos\\wpf\\AutoNai3Tools\\AutoNai3Tools.csproj",
+      "projectUniqueName": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\AutoNai3Tools.csproj",
       "projectName": "AutoNai3Tools",
-      "projectPath": "C:\\Users\\11963\\source\\repos\\wpf\\AutoNai3Tools\\AutoNai3Tools.csproj",
+      "projectPath": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\AutoNai3Tools.csproj",
       "packagesPath": "C:\\Users\\11963\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\11963\\source\\repos\\wpf\\AutoNai3Tools\\obj\\",
+      "outputPath": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [

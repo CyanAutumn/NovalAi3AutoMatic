@@ -21,7 +21,7 @@ namespace AutoNai3Tools.utils {
         }
     }
 
-    class Nai3GenerateImageBody:Nai3Body {
+    class Nai3GenerateImageBody : Nai3Body {
         public string input { get; set; }
         public string model { get; set; }
         public string action { get; set; }
@@ -41,6 +41,7 @@ namespace AutoNai3Tools.utils {
         public float scale { get; set; } = 5;
         public string sampler { get; set; } = "k_euler";
         public int steps { get; set; } = 28;
+        public int extra_noise_seed { get; set; } =0;
         public int n_samples { get; set; } = 1;
         public int ucPreset { get; set; } = 0;
         public bool qualityToggle { get; set; } = true;
@@ -54,6 +55,9 @@ namespace AutoNai3Tools.utils {
         public float cfg_rescale { get; set; } = 0;
         public string noise_schedule { get; set; } = "native";
         public bool legacy_v3_extend { get; set; } = false;
+        public string image { get; set; } = null;
+        public float?strength { get; set; } = null;
+        public float?noise { get; set; } = null;
         public int seed { get; set; } = 0;
         public string negative_prompt { get; set; } = null;
         public List<string> reference_image_multiple { get; set; } = null;
@@ -80,6 +84,9 @@ namespace AutoNai3Tools.utils {
             float cfg_rescale = 0,
             string noise_schedule = "native",
             bool legacy_v3_extend = false,
+            string image = null,
+            float? strength = null,
+            float? noise = null,
             int? seed = null,
             string negative_prompt = null,
             List<string> reference_image_multiple = null,
@@ -103,9 +110,13 @@ namespace AutoNai3Tools.utils {
             this.cfg_rescale = cfg_rescale;
             this.noise_schedule = noise_schedule;
             this.legacy_v3_extend = legacy_v3_extend;
+            this.image = image;
+            this.strength = strength;
+            this.noise = noise;
             Random random = new Random();
             if (seed == null) { this.seed = random.Next(0, 1000000000); }
             else { this.seed = (int)seed; }
+            this.extra_noise_seed = this.seed;
             this.negative_prompt = negative_prompt;
             this.reference_image_multiple = new List<string>();
             if (reference_image_multiple != null)
@@ -124,14 +135,14 @@ namespace AutoNai3Tools.utils {
         }
     }
 
-    class Nai3DirectorToolsBody:Nai3Body {
+    class Nai3DirectorToolsBody : Nai3Body {
         public int height { get; set; }
         public int width { get; set; }
         public string image { get; set; }
         public string req_type { get; set; }
         public string prompt { get; set; }
         public int? defry { get; set; }
-        public Nai3DirectorToolsBody(int height, int width, string image, string req_type, string prompt=null,int ? defry=null) {
+        public Nai3DirectorToolsBody(int height, int width, string image, string req_type, string prompt = null, int? defry = null) {
             this.height = height;
             this.width = width;
             this.image = image;
@@ -148,7 +159,7 @@ namespace AutoNai3Tools.utils {
             return DateTime.Now.ToString("yyyyMMdd_HHmmss");
         }
 
-        private RestRequest GetRequest(string token,string path) {
+        private RestRequest GetRequest(string token, string path) {
             var request = new RestRequest(path, Method.Post);
             request.AddHeader("accept", "*/*");
             request.AddHeader("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
@@ -231,7 +242,7 @@ namespace AutoNai3Tools.utils {
                 task.Wait();
                 RestResponse response = task.Result;
                 Thread.Sleep(1000);
-                Bitmap pic= UnZipAndSaveImage(response, form, null, null, null);
+                Bitmap pic = UnZipAndSaveImage(response, form, null, null, null);
                 form.PrintLog($"生成成功");
                 return pic;
             }
