@@ -51,6 +51,10 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
+            "ReaLTaiizor": {
+              "target": "Package",
+              "version": "[3.8.0.7, )"
+            },
             "RestSharp": {
               "target": "Package",
               "version": "[111.2.0, )"

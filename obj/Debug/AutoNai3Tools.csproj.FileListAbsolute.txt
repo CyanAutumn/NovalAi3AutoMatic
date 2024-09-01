@@ -48,3 +48,4 @@ C:\Users\11963\Desktop\code\AutoNai3Tools\obj\Debug\AutoNai3Tools.csproj.CoreCom
 C:\Users\11963\Desktop\code\AutoNai3Tools\obj\Debug\AutoNai3.FA38C07A.Up2Date
 C:\Users\11963\Desktop\code\AutoNai3Tools\obj\Debug\AutoNai3Tools.exe
 C:\Users\11963\Desktop\code\AutoNai3Tools\obj\Debug\AutoNai3Tools.pdb
+C:\Users\11963\Desktop\code\AutoNai3Tools\bin\Debug\ReaLTaiizor.dll

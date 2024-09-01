@@ -117,26 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="dataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Column1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Column2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="Column3.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="txtNegativePrompt.Text" xml:space="preserve">
-    <value>nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract], nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract],{{weibo_username}},female_pubic_hair,{{weibo_logo}},low quality,@_@,chibi,character doll,multiple girls,{{{{{chibi,doll}}}}} inset</value>
-  </data>
-  <data name="txtPromptBlackList.Text" xml:space="preserve">
-    <value>cyan hair,grey hair,blonde hair,yellow hair,pink hair,orange hair,black hair,red hair,green hair,blue hair,purple hair,white hair,silver hair,brown hair,gold hair,light green hair,light grey hair,light gold hair,light silver hair,light brown hair,light red hair,light yellow hair,light black hair,light orange hair,light purple hair,light blue hair,light blonde hair,light white hair,light cyan hair,light pink hair, long hair,short hair,very long hair, double bun,twintails,curly hair,straight hair,ponytail,single side bun,side ponytail, bangs,ahoge,hair between eyes,blunt bangs, yellow eyes,purple eyes,blonde eyes,black eyes,grey eyes,white eyes,green eyes,blue eyes,gold eyes,brown eyes,red eyes,orange eyes,cyan eyes,silver eyes,pink eyes,masterpiece,best quality,breasts,small breasts,medium breasts,large breasts,huge breasts</value>
+  <data name="label16.Text" xml:space="preserve">
+    <value>本软件仅用于学习跟交流使用，
+开发者不对用户使用本软件可能引发的任何法律责任或损失承担责任。
+用户应对其使用本软件及其结果负全部责任。
+
+请确保文件来源可信，避免拿到被有心人二次修改过的软件
+
+运行前请确认魔法工具已开启且能正常访问nai3页面
+
+软件设置每次运行中间有延迟是为了防止账号被恶意使用而导致的封号
+
+请不要连续执行过多次数
+
+意见与bug反馈群：119125703</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -384,21 +378,42 @@
         Af/Z
 </value>
   </data>
-  <data name="label16.Text" xml:space="preserve">
-    <value>本软件仅用于学习跟交流使用，
-开发者不对用户使用本软件可能引发的任何法律责任或损失承担责任。
-用户应对其使用本软件及其结果负全部责任。
-
-请确保文件来源可信，避免拿到被有心人二次修改过的软件
-
-运行前请确认魔法工具已开启且能正常访问nai3页面
-
-软件设置每次运行中间有延迟是为了防止账号被恶意使用而导致的封号
-
-请不要连续执行过多次数
-
-意见与bug反馈群：119125703</value>
+  <data name="txtNegativePrompt.Text" xml:space="preserve">
+    <value>nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract], nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract],{{weibo_username}},female_pubic_hair,{{weibo_logo}},low quality,@_@,chibi,character doll,multiple girls,{{{{{chibi,doll}}}}} inset</value>
   </data>
+  <data name="txtPromptBlackList.Text" xml:space="preserve">
+    <value>cyan hair,grey hair,blonde hair,yellow hair,pink hair,orange hair,black hair,red hair,green hair,blue hair,purple hair,white hair,silver hair,brown hair,gold hair,light green hair,light grey hair,light gold hair,light silver hair,light brown hair,light red hair,light yellow hair,light black hair,light orange hair,light purple hair,light blue hair,light blonde hair,light white hair,light cyan hair,light pink hair, long hair,short hair,very long hair, double bun,twintails,curly hair,straight hair,ponytail,single side bun,side ponytail, bangs,ahoge,hair between eyes,blunt bangs, yellow eyes,purple eyes,blonde eyes,black eyes,grey eyes,white eyes,green eyes,blue eyes,gold eyes,brown eyes,red eyes,orange eyes,cyan eyes,silver eyes,pink eyes,masterpiece,best quality,breasts,small breasts,medium breasts,large breasts,huge breasts</value>
+  </data>
+  <metadata name="Column1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Column2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Column3.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Column3.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Column2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Column1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn2.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="dataGridViewTextBoxColumn1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAIAICAAAAEAIACoEAAAJgAAAICAAAABACAAKAgBAM4QAAAoAAAAIAAAAEAAAAABACAAAAAAAAAQ

@@ -44,67 +44,6 @@ namespace AutoNai3Tools.utils {
         public static string PrevArtistRandom = "";
         public static string PrevArtistFixed = "";
         public static string PrevRandomPrompt = "";
-        public static Dictionary<string, string> PrevWillcard = new Dictionary<string, string>();
-        private static string ParsePrompt(string tag, Form1 form, int runNum) {
-            if (tag == "<随机画师>") {
-                if (form.chkKeepRandomArtist.Checked) {
-                    if (runNum == 0 || runNum % form.numKeepParams.Value == 0) {
-                        List<List<Artist>> artistGroupList = ArtistTools.ParseArtistTxtToArtistGroupList(form.txtArtistRandom.Text);
-                        PrevArtistRandom = ArtistTools.GetArtistPrompt(artistGroupList, ((int)form.numDefaultArtistWeightReduceMax.Value), ((int)form.numDefaultArtistWeightIncreaseMax.Value), form.chkArtistModify.Checked, ((int)form.numArtistMin.Value), ((int)form.numArtistMax.Value));
-                    }
-                }
-                else {
-                    List<List<Artist>> artistGroupList = ArtistTools.ParseArtistTxtToArtistGroupList(form.txtArtistRandom.Text);
-                    PrevArtistRandom = ArtistTools.GetArtistPrompt(artistGroupList, ((int)form.numDefaultArtistWeightReduceMax.Value), ((int)form.numDefaultArtistWeightIncreaseMax.Value), form.chkArtistModify.Checked, ((int)form.numArtistMin.Value), ((int)form.numArtistMax.Value));
-                }
-                form.PrintLog("<随机画师>：" + PrevArtistRandom);
-                return PrevArtistRandom;
-            }
-            else if (tag == "<固定画师>") {
-                PrevArtistFixed = form.txtArtistFixed.Text;
-                form.PrintLog("<固定画师>：" + PrevArtistFixed);
-                return PrevArtistFixed;
-            }
-            else if (tag == "<随机提示词>") {
-                if (form.chkKeepRandomPrompt.Checked) {
-                    if (runNum == 0 || runNum % form.numKeepParams.Value == 0) {
-                        PrevRandomPrompt = GetFolderPrompt(form);
-                    }
-                }
-                else {
-                    PrevRandomPrompt = GetFolderPrompt(form);
-                }
-                form.PrintLog("<随机提示词>：" + PrevRandomPrompt);
-                return PrevRandomPrompt;
-            }
-            else {
-                if (!PrevWillcard.ContainsKey(tag)) {
-                    PrevWillcard[tag] = GetWillcard(tag, form);
-                }
-                else if (form.chkKeepWildcard.Checked) {
-                    if (runNum == 0 || runNum % form.numKeepParams.Value == 0) {
-                        PrevWillcard[tag] = GetWillcard(tag, form);
-                    }
-                }
-                else {
-                    PrevWillcard[tag] = GetWillcard(tag, form);
-                }
-                form.PrintLog(tag + "：" + PrevWillcard[tag]);
-                return PrevWillcard[tag];
-            }
-        }
-        public static string GetPrompt(string prompt, Form1 form, int runNum) {
-            string[] tagList = prompt.Split(',');
-            for (int i = 0; i < tagList.Length; i++) {
-                string tag = tagList[i].Trim();
-                if (tag.StartsWith("<") && tag.EndsWith(">")) {
-                    string resultTag = ParsePrompt(tag, form, runNum);
-                    tagList[i] = tagList[i].Replace(tag, resultTag);
-                }
-            }
-            return string.Join(",", tagList);
-        }
-
         public static List<TagBase> tagList = new List<TagBase>();
         public static string prevPrompt = "";
 

@@ -16,6 +16,7 @@ namespace AutoNai3Tools.tag {
         }
 
         protected override string ParseResultText() {
+            form.PrintLog($"<固定画师>:{form.txtArtistFixed.Text}");
             return form.txtArtistFixed.Text;
         }
     }

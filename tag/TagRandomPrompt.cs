@@ -53,7 +53,9 @@ namespace AutoNai3Tools.tag {
             var result = words1.Where(word => !words2.Contains(word));
             string[] words3 = form.txtPromptBlackList.Text.Replace(" ", "_").Split(',').Select(word => word.Trim()).ToArray();
             result = result.Where(word => !words3.Contains(word));
-            return string.Join(",", result).Trim();
+            string strResult = string.Join(",", result).Trim();
+            form.PrintLog($"<随机提示词>:{strResult}");
+            return strResult;
         }
     }
 }

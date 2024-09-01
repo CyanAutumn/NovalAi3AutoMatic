@@ -23,7 +23,7 @@ namespace AutoNai3Tools.artist {
 
         public static List<List<Artist>> ParseArtistTxtToArtistGroupList(string artistTxt) {
             List<List<Artist>> artistClassGroupList = new List<List<Artist>>();
-            string[] artistGroupList = artistTxt.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            string[] artistGroupList = artistTxt.Split(new string[] { "\n" }, StringSplitOptions.None);
             for (int i = 0; i < artistGroupList.Length; i++) {
                 List<Artist> artistList = new List<Artist>();
                 string[] artistGroup = artistGroupList[i].Split('|');

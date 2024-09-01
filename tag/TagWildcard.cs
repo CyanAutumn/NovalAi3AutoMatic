@@ -43,11 +43,13 @@ namespace AutoNai3Tools.tag {
             if (pickRandom) {
                 Random random = new Random();
                 string words = lines[random.Next(lines.Length)];
+                form.PrintLog($"<{this.text}>:{words}");
                 return words;
             }
             else {
                 string words = lines[index];
                 index = (index + 1) % lines.Length;
+                form.PrintLog($"<{this.text}>:{words}");
                 return words;
             }
         }

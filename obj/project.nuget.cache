@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Az609OyMrdxi0T0R8BfClX9tyleQkVBz+KUFlaubK5/+r6SlMXDslUO06BTSqitaNYBdy9fLvDZbUXyDtq1iHA==",
+  "dgSpecHash": "EcmqcDSgRQAjO46HRvabuREI11f139mrIYYU1acJ9xeXcTSr0OqeT9LSEPkk1Jqfe/MQzyyu0GPpHIq60nwx5Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\AutoNai3Tools.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\11963\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\11963\\.nuget\\packages\\nett\\0.15.0\\nett.0.15.0.nupkg.sha512",
     "C:\\Users\\11963\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\11963\\.nuget\\packages\\realtaiizor\\3.8.0.7\\realtaiizor.3.8.0.7.nupkg.sha512",
     "C:\\Users\\11963\\.nuget\\packages\\restsharp\\111.2.0\\restsharp.111.2.0.nupkg.sha512",
     "C:\\Users\\11963\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\11963\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
@@ -17,5 +18,20 @@
     "C:\\Users\\11963\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\11963\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "包 \"RestSharp\" 111.2.0 具有已知的 中 严重性漏洞，https://github.com/advisories/GHSA-4rr6-2v9v-wcpc",
+      "libraryId": "RestSharp",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8",
+        ".NETFramework,Version=v4.8/win",
+        ".NETFramework,Version=v4.8/win-arm64",
+        ".NETFramework,Version=v4.8/win-x64",
+        ".NETFramework,Version=v4.8/win-x86"
+      ]
+    }
+  ]
 }
