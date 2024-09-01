@@ -59,6 +59,7 @@ namespace AutoNai3Tools.utils {
         public float?strength { get; set; } = null;
         public float?noise { get; set; } = null;
         public int seed { get; set; } = 0;
+        public int? skip_cfg_above_sigma { get; set; }
         public string negative_prompt { get; set; } = null;
         public List<string> reference_image_multiple { get; set; } = null;
         public List<float> reference_information_extracted_multiple { get; set; } = null;
@@ -88,6 +89,7 @@ namespace AutoNai3Tools.utils {
             float? strength = null,
             float? noise = null,
             int? seed = null,
+            int? skip_cfg_above_sigma = null,
             string negative_prompt = null,
             List<string> reference_image_multiple = null,
             List<float> reference_information_extracted_multiple = null,
@@ -116,6 +118,7 @@ namespace AutoNai3Tools.utils {
             Random random = new Random();
             if (seed == null) { this.seed = random.Next(0, 1000000000); }
             else { this.seed = (int)seed; }
+            this.skip_cfg_above_sigma = skip_cfg_above_sigma;
             this.extra_noise_seed = this.seed;
             this.negative_prompt = negative_prompt;
             this.reference_image_multiple = new List<string>();

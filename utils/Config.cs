@@ -12,6 +12,10 @@ namespace AutoNai3Tools.utils {
         public string Token { get; set; }
         public List<SnippetItem> SnippetItems { get; set; } // 添加用于保存dgvSnippet行数据的属性
         public string PromptBlackList { get; set; }
+        public int?SleepTimeShortLow { get; set; }
+        public int?SleepTimeShortHigh { get; set; }
+        public int?SleepTimeLongLow { get; set; }
+        public int?SleepTimeLongHigh { get; set; }
 
         public static void SaveToml(Form1 form) {
             string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_system\\";
@@ -26,6 +30,10 @@ namespace AutoNai3Tools.utils {
             SystemConfig obj = new SystemConfig();
             obj.Token = form.txtToken.Text;
             obj.PromptBlackList = form.txtPromptBlackList.Text;
+            obj.SleepTimeShortLow = ((int)form.nudSleepTimeShortLow.Value);
+            obj.SleepTimeShortHigh = ((int)form.nudSleepTimeShortHigh.Value);
+            obj.SleepTimeLongLow = ((int)form.nudSleepTimeLongLow.Value);
+            obj.SleepTimeLongHigh = ((int)form.nudSleepTimeLongHigh.Value);
             Toml.WriteFile(obj, Path.Combine(folderPath, "config.toml"));
         }
 
@@ -36,6 +44,10 @@ namespace AutoNai3Tools.utils {
                 SystemConfig obj = Toml.ReadFile<SystemConfig>(configFilePath);
                 form.txtToken.Text = obj.Token;
                 form.txtPromptBlackList.Text = obj.PromptBlackList;
+                form.nudSleepTimeShortLow.Value = obj.SleepTimeShortLow ==null?5:((int)obj.SleepTimeShortLow);
+                form.nudSleepTimeShortHigh.Value = obj.SleepTimeShortHigh == null ? 8 :((int)obj.SleepTimeShortHigh);
+                form.nudSleepTimeLongLow.Value = obj.SleepTimeLongLow == null ? 20 : ((int)obj.SleepTimeLongLow.Value);
+                form.nudSleepTimeLongHigh.Value = obj.SleepTimeLongHigh == null ? 25:((int)obj.SleepTimeLongHigh.Value);
             }
         }
     }
@@ -79,6 +91,8 @@ namespace AutoNai3Tools.utils {
         public bool KeepWildcard { get; set; }
         public bool KeepRandomPrompt { get; set; }
         public bool KeepResolution { get; set; }
+        public bool Decrisp { get; set; }
+        public bool Variety { get; set; }
         public static void SaveToml(Form1 form, string fileName) {
             string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_2\\";
             //判断文件夹是否存在
@@ -129,6 +143,8 @@ namespace AutoNai3Tools.utils {
             obj.KeepWildcard = form.chkKeepWildcard.Checked;
             obj.KeepRandomPrompt = form.chkKeepRandomPrompt.Checked;
             obj.KeepResolution = form.chkKeepResolution.Checked;
+            obj.Decrisp = form.chkDecrisp.Checked;
+            obj.Variety = form.chkVariety.Checked;
             Toml.WriteFile(obj, folderPath + fileName + ".toml");
         }
 
@@ -171,6 +187,8 @@ namespace AutoNai3Tools.utils {
             form.chkKeepWildcard.Checked = obj.KeepWildcard;
             form.chkKeepRandomPrompt.Checked = obj.KeepRandomPrompt;
             form.chkKeepResolution.Checked = obj.KeepResolution;
+            form.chkDecrisp.Checked = obj.Decrisp;
+            form.chkVariety.Checked = obj.Variety;
         }
     }
     class SnippetItem {

@@ -195,6 +195,9 @@ namespace AutoNai3Tools {
             parmeters.sm = chkSmea.Checked;
             parmeters.sm_dyn = chkDyn.Checked;
             parmeters.negative_prompt = txtNegativePrompt.Text;
+            if (chkVariety.Checked)
+                parmeters.skip_cfg_above_sigma = 19;
+            parmeters.dynamic_thresholding = chkDecrisp.Checked;
             //img2img
             if (img2ImgCurrentPath != null) {
                 string base64img = Tools.ConvertImageToBase64(img2ImgCurrentPath);
@@ -254,12 +257,20 @@ namespace AutoNai3Tools {
                     timer.Dispose();
                 }
                 else if (i % 10 == 0 && i != 0) {
-                    int delay = random.Next(20000, 25000);
+                    if (nudSleepTimeLongHigh.Value < nudSleepTimeLongLow.Value) {
+                        PrintLog("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                        nudSleepTimeLongHigh.Value = nudSleepTimeLongLow.Value;
+                    }
+                    int delay = random.Next(((int)nudSleepTimeLongLow.Value) * 1000, ((int)nudSleepTimeLongHigh.Value) * 1000);
                     PrintLog("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay + "毫秒");
                     Thread.Sleep(delay);
                 }
                 else {
-                    int delay = random.Next(5000, 8000);
+                    if (nudSleepTimeShortHigh.Value < nudSleepTimeShortLow.Value) {
+                        PrintLog("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                        nudSleepTimeShortHigh.Value = nudSleepTimeShortLow.Value;
+                    }
+                    int delay = random.Next(((int)nudSleepTimeShortLow.Value) * 1000, ((int)nudSleepTimeShortHigh.Value) * 1000);
                     PrintLog("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay + "毫秒");
                     Thread.Sleep(delay);
                 }
