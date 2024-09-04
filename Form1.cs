@@ -177,7 +177,7 @@ namespace AutoNai3Tools {
 
         private string GetSampler() {
             int ret_idx = cmbSampler.SelectedIndex;
-            string[] sampler = new string[] { "k_euler", "k_euler_ancestral", "k_dpmpp_2s_ancestral", "k_dpmpp_2m", "k_dpmpp_sde", "ddim_v3" };
+            string[] sampler = new string[] { "k_euler", "k_euler_ancestral", "k_dpmpp_2s_ancestral", "k_dpmpp_2m_sde", "k_dpmpp_2m", "k_dpmpp_sde", "ddim_v3" };
             PrintLog("采样：" + sampler[ret_idx]);
             return sampler[ret_idx];
         }
