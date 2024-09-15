@@ -364,7 +364,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("喵字动漫体v1.002", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label16.Location = new System.Drawing.Point(347, 211);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(663, 325);
@@ -1082,9 +1082,9 @@
             "karras",
             "exponential",
             "polyexponential"});
-            this.cmbNoiseSchedule.Location = new System.Drawing.Point(78, 7);
+            this.cmbNoiseSchedule.Location = new System.Drawing.Point(57, 7);
             this.cmbNoiseSchedule.Name = "cmbNoiseSchedule";
-            this.cmbNoiseSchedule.Size = new System.Drawing.Size(72, 25);
+            this.cmbNoiseSchedule.Size = new System.Drawing.Size(93, 25);
             this.cmbNoiseSchedule.TabIndex = 57;
             // 
             // label30
@@ -1104,14 +1104,14 @@
             0,
             0,
             131072});
-            this.nudCFG.Location = new System.Drawing.Point(78, 98);
+            this.nudCFG.Location = new System.Drawing.Point(57, 98);
             this.nudCFG.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.nudCFG.Name = "nudCFG";
-            this.nudCFG.Size = new System.Drawing.Size(72, 23);
+            this.nudCFG.Size = new System.Drawing.Size(93, 23);
             this.nudCFG.TabIndex = 47;
             // 
             // label11
@@ -1119,13 +1119,13 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(7, 41);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(68, 17);
+            this.label11.Size = new System.Drawing.Size(44, 17);
             this.label11.TabIndex = 44;
-            this.label11.Text = "采样方式：";
+            this.label11.Text = "采样：";
             // 
             // numSteps
             // 
-            this.numSteps.Location = new System.Drawing.Point(236, 8);
+            this.numSteps.Location = new System.Drawing.Point(222, 8);
             this.numSteps.Maximum = new decimal(new int[] {
             28,
             0,
@@ -1137,7 +1137,7 @@
             0,
             0});
             this.numSteps.Name = "numSteps";
-            this.numSteps.Size = new System.Drawing.Size(72, 23);
+            this.numSteps.Size = new System.Drawing.Size(86, 23);
             this.numSteps.TabIndex = 40;
             this.numSteps.Value = new decimal(new int[] {
             28,
@@ -1192,12 +1192,13 @@
             "Euler",
             "Euler Ancestral",
             "DPM++ 2S Ancesstral",
+            "DPM++ 2M SDE",
             "DPM++ 2M",
             "DPM++ SDE",
             "DDIM"});
-            this.cmbSampler.Location = new System.Drawing.Point(78, 38);
+            this.cmbSampler.Location = new System.Drawing.Point(57, 38);
             this.cmbSampler.Name = "cmbSampler";
-            this.cmbSampler.Size = new System.Drawing.Size(72, 25);
+            this.cmbSampler.Size = new System.Drawing.Size(93, 25);
             this.cmbSampler.TabIndex = 43;
             // 
             // numScale
@@ -1208,14 +1209,14 @@
             0,
             0,
             65536});
-            this.numScale.Location = new System.Drawing.Point(78, 69);
+            this.numScale.Location = new System.Drawing.Point(57, 69);
             this.numScale.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
             this.numScale.Name = "numScale";
-            this.numScale.Size = new System.Drawing.Size(72, 23);
+            this.numScale.Size = new System.Drawing.Size(93, 23);
             this.numScale.TabIndex = 37;
             this.numScale.Value = new decimal(new int[] {
             5,
