@@ -9,6 +9,7 @@ namespace AutoNai3Tools.tag {
     internal class TagRandomPrompt : TagBase {
         public string text { get; set; }
         public int index { get; set; }
+        public int length { get; set; }
         public bool pickRandom { get; set; }
         Form1 form;
 
@@ -17,6 +18,7 @@ namespace AutoNai3Tools.tag {
             this.pickRandom = GetPickType(tag);
             this.index = 0;
             this.form = form;
+            this.length=Tools.GetFileSize(this.form.txtRandomPromptFolderPath.Text);
         }
 
         private bool GetPickType(string tag) {
@@ -38,15 +40,14 @@ namespace AutoNai3Tools.tag {
         }
 
         protected override string ParseResultText() {
-            string[] lines = Tools.GetFolderLine(this.form.txtRandomPromptFolderPath.Text);
-            string tPrompt;
+            string tPrompt = null;
             if (pickRandom) {
                 Random random = new Random();
-                tPrompt = lines[random.Next(lines.Length)];
+                tPrompt = Tools.GetFolderRandomFileTxt(this.form.txtRandomPromptFolderPath.Text);
             }
             else {
-                tPrompt = lines[index];
-                index = (index + 1) % lines.Length;
+                tPrompt = Tools.GetFolderRandomFileTxt(this.form.txtRandomPromptFolderPath.Text,index);
+                index = (index + 1) % length;
             }
             string[] words1 = tPrompt.Split(',').Select(word => word.Trim()).ToArray();
             string[] words2 = form.txtPromptBlackList.Text.Split(',').Select(word => word.Trim()).ToArray();

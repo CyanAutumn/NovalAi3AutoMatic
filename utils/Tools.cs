@@ -8,26 +8,20 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AutoNai3Tools.utils
-{
-    internal class Tools
-    {
-        public static string SelectFile(string filter,bool is_file)
-        {
+namespace AutoNai3Tools.utils {
+    internal class Tools {
+        public static string SelectFile(string filter, bool is_file) {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Title = "请选择";
             openFileDialog.CheckFileExists = false;
             openFileDialog.FileName = "选择"; // 设置一个默认的文件名
             openFileDialog.Filter = filter;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 string path = null;
-                if (is_file)
-                {
+                if (is_file) {
                     path = openFileDialog.FileName;
                 }
-                else
-                {
+                else {
                     path = System.IO.Path.GetDirectoryName(openFileDialog.FileName);
                 }
                 return path;
@@ -35,21 +29,16 @@ namespace AutoNai3Tools.utils
             return null;
         }
 
-        public static string SelectFolder()
-        {
-            return SelectFile("Folders|no.files",false);
+        public static string SelectFolder() {
+            return SelectFile("Folders|no.files", false);
         }
-        public static string SelectIMGFile()
-        {
-            return SelectFile("Image Files|*.jpg;*.jpeg;*.png;*.bmp",true);
+        public static string SelectIMGFile() {
+            return SelectFile("Image Files|*.jpg;*.jpeg;*.png;*.bmp", true);
         }
 
-        public static bool IsExist(string path,bool isCreateFolder)
-        {
-            if (!Directory.Exists(path))
-            {
-                if (isCreateFolder)
-                {
+        public static bool IsExist(string path, bool isCreateFolder) {
+            if (!Directory.Exists(path)) {
+                if (isCreateFolder) {
                     Directory.CreateDirectory(path);
                     return true;
                 }
@@ -58,8 +47,7 @@ namespace AutoNai3Tools.utils
             return true;
         }
 
-        public static bool InsertCommasAroundCursor(TextBox textBox)
-        {
+        public static bool InsertCommasAroundCursor(TextBox textBox) {
             int cursorPosition = textBox.SelectionStart;
             string text = textBox.Text;
 
@@ -67,15 +55,14 @@ namespace AutoNai3Tools.utils
             bool needRightComma = cursorPosition < text.Length && text[cursorPosition] != ',';
             string insertText = (needLeftComma ? "," : "") + (needRightComma ? "," : "");
 
-            if (!string.IsNullOrEmpty(insertText))
-            {
+            if (!string.IsNullOrEmpty(insertText)) {
                 textBox.Text = text.Insert(cursorPosition, insertText);
                 textBox.SelectionStart = cursorPosition + (needLeftComma ? 1 : 0);
             }
             return needRightComma;
         }
 
-        public static void InsertTextToTextBox(TextBox textBox,string insertPrompt) {
+        public static void InsertTextToTextBox(TextBox textBox, string insertPrompt) {
             if (textBox.Text.Contains(insertPrompt)) {
                 //string pattern = ",\\s*"+insertPrompt+"\\s*,";
                 //txtPrompt.Text = Regex.Replace(txtPrompt.Text,pattern, "");
@@ -122,7 +109,7 @@ namespace AutoNai3Tools.utils
             else {
                 int cursorPosition = textBox.SelectionStart;
 
-                bool needRightComma=Tools.InsertCommasAroundCursor(textBox);
+                bool needRightComma = Tools.InsertCommasAroundCursor(textBox);
                 if (cursorPosition == 0)
                     textBox.Text = insertPrompt + textBox.Text;
                 else {
@@ -130,7 +117,7 @@ namespace AutoNai3Tools.utils
                     textBox.Text = textBox.Text.Insert(cursorPosition, insertPrompt);
                 }
 
-                textBox.SelectionStart = cursorPosition + insertPrompt.Length+(needRightComma?1:0);
+                textBox.SelectionStart = cursorPosition + insertPrompt.Length + (needRightComma ? 1 : 0);
             }
         }
 
@@ -180,15 +167,21 @@ namespace AutoNai3Tools.utils
             return results;
         }
 
-        public static string[] GetFolderLine(string folderPath) {
+        public static int GetFileSize(string folderPath) {
             string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
-            string[] results = new string[txtFiles.Length];
+            return txtFiles.Length;
+        }
 
-            for (int i = 0; i < txtFiles.Length; i++) {
-                string content = File.ReadAllText(txtFiles[i]).Replace(Environment.NewLine, " ");
-                results[i] = content;
-            }
-            return results;
+        public static string GetFolderRandomFileTxt(string folderPath,int?index=null) {
+            Random random = new Random();
+            string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
+            string randomFileName =null;
+            if(index==null)
+                randomFileName = txtFiles[random.Next(txtFiles.Length)];
+            else 
+                randomFileName =txtFiles[(int)index];
+            string content = File.ReadAllText(randomFileName).Replace(Environment.NewLine, " ");
+            return content;
         }
     }
 }

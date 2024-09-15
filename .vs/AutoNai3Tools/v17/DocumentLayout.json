@@ -3,24 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\11963\\desktop\\code\\autonai3tools\\utils\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\11963\\desktop\\code\\autonai3tools\\tag\\tagrandomprompt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:tag\\tagrandomprompt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\11963\\desktop\\code\\autonai3tools\\utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\11963\\desktop\\code\\autonai3tools\\utils\\tools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\tools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\11963\\desktop\\code\\autonai3tools\\tag\\tagrandomartist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:tag\\tagrandomartist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\prompt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\prompt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\11963\\desktop\\code\\autonai3tools\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\11963\\desktop\\code\\autonai3tools\\tag\\tagbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:tag\\tagbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\prompt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\prompt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\11963\\desktop\\code\\autonai3tools\\utils\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,24 +42,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 221,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Tools.cs",
+              "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\Tools.cs",
+              "RelativeDocumentMoniker": "utils\\Tools.cs",
+              "ToolTip": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\Tools.cs",
+              "RelativeToolTip": "utils\\Tools.cs",
+              "ViewState": "AQIAAJEAAAAAAAAAAADwv6sAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-15T05:49:18.627Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TagRandomPrompt.cs",
+              "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\tag\\TagRandomPrompt.cs",
+              "RelativeDocumentMoniker": "tag\\TagRandomPrompt.cs",
+              "ToolTip": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\tag\\TagRandomPrompt.cs",
+              "RelativeToolTip": "tag\\TagRandomPrompt.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAAABoAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-15T05:47:33.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TagRandomArtist.cs",
+              "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\tag\\TagRandomArtist.cs",
+              "RelativeDocumentMoniker": "tag\\TagRandomArtist.cs",
+              "ToolTip": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\tag\\TagRandomArtist.cs",
+              "RelativeToolTip": "tag\\TagRandomArtist.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvxgAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-15T05:47:32.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TagBase.cs",
+              "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\tag\\TagBase.cs",
+              "RelativeDocumentMoniker": "tag\\TagBase.cs",
+              "ToolTip": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\tag\\TagBase.cs",
+              "RelativeToolTip": "tag\\TagBase.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvwAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-15T05:47:28.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Config.cs",
               "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\Config.cs",
               "RelativeDocumentMoniker": "utils\\Config.cs",
               "ToolTip": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\Config.cs",
               "RelativeToolTip": "utils\\Config.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAwCAAAAA0AAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAwCQAAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-01T11:58:20.796Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "NovalAi.cs",
               "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\NovalAi.cs",
               "RelativeDocumentMoniker": "utils\\NovalAi.cs",
@@ -55,43 +119,30 @@
               "RelativeToolTip": "utils\\NovalAi.cs",
               "ViewState": "AQIAABIAAAAAAAAAAAAAADMAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-01T11:47:51.148Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-01T11:47:51.148Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Prompt.cs",
               "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\Prompt.cs",
               "RelativeDocumentMoniker": "utils\\Prompt.cs",
               "ToolTip": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\utils\\Prompt.cs",
               "RelativeToolTip": "utils\\Prompt.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADEAAAAdAAAA",
+              "ViewState": "AQIAABkAAAAAAAAAAADwvzEAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-01T08:27:02.186Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Form1.cs [\u8BBE\u8BA1]",
-              "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\Form1.cs [\u8BBE\u8BA1]",
-              "RelativeToolTip": "Form1.cs [\u8BBE\u8BA1]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-01T08:17:27.706Z",
-              "EditorCaption": " [\u8BBE\u8BA1]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\11963\\Desktop\\code\\AutoNai3Tools\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAACAAAAAIAAAA",
+              "ViewState": "AQIAALsAAAAAAAAAAADwv94AAABaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-01T08:07:18.441Z",
               "EditorCaption": ""

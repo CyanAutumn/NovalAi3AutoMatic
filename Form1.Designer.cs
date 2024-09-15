@@ -92,6 +92,8 @@
             this.rdoResolutionOrder = new System.Windows.Forms.RadioButton();
             this.rdoResolutionRandom = new System.Windows.Forms.RadioButton();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.chkDecrisp = new System.Windows.Forms.CheckBox();
+            this.chkVariety = new System.Windows.Forms.CheckBox();
             this.label31 = new System.Windows.Forms.Label();
             this.cmbNoiseSchedule = new System.Windows.Forms.ComboBox();
             this.label30 = new System.Windows.Forms.Label();
@@ -149,6 +151,14 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.nudSleepTimeShortHigh = new System.Windows.Forms.NumericUpDown();
+            this.nudSleepTimeLongHigh = new System.Windows.Forms.NumericUpDown();
+            this.nudSleepTimeShortLow = new System.Windows.Forms.NumericUpDown();
+            this.nudSleepTimeLongLow = new System.Windows.Forms.NumericUpDown();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.chkKeepResolution = new System.Windows.Forms.CheckBox();
             this.chkKeepRandomPrompt = new System.Windows.Forms.CheckBox();
@@ -199,16 +209,6 @@
             this.numKeepParams = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.nudSleepTimeLongLow = new System.Windows.Forms.NumericUpDown();
-            this.nudSleepTimeShortLow = new System.Windows.Forms.NumericUpDown();
-            this.nudSleepTimeShortHigh = new System.Windows.Forms.NumericUpDown();
-            this.nudSleepTimeLongHigh = new System.Windows.Forms.NumericUpDown();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.chkVariety = new System.Windows.Forms.CheckBox();
-            this.chkDecrisp = new System.Windows.Forms.CheckBox();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage4.SuspendLayout();
@@ -261,6 +261,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.picVibeView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVibe)).BeginInit();
             this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortHigh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongHigh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortLow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongLow)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.tabPage14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).BeginInit();
@@ -278,10 +282,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numGenerateMaxNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numKeepParams)).BeginInit();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongHigh)).BeginInit();
             this.SuspendLayout();
             // 
             // tabPage6
@@ -1045,6 +1045,26 @@
             this.panel6.Size = new System.Drawing.Size(321, 134);
             this.panel6.TabIndex = 62;
             // 
+            // chkDecrisp
+            // 
+            this.chkDecrisp.AutoSize = true;
+            this.chkDecrisp.Location = new System.Drawing.Point(240, 71);
+            this.chkDecrisp.Name = "chkDecrisp";
+            this.chkDecrisp.Size = new System.Drawing.Size(71, 21);
+            this.chkDecrisp.TabIndex = 60;
+            this.chkDecrisp.Text = "Decrisp";
+            this.chkDecrisp.UseVisualStyleBackColor = true;
+            // 
+            // chkVariety
+            // 
+            this.chkVariety.AutoSize = true;
+            this.chkVariety.Location = new System.Drawing.Point(168, 71);
+            this.chkVariety.Name = "chkVariety";
+            this.chkVariety.Size = new System.Drawing.Size(76, 21);
+            this.chkVariety.TabIndex = 59;
+            this.chkVariety.Text = "Variety+";
+            this.chkVariety.UseVisualStyleBackColor = true;
+            // 
             // label31
             // 
             this.label31.AutoSize = true;
@@ -1759,6 +1779,90 @@
             this.tabPage5.Text = "设置";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(227, 184);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(17, 17);
+            this.label37.TabIndex = 67;
+            this.label37.Text = "~";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(227, 213);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(17, 17);
+            this.label36.TabIndex = 66;
+            this.label36.Text = "~";
+            // 
+            // nudSleepTimeShortHigh
+            // 
+            this.nudSleepTimeShortHigh.Location = new System.Drawing.Point(250, 182);
+            this.nudSleepTimeShortHigh.Name = "nudSleepTimeShortHigh";
+            this.nudSleepTimeShortHigh.Size = new System.Drawing.Size(71, 23);
+            this.nudSleepTimeShortHigh.TabIndex = 65;
+            this.nudSleepTimeShortHigh.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
+            // nudSleepTimeLongHigh
+            // 
+            this.nudSleepTimeLongHigh.Location = new System.Drawing.Point(250, 211);
+            this.nudSleepTimeLongHigh.Name = "nudSleepTimeLongHigh";
+            this.nudSleepTimeLongHigh.Size = new System.Drawing.Size(71, 23);
+            this.nudSleepTimeLongHigh.TabIndex = 64;
+            this.nudSleepTimeLongHigh.Value = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            // 
+            // nudSleepTimeShortLow
+            // 
+            this.nudSleepTimeShortLow.Location = new System.Drawing.Point(150, 182);
+            this.nudSleepTimeShortLow.Name = "nudSleepTimeShortLow";
+            this.nudSleepTimeShortLow.Size = new System.Drawing.Size(71, 23);
+            this.nudSleepTimeShortLow.TabIndex = 63;
+            this.nudSleepTimeShortLow.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // nudSleepTimeLongLow
+            // 
+            this.nudSleepTimeLongLow.Location = new System.Drawing.Point(150, 211);
+            this.nudSleepTimeLongLow.Name = "nudSleepTimeLongLow";
+            this.nudSleepTimeLongLow.Size = new System.Drawing.Size(71, 23);
+            this.nudSleepTimeLongLow.TabIndex = 62;
+            this.nudSleepTimeLongLow.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(14, 184);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(104, 17);
+            this.label35.TabIndex = 61;
+            this.label35.Text = "短休（每次）秒：";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(14, 213);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(118, 17);
+            this.label34.TabIndex = 60;
+            this.label34.Text = "长休（每10次）秒：";
+            // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.chkKeepResolution);
@@ -2328,110 +2432,6 @@
             this.tabControl1.Size = new System.Drawing.Size(1301, 836);
             this.tabControl1.TabIndex = 0;
             // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(14, 213);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(118, 17);
-            this.label34.TabIndex = 60;
-            this.label34.Text = "长休（每10次）秒：";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(14, 184);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(104, 17);
-            this.label35.TabIndex = 61;
-            this.label35.Text = "短休（每次）秒：";
-            // 
-            // nudSleepTimeLongLow
-            // 
-            this.nudSleepTimeLongLow.Location = new System.Drawing.Point(150, 211);
-            this.nudSleepTimeLongLow.Name = "nudSleepTimeLongLow";
-            this.nudSleepTimeLongLow.Size = new System.Drawing.Size(71, 23);
-            this.nudSleepTimeLongLow.TabIndex = 62;
-            this.nudSleepTimeLongLow.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
-            // nudSleepTimeShortLow
-            // 
-            this.nudSleepTimeShortLow.Location = new System.Drawing.Point(150, 182);
-            this.nudSleepTimeShortLow.Name = "nudSleepTimeShortLow";
-            this.nudSleepTimeShortLow.Size = new System.Drawing.Size(71, 23);
-            this.nudSleepTimeShortLow.TabIndex = 63;
-            this.nudSleepTimeShortLow.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // nudSleepTimeShortHigh
-            // 
-            this.nudSleepTimeShortHigh.Location = new System.Drawing.Point(250, 182);
-            this.nudSleepTimeShortHigh.Name = "nudSleepTimeShortHigh";
-            this.nudSleepTimeShortHigh.Size = new System.Drawing.Size(71, 23);
-            this.nudSleepTimeShortHigh.TabIndex = 65;
-            this.nudSleepTimeShortHigh.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            // 
-            // nudSleepTimeLongHigh
-            // 
-            this.nudSleepTimeLongHigh.Location = new System.Drawing.Point(250, 211);
-            this.nudSleepTimeLongHigh.Name = "nudSleepTimeLongHigh";
-            this.nudSleepTimeLongHigh.Size = new System.Drawing.Size(71, 23);
-            this.nudSleepTimeLongHigh.TabIndex = 64;
-            this.nudSleepTimeLongHigh.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(227, 213);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(17, 17);
-            this.label36.TabIndex = 66;
-            this.label36.Text = "~";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(227, 184);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(17, 17);
-            this.label37.TabIndex = 67;
-            this.label37.Text = "~";
-            // 
-            // chkVariety
-            // 
-            this.chkVariety.AutoSize = true;
-            this.chkVariety.Location = new System.Drawing.Point(168, 71);
-            this.chkVariety.Name = "chkVariety";
-            this.chkVariety.Size = new System.Drawing.Size(76, 21);
-            this.chkVariety.TabIndex = 59;
-            this.chkVariety.Text = "Variety+";
-            this.chkVariety.UseVisualStyleBackColor = true;
-            // 
-            // chkDecrisp
-            // 
-            this.chkDecrisp.AutoSize = true;
-            this.chkDecrisp.Location = new System.Drawing.Point(240, 71);
-            this.chkDecrisp.Name = "chkDecrisp";
-            this.chkDecrisp.Size = new System.Drawing.Size(71, 21);
-            this.chkDecrisp.TabIndex = 60;
-            this.chkDecrisp.Text = "Decrisp";
-            this.chkDecrisp.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2441,7 +2441,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Nai3自动生图脚本v2.1.5";
+            this.Text = "Nai3自动生图脚本v2.1.6";
             this.TransparencyKey = System.Drawing.Color.Fuchsia;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -2518,6 +2518,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvVibe)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortHigh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongHigh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortLow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongLow)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabPage14.ResumeLayout(false);
@@ -2541,10 +2545,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numGenerateMaxNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numKeepParams)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongHigh)).EndInit();
             this.ResumeLayout(false);
 
         }
