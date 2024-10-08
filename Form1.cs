@@ -231,50 +231,54 @@ namespace AutoNai3Tools {
         private void TimerElapsed(object sender, ElapsedEventArgs e) {
             int max_num = int.Parse(numGenerateMaxNum.Value.ToString());
             for (int i = 0; i < max_num; i++) {
-                runNum = i;
-                string output_path = txtOutputPath.Text;
-                NovalAi novalAi = new NovalAi();
                 try {
-                    tempNai3Body = GetNai3Body(i);
-                }
-                catch (Exception ex) {
-                    PrintLog("参数错误：" + ex.ToString());
-                    PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
-                    continue;
-                }
-                PrintLog("开始发送生图请求");
-                Bitmap img = novalAi.SendGenerateRequests(txtToken.Text, tempNai3Body, Prompt.PrevArtistFixed, Prompt.PrevArtistRandom, this);
-                picView.Image = img;
-                Random random = new Random();
-                if (timer_status == false) {
-                    timer.Dispose();
-                    PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
-                    break;
-                }
-                if (i == max_num - 1) {
-                    PrintLog("运行完毕，共运行" + (i + 1).ToString() + "次");
-                    timer_status = false;
-                    timer.Dispose();
-                }
-                else if (i % 10 == 0 && i != 0) {
-                    if (nudSleepTimeLongHigh.Value < nudSleepTimeLongLow.Value) {
-                        PrintLog("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
-                        nudSleepTimeLongHigh.Value = nudSleepTimeLongLow.Value;
+                    runNum = i;
+                    string output_path = txtOutputPath.Text;
+                    NovalAi novalAi = new NovalAi();
+                    try {
+                        tempNai3Body = GetNai3Body(i);
                     }
-                    int delay = random.Next(((int)nudSleepTimeLongLow.Value) * 1000, ((int)nudSleepTimeLongHigh.Value) * 1000);
-                    PrintLog("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay + "毫秒");
-                    Thread.Sleep(delay);
-                }
-                else {
-                    if (nudSleepTimeShortHigh.Value < nudSleepTimeShortLow.Value) {
-                        PrintLog("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
-                        nudSleepTimeShortHigh.Value = nudSleepTimeShortLow.Value;
+                    catch (Exception ex) {
+                        PrintLog("参数错误：" + ex.ToString());
+                        PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
+                        continue;
                     }
-                    int delay = random.Next(((int)nudSleepTimeShortLow.Value) * 1000, ((int)nudSleepTimeShortHigh.Value) * 1000);
-                    PrintLog("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay + "毫秒");
-                    Thread.Sleep(delay);
+                    PrintLog("开始发送生图请求");
+                    Bitmap img = novalAi.SendGenerateRequests(txtToken.Text, tempNai3Body, Prompt.PrevArtistFixed, Prompt.PrevArtistRandom, this);
+                    picView.Image = img;
+                    Random random = new Random();
+                    if (timer_status == false) {
+                        timer.Dispose();
+                        PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
+                        break;
+                    }
+                    if (i == max_num - 1) {
+                        PrintLog("运行完毕，共运行" + (i + 1).ToString() + "次");
+                        timer_status = false;
+                        timer.Dispose();
+                    }
+                    else if (i % 10 == 0 && i != 0) {
+                        if (nudSleepTimeLongHigh.Value < nudSleepTimeLongLow.Value) {
+                            PrintLog("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                            nudSleepTimeLongHigh.Value = nudSleepTimeLongLow.Value;
+                        }
+                        int delay = random.Next(((int)nudSleepTimeLongLow.Value) * 1000, ((int)nudSleepTimeLongHigh.Value) * 1000);
+                        PrintLog("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay + "毫秒");
+                        Thread.Sleep(delay);
+                    }
+                    else {
+                        if (nudSleepTimeShortHigh.Value < nudSleepTimeShortLow.Value) {
+                            PrintLog("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                            nudSleepTimeShortHigh.Value = nudSleepTimeShortLow.Value;
+                        }
+                        int delay = random.Next(((int)nudSleepTimeShortLow.Value) * 1000, ((int)nudSleepTimeShortHigh.Value) * 1000);
+                        PrintLog("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay + "毫秒");
+                        Thread.Sleep(delay);
+                    }
+                    PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
                 }
-                PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
+                catch {
+                }
             }
 
             Action<string> actionDelegate = (x) => { this.btnGenerate.Text = x; };

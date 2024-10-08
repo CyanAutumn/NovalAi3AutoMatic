@@ -12,9 +12,10 @@ namespace AutoNai3Tools.tag {
         public bool pickRandom { get; set; }
         Form1 form;
 
-        public TagRandomArtist(string tag, Form1 form) {
+        public TagRandomArtist(string tag, Form1 form, string originalTag) {
             this.text = tag;
             this.form = form;
+            this.originalTag = originalTag;
         }
 
         protected override bool KeepText() {

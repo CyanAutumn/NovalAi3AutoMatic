@@ -13,12 +13,13 @@ namespace AutoNai3Tools.tag {
         public bool pickRandom { get; set; }
         Form1 form;
 
-        public TagRandomPrompt(string tag, Form1 form) {
+        public TagRandomPrompt(string tag, Form1 form, string originalTag) {
             this.text = tag;
             this.pickRandom = GetPickType(tag);
             this.index = 0;
             this.form = form;
-            this.length=Tools.GetFileSize(this.form.txtRandomPromptFolderPath.Text);
+            this.length = Tools.GetFileSize(this.form.txtRandomPromptFolderPath.Text);
+            this.originalTag = originalTag;
         }
 
         private bool GetPickType(string tag) {
@@ -27,12 +28,7 @@ namespace AutoNai3Tools.tag {
             text = tempAfterList[0];
             if (tempAfterList.Length == 1)
                 return true;
-            if (tempAfterList[1] == "随机")
-                return true;
-            if (tempAfterList[1] == "顺序")
-                return false;
-
-            return false;
+            return tempAfterList[1] == "随机";
         }
 
         protected override bool KeepText() {
@@ -41,12 +37,14 @@ namespace AutoNai3Tools.tag {
 
         protected override string ParseResultText() {
             string tPrompt = null;
+            int tIndex = index;
             if (pickRandom) {
                 Random random = new Random();
-                tPrompt = Tools.GetFolderRandomFileTxt(this.form.txtRandomPromptFolderPath.Text);
+                tIndex = random.Next(length);
+                tPrompt = Tools.GetPromptFromFolderTxt(this.form.txtRandomPromptFolderPath.Text, tIndex);
             }
             else {
-                tPrompt = Tools.GetFolderRandomFileTxt(this.form.txtRandomPromptFolderPath.Text,index);
+                tPrompt = Tools.GetPromptFromFolderTxt(this.form.txtRandomPromptFolderPath.Text, index);
                 index = (index + 1) % length;
             }
             string[] words1 = tPrompt.Split(',').Select(word => word.Trim()).ToArray();
@@ -55,7 +53,7 @@ namespace AutoNai3Tools.tag {
             string[] words3 = form.txtPromptBlackList.Text.Replace(" ", "_").Split(',').Select(word => word.Trim()).ToArray();
             result = result.Where(word => !words3.Contains(word));
             string strResult = string.Join(",", result).Trim();
-            form.PrintLog($"<随机提示词>:{strResult}");
+            form.PrintLog($"<随机提示词> {tIndex}:{strResult}");
             return strResult;
         }
     }

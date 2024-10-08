@@ -172,14 +172,9 @@ namespace AutoNai3Tools.utils {
             return txtFiles.Length;
         }
 
-        public static string GetFolderRandomFileTxt(string folderPath,int?index=null) {
-            Random random = new Random();
+        public static string GetPromptFromFolderTxt(string folderPath,int index) {
             string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
-            string randomFileName =null;
-            if(index==null)
-                randomFileName = txtFiles[random.Next(txtFiles.Length)];
-            else 
-                randomFileName =txtFiles[(int)index];
+            string randomFileName =txtFiles[index];
             string content = File.ReadAllText(randomFileName).Replace(Environment.NewLine, " ");
             return content;
         }

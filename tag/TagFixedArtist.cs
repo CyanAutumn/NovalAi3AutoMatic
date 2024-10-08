@@ -10,9 +10,10 @@ namespace AutoNai3Tools.tag {
         public string text { get; set; }
         Form1 form;
 
-        public TagFixedArtist(string tag, Form1 form) {
+        public TagFixedArtist(string tag, Form1 form, string originalTag) {
             this.text = tag;
             this.form = form;
+            this.originalTag = originalTag;
         }
 
         protected override string ParseResultText() {

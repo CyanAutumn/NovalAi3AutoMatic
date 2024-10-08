@@ -187,6 +187,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtPrompt = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnGenerate = new System.Windows.Forms.Button();
             this.btnRandomFilePath = new System.Windows.Forms.Button();
             this.txtRandomPromptFolderPath = new System.Windows.Forms.TextBox();
             this.lblRandomPromp = new System.Windows.Forms.Label();
@@ -203,7 +204,6 @@
             this.btnAddOrEditConfig = new System.Windows.Forms.Button();
             this.btnOpenConfigFolder = new System.Windows.Forms.Button();
             this.btnDeleteConfig = new System.Windows.Forms.Button();
-            this.btnGenerate = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.numGenerateMaxNum = new System.Windows.Forms.NumericUpDown();
             this.numKeepParams = new System.Windows.Forms.NumericUpDown();
@@ -1382,11 +1382,6 @@
             0,
             0,
             0});
-            this.numDefaultArtistWeightIncreaseMax.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numDefaultArtistWeightIncreaseMax.Name = "numDefaultArtistWeightIncreaseMax";
             this.numDefaultArtistWeightIncreaseMax.Size = new System.Drawing.Size(49, 23);
             this.numDefaultArtistWeightIncreaseMax.TabIndex = 29;
@@ -1401,11 +1396,6 @@
             this.numDefaultArtistWeightReduceMax.Location = new System.Drawing.Point(104, 2);
             this.numDefaultArtistWeightReduceMax.Maximum = new decimal(new int[] {
             6,
-            0,
-            0,
-            0});
-            this.numDefaultArtistWeightReduceMax.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});
@@ -2178,6 +2168,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnGenerate);
             this.panel3.Controls.Add(this.btnRandomFilePath);
             this.panel3.Controls.Add(this.txtRandomPromptFolderPath);
             this.panel3.Controls.Add(this.lblRandomPromp);
@@ -2190,7 +2181,6 @@
             this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.chkSavePromptToTxt);
             this.panel3.Controls.Add(this.groupBox4);
-            this.panel3.Controls.Add(this.btnGenerate);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.numGenerateMaxNum);
             this.panel3.Controls.Add(this.numKeepParams);
@@ -2200,6 +2190,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(328, 302);
             this.panel3.TabIndex = 1;
+            // 
+            // btnGenerate
+            // 
+            this.btnGenerate.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnGenerate.Location = new System.Drawing.Point(12, 6);
+            this.btnGenerate.Name = "btnGenerate";
+            this.btnGenerate.Size = new System.Drawing.Size(302, 83);
+            this.btnGenerate.TabIndex = 5;
+            this.btnGenerate.Text = "生成";
+            this.btnGenerate.UseVisualStyleBackColor = true;
+            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
             // btnRandomFilePath
             // 
@@ -2356,17 +2357,6 @@
             this.btnDeleteConfig.UseVisualStyleBackColor = true;
             this.btnDeleteConfig.Click += new System.EventHandler(this.btnDeleteConfig_Click);
             // 
-            // btnGenerate
-            // 
-            this.btnGenerate.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnGenerate.Location = new System.Drawing.Point(18, 12);
-            this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(296, 73);
-            this.btnGenerate.TabIndex = 0;
-            this.btnGenerate.Text = "生成";
-            this.btnGenerate.UseVisualStyleBackColor = true;
-            this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -2442,7 +2432,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Nai3自动生图脚本v2.1.6";
+            this.Text = "Nai3自动生图脚本v2.1.7";
             this.TransparencyKey = System.Drawing.Color.Fuchsia;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -2716,7 +2706,6 @@
         public System.Windows.Forms.Button btnAddOrEditConfig;
         public System.Windows.Forms.Button btnOpenConfigFolder;
         public System.Windows.Forms.Button btnDeleteConfig;
-        public System.Windows.Forms.Button btnGenerate;
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.NumericUpDown numGenerateMaxNum;
         public System.Windows.Forms.NumericUpDown numKeepParams;
@@ -2732,6 +2721,7 @@
         private System.Windows.Forms.Label label34;
         public System.Windows.Forms.CheckBox chkDecrisp;
         public System.Windows.Forms.CheckBox chkVariety;
+        public System.Windows.Forms.Button btnGenerate;
     }
 }
 
