@@ -47,9 +47,10 @@ namespace AutoNai3Tools.utils {
         public static List<TagBase> tagList = new List<TagBase>();
         public static string prevPrompt = "";
 
-        public static string GetPrompt(string prompt, Form1 form) {
+        public static Dictionary<string, string> GetPrompt(string prompt, Form1 form) {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            string[] strTagList = prompt.Split(',');
             if (prompt != prevPrompt) {
-                string[] strTagList = prompt.Split(',');
                 tagList.Clear();
                 foreach (var item in strTagList) {
                     tagList.Add(TagTools.GetTagExample(item, form));
@@ -58,10 +59,29 @@ namespace AutoNai3Tools.utils {
             }
 
             List<string> retTagList = new List<string>();
-            foreach (var item in tagList) {
-                retTagList.Add(item.ToString());
+            for (int i = 0; i < tagList.Count; i++) {
+                result.Add(strTagList[i], tagList[i].ToString());
             }
-            return string.Join(",", retTagList);
+            //return string.Join(",", retTagList);
+            return result;
+        }
+
+        public static string GetDataPrompt(Dictionary<string, string> data) {
+            List<string> result = new List<string>();
+            foreach (var item in data) {
+                result.Add(item.Value);
+            }
+            return string.Join(",", result);
+        }
+
+        public static string GetNoArtistPrompt(Dictionary<string, string> data) {
+            List<string> result = new List<string>();
+            foreach (var item in data) {
+                if (item.Key.Contains("<固定画师") || item.Key.Contains("<随机画师"))
+                    continue;
+                result.Add(item.Value);
+            }
+            return string.Join(",", result).Replace("year 2023", "").Replace("years 2023", "").Replace("year_2023", "").Replace("years_2023", "");
         }
     }
 }

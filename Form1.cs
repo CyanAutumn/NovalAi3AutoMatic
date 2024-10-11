@@ -182,6 +182,7 @@ namespace AutoNai3Tools {
             return sampler[ret_idx];
         }
 
+        string prevNoArtistPrompt = "";
         private Nai3GenerateImageBody GetNai3Body(int runNum) {
             Nai3Parmeters parmeters = new Nai3Parmeters();
             int[] resolution = GetResolution(runNum);
@@ -220,7 +221,9 @@ namespace AutoNai3Tools {
                 var rs = row.Cells["Column3"].Value;
                 parmeters.reference_strength_multiple.Add(float.Parse(rs.ToString()));
             }
-            Nai3GenerateImageBody nai3Body = new Nai3GenerateImageBody(input: Prompt.GetPrompt(txtPrompt.Text, this), parameters: parmeters);
+            var prompt = Prompt.GetPrompt(txtPrompt.Text, this);
+            prevNoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
+            Nai3GenerateImageBody nai3Body = new Nai3GenerateImageBody(input: Prompt.GetDataPrompt(prompt), parameters: parmeters);
             if (img2ImgCurrentPath != null)
                 nai3Body.action = "img2img";
             return nai3Body;
@@ -244,8 +247,10 @@ namespace AutoNai3Tools {
                         continue;
                     }
                     PrintLog("开始发送生图请求");
-                    Bitmap img = novalAi.SendGenerateRequests(txtToken.Text, tempNai3Body, Prompt.PrevArtistFixed, Prompt.PrevArtistRandom, this);
-                    picView.Image = img;
+                    Bitmap img = novalAi.SendGenerateRequests(txtToken.Text, tempNai3Body, prevNoArtistPrompt, this);
+                    if (!chkClosePicPreview.Checked) {
+                        picView.Image = img;
+                    }
                     Random random = new Random();
                     if (timer_status == false) {
                         timer.Dispose();
@@ -516,7 +521,7 @@ namespace AutoNai3Tools {
         }
 
         private void btnTutorial_Click(object sender, EventArgs e) {
-            System.Diagnostics.Process.Start("https://www.bilibili.com/read/cv37165511/");
+            System.Diagnostics.Process.Start("https://cyanautumn.github.io/NovalAi3AutoMaticDoc/");
         }
         #endregion
 

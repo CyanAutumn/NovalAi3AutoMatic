@@ -41,7 +41,7 @@ namespace AutoNai3Tools.utils {
         public float scale { get; set; } = 5;
         public string sampler { get; set; } = "k_euler";
         public int steps { get; set; } = 28;
-        public int extra_noise_seed { get; set; } =0;
+        public int extra_noise_seed { get; set; } = 0;
         public int n_samples { get; set; } = 1;
         public int ucPreset { get; set; } = 0;
         public bool qualityToggle { get; set; } = true;
@@ -56,8 +56,8 @@ namespace AutoNai3Tools.utils {
         public string noise_schedule { get; set; } = "native";
         public bool legacy_v3_extend { get; set; } = false;
         public string image { get; set; } = null;
-        public float?strength { get; set; } = null;
-        public float?noise { get; set; } = null;
+        public float? strength { get; set; } = null;
+        public float? noise { get; set; } = null;
         public int seed { get; set; } = 0;
         public int? skip_cfg_above_sigma { get; set; }
         public string negative_prompt { get; set; } = null;
@@ -194,7 +194,7 @@ namespace AutoNai3Tools.utils {
             return client;
         }
 
-        private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string artistFixed, string artistRandom) {
+        private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string noArtistPrompt) {
             if (!response.IsSuccessful) {
                 form.PrintLog($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
                 return null;
@@ -216,18 +216,12 @@ namespace AutoNai3Tools.utils {
                                     form.picView.Image.Dispose();
                                 }
                                 Bitmap bitmap = new Bitmap(entryMemoryStream);
+                                if (form.chkSavePromptToTxt.Checked)
+                                    if (form.chkSavePromptToTxtNoArtist.Checked)
+                                        File.WriteAllText(entryFileName + ".txt", noArtistPrompt);
+                                    else
+                                        File.WriteAllText(entryFileName + ".txt", prompt);
                                 return bitmap;
-                                //form.picView.Image = bitmap;
-                                //if (form.chkSavePromptToTxt.Checked) {
-                                //    if (form.chkSavePromptToTxtNoArtist.Checked) {
-                                //        string pattern = artistFixed + @"\s*,";
-                                //        var t_prompt = Regex.Replace(prompt, pattern, "");
-                                //        pattern = artistRandom + @"\s*,";
-                                //        t_prompt = Regex.Replace(t_prompt, pattern, "");
-                                //        t_prompt = Regex.Replace(t_prompt, @"year 2023\s*,", "");
-                                //    }
-                                //    File.WriteAllText(entryFileName + ".txt", prompt);
-                                //}
                             }
                         }
                     }
@@ -245,7 +239,7 @@ namespace AutoNai3Tools.utils {
                 task.Wait();
                 RestResponse response = task.Result;
                 Thread.Sleep(1000);
-                Bitmap pic = UnZipAndSaveImage(response, form, null, null, null);
+                Bitmap pic = UnZipAndSaveImage(response, form, null, null);
                 form.PrintLog($"生成成功");
                 return pic;
             }
@@ -255,7 +249,7 @@ namespace AutoNai3Tools.utils {
             }
         }
 
-        public Bitmap SendGenerateRequests(string token, Nai3GenerateImageBody body, string artistFixed, string artistRandom, Form1 form) {
+        public Bitmap SendGenerateRequests(string token, Nai3GenerateImageBody body, string noArtistPrompt, Form1 form) {
             try {
                 var request = GetRequest(token, "/ai/generate-image");
                 request.AddStringBody(body.ToJson(), DataFormat.Json);
@@ -264,7 +258,7 @@ namespace AutoNai3Tools.utils {
                 task.Wait();
                 RestResponse response = task.Result;
                 Thread.Sleep(1000);
-                Bitmap pic = UnZipAndSaveImage(response, form, body.input, artistFixed, artistRandom);
+                Bitmap pic = UnZipAndSaveImage(response, form, body.input, noArtistPrompt);
                 form.PrintLog("生成成功");
                 return pic;
             }
