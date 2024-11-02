@@ -196,7 +196,7 @@ namespace AutoNai3Tools.utils {
 
         private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string noArtistPrompt) {
             if (!response.IsSuccessful) {
-                form.PrintLog($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
+                form.log.Warn($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
                 return null;
             }
 
@@ -240,11 +240,11 @@ namespace AutoNai3Tools.utils {
                 RestResponse response = task.Result;
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, form, null, null);
-                form.PrintLog($"生成成功");
+                form.log.Info($"生成成功");
                 return pic;
             }
             catch (Exception ex) {
-                form.PrintLog($"生成失败，错误信息{ex.ToString()}");
+                form.log.Warn($"生成失败，错误信息{ex.ToString()}");
                 return null;
             }
         }
@@ -259,11 +259,11 @@ namespace AutoNai3Tools.utils {
                 RestResponse response = task.Result;
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, form, body.input, noArtistPrompt);
-                form.PrintLog("生成成功");
+                form.log.Info("生成成功");
                 return pic;
             }
             catch (Exception ex) {
-                form.PrintLog($"生成失败，错误信息{ex.ToString()}");
+                form.log.Warn($"生成失败，错误信息{ex.ToString()}");
                 return null;
             }
         }

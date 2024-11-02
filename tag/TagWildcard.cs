@@ -40,13 +40,13 @@ namespace AutoNai3Tools.tag {
                 Random random = new Random();
                 int tIndex = random.Next(lines.Length);
                 string words = lines[tIndex];
-                form.PrintLog($"<{this.text}> {tIndex}:{words}");
+                form.log.Info($"<{this.text}> {tIndex}:{words}");
                 return words;
             }
             else {
                 string words = lines[index];
                 index = (index + 1) % lines.Length;
-                form.PrintLog($"<{this.text}> {index}:{words}");
+                form.log.Info($"<{this.text}> {index}:{words}");
                 return words;
             }
         }

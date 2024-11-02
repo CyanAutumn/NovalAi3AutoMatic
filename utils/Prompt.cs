@@ -8,6 +8,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
+using Newtonsoft.Json.Linq;
 
 namespace AutoNai3Tools.utils {
     internal class Prompt {
@@ -60,9 +61,11 @@ namespace AutoNai3Tools.utils {
 
             List<string> retTagList = new List<string>();
             for (int i = 0; i < tagList.Count; i++) {
+                if (result.ContainsKey(strTagList[i])) {
+                    strTagList[i] += "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                }
                 result.Add(strTagList[i], tagList[i].ToString());
             }
-            //return string.Join(",", retTagList);
             return result;
         }
 

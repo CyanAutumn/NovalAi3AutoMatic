@@ -8,11 +8,6 @@ using System.Threading.Tasks;
 namespace AutoNai3Tools.tag {
     internal class TagTools {
         public static TagBase GetTagExample(string tag, Form1 form) {
-            //string[] replaceOldStr = { "{", "}", "[", "]" };
-            //string tTag = tag.Trim();
-            //for (int i = 0; i < replaceOldStr.Length; i++)
-            //    tTag = tTag.Replace(replaceOldStr[i], "");
-
             string pattern = "<.*?>";
             Match match = Regex.Match(tag, pattern);
             if (match.Success) {

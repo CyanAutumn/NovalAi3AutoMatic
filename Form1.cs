@@ -1,23 +1,17 @@
 ﻿using AutoNai3Tools.utils;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Timers;
-using System.Web;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace AutoNai3Tools {
     public partial class Form1 : Form {
+        public Logger log;
         public int runNum;
         public Form1() {
             InitializeComponent();
@@ -30,6 +24,7 @@ namespace AutoNai3Tools {
             cmbEmotionEmotion.SelectedIndex = 0;
             cmbEmotionDefry.SelectedIndex = 0;
             cmbNoiseSchedule.SelectedIndex = 0;
+            log = new Logger(this);
         }
 
         #region 固定画师，随机画师，随机提示词快速插入
@@ -101,47 +96,15 @@ namespace AutoNai3Tools {
         private string GetOutputPath() {
             string OutPutPath = txtOutputPath.Text;
             if (!Directory.Exists(OutPutPath)) {
-                PrintLog("未找到输出路径" + OutPutPath + "，进行创建");
+                log.Warn("未找到输出路径" + OutPutPath + "，进行创建");
                 try {
                     Directory.CreateDirectory(OutPutPath);
                 }
                 catch (Exception e) {
-                    PrintLog(e.ToString());
+                    log.Error(e.ToString());
                 }
             }
             return txtOutputPath.Text;
-        }
-
-        public void PrintPicInfo(string msg) {
-            txtPicInfo.Text = msg;
-        }
-
-        public void PrintLog(string msg) {
-            DateTime currentTime = DateTime.Now;
-            if (txtLog.InvokeRequired) {
-                Action<string> actionDelegate = (x) => {
-                    this.txtLog.Text += "[" + currentTime + "]" + msg + "\r\n";
-                    this.txtLog.SelectionStart = this.txtLog.Text.Length;
-                    this.txtLog.ScrollToCaret();
-                };
-                this.txtLog.Invoke(actionDelegate, msg);
-            }
-            else {
-                this.txtLog.Text += "[" + currentTime + "]" + msg + "\r\n";
-                this.txtLog.SelectionStart = this.txtLog.Text.Length;
-                this.txtLog.ScrollToCaret();
-            }
-            if (txtPicInfo.InvokeRequired) {
-                Action<string> actionDelegate = (x) => {
-                    this.txtPicInfo.Text = "[" + currentTime + "]" + msg + "\r\n";
-                    this.txtPicInfo.ScrollToCaret();
-                };
-                this.txtPicInfo.Invoke(actionDelegate, msg);
-            }
-            else {
-                this.txtPicInfo.Text = "[" + currentTime + "]" + msg + "\r\n";
-                this.txtPicInfo.ScrollToCaret();
-            }
         }
 
         private int[] GetResolution(int runNum) {
@@ -169,7 +132,7 @@ namespace AutoNai3Tools {
                     lstResolutionList.SelectedIndex = selectIndex;
                 }
             }
-            PrintLog("分辨率：" + lstResolutionList.SelectedItem.ToString());
+            log.Info("分辨率：" + lstResolutionList.SelectedItem.ToString());
             string[] strResolution = lstResolutionList.SelectedItem.ToString().Split('x');
             int[] resultResolution = new int[2] { int.Parse(strResolution[0]), int.Parse(strResolution[1]) };
             return resultResolution;
@@ -178,7 +141,7 @@ namespace AutoNai3Tools {
         private string GetSampler() {
             int ret_idx = cmbSampler.SelectedIndex;
             string[] sampler = new string[] { "k_euler", "k_euler_ancestral", "k_dpmpp_2s_ancestral", "k_dpmpp_2m_sde", "k_dpmpp_2m", "k_dpmpp_sde", "ddim_v3" };
-            PrintLog("采样：" + sampler[ret_idx]);
+            log.Info("采样：" + sampler[ret_idx]);
             return sampler[ret_idx];
         }
 
@@ -212,7 +175,7 @@ namespace AutoNai3Tools {
                 var picPath = row.Cells["Column1"].Value;
                 string base64img = Tools.ConvertImageToBase64(picPath.ToString());
                 if (base64img == null) {
-                    PrintLog("图片转换失败，路径为" + picPath);
+                    log.Error("图片转换失败，路径为" + picPath);
                     continue;
                 }
                 parmeters.reference_image_multiple.Add(base64img);
@@ -242,11 +205,11 @@ namespace AutoNai3Tools {
                         tempNai3Body = GetNai3Body(i);
                     }
                     catch (Exception ex) {
-                        PrintLog("参数错误：" + ex.ToString());
-                        PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
+                        log.Error("参数错误：" + ex.ToString());
+                        log.Info("-----------------------------------------------------------------------------------------------------------------------------------------");
                         continue;
                     }
-                    PrintLog("开始发送生图请求");
+                    log.Info("开始发送生图请求");
                     Bitmap img = novalAi.SendGenerateRequests(txtToken.Text, tempNai3Body, prevNoArtistPrompt, this);
                     if (!chkClosePicPreview.Checked) {
                         picView.Image = img;
@@ -254,33 +217,33 @@ namespace AutoNai3Tools {
                     Random random = new Random();
                     if (timer_status == false) {
                         timer.Dispose();
-                        PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
+                        log.Info("-----------------------------------------------------------------------------------------------------------------------------------------");
                         break;
                     }
                     if (i == max_num - 1) {
-                        PrintLog("运行完毕，共运行" + (i + 1).ToString() + "次");
+                        log.Info("运行完毕，共运行" + (i + 1).ToString() + "次");
                         timer_status = false;
                         timer.Dispose();
                     }
                     else if (i % 10 == 0 && i != 0) {
                         if (nudSleepTimeLongHigh.Value < nudSleepTimeLongLow.Value) {
-                            PrintLog("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                            log.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
                             nudSleepTimeLongHigh.Value = nudSleepTimeLongLow.Value;
                         }
                         int delay = random.Next(((int)nudSleepTimeLongLow.Value) * 1000, ((int)nudSleepTimeLongHigh.Value) * 1000);
-                        PrintLog("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay + "毫秒");
+                        log.Info("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay + "毫秒");
                         Thread.Sleep(delay);
                     }
                     else {
                         if (nudSleepTimeShortHigh.Value < nudSleepTimeShortLow.Value) {
-                            PrintLog("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                            log.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
                             nudSleepTimeShortHigh.Value = nudSleepTimeShortLow.Value;
                         }
                         int delay = random.Next(((int)nudSleepTimeShortLow.Value) * 1000, ((int)nudSleepTimeShortHigh.Value) * 1000);
-                        PrintLog("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay + "毫秒");
+                        log.Info("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay + "毫秒");
                         Thread.Sleep(delay);
                     }
-                    PrintLog("-----------------------------------------------------------------------------------------------------------------------------------------");
+                    log.Info("-----------------------------------------------------------------------------------------------------------------------------------------");
                 }
                 catch {
                 }
@@ -317,7 +280,7 @@ namespace AutoNai3Tools {
 
         private void btnDeleteResolution_Click(object sender, EventArgs e) {
             if (lstResolutionList.Items.Count == 1) {
-                PrintLog("至少需要保留一个分辨率");
+                log.Error("至少需要保留一个分辨率");
                 return;
             }
             if (lstResolutionList.SelectedItem != null)
@@ -389,13 +352,13 @@ namespace AutoNai3Tools {
                 cmbConfigName.Text = "上一次关闭时的自动保存";
             }
             catch {
-                PrintLog("未找到上一次关闭时的保存记录，将以初始状态开始");
+                log.Warn("未找到上一次关闭时的保存记录，以初始状态开始");
             }
             try {
                 SystemConfig.ReadToml(this);
             }
             catch {
-                PrintLog("未找到上一次关闭时的保存记录，将以初始状态开始");
+                log.Warn("未找到全局配置，以初始状态开始");
             }
             InitTagSnippetDGV();
         }
@@ -448,7 +411,7 @@ namespace AutoNai3Tools {
                 vibeCurrentPicPath = null;
             }
             else {
-                PrintLog("请点击左侧空白处选择一张图片后添加");
+                log.Warn("请点击左侧空白处选择一张图片后添加");
             }
         }
 
@@ -458,7 +421,7 @@ namespace AutoNai3Tools {
                 dgvVibe.Rows.RemoveAt(rowIndex);
             }
             else {
-                PrintLog("请先选择要删除的行");
+                log.Warn("请先选择要删除的行");
             }
         }
         #endregion
@@ -499,7 +462,7 @@ namespace AutoNai3Tools {
                 selectedRow.Cells["Column3"].Value = numVibeRS.Value;
             }
             else {
-                PrintLog("请先选择要修改的行");
+                log.Warn("请先选择要修改的行");
             }
         }
 
@@ -523,6 +486,10 @@ namespace AutoNai3Tools {
         private void btnTutorial_Click(object sender, EventArgs e) {
             System.Diagnostics.Process.Start("https://cyanautumn.github.io/NovalAi3AutoMaticDoc/");
         }
+
+        private void btnDocToolsBook_Click(object sender, EventArgs e) {
+            System.Diagnostics.Process.Start("https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9");
+        }
         #endregion
 
         #region wildcard
@@ -545,13 +512,13 @@ namespace AutoNai3Tools {
                 foreach (DataGridViewRow row in dgvTagSnippet.Rows) {
                     if (row.Cells[0].Value != null) {
                         if (row.Cells[0].Value.ToString() == (txtTagSnippetName.Text += (txtTagSnippetName.Text.EndsWith(".txt") ? "" : ".txt"))) {
-                            PrintLog("片段名已存在，无法添加");
+                            log.Warn("片段名已存在，无法添加");
                             return;
                         }
                     }
                 }
                 if (txtTagSnippetName.Text == "") {
-                    PrintLog("片段名不能为空");
+                    log.Warn("片段名不能为空");
                     return;
                 }
 
@@ -564,16 +531,16 @@ namespace AutoNai3Tools {
                 File.WriteAllText(filePath, fileContent);
                 dgvTagSnippet.Rows.Add(txtTagSnippetName.Text, txtTagSnippetValue.Text);
 
-                PrintLog("增加成功！");
+                log.Info("增加成功！");
             }
             else {
-                PrintLog("请输入一个片段名");
+                log.Warn("请输入一个片段名");
             }
         }
 
         private void btnTagSnippetEdit_Click(object sender, EventArgs e) {
             if (dgvTagSnippet.CurrentRow.Index == 0) {
-                PrintLog("请先选中要编辑的行");
+                log.Warn("请先选中要编辑的行");
                 return;
             }
             foreach (DataGridViewRow row in dgvTagSnippet.Rows) {
@@ -584,11 +551,11 @@ namespace AutoNai3Tools {
                     string filePath = Path.Combine(folderPath, fileName);
                     File.WriteAllText(filePath, fileContent);
                     dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[1].Value = fileContent;
-                    PrintLog("修改成功");
+                    log.Info("修改成功");
                     return;
                 }
             }
-            PrintLog("片段名不存在");
+            log.Warn("片段名不存在");
         }
 
         private void btnTagSnippetDelete_Click(object sender, EventArgs e) {
@@ -601,7 +568,7 @@ namespace AutoNai3Tools {
                 dgvTagSnippet.Rows.RemoveAt(rowIndex);
             }
             else {
-                PrintLog("请先选择要删除的行");
+                log.Warn("请先选择要删除的行");
             }
         }
 
