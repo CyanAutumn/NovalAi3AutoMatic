@@ -216,6 +216,9 @@
             this.btnGetMorePrompt = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.nudSeed = new System.Windows.Forms.NumericUpDown();
+            this.cbkSeedFixed = new System.Windows.Forms.CheckBox();
             this.dreamForm1.SuspendLayout();
             this.panel16.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -291,6 +294,7 @@
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).BeginInit();
             this.SuspendLayout();
             // 
             // dreamForm1
@@ -616,6 +620,9 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.cbkSeedFixed);
+            this.panel6.Controls.Add(this.nudSeed);
+            this.panel6.Controls.Add(this.label38);
             this.panel6.Controls.Add(this.chkDecrisp);
             this.panel6.Controls.Add(this.chkVariety);
             this.panel6.Controls.Add(this.label31);
@@ -639,7 +646,7 @@
             // chkDecrisp
             // 
             this.chkDecrisp.AutoSize = true;
-            this.chkDecrisp.Location = new System.Drawing.Point(240, 71);
+            this.chkDecrisp.Location = new System.Drawing.Point(243, 71);
             this.chkDecrisp.Name = "chkDecrisp";
             this.chkDecrisp.Size = new System.Drawing.Size(71, 21);
             this.chkDecrisp.TabIndex = 60;
@@ -649,7 +656,7 @@
             // chkVariety
             // 
             this.chkVariety.AutoSize = true;
-            this.chkVariety.Location = new System.Drawing.Point(168, 71);
+            this.chkVariety.Location = new System.Drawing.Point(160, 71);
             this.chkVariety.Name = "chkVariety";
             this.chkVariety.Size = new System.Drawing.Size(76, 21);
             this.chkVariety.TabIndex = 59;
@@ -716,7 +723,7 @@
             // 
             // numSteps
             // 
-            this.numSteps.Location = new System.Drawing.Point(222, 8);
+            this.numSteps.Location = new System.Drawing.Point(214, 8);
             this.numSteps.Maximum = new decimal(new int[] {
             28,
             0,
@@ -728,7 +735,7 @@
             0,
             0});
             this.numSteps.Name = "numSteps";
-            this.numSteps.Size = new System.Drawing.Size(86, 23);
+            this.numSteps.Size = new System.Drawing.Size(97, 23);
             this.numSteps.TabIndex = 40;
             this.numSteps.Value = new decimal(new int[] {
             28,
@@ -740,7 +747,7 @@
             // 
             this.chkDyn.AutoSize = true;
             this.chkDyn.Enabled = false;
-            this.chkDyn.Location = new System.Drawing.Point(240, 41);
+            this.chkDyn.Location = new System.Drawing.Point(243, 41);
             this.chkDyn.Name = "chkDyn";
             this.chkDyn.Size = new System.Drawing.Size(53, 21);
             this.chkDyn.TabIndex = 46;
@@ -750,7 +757,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(165, 10);
+            this.label9.Location = new System.Drawing.Point(157, 10);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 17);
             this.label9.TabIndex = 39;
@@ -759,7 +766,7 @@
             // chkSmea
             // 
             this.chkSmea.AutoSize = true;
-            this.chkSmea.Location = new System.Drawing.Point(168, 41);
+            this.chkSmea.Location = new System.Drawing.Point(160, 41);
             this.chkSmea.Name = "chkSmea";
             this.chkSmea.Size = new System.Drawing.Size(61, 21);
             this.chkSmea.TabIndex = 45;
@@ -2556,6 +2563,42 @@
             this.label16.TabIndex = 0;
             this.label16.Text = resources.GetString("label16.Text");
             // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(157, 100);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(44, 17);
+            this.label38.TabIndex = 61;
+            this.label38.Text = "种子：";
+            // 
+            // nudSeed
+            // 
+            this.nudSeed.Location = new System.Drawing.Point(183, 98);
+            this.nudSeed.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.nudSeed.Name = "nudSeed";
+            this.nudSeed.Size = new System.Drawing.Size(83, 23);
+            this.nudSeed.TabIndex = 62;
+            this.nudSeed.Value = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            // 
+            // cbkSeedFixed
+            // 
+            this.cbkSeedFixed.AutoSize = true;
+            this.cbkSeedFixed.Location = new System.Drawing.Point(272, 99);
+            this.cbkSeedFixed.Name = "cbkSeedFixed";
+            this.cbkSeedFixed.Size = new System.Drawing.Size(51, 21);
+            this.cbkSeedFixed.TabIndex = 63;
+            this.cbkSeedFixed.Text = "固定";
+            this.cbkSeedFixed.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2672,6 +2715,7 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2865,6 +2909,9 @@
         private ReaLTaiizor.Controls.ForeverMinimize foreverMinimize1;
         private ReaLTaiizor.Controls.ForeverMaximize foreverMaximize1;
         public System.Windows.Forms.Button btnDocToolsBook;
+        public System.Windows.Forms.NumericUpDown nudSeed;
+        private System.Windows.Forms.Label label38;
+        public System.Windows.Forms.CheckBox cbkSeedFixed;
     }
 }
 

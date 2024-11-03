@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace AutoNai3Tools.utils {
         private void UpdateTextBox(TextBox textBox, string message, bool append) {
             if (textBox.InvokeRequired) {
                 textBox.Invoke(new Action(() => UpdateTextBox(textBox, message, append)));
-            }
+             }
             else {
                 if (append) {
                     textBox.AppendText(message);
@@ -48,8 +49,10 @@ namespace AutoNai3Tools.utils {
         public void Fatal(string message) => LogMessage(_logger.Fatal, "[Fatal]", message);
 
         private void LogMessage(Action<string> logAction, string prefix, string message) {
+            // 获取调用者的类名
+            string className = new StackTrace().GetFrame(1).GetMethod().DeclaringType.Name;
             logAction(message);
-            FormLog($"{prefix}: {message}");
+            FormLog($"{prefix} [{className}]: {message}");
         }
 
         public void PicInfo(string message) {

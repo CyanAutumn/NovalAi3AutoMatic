@@ -131,11 +131,6 @@ namespace AutoNai3Tools.utils {
             if (reference_strength_multiple != null)
                 this.reference_information_extracted_multiple.AddRange(reference_strength_multiple);
         }
-
-        public void random_seed() {
-            Random random = new Random();
-            this.seed = random.Next(0, 1000000000);
-        }
     }
 
     class Nai3DirectorToolsBody : Nai3Body {

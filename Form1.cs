@@ -145,6 +145,17 @@ namespace AutoNai3Tools {
             return sampler[ret_idx];
         }
 
+        private int GetSeed() {
+            int result = 0;
+            if (!cbkSeedFixed.Checked) {
+                Random random = new Random();
+                nudSeed.Value = random.Next(0, 1000000000);
+            }
+            result = ((int)nudSeed.Value);
+            log.Info($"种子：{result}");
+            return result;
+        }
+
         string prevNoArtistPrompt = "";
         private Nai3GenerateImageBody GetNai3Body(int runNum) {
             Nai3Parmeters parmeters = new Nai3Parmeters();
@@ -159,6 +170,7 @@ namespace AutoNai3Tools {
             parmeters.sm = chkSmea.Checked;
             parmeters.sm_dyn = chkDyn.Checked;
             parmeters.negative_prompt = txtNegativePrompt.Text;
+            parmeters.seed = GetSeed();
             if (chkVariety.Checked)
                 parmeters.skip_cfg_above_sigma = 19;
             parmeters.dynamic_thresholding = chkDecrisp.Checked;
