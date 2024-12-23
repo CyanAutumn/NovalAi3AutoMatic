@@ -25,6 +25,7 @@ namespace AutoNai3Tools {
             cmbEmotionDefry.SelectedIndex = 0;
             cmbNoiseSchedule.SelectedIndex = 0;
             log = new Logger(this);
+            cmbModel.SelectedIndex = 1;
         }
 
         #region 固定画师，随机画师，随机提示词快速插入
@@ -198,7 +199,15 @@ namespace AutoNai3Tools {
             }
             var prompt = Prompt.GetPrompt(txtPrompt.Text, this);
             prevNoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
-            Nai3GenerateImageBody nai3Body = new Nai3GenerateImageBody(input: Prompt.GetDataPrompt(prompt), parameters: parmeters);
+            var tPrompt = Prompt.GetDataPrompt(prompt);
+            //nai4
+            if (cmbModel.Text == "nai-diffusion-4-curated-preview") {
+                parmeters.v4_negative_prompt = new V4Prompt(new Caption(parmeters.negative_prompt));
+                parmeters.v4_prompt = new V4Prompt(new Caption(tPrompt));
+                parmeters.v4_prompt.use_coords = false;
+                parmeters.v4_prompt.use_order = false;
+            }
+            Nai3GenerateImageBody nai3Body = new Nai3GenerateImageBody(input: tPrompt, parameters: parmeters,model:cmbModel.Text);
             if (img2ImgCurrentPath != null)
                 nai3Body.action = "img2img";
             return nai3Body;
@@ -302,7 +311,12 @@ namespace AutoNai3Tools {
         }
 
         private void picView_Click(object sender, EventArgs e) {
-            System.Diagnostics.Process.Start(txtOutputPath.Text);
+            try {
+                System.Diagnostics.Process.Start(txtOutputPath.Text);
+            }
+            catch {
+                log.Warn("无法打开输出文件夹");
+            }
         }
 
         private void chkSmea_CheckedChanged(object sender, EventArgs e) {
@@ -506,16 +520,21 @@ namespace AutoNai3Tools {
 
         #region wildcard
         private void InitTagSnippetDGV() {
-            string folderPath = txtWildcardFolderPath.Text;
-            string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
+            try {
+                string folderPath = txtWildcardFolderPath.Text;
+                string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 
-            dgvTagSnippet.Rows.Clear();
-            foreach (string file in txtFiles) {
-                string fileName = Path.GetFileName(file);
-                string fileContent = File.ReadAllText(file);
+                dgvTagSnippet.Rows.Clear();
+                foreach (string file in txtFiles) {
+                    string fileName = Path.GetFileName(file);
+                    string fileContent = File.ReadAllText(file);
 
-                // 将文件名和内容添加到DataGridView中的新行
-                dgvTagSnippet.Rows.Add(fileName, fileContent);
+                    // 将文件名和内容添加到DataGridView中的新行
+                    dgvTagSnippet.Rows.Add(fileName, fileContent);
+                }
+            }
+            catch {
+                log.Warn("wildcard文件夹下未找到任何相关文件");
             }
         }
 
@@ -540,6 +559,7 @@ namespace AutoNai3Tools {
                 string fileContent = txtTagSnippetValue.Text;
                 string folderPath = txtWildcardFolderPath.Text;
                 string filePath = Path.Combine(folderPath, fileName);
+                Tools.IsExist(folderPath,true);
                 File.WriteAllText(filePath, fileContent);
                 dgvTagSnippet.Rows.Add(txtTagSnippetName.Text, txtTagSnippetValue.Text);
 

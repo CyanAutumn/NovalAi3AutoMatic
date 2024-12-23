@@ -3,15 +3,27 @@
   "WorkspaceRootPath": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\tag\\tagwildcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:tag\\tagwildcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\artist\\artisttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:artist\\artisttools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\artist\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:artist\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -25,67 +37,81 @@
           "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "NovalAi.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\NovalAi.cs",
-              "RelativeDocumentMoniker": "utils\\NovalAi.cs",
-              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\NovalAi.cs",
-              "RelativeToolTip": "utils\\NovalAi.cs",
-              "ViewState": "AQIAAHUAAAAAAAAAAAAmwIQAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T03:11:19.87Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAJAAAAAAAAAAAAAkwKoAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T02:30:03.038Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "e5ce4ff0-d19f-4dd2-a3f0-e6b079579f16",
-        "Display": 1,
-        "X": -31,
-        "Y": 0,
-        "Width": 1714,
-        "Height": 818,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs [\u8BBE\u8BA1]",
               "RelativeToolTip": "Form1.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T07:12:12.584Z",
+              "WhenOpened": "2024-12-23T11:24:16.183Z",
               "EditorCaption": " [\u8BBE\u8BA1]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AQIAALAAAAAAAAAAAAAAwNQAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-18T14:58:43.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NovalAi.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\NovalAi.cs",
+              "RelativeDocumentMoniker": "utils\\NovalAi.cs",
+              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\NovalAi.cs",
+              "RelativeToolTip": "utils\\NovalAi.cs",
+              "ViewState": "AQIAADMBAAAAAAAAAAAAwEEBAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-18T13:08:19.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TagWildcard.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\tag\\TagWildcard.cs",
+              "RelativeDocumentMoniker": "tag\\TagWildcard.cs",
+              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\tag\\TagWildcard.cs",
+              "RelativeToolTip": "tag\\TagWildcard.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvwAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T05:34:55.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Artist.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\artist\\Artist.cs",
+              "RelativeDocumentMoniker": "artist\\Artist.cs",
+              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\artist\\Artist.cs",
+              "RelativeToolTip": "artist\\Artist.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvwAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T05:34:49.545Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ArtistTools.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\artist\\ArtistTools.cs",
+              "RelativeDocumentMoniker": "artist\\ArtistTools.cs",
+              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\artist\\ArtistTools.cs",
+              "RelativeToolTip": "artist\\ArtistTools.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvwAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-16T05:34:46.008Z",
+              "EditorCaption": ""
             }
           ]
         }

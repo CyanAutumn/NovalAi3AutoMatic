@@ -53,6 +53,9 @@
             this.rdoResolutionOrder = new System.Windows.Forms.RadioButton();
             this.rdoResolutionRandom = new System.Windows.Forms.RadioButton();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.cbkSeedFixed = new System.Windows.Forms.CheckBox();
+            this.nudSeed = new System.Windows.Forms.NumericUpDown();
+            this.label38 = new System.Windows.Forms.Label();
             this.chkDecrisp = new System.Windows.Forms.CheckBox();
             this.chkVariety = new System.Windows.Forms.CheckBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -112,6 +115,8 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.cmbModel = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.chkClosePicPreview = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
@@ -216,9 +221,6 @@
             this.btnGetMorePrompt = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.nudSeed = new System.Windows.Forms.NumericUpDown();
-            this.cbkSeedFixed = new System.Windows.Forms.CheckBox();
             this.dreamForm1.SuspendLayout();
             this.panel16.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -231,6 +233,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numResolutionWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numResolutionHeight)).BeginInit();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCFG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSteps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScale)).BeginInit();
@@ -294,7 +297,6 @@
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).BeginInit();
             this.SuspendLayout();
             // 
             // dreamForm1
@@ -314,7 +316,7 @@
             this.dreamForm1.Size = new System.Drawing.Size(1301, 836);
             this.dreamForm1.TabIndex = 1;
             this.dreamForm1.TabStop = false;
-            this.dreamForm1.Text = "Nai3自动roll图工具 v2.2.0";
+            this.dreamForm1.Text = "Nai3自动roll图工具 v2.2.2";
             this.dreamForm1.TitleAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dreamForm1.TitleHeight = 33;
             // 
@@ -522,7 +524,7 @@
             "1024x1024"});
             this.lstResolutionList.Location = new System.Drawing.Point(10, 46);
             this.lstResolutionList.Name = "lstResolutionList";
-            this.lstResolutionList.Size = new System.Drawing.Size(295, 172);
+            this.lstResolutionList.Size = new System.Drawing.Size(295, 151);
             this.lstResolutionList.TabIndex = 47;
             // 
             // numResolutionWidth
@@ -642,6 +644,42 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(321, 134);
             this.panel6.TabIndex = 62;
+            // 
+            // cbkSeedFixed
+            // 
+            this.cbkSeedFixed.AutoSize = true;
+            this.cbkSeedFixed.Location = new System.Drawing.Point(272, 99);
+            this.cbkSeedFixed.Name = "cbkSeedFixed";
+            this.cbkSeedFixed.Size = new System.Drawing.Size(51, 21);
+            this.cbkSeedFixed.TabIndex = 63;
+            this.cbkSeedFixed.Text = "固定";
+            this.cbkSeedFixed.UseVisualStyleBackColor = true;
+            // 
+            // nudSeed
+            // 
+            this.nudSeed.Location = new System.Drawing.Point(183, 98);
+            this.nudSeed.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.nudSeed.Name = "nudSeed";
+            this.nudSeed.Size = new System.Drawing.Size(83, 23);
+            this.nudSeed.TabIndex = 62;
+            this.nudSeed.Value = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(157, 100);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(44, 17);
+            this.label38.TabIndex = 61;
+            this.label38.Text = "种子：";
             // 
             // chkDecrisp
             // 
@@ -1357,6 +1395,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.cmbModel);
+            this.tabPage5.Controls.Add(this.label39);
             this.tabPage5.Controls.Add(this.chkClosePicPreview);
             this.tabPage5.Controls.Add(this.label37);
             this.tabPage5.Controls.Add(this.label36);
@@ -1379,6 +1419,28 @@
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "设置";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // cmbModel
+            // 
+            this.cmbModel.FormattingEnabled = true;
+            this.cmbModel.Items.AddRange(new object[] {
+            "nai-diffusion-2",
+            "nai-diffusion-3",
+            "nai-diffusion-furry-3",
+            "nai-diffusion-4-curated-preview"});
+            this.cmbModel.Location = new System.Drawing.Point(64, 294);
+            this.cmbModel.Name = "cmbModel";
+            this.cmbModel.Size = new System.Drawing.Size(248, 25);
+            this.cmbModel.TabIndex = 5;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(14, 297);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(44, 17);
+            this.label39.TabIndex = 69;
+            this.label39.Text = "模型：";
             // 
             // chkClosePicPreview
             // 
@@ -2563,42 +2625,6 @@
             this.label16.TabIndex = 0;
             this.label16.Text = resources.GetString("label16.Text");
             // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(157, 100);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(44, 17);
-            this.label38.TabIndex = 61;
-            this.label38.Text = "种子：";
-            // 
-            // nudSeed
-            // 
-            this.nudSeed.Location = new System.Drawing.Point(183, 98);
-            this.nudSeed.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            this.nudSeed.Name = "nudSeed";
-            this.nudSeed.Size = new System.Drawing.Size(83, 23);
-            this.nudSeed.TabIndex = 62;
-            this.nudSeed.Value = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            // 
-            // cbkSeedFixed
-            // 
-            this.cbkSeedFixed.AutoSize = true;
-            this.cbkSeedFixed.Location = new System.Drawing.Point(272, 99);
-            this.cbkSeedFixed.Name = "cbkSeedFixed";
-            this.cbkSeedFixed.Size = new System.Drawing.Size(51, 21);
-            this.cbkSeedFixed.TabIndex = 63;
-            this.cbkSeedFixed.Text = "固定";
-            this.cbkSeedFixed.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -2628,6 +2654,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numResolutionHeight)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCFG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSteps)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScale)).EndInit();
@@ -2715,7 +2742,6 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2912,6 +2938,8 @@
         public System.Windows.Forms.NumericUpDown nudSeed;
         private System.Windows.Forms.Label label38;
         public System.Windows.Forms.CheckBox cbkSeedFixed;
+        public System.Windows.Forms.ComboBox cmbModel;
+        public System.Windows.Forms.Label label39;
     }
 }
 
