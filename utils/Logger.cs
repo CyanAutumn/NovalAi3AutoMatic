@@ -11,24 +11,23 @@ using Microsoft.VisualBasic.Logging;
 
 namespace AutoNai3Tools.utils {
     public class Logger {
-        private readonly ILog _logger;
-        private Form1 form;
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(Logger));
+        private static Form1 _form;
 
-        public Logger(Form1 form) {
-            _logger = LogManager.GetLogger(typeof(Logger));
-            this.form = form;
+        public static void Initialize(Form1 form) {
+            form = form;
         }
 
-        public void FormLog(string msg) {
+        public static void FormLog(string msg) {
             string logMessage = $"[{DateTime.Now}] {msg}\r\n";
-            UpdateTextBox(this.form.txtLog, logMessage, append: true);
-            UpdateTextBox(this.form.txtPicInfo, logMessage, append: false);
+            UpdateTextBox(_form.txtLog, logMessage, append: true);
+            UpdateTextBox(_form.txtPicInfo, logMessage, append: false);
         }
 
-        private void UpdateTextBox(TextBox textBox, string message, bool append) {
+        private static void UpdateTextBox(TextBox textBox, string message, bool append) {
             if (textBox.InvokeRequired) {
                 textBox.Invoke(new Action(() => UpdateTextBox(textBox, message, append)));
-             }
+            }
             else {
                 if (append) {
                     textBox.AppendText(message);
@@ -42,21 +41,20 @@ namespace AutoNai3Tools.utils {
             }
         }
 
-        public void Info(string message) => LogMessage(_logger.Info, "[Info]", message);
-        public void Error(string message) => LogMessage(_logger.Error, "[Error]", message);
-        public void Debug(string message) => LogMessage(_logger.Debug, "[Debug]", message);
-        public void Warn(string message) => LogMessage(_logger.Warn, "[Warn]", message);
-        public void Fatal(string message) => LogMessage(_logger.Fatal, "[Fatal]", message);
+        public static void Info(string message) => LogMessage(_logger.Info, "[Info]", message);
+        public static void Error(string message) => LogMessage(_logger.Error, "[Error]", message);
+        public static void Debug(string message) => LogMessage(_logger.Debug, "[Debug]", message);
+        public static void Warn(string message) => LogMessage(_logger.Warn, "[Warn]", message);
+        public static void Fatal(string message) => LogMessage(_logger.Fatal, "[Fatal]", message);
 
-        private void LogMessage(Action<string> logAction, string prefix, string message) {
-            // 获取调用者的类名
+        private static void LogMessage(Action<string> logAction, string prefix, string message) {
             string className = new StackTrace().GetFrame(1).GetMethod().DeclaringType.Name;
             logAction(message);
             FormLog($"{prefix} [{className}]: {message}");
         }
 
-        public void PicInfo(string message) {
-            this.form.txtPicInfo.Text = message;
+        public static void PicInfo(string message) {
+            _form.txtPicInfo.Text = message;
         }
     }
 }

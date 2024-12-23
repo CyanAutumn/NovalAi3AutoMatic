@@ -9,11 +9,14 @@ using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
 
-namespace AutoNai3Tools {
-    public partial class Form1 : Form {
-        public Logger log;
+namespace AutoNai3Tools
+{
+    public partial class Form1 : Form
+    {
         public int runNum;
-        public Form1() {
+
+        public Form1()
+        {
             InitializeComponent();
             lstResolutionList.SelectedIndex = 0;
             cmbSampler.SelectedIndex = 0;
@@ -24,12 +27,14 @@ namespace AutoNai3Tools {
             cmbEmotionEmotion.SelectedIndex = 0;
             cmbEmotionDefry.SelectedIndex = 0;
             cmbNoiseSchedule.SelectedIndex = 0;
-            log = new Logger(this);
+            Logger.Initialize(this);
             cmbModel.SelectedIndex = 1;
         }
 
         #region 固定画师，随机画师，随机提示词快速插入
-        private void InitGrpEventArgs() {
+
+        private void InitGrpEventArgs()
+        {
             grpArtistFixed.MouseHover += EventGRBMouseHover;
             grpArtistFixed.MouseLeave += EventGRBMouseLeave;
             grpArtistFixed.MouseClick += EventGRBMouseClick;
@@ -41,124 +46,165 @@ namespace AutoNai3Tools {
             lblRandomPromp.MouseClick += EventGRBMouseClick;
         }
 
-        private void EventGRBMouseHover(object sender, EventArgs e) {
+        private void EventGRBMouseHover(object sender, EventArgs e)
+        {
             GroupBox groupBox = sender as GroupBox;
-            if (groupBox == grpArtistFixed) {
+            if (groupBox == grpArtistFixed)
+            {
                 groupBox.Text = "光标处插入/删除<固定画师>";
                 return;
             }
-            else if (groupBox == grpArtistRandom) {
+            else if (groupBox == grpArtistRandom)
+            {
                 groupBox.Text = "光标处插入/删除<随机画师>";
                 return;
             }
+
             Label label = sender as Label;
-            if (label == lblRandomPromp) {
+            if (label == lblRandomPromp)
+            {
                 label.Text = "插入/删除<随机提示词>";
                 return;
             }
         }
 
-        private void EventGRBMouseLeave(object sender, EventArgs e) {
+        private void EventGRBMouseLeave(object sender, EventArgs e)
+        {
             GroupBox groupBox = sender as GroupBox;
-            if (groupBox == grpArtistFixed) {
+            if (groupBox == grpArtistFixed)
+            {
                 groupBox.Text = "固定画师";
                 return;
             }
-            else if (groupBox == grpArtistRandom) {
+            else if (groupBox == grpArtistRandom)
+            {
                 groupBox.Text = "随机画师";
                 return;
             }
+
             Label label = sender as Label;
-            if (label == lblRandomPromp) {
+            if (label == lblRandomPromp)
+            {
                 label.Text = "随机提示词路径：";
                 return;
             }
         }
 
-        private void EventGRBMouseClick(object sender, EventArgs e) {
+        private void EventGRBMouseClick(object sender, EventArgs e)
+        {
             string insertPrompt = null;
             GroupBox groupBox = sender as GroupBox;
-            if (groupBox == grpArtistFixed) {
+            if (groupBox == grpArtistFixed)
+            {
                 insertPrompt = "<固定画师>";
             }
-            else if (groupBox == grpArtistRandom) {
+            else if (groupBox == grpArtistRandom)
+            {
                 insertPrompt = "<随机画师>";
             }
+
             Label label = sender as Label;
-            if (label == lblRandomPromp) {
+            if (label == lblRandomPromp)
+            {
                 insertPrompt = "<随机提示词>";
             }
 
             if (insertPrompt != null)
                 Tools.InsertTextToTextBox(txtPrompt, insertPrompt);
         }
+
         #endregion
 
-        private string GetOutputPath() {
+        private string GetOutputPath()
+        {
             string OutPutPath = txtOutputPath.Text;
-            if (!Directory.Exists(OutPutPath)) {
-                log.Warn("未找到输出路径" + OutPutPath + "，进行创建");
-                try {
+            if (!Directory.Exists(OutPutPath))
+            {
+                Logger.Warn("未找到输出路径" + OutPutPath + "，进行创建");
+                try
+                {
                     Directory.CreateDirectory(OutPutPath);
                 }
-                catch (Exception e) {
-                    log.Error(e.ToString());
+                catch (Exception e)
+                {
+                    Logger.Error(e.ToString());
                 }
             }
+
             return txtOutputPath.Text;
         }
 
-        private int[] GetResolution(int runNum) {
-            if (chkKeepResolution.Checked) {
-                if (runNum == 0 || runNum % numKeepParams.Value == 0) {
-                    if (rdoResolutionOrder.Checked) {
+        private int[] GetResolution(int runNum)
+        {
+            if (chkKeepResolution.Checked)
+            {
+                if (runNum == 0 || runNum % numKeepParams.Value == 0)
+                {
+                    if (rdoResolutionOrder.Checked)
+                    {
                         int selectIndex = lstResolutionList.SelectedIndex + 1;
-                        lstResolutionList.SelectedIndex = selectIndex >= lstResolutionList.Items.Count ? 0 : selectIndex;
+                        lstResolutionList.SelectedIndex =
+                            selectIndex >= lstResolutionList.Items.Count ? 0 : selectIndex;
                     }
-                    else if (rdoResolutionRandom.Checked) {
+                    else if (rdoResolutionRandom.Checked)
+                    {
                         Random random = new Random();
                         int selectIndex = random.Next(0, lstResolutionList.Items.Count);
                         lstResolutionList.SelectedIndex = selectIndex;
                     }
                 }
             }
-            else {
-                if (rdoResolutionOrder.Checked) {
+            else
+            {
+                if (rdoResolutionOrder.Checked)
+                {
                     int selectIndex = lstResolutionList.SelectedIndex + 1;
                     lstResolutionList.SelectedIndex = selectIndex >= lstResolutionList.Items.Count ? 0 : selectIndex;
                 }
-                else if (rdoResolutionRandom.Checked) {
+                else if (rdoResolutionRandom.Checked)
+                {
                     Random random = new Random();
                     int selectIndex = random.Next(0, lstResolutionList.Items.Count);
                     lstResolutionList.SelectedIndex = selectIndex;
                 }
             }
-            log.Info("分辨率：" + lstResolutionList.SelectedItem.ToString());
+
+            Logger.Info("分辨率：" + lstResolutionList.SelectedItem.ToString());
             string[] strResolution = lstResolutionList.SelectedItem.ToString().Split('x');
             int[] resultResolution = new int[2] { int.Parse(strResolution[0]), int.Parse(strResolution[1]) };
             return resultResolution;
         }
 
-        private string GetSampler() {
+        private string GetSampler()
+        {
             int ret_idx = cmbSampler.SelectedIndex;
-            string[] sampler = new string[] { "k_euler", "k_euler_ancestral", "k_dpmpp_2s_ancestral", "k_dpmpp_2m_sde", "k_dpmpp_2m", "k_dpmpp_sde", "ddim_v3" };
-            log.Info("采样：" + sampler[ret_idx]);
+            string[] sampler = new string[]
+            {
+                "k_euler", "k_euler_ancestral", "k_dpmpp_2s_ancestral", "k_dpmpp_2m_sde", "k_dpmpp_2m", "k_dpmpp_sde",
+                "ddim_v3"
+            };
+            Logger.Info("采样：" + sampler[ret_idx]);
             return sampler[ret_idx];
         }
 
-        private int GetSeed() {
+        private int GetSeed()
+        {
             int result = 0;
-            if (!cbkSeedFixed.Checked) {
+            if (!cbkSeedFixed.Checked)
+            {
                 Random random = new Random();
                 nudSeed.Value = random.Next(0, 1000000000);
             }
+
             result = ((int)nudSeed.Value);
-            log.Info($"种子：{result}");
+            Logger.Info($"种子：{result}");
             return result;
         }
 
         string prevNoArtistPrompt = "";
-        private Nai3GenerateImageBody GetNai3Body(int runNum) {
+
+        private Nai3GenerateImageBody GetNai3Body(int runNum)
+        {
             Nai3Parmeters parmeters = new Nai3Parmeters();
             int[] resolution = GetResolution(runNum);
             parmeters.width = resolution[0];
@@ -176,7 +222,8 @@ namespace AutoNai3Tools {
                 parmeters.skip_cfg_above_sigma = 19;
             parmeters.dynamic_thresholding = chkDecrisp.Checked;
             //img2img
-            if (img2ImgCurrentPath != null) {
+            if (img2ImgCurrentPath != null)
+            {
                 string base64img = Tools.ConvertImageToBase64(img2ImgCurrentPath);
                 parmeters.image = base64img;
                 parmeters.strength = ((float)nudImg2ImgStrength.Value);
@@ -184,30 +231,37 @@ namespace AutoNai3Tools {
             }
 
             //vibe
-            foreach (DataGridViewRow row in dgvVibe.Rows) {
+            foreach (DataGridViewRow row in dgvVibe.Rows)
+            {
                 var picPath = row.Cells["Column1"].Value;
                 string base64img = Tools.ConvertImageToBase64(picPath.ToString());
-                if (base64img == null) {
-                    log.Error("图片转换失败，路径为" + picPath);
+                if (base64img == null)
+                {
+                    Logger.Error("图片转换失败，路径为" + picPath);
                     continue;
                 }
+
                 parmeters.reference_image_multiple.Add(base64img);
                 var ie = row.Cells["Column2"].Value;
                 parmeters.reference_information_extracted_multiple.Add(float.Parse(ie.ToString()));
                 var rs = row.Cells["Column3"].Value;
                 parmeters.reference_strength_multiple.Add(float.Parse(rs.ToString()));
             }
+
             var prompt = Prompt.GetPrompt(txtPrompt.Text, this);
             prevNoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
             var tPrompt = Prompt.GetDataPrompt(prompt);
             //nai4
-            if (cmbModel.Text == "nai-diffusion-4-curated-preview") {
+            if (cmbModel.Text == "nai-diffusion-4-curated-preview")
+            {
                 parmeters.v4_negative_prompt = new V4Prompt(new Caption(parmeters.negative_prompt));
                 parmeters.v4_prompt = new V4Prompt(new Caption(tPrompt));
                 parmeters.v4_prompt.use_coords = false;
                 parmeters.v4_prompt.use_order = false;
             }
-            Nai3GenerateImageBody nai3Body = new Nai3GenerateImageBody(input: tPrompt, parameters: parmeters,model:cmbModel.Text);
+
+            Nai3GenerateImageBody nai3Body =
+                new Nai3GenerateImageBody(input: tPrompt, parameters: parmeters, model: cmbModel.Text);
             if (img2ImgCurrentPath != null)
                 nai3Body.action = "img2img";
             return nai3Body;
@@ -215,58 +269,84 @@ namespace AutoNai3Tools {
 
         Nai3GenerateImageBody tempNai3Body = null;
 
-        private void TimerElapsed(object sender, ElapsedEventArgs e) {
+        private void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
             int max_num = int.Parse(numGenerateMaxNum.Value.ToString());
-            for (int i = 0; i < max_num; i++) {
-                try {
+            for (int i = 0; i < max_num; i++)
+            {
+                try
+                {
                     runNum = i;
                     string output_path = txtOutputPath.Text;
                     NovalAi novalAi = new NovalAi();
-                    try {
+                    try
+                    {
                         tempNai3Body = GetNai3Body(i);
                     }
-                    catch (Exception ex) {
-                        log.Error("参数错误：" + ex.ToString());
-                        log.Info("-----------------------------------------------------------------------------------------------------------------------------------------");
+                    catch (Exception ex)
+                    {
+                        Logger.Error("参数错误：" + ex.ToString());
+                        Logger.Info(
+                            "-----------------------------------------------------------------------------------------------------------------------------------------");
                         continue;
                     }
-                    log.Info("开始发送生图请求");
+
+                    Logger.Info("开始发送生图请求");
                     Bitmap img = novalAi.SendGenerateRequests(txtToken.Text, tempNai3Body, prevNoArtistPrompt, this);
-                    if (!chkClosePicPreview.Checked) {
+                    if (!chkClosePicPreview.Checked)
+                    {
                         picView.Image = img;
                     }
+
                     Random random = new Random();
-                    if (timer_status == false) {
+                    if (timer_status == false)
+                    {
                         timer.Dispose();
-                        log.Info("-----------------------------------------------------------------------------------------------------------------------------------------");
+                        Logger.Info(
+                            "-----------------------------------------------------------------------------------------------------------------------------------------");
                         break;
                     }
-                    if (i == max_num - 1) {
-                        log.Info("运行完毕，共运行" + (i + 1).ToString() + "次");
+
+                    if (i == max_num - 1)
+                    {
+                        Logger.Info("运行完毕，共运行" + (i + 1).ToString() + "次");
                         timer_status = false;
                         timer.Dispose();
                     }
-                    else if (i % 10 == 0 && i != 0) {
-                        if (nudSleepTimeLongHigh.Value < nudSleepTimeLongLow.Value) {
-                            log.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                    else if (i % 10 == 0 && i != 0)
+                    {
+                        if (nudSleepTimeLongHigh.Value < nudSleepTimeLongLow.Value)
+                        {
+                            Logger.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
                             nudSleepTimeLongHigh.Value = nudSleepTimeLongLow.Value;
                         }
-                        int delay = random.Next(((int)nudSleepTimeLongLow.Value) * 1000, ((int)nudSleepTimeLongHigh.Value) * 1000);
-                        log.Info("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay + "毫秒");
+
+                        int delay = random.Next(((int)nudSleepTimeLongLow.Value) * 1000,
+                            ((int)nudSleepTimeLongHigh.Value) * 1000);
+                        Logger.Info("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay +
+                                    "毫秒");
                         Thread.Sleep(delay);
                     }
-                    else {
-                        if (nudSleepTimeShortHigh.Value < nudSleepTimeShortLow.Value) {
-                            log.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                    else
+                    {
+                        if (nudSleepTimeShortHigh.Value < nudSleepTimeShortLow.Value)
+                        {
+                            Logger.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
                             nudSleepTimeShortHigh.Value = nudSleepTimeShortLow.Value;
                         }
-                        int delay = random.Next(((int)nudSleepTimeShortLow.Value) * 1000, ((int)nudSleepTimeShortHigh.Value) * 1000);
-                        log.Info("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay + "毫秒");
+
+                        int delay = random.Next(((int)nudSleepTimeShortLow.Value) * 1000,
+                            ((int)nudSleepTimeShortHigh.Value) * 1000);
+                        Logger.Info("图片信息：" + tempNai3Body.input + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay +
+                                    "毫秒");
                         Thread.Sleep(delay);
                     }
-                    log.Info("-----------------------------------------------------------------------------------------------------------------------------------------");
+
+                    Logger.Info(
+                        "-----------------------------------------------------------------------------------------------------------------------------------------");
                 }
-                catch {
+                catch
+                {
                 }
             }
 
@@ -278,14 +358,18 @@ namespace AutoNai3Tools {
 
         System.Timers.Timer timer = null;
         bool timer_status = false;
-        private void btnGenerate_Click(object sender, EventArgs e) {
-            if (timer_status) {
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+            if (timer_status)
+            {
                 timer.Dispose();
                 timer_status = false;
                 btnGenerate.Text = "等待当前生成结束";
                 btnGenerate.Enabled = false;
             }
-            else {
+            else
+            {
                 timer = new System.Timers.Timer();
                 timer.Elapsed += TimerElapsed;
                 timer.AutoReset = false;
@@ -295,166 +379,217 @@ namespace AutoNai3Tools {
             }
         }
 
-        private void btnAddResolution_Click(object sender, EventArgs e) {
-            lstResolutionList.Items.Add(numResolutionWidth.Value.ToString() + "x" + numResolutionHeight.Value.ToString());
+        private void btnAddResolution_Click(object sender, EventArgs e)
+        {
+            lstResolutionList.Items.Add(
+                numResolutionWidth.Value.ToString() + "x" + numResolutionHeight.Value.ToString());
         }
 
-        private void btnDeleteResolution_Click(object sender, EventArgs e) {
-            if (lstResolutionList.Items.Count == 1) {
-                log.Error("至少需要保留一个分辨率");
+        private void btnDeleteResolution_Click(object sender, EventArgs e)
+        {
+            if (lstResolutionList.Items.Count == 1)
+            {
+                Logger.Error("至少需要保留一个分辨率");
                 return;
             }
+
             if (lstResolutionList.SelectedItem != null)
                 lstResolutionList.Items.Remove(lstResolutionList.SelectedItem);
 
             lstResolutionList.SelectedIndex = 0;
         }
 
-        private void picView_Click(object sender, EventArgs e) {
-            try {
+        private void picView_Click(object sender, EventArgs e)
+        {
+            try
+            {
                 System.Diagnostics.Process.Start(txtOutputPath.Text);
             }
-            catch {
-                log.Warn("无法打开输出文件夹");
+            catch
+            {
+                Logger.Warn("无法打开输出文件夹");
             }
         }
 
-        private void chkSmea_CheckedChanged(object sender, EventArgs e) {
-            if (chkSmea.Checked) {
+        private void chkSmea_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkSmea.Checked)
+            {
                 chkDyn.Enabled = true;
             }
-            else {
+            else
+            {
                 chkDyn.Checked = false;
                 chkDyn.Enabled = false;
             }
         }
 
-        private void btnAddOrEditConfig_Click(object sender, EventArgs e) {
+        private void btnAddOrEditConfig_Click(object sender, EventArgs e)
+        {
             Config.SaveToml(this, cmbConfigName.Text);
             RefreshConfig();
         }
 
-        private void btnOpenConfigFolder_Click(object sender, EventArgs e) {
+        private void btnOpenConfigFolder_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("C:\\Users\\Public\\Documents\\auto_nai3_2\\");
         }
 
-        private void btnDeleteConfig_Click(object sender, EventArgs e) {
+        private void btnDeleteConfig_Click(object sender, EventArgs e)
+        {
             File.Delete("C:\\Users\\Public\\Documents\\auto_nai3_2\\" + cmbConfigName.Text + ".toml");
             RefreshConfig();
         }
 
-        private void cmbConfigName_SelectedIndexChanged(object sender, EventArgs e) {
+        private void cmbConfigName_SelectedIndexChanged(object sender, EventArgs e)
+        {
             Config.ReadToml(this, cmbConfigName.Text);
         }
 
-        private void RefreshConfig() {
+        private void RefreshConfig()
+        {
             string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_2\\";
             //判断文件夹是否存在
-            if (!Directory.Exists(folderPath)) {
+            if (!Directory.Exists(folderPath))
+            {
                 //创建文件夹
-                try {
+                try
+                {
                     Directory.CreateDirectory(folderPath);
                 }
-                catch (Exception e) {
+                catch (Exception e)
+                {
                 }
             }
+
             string[] txtFiles = Directory.GetFiles(folderPath, "*.toml");
             cmbConfigName.Items.Clear();
-            for (int idx = 0; idx < txtFiles.Length; idx++) {
+            for (int idx = 0; idx < txtFiles.Length; idx++)
+            {
                 txtFiles[idx] = txtFiles[idx].Replace(folderPath, "");
                 txtFiles[idx] = txtFiles[idx].Replace(".toml", "");
                 cmbConfigName.Items.Add(txtFiles[idx]);
             }
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
             Config.SaveToml(this, "上一次关闭时的自动保存");
             SystemConfig.SaveToml(this);
         }
 
-        private void Form1_Load(object sender, EventArgs e) {
-            try {
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            try
+            {
                 Config.ReadToml(this, "上一次关闭时的自动保存");
                 cmbConfigName.Text = "上一次关闭时的自动保存";
             }
-            catch {
-                log.Warn("未找到上一次关闭时的保存记录，以初始状态开始");
+            catch
+            {
+                Logger.Warn("未找到上一次关闭时的保存记录，以初始状态开始");
             }
-            try {
+
+            try
+            {
                 SystemConfig.ReadToml(this);
             }
-            catch {
-                log.Warn("未找到全局配置，以初始状态开始");
+            catch
+            {
+                Logger.Warn("未找到全局配置，以初始状态开始");
             }
+
             InitTagSnippetDGV();
         }
 
-        private void cmbConfigName_MouseClick(object sender, MouseEventArgs e) {
+        private void cmbConfigName_MouseClick(object sender, MouseEventArgs e)
+        {
             RefreshConfig();
         }
 
-        private void btnClearAllLog_Click(object sender, EventArgs e) {
+        private void btnClearAllLog_Click(object sender, EventArgs e)
+        {
             txtLog.Text = "";
         }
 
-        private void btnRandomPromptFolderPath_Click(object sender, EventArgs e) {
+        private void btnRandomPromptFolderPath_Click(object sender, EventArgs e)
+        {
             string folderPath = Tools.SelectFolder();
-            if (folderPath != null) {
+            if (folderPath != null)
+            {
                 txtRandomPromptFolderPath.Text = folderPath;
             }
         }
 
-        private void btnWildcardFolderPath_Click(object sender, EventArgs e) {
+        private void btnWildcardFolderPath_Click(object sender, EventArgs e)
+        {
             string folderPath = Tools.SelectFolder();
-            if (folderPath != null) {
+            if (folderPath != null)
+            {
                 txtWildcardFolderPath.Text = folderPath;
                 InitTagSnippetDGV();
             }
         }
 
-        private void btnSetOutputFolder_Click(object sender, EventArgs e) {
+        private void btnSetOutputFolder_Click(object sender, EventArgs e)
+        {
             string folderPath = Tools.SelectFolder();
-            if (folderPath != null) {
+            if (folderPath != null)
+            {
                 txtOutputPath.Text = folderPath;
             }
         }
 
         #region vibe
+
         string vibeCurrentPicPath = null;
-        private void picVibeView_Click(object sender, EventArgs e) {
+
+        private void picVibeView_Click(object sender, EventArgs e)
+        {
             var t_path = Tools.SelectAndMappingPicToPictureBox(picVibeView);
             if (t_path != null)
                 vibeCurrentPicPath = t_path;
         }
 
-        private void btnVibeAdd_Click(object sender, EventArgs e) {
-            if (vibeCurrentPicPath != null) {
+        private void btnVibeAdd_Click(object sender, EventArgs e)
+        {
+            if (vibeCurrentPicPath != null)
+            {
                 dgvVibe.Rows.Add(vibeCurrentPicPath, numVibeIE.Value, numVibeRS.Value);
-                if (picVibeView.Image != null) {
+                if (picVibeView.Image != null)
+                {
                     picVibeView.Image.Dispose();
                     picVibeView.Image = null; // 确保引用被清空
                 }
+
                 vibeCurrentPicPath = null;
             }
-            else {
-                log.Warn("请点击左侧空白处选择一张图片后添加");
+            else
+            {
+                Logger.Warn("请点击左侧空白处选择一张图片后添加");
             }
         }
 
-        private void btnVibeDelete_Click(object sender, EventArgs e) {
-            if (dgvVibe.CurrentRow != null) {
+        private void btnVibeDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvVibe.CurrentRow != null)
+            {
                 int rowIndex = dgvVibe.CurrentRow.Index;
                 dgvVibe.Rows.RemoveAt(rowIndex);
             }
-            else {
-                log.Warn("请先选择要删除的行");
+            else
+            {
+                Logger.Warn("请先选择要删除的行");
             }
         }
+
         #endregion
 
-        private void dgvSnippet_SelectionChanged(object sender, EventArgs e) {
+        private void dgvSnippet_SelectionChanged(object sender, EventArgs e)
+        {
             // 检查是否有当前选中行
-            if (dgvVibe.CurrentRow != null) {
+            if (dgvVibe.CurrentRow != null)
+            {
                 DataGridViewRow selectedRow = dgvVibe.CurrentRow;
                 vibeCurrentPicPath = selectedRow.Cells["Column1"].Value.ToString();
                 var imgPath = selectedRow.Cells["Column1"].Value;
@@ -464,14 +599,17 @@ namespace AutoNai3Tools {
                 numVibeRS.Value = (decimal)rs;
 
                 // 如果 form.picView.Image 已经存在，先释放它
-                if (picVibeView.Image != null) {
+                if (picVibeView.Image != null)
+                {
                     picVibeView.Image.Dispose();
                     picVibeView.Image = null; // 确保引用被清空
                 }
 
                 // 使用 MemoryStream 加载图片
-                using (FileStream fs = new FileStream(imgPath.ToString(), FileMode.Open, FileAccess.Read)) {
-                    using (MemoryStream ms = new MemoryStream()) {
+                using (FileStream fs = new FileStream(imgPath.ToString(), FileMode.Open, FileAccess.Read))
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
                         fs.CopyTo(ms);
                         ms.Position = 0; // 重置流位置
                         picVibeView.Image = System.Drawing.Image.FromStream(ms);
@@ -480,52 +618,67 @@ namespace AutoNai3Tools {
             }
         }
 
-        private void btnVibeEdit_Click(object sender, EventArgs e) {
-            if (dgvVibe.CurrentRow != null) {
+        private void btnVibeEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvVibe.CurrentRow != null)
+            {
                 DataGridViewRow selectedRow = dgvVibe.CurrentRow;
                 selectedRow.Cells["Column1"].Value = vibeCurrentPicPath;
                 selectedRow.Cells["Column2"].Value = numVibeIE.Value;
                 selectedRow.Cells["Column3"].Value = numVibeRS.Value;
             }
-            else {
-                log.Warn("请先选择要修改的行");
+            else
+            {
+                Logger.Warn("请先选择要修改的行");
             }
         }
 
         #region 详情页
-        private void btnGetMorePrompt_Click(object sender, EventArgs e) {
+
+        private void btnGetMorePrompt_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://pan.baidu.com/s/1CTFTVIo7vKzDRy62LNxMMw?pwd=ktur");
         }
 
-        private void btnGetRollDoc_Click(object sender, EventArgs e) {
+        private void btnGetRollDoc_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://docs.qq.com/sheet/DRFdBdGxZaXdkc3pP?tab=7mb6q1");
         }
 
-        private void btnParsePrompt_Click(object sender, EventArgs e) {
+        private void btnParsePrompt_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://spell.novelai.dev/");
         }
 
-        private void btnPushBackPic_Click(object sender, EventArgs e) {
+        private void btnPushBackPic_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://huggingface.co/spaces/SmilingWolf/wd-tagger");
         }
 
-        private void btnTutorial_Click(object sender, EventArgs e) {
+        private void btnTutorial_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://cyanautumn.github.io/NovalAi3AutoMaticDoc/");
         }
 
-        private void btnDocToolsBook_Click(object sender, EventArgs e) {
+        private void btnDocToolsBook_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9");
         }
+
         #endregion
 
         #region wildcard
-        private void InitTagSnippetDGV() {
-            try {
+
+        private void InitTagSnippetDGV()
+        {
+            try
+            {
                 string folderPath = txtWildcardFolderPath.Text;
                 string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 
                 dgvTagSnippet.Rows.Clear();
-                foreach (string file in txtFiles) {
+                foreach (string file in txtFiles)
+                {
                     string fileName = Path.GetFileName(file);
                     string fileContent = File.ReadAllText(file);
 
@@ -533,23 +686,32 @@ namespace AutoNai3Tools {
                     dgvTagSnippet.Rows.Add(fileName, fileContent);
                 }
             }
-            catch {
-                log.Warn("wildcard文件夹下未找到任何相关文件");
+            catch
+            {
+                Logger.Warn("wildcard文件夹下未找到任何相关文件");
             }
         }
 
-        private void btnTagSnippetAdd_Click(object sender, EventArgs e) {
-            if (txtTagSnippetName.Text != "") {
-                foreach (DataGridViewRow row in dgvTagSnippet.Rows) {
-                    if (row.Cells[0].Value != null) {
-                        if (row.Cells[0].Value.ToString() == (txtTagSnippetName.Text += (txtTagSnippetName.Text.EndsWith(".txt") ? "" : ".txt"))) {
-                            log.Warn("片段名已存在，无法添加");
+        private void btnTagSnippetAdd_Click(object sender, EventArgs e)
+        {
+            if (txtTagSnippetName.Text != "")
+            {
+                foreach (DataGridViewRow row in dgvTagSnippet.Rows)
+                {
+                    if (row.Cells[0].Value != null)
+                    {
+                        if (row.Cells[0].Value.ToString() == (txtTagSnippetName.Text +=
+                                (txtTagSnippetName.Text.EndsWith(".txt") ? "" : ".txt")))
+                        {
+                            Logger.Warn("片段名已存在，无法添加");
                             return;
                         }
                     }
                 }
-                if (txtTagSnippetName.Text == "") {
-                    log.Warn("片段名不能为空");
+
+                if (txtTagSnippetName.Text == "")
+                {
+                    Logger.Warn("片段名不能为空");
                     return;
                 }
 
@@ -559,39 +721,48 @@ namespace AutoNai3Tools {
                 string fileContent = txtTagSnippetValue.Text;
                 string folderPath = txtWildcardFolderPath.Text;
                 string filePath = Path.Combine(folderPath, fileName);
-                Tools.IsExist(folderPath,true);
+                Tools.IsExist(folderPath, true);
                 File.WriteAllText(filePath, fileContent);
                 dgvTagSnippet.Rows.Add(txtTagSnippetName.Text, txtTagSnippetValue.Text);
 
-                log.Info("增加成功！");
+                Logger.Info("增加成功！");
             }
-            else {
-                log.Warn("请输入一个片段名");
+            else
+            {
+                Logger.Warn("请输入一个片段名");
             }
         }
 
-        private void btnTagSnippetEdit_Click(object sender, EventArgs e) {
-            if (dgvTagSnippet.CurrentRow.Index == 0) {
-                log.Warn("请先选中要编辑的行");
+        private void btnTagSnippetEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvTagSnippet.CurrentRow.Index == 0)
+            {
+                Logger.Warn("请先选中要编辑的行");
                 return;
             }
-            foreach (DataGridViewRow row in dgvTagSnippet.Rows) {
-                if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == txtTagSnippetName.Text) {
+
+            foreach (DataGridViewRow row in dgvTagSnippet.Rows)
+            {
+                if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == txtTagSnippetName.Text)
+                {
                     string fileContent = txtTagSnippetValue.Text;
                     string fileName = dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[0].Value.ToString();
                     string folderPath = txtWildcardFolderPath.Text;
                     string filePath = Path.Combine(folderPath, fileName);
                     File.WriteAllText(filePath, fileContent);
                     dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[1].Value = fileContent;
-                    log.Info("修改成功");
+                    Logger.Info("修改成功");
                     return;
                 }
             }
-            log.Warn("片段名不存在");
+
+            Logger.Warn("片段名不存在");
         }
 
-        private void btnTagSnippetDelete_Click(object sender, EventArgs e) {
-            if (dgvTagSnippet.CurrentRow != null) {
+        private void btnTagSnippetDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvTagSnippet.CurrentRow != null)
+            {
                 int rowIndex = dgvTagSnippet.CurrentRow.Index;
                 string fileName = dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[0].Value.ToString();
                 string folderPath = txtWildcardFolderPath.Text;
@@ -599,13 +770,16 @@ namespace AutoNai3Tools {
                 File.Delete(filePath);
                 dgvTagSnippet.Rows.RemoveAt(rowIndex);
             }
-            else {
-                log.Warn("请先选择要删除的行");
+            else
+            {
+                Logger.Warn("请先选择要删除的行");
             }
         }
 
-        private void dgvTagSnippet_CellClick(object sender, DataGridViewCellEventArgs e) {
-            if (e.RowIndex >= 0) {
+        private void dgvTagSnippet_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
                 DataGridViewRow selectedRow = dgvTagSnippet.Rows[e.RowIndex];
                 txtTagSnippetName.Text = selectedRow.Cells[0].Value.ToString();
                 txtTagSnippetValue.Text = selectedRow.Cells[1].Value.ToString();
@@ -613,13 +787,17 @@ namespace AutoNai3Tools {
                 Tools.InsertTextToTextBox(txtPrompt, cellPrompt);
             }
         }
+
         #endregion
 
         #region
+
         string directorToolsRemoveBGInputPath = null;
 
-        private string GetBodyType(int input) {
-            switch (input) {
+        private string GetBodyType(int input)
+        {
+            switch (input)
+            {
                 case 0:
                     return "bg-removal";
                 case 1:
@@ -633,32 +811,40 @@ namespace AutoNai3Tools {
                 case 5:
                     return "declutter";
             }
+
             return null;
         }
 
-        private void picDirectorToolsRemoveBGInput_Click(object sender, EventArgs e) {
+        private void picDirectorToolsRemoveBGInput_Click(object sender, EventArgs e)
+        {
             var path = Tools.SelectAndMappingPicToPictureBox(picDirectorToolsInput);
             if (path != null)
                 directorToolsRemoveBGInputPath = path;
-
         }
 
-        public void ParseLineArtSign(int type) {
-            if (directorToolsRemoveBGInputPath != null) {
-                for (int i = 0; i < nudLineArtParseNum.Value; i++) {
+        public void ParseLineArtSign(int type)
+        {
+            if (directorToolsRemoveBGInputPath != null)
+            {
+                for (int i = 0; i < nudLineArtParseNum.Value; i++)
+                {
                     string base64img = Tools.ConvertImageToBase64(directorToolsRemoveBGInputPath);
                     int width, height;
-                    using (Image image = Image.FromFile(directorToolsRemoveBGInputPath)) {
+                    using (Image image = Image.FromFile(directorToolsRemoveBGInputPath))
+                    {
                         width = image.Width;
                         height = image.Height;
                     }
+
                     Nai3DirectorToolsBody body = null;
                     if (type == 0 || type == 1 || type == 2 || type == 5)
                         body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type));
                     else if (type == 3)
-                        body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type), txtColorizePrompt.Text, cmbColorizeDerfy.SelectedIndex);
+                        body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type),
+                            txtColorizePrompt.Text, cmbColorizeDerfy.SelectedIndex);
                     else if (type == 4)
-                        body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type), $"{cmbEmotionEmotion.Text};;{txtEmotionPrompt.Text}", cmbEmotionDefry.SelectedIndex);
+                        body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type),
+                            $"{cmbEmotionEmotion.Text};;{txtEmotionPrompt.Text}", cmbEmotionDefry.SelectedIndex);
 
                     if (body == null)
                         return;
@@ -667,117 +853,146 @@ namespace AutoNai3Tools {
                     picDirectorToolsOutput.Image = img;
                 }
             }
-            else {
+            else
+            {
                 MessageBox.Show("请先选择图片");
             }
         }
 
-        public void TaskLineArtFolder(object source, System.Timers.ElapsedEventArgs e, int count) {
+        public void TaskLineArtFolder(object source, System.Timers.ElapsedEventArgs e, int count)
+        {
             string[] validExtensions = { ".xbm", "tif", "ico", ".jpg", ".jpeg", ".png", ".gif", ".webp" };
-            var files = Directory.GetFiles(txtLineArtInputFolder.Text, "*.*", SearchOption.AllDirectories).Where(file => validExtensions.Contains(Path.GetExtension(file).ToLower()));
+            var files = Directory.GetFiles(txtLineArtInputFolder.Text, "*.*", SearchOption.AllDirectories)
+                .Where(file => validExtensions.Contains(Path.GetExtension(file).ToLower()));
 
-            foreach (string filePath in files) {
+            foreach (string filePath in files)
+            {
                 directorToolsRemoveBGInputPath = filePath;
-                if (picDirectorToolsInput.Image != null) {
+                if (picDirectorToolsInput.Image != null)
+                {
                     picDirectorToolsInput.Image.Dispose();
                     picDirectorToolsInput.Image = null;
                 }
-                using (FileStream fs = new FileStream(directorToolsRemoveBGInputPath, FileMode.Open, FileAccess.Read)) {
-                    using (MemoryStream ms = new MemoryStream()) {
+
+                using (FileStream fs = new FileStream(directorToolsRemoveBGInputPath, FileMode.Open, FileAccess.Read))
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
                         fs.CopyTo(ms);
                         ms.Position = 0;
                         picDirectorToolsInput.Image = System.Drawing.Image.FromStream(ms);
                     }
                 }
+
                 ParseLineArtSign(count);
             }
+
             btnDirectorToolsRemoveBGRun.Text = "运行";
             btnDirectorToolsRemoveBGRun.Enabled = true;
         }
 
-        public void ParseLineArtFolder(int type) {
+        public void ParseLineArtFolder(int type)
+        {
             System.Timers.Timer timerLineArtFolder = new System.Timers.Timer(1);
             timerLineArtFolder.Elapsed += (sender, e) => TaskLineArtFolder(sender, e, type);
             timerLineArtFolder.AutoReset = false;
             timerLineArtFolder.Enabled = true;
         }
 
-        private void btnDirectorToolsRemoveBGRun_Click(object sender, EventArgs e) {
+        private void btnDirectorToolsRemoveBGRun_Click(object sender, EventArgs e)
+        {
             btnDirectorToolsRemoveBGRun.Text = "运行中";
             btnDirectorToolsRemoveBGRun.Enabled = false;
-            switch (tabDirectorTools.SelectedIndex) {
+            switch (tabDirectorTools.SelectedIndex)
+            {
                 case 0:
                     ParseLineArtSign(0);
                     btnDirectorToolsRemoveBGRun.Text = "运行";
                     btnDirectorToolsRemoveBGRun.Enabled = true;
                     break;
                 case 1:
-                    if (rdoLineArtParseSignPic.Checked) {
+                    if (rdoLineArtParseSignPic.Checked)
+                    {
                         ParseLineArtSign(1);
                         btnDirectorToolsRemoveBGRun.Text = "运行";
                         btnDirectorToolsRemoveBGRun.Enabled = true;
                     }
                     else if (rdoLineArtParseFolderPic.Checked)
                         ParseLineArtFolder(1);
+
                     break;
                 case 2:
-                    if (rdoLineArtParseSignPic.Checked) {
+                    if (rdoLineArtParseSignPic.Checked)
+                    {
                         ParseLineArtSign(2);
                         btnDirectorToolsRemoveBGRun.Text = "运行";
                         btnDirectorToolsRemoveBGRun.Enabled = true;
                     }
                     else if (rdoLineArtParseFolderPic.Checked)
                         ParseLineArtFolder(2);
+
                     break;
                 case 3:
-                    if (rdoLineArtParseSignPic.Checked) {
+                    if (rdoLineArtParseSignPic.Checked)
+                    {
                         ParseLineArtSign(3);
                         btnDirectorToolsRemoveBGRun.Text = "运行";
                         btnDirectorToolsRemoveBGRun.Enabled = true;
                     }
                     else if (rdoLineArtParseFolderPic.Checked)
                         ParseLineArtFolder(3);
+
                     break;
                 case 4:
-                    if (rdoLineArtParseSignPic.Checked) {
+                    if (rdoLineArtParseSignPic.Checked)
+                    {
                         ParseLineArtSign(4);
                         btnDirectorToolsRemoveBGRun.Text = "运行";
                         btnDirectorToolsRemoveBGRun.Enabled = true;
                     }
-                    else if (rdoLineArtParseFolderPic.Checked) {
+                    else if (rdoLineArtParseFolderPic.Checked)
+                    {
                         ParseLineArtFolder(4);
                     }
-                    break;
 
+                    break;
             }
         }
 
-        private void picDirectorToolsRemoveBGOutput_Click(object sender, EventArgs e) {
+        private void picDirectorToolsRemoveBGOutput_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start(txtOutputPath.Text);
         }
 
-        private void btnSelectLineArtInputFolderPath_Click(object sender, EventArgs e) {
+        private void btnSelectLineArtInputFolderPath_Click(object sender, EventArgs e)
+        {
             string folderPath = Tools.SelectFolder();
-            if (folderPath != null) {
+            if (folderPath != null)
+            {
                 txtLineArtInputFolder.Text = folderPath;
             }
         }
+
         #endregion
 
         #region img2img
+
         string img2ImgCurrentPath;
 
-        private void picImg2ImgView_Click(object sender, EventArgs e) {
+        private void picImg2ImgView_Click(object sender, EventArgs e)
+        {
             var t_path = Tools.SelectAndMappingPicToPictureBox(picImg2ImgView);
             if (t_path != null)
                 img2ImgCurrentPath = t_path;
         }
 
-        private void btnImg2ImgDel_Click(object sender, EventArgs e) {
+        private void btnImg2ImgDel_Click(object sender, EventArgs e)
+        {
             img2ImgCurrentPath = null;
             picImg2ImgView.Image.Dispose();
             picImg2ImgView.Image = null;
         }
+
         #endregion
     }
 }

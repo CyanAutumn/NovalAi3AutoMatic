@@ -107,7 +107,7 @@ namespace AutoNai3Tools.utils
             List<string> reference_image_multiple = null,
             List<float> reference_information_extracted_multiple = null,
             List<float> reference_strength_multiple = null,
-            List <string >characterPrompts=null,
+            List<string> characterPrompts = null,
             V4Prompt v4_negative_prompt = null,
             V4Prompt v4_prompt = null
         )
@@ -166,7 +166,8 @@ namespace AutoNai3Tools.utils
         public string base_caption { get; set; }
         public List<string> char_captions { get; set; }
 
-        public Caption(string base_caption, List<string> char_captions = null) {
+        public Caption(string base_caption, List<string> char_captions = null)
+        {
             this.base_caption = base_caption;
             if (char_captions == null)
                 this.char_captions = new List<string>();
@@ -176,9 +177,11 @@ namespace AutoNai3Tools.utils
     class V4Prompt
     {
         public Caption caption { get; set; }
-        public bool? use_coords { get; set; } 
-        public bool? use_order { get; set; } 
-        public V4Prompt(Caption caption) {
+        public bool? use_coords { get; set; }
+        public bool? use_order { get; set; }
+
+        public V4Prompt(Caption caption)
+        {
             this.caption = caption;
         }
     }
@@ -254,7 +257,7 @@ namespace AutoNai3Tools.utils
         {
             if (!response.IsSuccessful)
             {
-                form.log.Warn($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
+                Logger.Warn($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
                 return null;
             }
 
@@ -308,12 +311,12 @@ namespace AutoNai3Tools.utils
                 RestResponse response = task.Result;
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, form, null, null);
-                form.log.Info($"生成成功");
+                Logger.Info($"生成成功");
                 return pic;
             }
             catch (Exception ex)
             {
-                form.log.Warn($"生成失败，错误信息{ex.ToString()}");
+                Logger.Warn($"生成失败，错误信息{ex.ToString()}");
                 return null;
             }
         }
@@ -330,13 +333,13 @@ namespace AutoNai3Tools.utils
                 RestResponse response = task.Result;
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, form, body.input, noArtistPrompt);
-                form.log.Info("生成成功");
+                Logger.Info("生成成功");
                 return pic;
             }
             catch (Exception ex)
             {
-                form.log.Warn($"生成失败，错误信息{ex.Message}");
-                form.log.Warn($"{ex.ToString()}");
+                Logger.Warn($"生成失败，错误信息{ex.Message}");
+                Logger.Warn($"{ex.ToString()}");
                 return null;
             }
         }
