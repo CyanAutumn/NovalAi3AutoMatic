@@ -1,0 +1,91 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\admin\\onedrive\\code\\novalai3automatic\\utils\\prompt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\prompt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\admin\\onedrive\\code\\novalai3automatic\\utils\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\admin\\onedrive\\code\\novalai3automatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\admin\\onedrive\\code\\novalai3automatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Prompt.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\Prompt.cs",
+              "RelativeDocumentMoniker": "utils\\Prompt.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\Prompt.cs",
+              "RelativeToolTip": "utils\\Prompt.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAawDYAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-24T07:47:24.06Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Logger.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\Logger.cs",
+              "RelativeDocumentMoniker": "utils\\Logger.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\Logger.cs",
+              "RelativeToolTip": "utils\\Logger.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAjwBUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-24T07:44:01.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAUwBgAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-24T07:45:03.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "Form1.cs [\u8BBE\u8BA1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-24T05:39:46.768Z",
+              "EditorCaption": " [\u8BBE\u8BA1]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

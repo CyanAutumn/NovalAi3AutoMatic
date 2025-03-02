@@ -252,7 +252,7 @@ namespace AutoNai3Tools
             prevNoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
             var tPrompt = Prompt.GetDataPrompt(prompt);
             //nai4
-            if (cmbModel.Text == "nai-diffusion-4-curated-preview")
+            if (cmbModel.Text == "nai-diffusion-4-curated-preview" || cmbModel.Text == "nai-diffusion-4-full")
             {
                 parmeters.v4_negative_prompt = new V4Prompt(new Caption(parmeters.negative_prompt));
                 parmeters.v4_prompt = new V4Prompt(new Caption(tPrompt));
