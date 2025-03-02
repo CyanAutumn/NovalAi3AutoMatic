@@ -15,7 +15,7 @@ namespace AutoNai3Tools.utils {
         private static Form1 _form;
 
         public static void Initialize(Form1 form) {
-            form = form;
+            _form = form;
         }
 
         public static void FormLog(string msg) {

@@ -52,6 +52,8 @@
   <ItemGroup>
     <Compile Include="artist\Artist.cs" />
     <Compile Include="artist\ArtistTools.cs" />
+    <Compile Include="body\Nai3.cs" />
+    <Compile Include="body\Nai4.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
