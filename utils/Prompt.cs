@@ -19,13 +19,15 @@ namespace AutoNai3Tools.utils {
             if (txtFiles.Length == 0) {
                 throw new Exception("文件夹" + folderPath + "下没有 txt 文件");
             }
+
             Random random = new Random();
             string randomTxtFile = txtFiles[random.Next(txtFiles.Length)];
             string t_prompt = File.ReadAllText(randomTxtFile);
             string[] words1 = t_prompt.Split(',').Select(word => word.Trim()).ToArray();
             string[] words2 = form.txtPromptBlackList.Text.Split(',').Select(word => word.Trim()).ToArray();
             var result = words1.Where(word => !words2.Contains(word));
-            string[] words3 = form.txtPromptBlackList.Text.Replace(" ", "_").Split(',').Select(word => word.Trim()).ToArray();
+            string[] words3 = form.txtPromptBlackList.Text.Replace(" ", "_").Split(',').Select(word => word.Trim())
+                .ToArray();
             result = result.Where(word => !words3.Contains(word));
             return string.Join(",", result).Trim();
         }
@@ -42,6 +44,7 @@ namespace AutoNai3Tools.utils {
             string words = lines[random.Next(lines.Length)];
             return words;
         }
+
         public static string PrevArtistRandom = "";
         public static string PrevArtistFixed = "";
         public static string PrevRandomPrompt = "";
@@ -56,16 +59,19 @@ namespace AutoNai3Tools.utils {
                 foreach (var item in strTagList) {
                     tagList.Add(TagTools.GetTagExample(item, form));
                 }
+
                 prevPrompt = prompt;
             }
 
             List<string> retTagList = new List<string>();
             for (int i = 0; i < tagList.Count; i++) {
                 if (result.ContainsKey(strTagList[i])) {
-                    strTagList[i] += "_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                    strTagList[i] += $"_{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds().ToString()}";
                 }
+
                 result.Add(strTagList[i], tagList[i].ToString());
             }
+
             return result;
         }
 
@@ -74,6 +80,7 @@ namespace AutoNai3Tools.utils {
             foreach (var item in data) {
                 result.Add(item.Value);
             }
+
             return string.Join(",", result);
         }
 
@@ -84,7 +91,9 @@ namespace AutoNai3Tools.utils {
                     continue;
                 result.Add(item.Value);
             }
-            return string.Join(",", result).Replace("year 2023", "").Replace("years 2023", "").Replace("year_2023", "").Replace("years_2023", "");
+
+            return string.Join(",", result).Replace("year 2023", "").Replace("years 2023", "").Replace("year_2023", "")
+                .Replace("years_2023", "");
         }
     }
 }

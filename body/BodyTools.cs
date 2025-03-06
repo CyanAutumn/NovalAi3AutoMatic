@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace AutoNai3Tools.body
 {
-    class Nai4 : BodyBase {
+    class BodyTools
+    {
+        // public BodyBase GetBody(string modelName,) {
+
+        // }
     }
 }
