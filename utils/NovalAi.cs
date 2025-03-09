@@ -13,27 +13,23 @@ using System.Runtime.Remoting.Messaging;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Net;
+using AutoNai3Tools.body;
 
-namespace AutoNai3Tools.utils
-{
-    class Nai3Body
-    {
-        public string ToJson()
-        {
+namespace AutoNai3Tools.utils {
+    class Nai3Body {
+        public string ToJson() {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this);
         }
     }
 
-    class Nai3GenerateImageBody : Nai3Body
-    {
+    class Nai3GenerateImageBody : Nai3Body {
         public string input { get; set; }
         public string model { get; set; }
         public string action { get; set; }
         public Nai3Parmeters parameters = null;
 
         public Nai3GenerateImageBody(string input = "1girl", string model = "nai-diffusion-3",
-            string action = "generate", Nai3Parmeters parameters = null)
-        {
+            string action = "generate", Nai3Parmeters parameters = null) {
             this.input = input;
             this.model = model;
             this.action = action;
@@ -41,8 +37,7 @@ namespace AutoNai3Tools.utils
         }
     }
 
-    class Nai3Parmeters
-    {
+    class Nai3Parmeters {
         public int params_version { get; set; } = 3;
         public int width { get; set; } = 832;
         public int height { get; set; } = 1216;
@@ -110,8 +105,7 @@ namespace AutoNai3Tools.utils
             List<string> characterPrompts = null,
             V4Prompt v4_negative_prompt = null,
             V4Prompt v4_prompt = null
-        )
-        {
+        ) {
             this.width = width;
             this.height = height;
             this.scale = scale;
@@ -134,12 +128,10 @@ namespace AutoNai3Tools.utils
             this.strength = strength;
             this.noise = noise;
             Random random = new Random();
-            if (seed == null)
-            {
+            if (seed == null) {
                 this.seed = random.Next(0, 1000000000);
             }
-            else
-            {
+            else {
                 this.seed = (int)seed;
             }
 
@@ -161,33 +153,28 @@ namespace AutoNai3Tools.utils
         }
     }
 
-    class Caption
-    {
+    class Caption {
         public string base_caption { get; set; }
         public List<string> char_captions { get; set; }
 
-        public Caption(string base_caption, List<string> char_captions = null)
-        {
+        public Caption(string base_caption, List<string> char_captions = null) {
             this.base_caption = base_caption;
             if (char_captions == null)
                 this.char_captions = new List<string>();
         }
     }
 
-    class V4Prompt
-    {
+    class V4Prompt {
         public Caption caption { get; set; }
         public bool? use_coords { get; set; }
         public bool? use_order { get; set; }
 
-        public V4Prompt(Caption caption)
-        {
+        public V4Prompt(Caption caption) {
             this.caption = caption;
         }
     }
 
-    class Nai3DirectorToolsBody : Nai3Body
-    {
+    class Nai3DirectorToolsBody : Nai3Body {
         public int height { get; set; }
         public int width { get; set; }
         public string image { get; set; }
@@ -196,8 +183,7 @@ namespace AutoNai3Tools.utils
         public int? defry { get; set; }
 
         public Nai3DirectorToolsBody(int height, int width, string image, string req_type, string prompt = null,
-            int? defry = null)
-        {
+            int? defry = null) {
             this.height = height;
             this.width = width;
             this.image = image;
@@ -208,16 +194,13 @@ namespace AutoNai3Tools.utils
     }
 
 
-    internal class NovalAi
-    {
-        private string GetFileName()
-        {
+    internal class NovalAi {
+        private string GetFileName() {
             // 获取当前时间并转换为适合作为文件名的格式
             return DateTime.Now.ToString("yyyyMMdd_HHmmss");
         }
 
-        private RestRequest GetRequest(string token, string path)
-        {
+        private RestRequest GetRequest(string token, string path) {
             var request = new RestRequest(path, Method.Post);
             request.AddHeader("accept", "*/*");
             request.AddHeader("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
@@ -237,10 +220,8 @@ namespace AutoNai3Tools.utils
             return request;
         }
 
-        private RestClient GetClient(string proxy)
-        {
-            var options = new RestClientOptions("https://image.novelai.net")
-            {
+        private RestClient GetClient(string proxy) {
+            var options = new RestClientOptions("https://image.novelai.net") {
                 Timeout = TimeSpan.FromSeconds(120),
                 UserAgent =
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
@@ -253,33 +234,25 @@ namespace AutoNai3Tools.utils
             return client;
         }
 
-        private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string noArtistPrompt)
-        {
-            if (!response.IsSuccessful)
-            {
+        private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string noArtistPrompt) {
+            if (!response.IsSuccessful) {
                 Logger.Warn($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
                 return null;
             }
 
-            using (MemoryStream memoryStream = new MemoryStream(response.RawBytes))
-            {
+            using (MemoryStream memoryStream = new MemoryStream(response.RawBytes)) {
                 Tools.IsExist(form.txtOutputPath.Text, true);
-                using (ZipArchive archive = new ZipArchive(memoryStream))
-                {
-                    foreach (ZipArchiveEntry entry in archive.Entries)
-                    {
+                using (ZipArchive archive = new ZipArchive(memoryStream)) {
+                    foreach (ZipArchiveEntry entry in archive.Entries) {
                         string file_name = GetFileName();
                         string entryFileName = form.txtOutputPath.Text + '/' + file_name;
 
-                        using (Stream entryStream = entry.Open())
-                        {
-                            using (MemoryStream entryMemoryStream = new MemoryStream())
-                            {
+                        using (Stream entryStream = entry.Open()) {
+                            using (MemoryStream entryMemoryStream = new MemoryStream()) {
                                 entryStream.CopyTo(entryMemoryStream);
                                 File.WriteAllBytes(entryFileName + ".png", entryMemoryStream.ToArray());
 
-                                if (form.picView.Image != null)
-                                {
+                                if (form.picView.Image != null) {
                                     form.picView.Image.Dispose();
                                 }
 
@@ -299,10 +272,8 @@ namespace AutoNai3Tools.utils
             return null;
         }
 
-        public Bitmap SendDirectorToolsRequests(string token, Nai3DirectorToolsBody body, Form1 form)
-        {
-            try
-            {
+        public Bitmap SendDirectorToolsRequests(string token, Nai3DirectorToolsBody body, Form1 form) {
+            try {
                 var request = GetRequest(token, "/ai/augment-image");
                 request.AddStringBody(body.ToJson(), DataFormat.Json);
                 var client = GetClient(form.txtProxy.Text);
@@ -314,17 +285,15 @@ namespace AutoNai3Tools.utils
                 Logger.Info($"生成成功");
                 return pic;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logger.Warn($"生成失败，错误信息{ex.ToString()}");
                 return null;
             }
         }
 
-        public Bitmap SendGenerateRequests(string token, Nai3GenerateImageBody body, string noArtistPrompt, Form1 form)
-        {
-            try
-            {
+        public Bitmap SendGenerateRequests(string token, BodyBase body, string noArtistPrompt, Form1 form) {
+            try {
+                string data = body.ToJson();
                 var request = GetRequest(token, "/ai/generate-image");
                 request.AddStringBody(body.ToJson(), DataFormat.Json);
                 var client = GetClient(form.txtProxy.Text);
@@ -332,12 +301,11 @@ namespace AutoNai3Tools.utils
                 task.Wait();
                 RestResponse response = task.Result;
                 Thread.Sleep(1000);
-                Bitmap pic = UnZipAndSaveImage(response, form, body.input, noArtistPrompt);
+                Bitmap pic = UnZipAndSaveImage(response, form, body.prompt, noArtistPrompt);
                 Logger.Info("生成成功");
                 return pic;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Logger.Warn($"生成失败，错误信息{ex.Message}");
                 Logger.Warn($"{ex.ToString()}");
                 return null;

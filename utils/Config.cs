@@ -12,10 +12,10 @@ namespace AutoNai3Tools.utils {
         public string Token { get; set; }
         public List<SnippetItem> SnippetItems { get; set; } // 添加用于保存dgvSnippet行数据的属性
         public string PromptBlackList { get; set; }
-        public int?SleepTimeShortLow { get; set; }
-        public int?SleepTimeShortHigh { get; set; }
-        public int?SleepTimeLongLow { get; set; }
-        public int?SleepTimeLongHigh { get; set; }
+        public int? SleepTimeShortLow { get; set; }
+        public int? SleepTimeShortHigh { get; set; }
+        public int? SleepTimeLongLow { get; set; }
+        public int? SleepTimeLongHigh { get; set; }
 
         public static void SaveToml(Form1 form) {
             string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_system\\";
@@ -23,8 +23,7 @@ namespace AutoNai3Tools.utils {
                 try {
                     Directory.CreateDirectory(folderPath);
                 }
-                catch (Exception e) {
-                }
+                catch (Exception e) { }
             }
 
             SystemConfig obj = new SystemConfig();
@@ -44,10 +43,11 @@ namespace AutoNai3Tools.utils {
                 SystemConfig obj = Toml.ReadFile<SystemConfig>(configFilePath);
                 form.txtToken.Text = obj.Token;
                 form.txtPromptBlackList.Text = obj.PromptBlackList;
-                form.nudSleepTimeShortLow.Value = obj.SleepTimeShortLow ==null?5:((int)obj.SleepTimeShortLow);
-                form.nudSleepTimeShortHigh.Value = obj.SleepTimeShortHigh == null ? 8 :((int)obj.SleepTimeShortHigh);
+                form.nudSleepTimeShortLow.Value = obj.SleepTimeShortLow == null ? 5 : ((int)obj.SleepTimeShortLow);
+                form.nudSleepTimeShortHigh.Value = obj.SleepTimeShortHigh == null ? 8 : ((int)obj.SleepTimeShortHigh);
                 form.nudSleepTimeLongLow.Value = obj.SleepTimeLongLow == null ? 20 : ((int)obj.SleepTimeLongLow.Value);
-                form.nudSleepTimeLongHigh.Value = obj.SleepTimeLongHigh == null ? 25:((int)obj.SleepTimeLongHigh.Value);
+                form.nudSleepTimeLongHigh.Value =
+                    obj.SleepTimeLongHigh == null ? 25 : ((int)obj.SleepTimeLongHigh.Value);
             }
         }
     }
@@ -56,7 +56,9 @@ namespace AutoNai3Tools.utils {
     internal class Config {
         // prompt
         public string Prompt { get; set; }
+
         public string NegativePrompt { get; set; }
+
         //public string PromptBlackList { get; set; }
         public int GenerateMaxNum { get; set; }
         public int KeepParams { get; set; }
@@ -77,7 +79,9 @@ namespace AutoNai3Tools.utils {
         public bool Smea { get; set; }
         public bool Dyn { get; set; }
         public string[] ResolutionList { get; set; }
+
         public int ResolutionIndex { get; set; }
+
         //artist
         public string ArtistFixed { get; set; }
         public string ArtistRandom { get; set; }
@@ -93,6 +97,8 @@ namespace AutoNai3Tools.utils {
         public bool KeepResolution { get; set; }
         public bool Decrisp { get; set; }
         public bool Variety { get; set; }
+        public int ModelSelect { get; set; }
+
         public static void SaveToml(Form1 form, string fileName) {
             string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_2\\";
             //判断文件夹是否存在
@@ -101,9 +107,9 @@ namespace AutoNai3Tools.utils {
                 try {
                     Directory.CreateDirectory(folderPath);
                 }
-                catch (Exception e) {
-                }
+                catch (Exception e) { }
             }
+
             Config obj = new Config();
             obj.Prompt = form.txtPrompt.Text;
             obj.NegativePrompt = form.txtNegativePrompt.Text;
@@ -130,6 +136,7 @@ namespace AutoNai3Tools.utils {
             for (int i = 0; i < form.lstResolutionList.Items.Count; i++) {
                 resolutionList.Add(form.lstResolutionList.Items[i].ToString());
             }
+
             obj.ResolutionIndex = form.lstResolutionList.SelectedIndex;
             obj.ResolutionList = resolutionList.ToArray();
             obj.ArtistFixed = form.txtArtistFixed.Text;
@@ -145,6 +152,7 @@ namespace AutoNai3Tools.utils {
             obj.KeepResolution = form.chkKeepResolution.Checked;
             obj.Decrisp = form.chkDecrisp.Checked;
             obj.Variety = form.chkVariety.Checked;
+            obj.ModelSelect = form.cmbModel.SelectedIndex;
             Toml.WriteFile(obj, folderPath + fileName + ".toml");
         }
 
@@ -175,6 +183,7 @@ namespace AutoNai3Tools.utils {
             for (int i = 0; i < obj.ResolutionList.Length; i++) {
                 form.lstResolutionList.Items.Add(obj.ResolutionList[i]);
             }
+
             form.lstResolutionList.SelectedIndex = obj.ResolutionIndex;
             form.txtArtistFixed.Text = obj.ArtistFixed;
             form.txtArtistRandom.Text = obj.ArtistRandom;
@@ -189,11 +198,12 @@ namespace AutoNai3Tools.utils {
             form.chkKeepResolution.Checked = obj.KeepResolution;
             form.chkDecrisp.Checked = obj.Decrisp;
             form.chkVariety.Checked = obj.Variety;
+            form.cmbModel.SelectedIndex = obj.ModelSelect;
         }
     }
+
     class SnippetItem {
         public string Name { get; set; }
         public string Value { get; set; }
     }
 }
-

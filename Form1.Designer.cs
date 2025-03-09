@@ -1507,13 +1507,7 @@
             // cmbModel
             // 
             this.cmbModel.FormattingEnabled = true;
-            this.cmbModel.Items.AddRange(new object[] {
-            "nai-diffusion-2",
-            "nai-diffusion-3",
-            "nai-diffusion-furry-3",
-            "nai-diffusion-4-curated-preview",
-            "nai-diffusion-4-full"});
-            this.cmbModel.Location = new System.Drawing.Point(117, 514);
+            this.cmbModel.Location = new System.Drawing.Point(134, 479);
             this.cmbModel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.cmbModel.Name = "cmbModel";
             this.cmbModel.Size = new System.Drawing.Size(451, 36);
@@ -1522,7 +1516,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(26, 520);
+            this.label39.Location = new System.Drawing.Point(43, 485);
             this.label39.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(75, 28);
