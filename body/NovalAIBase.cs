@@ -8,17 +8,22 @@ using AutoNai3Tools.utils;
 using Newtonsoft.Json;
 
 namespace AutoNai3Tools.body {
-    public class NovalAI : BodyBase {
+    public class NovalAIBase : BodyBase {
         [JsonProperty("input")] public string prompt { get; set; }
         public string model { get; set; }
         public string action { get; set; }
         public GenerationParameters parameters { get; set; }
 
-        public NovalAI(Dictionary<string, object> kwargs) : base(kwargs) {
+        public NovalAIBase(Dictionary<string, object> kwargs) : base(kwargs) {
             parameters = new GenerationParameters();
             SetProperties(this, kwargs);
             SetProperties(parameters, kwargs);
             parameters.params_version = 3;
+            parameters.add_original_image = true;
+            parameters.controlnet_strength = 1;
+            parameters.n_samples = 1;
+            parameters.qualityToggle = true;
+            parameters.ucPreset = 0;
         }
 
         private void SetProperties(object target, Dictionary<string, object> values) {
@@ -69,8 +74,8 @@ namespace AutoNai3Tools.body {
         public long seed { get; set; }
         public int n_samples { get; set; }
 
-        public int uc_preset { get; set; }
-        public bool quality_toggle { get; set; }
+        public int ucPreset { get; set; }
+        public bool qualityToggle { get; set; }
         public bool sm { get; set; }
         public bool sm_dyn { get; set; }
         public bool dynamic_thresholding { get; set; }
@@ -81,7 +86,7 @@ namespace AutoNai3Tools.body {
         public string noise_schedule { get; set; }
         public bool legacy_v3_extend { get; set; }
         public double? skip_cfg_above_sigma { get; set; }
-        public List<string> character_prompts { get; set; }
+        public List<string> characterPrompts { get; set; }
         public string negative_prompt { get; set; }
         public List<string> reference_image_multiple { get; set; }
         public List<string> reference_information_extracted_multiple { get; set; }
@@ -90,7 +95,7 @@ namespace AutoNai3Tools.body {
         public bool prefer_brownian { get; set; }
 
         public GenerationParameters() {
-            character_prompts = new List<string>();
+            characterPrompts = new List<string>();
             reference_image_multiple = new List<string>();
             reference_information_extracted_multiple = new List<string>();
             reference_strength_multiple = new List<double>();
