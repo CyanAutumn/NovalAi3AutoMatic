@@ -232,7 +232,6 @@ namespace AutoNai3Tools {
             var prompt = Prompt.GetPrompt(txtPrompt.Text, this);
             prevNoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
             kwargs.Add("prompt", Prompt.GetDataPrompt(prompt));
-            kwargs.Add("action", "generate");
             BodyBase body = BodyTools.GetBody(cmbModel.Text, kwargs);
 
             // //nai4

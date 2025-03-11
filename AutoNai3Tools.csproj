@@ -56,7 +56,9 @@
     <Compile Include="body\BodyTools.cs" />
     <Compile Include="body\Nai2.cs" />
     <Compile Include="body\Nai3.cs" />
-    <Compile Include="body\Nai4.cs" />
+    <Compile Include="body\Nai3Furry.cs" />
+    <Compile Include="body\Nai4Full.cs" />
+    <Compile Include="body\Nai4Preview.cs" />
     <Compile Include="body\NovalAIBase.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

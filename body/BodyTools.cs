@@ -23,11 +23,13 @@ namespace AutoNai3Tools.body {
                 case nameof(Model.Nai2):
                     return new Nai2(kwargs);
                 case nameof(Model.Nai3):
-                case nameof(Model.Nai3_Furry):
                     return new Nai3(kwargs);
+                case nameof(Model.Nai3_Furry):
+                    return new Nai3Furry(kwargs);
                 case nameof(Model.Nai4_Preview):
+                    return new Nai4Preview(kwargs);
                 case nameof(Model.Nai4_Full):
-                    return new Nai4(kwargs);
+                    return new Nai4Full(kwargs);
             }
 
             throw new Exception("选择的模型无效");
@@ -37,6 +39,12 @@ namespace AutoNai3Tools.body {
             foreach (var model in Enum.GetValues(typeof(Model))) {
                 cbx.Items.Add(model);
             }
+        }
+
+        public static string GetEnumDescription(Enum value) {
+            var field = value.GetType().GetField(value.ToString());
+            var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
+            return attribute?.Description ?? value.ToString();
         }
     }
 }
