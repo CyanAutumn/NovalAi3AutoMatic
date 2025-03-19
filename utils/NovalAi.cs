@@ -153,23 +153,25 @@ namespace AutoNai3Tools.utils {
         }
     }
 
-    class Caption {
+    //准备废弃
+    class CaptionNo {
         public string base_caption { get; set; }
         public List<string> char_captions { get; set; }
 
-        public Caption(string base_caption, List<string> char_captions = null) {
+        public CaptionNo(string base_caption, List<string> char_captions = null) {
             this.base_caption = base_caption;
             if (char_captions == null)
                 this.char_captions = new List<string>();
         }
     }
 
-    class V4Prompt {
+    //准备废弃
+    class V4PromptNo {
         public Caption caption { get; set; }
         public bool? use_coords { get; set; }
         public bool? use_order { get; set; }
 
-        public V4Prompt(Caption caption) {
+        public V4PromptNo(Caption caption) {
             this.caption = caption;
         }
     }

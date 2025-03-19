@@ -231,21 +231,13 @@ namespace AutoNai3Tools {
 
             var prompt = Prompt.GetPrompt(txtPrompt.Text, this);
             prevNoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
-            kwargs.Add("prompt", Prompt.GetDataPrompt(prompt));
+            string tPrompt = Prompt.GetDataPrompt(prompt);
+            kwargs.Add("prompt", tPrompt);
+
+            //nai4
+            kwargs.Add("v4_negative_prompt", new V4Prompt(new Caption(txtNegativePrompt.Text, new List<CharCaption>()), null, null, false));
+            kwargs.Add("v4_prompt", new V4Prompt(new Caption(tPrompt, new List<CharCaption>()), true, true, null));
             BodyBase body = BodyTools.GetBody(cmbModel.Text, kwargs);
-
-            // //nai4
-            // if (cmbModel.Text == "nai-diffusion-4-curated-preview" || cmbModel.Text == "nai-diffusion-4-full") {
-            //     parmeters.v4_negative_prompt = new V4Prompt(new Caption(parmeters.negative_prompt));
-            //     parmeters.v4_prompt = new V4Prompt(new Caption(tPrompt));
-            //     parmeters.v4_prompt.use_coords = false;
-            //     parmeters.v4_prompt.use_order = false;
-            // }
-
-            // Nai3GenerateImageBody nai3Body =
-            //     new Nai3GenerateImageBody(input: tPrompt, parameters: parmeters, model: cmbModel.Text);
-            // if (img2ImgCurrentPath != null)
-            //     nai3Body.action = "img2img";
             return body;
         }
 

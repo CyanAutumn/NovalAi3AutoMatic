@@ -3,36 +3,48 @@
   "WorkspaceRootPath": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\nai4preview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\nai4preview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\nai4full.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\nai4full.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\novalai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\body\\novalaibase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\novalaibase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\novalaibase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\body\\nai3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\nai3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\body\\bodybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\bodybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\bodybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\bodytools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\bodytools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\body\\nai3furry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\nai3furry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\nai3furry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|d:\\onedrive\\code\\novalai3automatic\\body\\bodytools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\bodytools.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\nai2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\nai2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\nai3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:body\\nai3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 241,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,29 +62,65 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
+              "Title": "Nai4Preview.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai4Preview.cs",
+              "RelativeDocumentMoniker": "body\\Nai4Preview.cs",
+              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai4Preview.cs",
+              "RelativeToolTip": "body\\Nai4Preview.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-19T12:52:53.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Nai2.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai2.cs",
+              "RelativeDocumentMoniker": "body\\Nai2.cs",
+              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai2.cs",
+              "RelativeToolTip": "body\\Nai2.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvxEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-19T12:52:46.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Nai4Full.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai4Full.cs",
+              "RelativeDocumentMoniker": "body\\Nai4Full.cs",
+              "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai4Full.cs",
+              "RelativeToolTip": "body\\Nai4Full.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAA9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-19T12:43:22.046Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Nai3Furry.cs",
               "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai3Furry.cs",
               "RelativeDocumentMoniker": "body\\Nai3Furry.cs",
               "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai3Furry.cs",
               "RelativeToolTip": "body\\Nai3Furry.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAADwvwoAAABPAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvw4AAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T13:45:00.954Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-11T13:45:00.954Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "Nai3.cs",
               "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai3.cs",
               "RelativeDocumentMoniker": "body\\Nai3.cs",
               "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\Nai3.cs",
               "RelativeToolTip": "body\\Nai3.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAADwvwwAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAADwvw4AAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T13:44:55.757Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-11T13:44:55.757Z"
             },
             {
               "$type": "Document",
@@ -82,40 +130,38 @@
               "RelativeDocumentMoniker": "body\\BodyTools.cs",
               "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\BodyTools.cs",
               "RelativeToolTip": "body\\BodyTools.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABkAAAAfAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAB8AAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T13:24:57.419Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-11T13:24:57.419Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "NovalAIBase.cs",
               "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\NovalAIBase.cs",
               "RelativeDocumentMoniker": "body\\NovalAIBase.cs",
               "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\NovalAIBase.cs",
               "RelativeToolTip": "body\\NovalAIBase.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAB4AAAAuAAAA",
+              "ViewState": "AQIAAJEAAAAAAAAAAAAQwKsAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T13:19:07.393Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-11T13:19:07.393Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "NovalAi.cs",
               "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\NovalAi.cs",
               "RelativeDocumentMoniker": "utils\\NovalAi.cs",
               "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\NovalAi.cs",
               "RelativeToolTip": "utils\\NovalAi.cs",
-              "ViewState": "AQIAABABAAAAAAAAAAAQwCgBAAAQAAAA",
+              "ViewState": "AQIAAA8BAAAAAAAAAAAQwDUBAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-11T13:17:58.845Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "BodyBase.cs",
               "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\body\\BodyBase.cs",
               "RelativeDocumentMoniker": "body\\BodyBase.cs",
@@ -123,18 +169,17 @@
               "RelativeToolTip": "body\\BodyBase.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T13:17:55.908Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-11T13:17:55.908Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Form1.cs",
               "DocumentMoniker": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "D:\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAIEAAAAAAAAAAAAAAKQAAAAAAAAA",
+              "ViewState": "AQIAAO4AAAAAAAAAAAAAAA4BAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-11T13:17:18.788Z",
               "EditorCaption": ""

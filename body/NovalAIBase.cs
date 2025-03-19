@@ -28,7 +28,8 @@ namespace AutoNai3Tools.body {
                 this.action = "img2img";
                 parameters.prefer_brownian = false;
                 Random random = new Random();
-                parameters.extra_noise_seed =  random.Next(0, 1000000000); ;
+                parameters.extra_noise_seed = random.Next(0, 1000000000);
+                ;
             }
             else {
                 this.action = "generate";
@@ -121,8 +122,8 @@ namespace AutoNai3Tools.body {
         public int ucPreset { get; set; }
         public bool prefer_brownian { get; set; }
         public bool qualityToggle { get; set; }
-        public bool sm { get; set; }
-        public bool sm_dyn { get; set; }
+        public bool? sm { get; set; }
+        public bool? sm_dyn { get; set; }
         public bool dynamic_thresholding { get; set; }
         public double controlnet_strength { get; set; }
         public bool legacy { get; set; }
@@ -130,22 +131,59 @@ namespace AutoNai3Tools.body {
         public double cfg_rescale { get; set; }
         public string noise_schedule { get; set; }
         public string image { get; set; }
-        public float strength { get; set; }
-        public float noise { get; set; }
+        public float? strength { get; set; }
+        public float? noise { get; set; }
         public bool legacy_v3_extend { get; set; }
         public double? skip_cfg_above_sigma { get; set; }
+        public bool? use_coords { get; set; }
         public List<string> characterPrompts { get; set; }
         public string negative_prompt { get; set; }
         public List<string> reference_image_multiple { get; set; }
         public List<float> reference_information_extracted_multiple { get; set; }
         public List<float> reference_strength_multiple { get; set; }
         public bool deliberate_euler_ancestral_bug { get; set; }
+        public V4Prompt v4_negative_prompt { get; set; }
+        public V4Prompt v4_prompt { get; set; }
 
         public GenerationParameters() {
             characterPrompts = new List<string>();
             reference_image_multiple = new List<string>();
             reference_information_extracted_multiple = new List<float>();
             reference_strength_multiple = new List<float>();
+        }
+    }
+
+    public class Position {
+        public float x { get; set; }
+        public float y { get; set; }
+    }
+
+    public class CharCaption {
+        public List<Position> centers { get; set; }
+        public string char_caption { get; set; }
+    }
+
+    public class Caption {
+        public string base_caption { get; set; }
+        public List<CharCaption> char_captions { get; set; }
+
+        public Caption(string base_caption, List<CharCaption> char_captions) {
+            this.base_caption = base_caption;
+            this.char_captions = char_captions;
+        }
+    }
+
+    public class V4Prompt {
+        public Caption caption { get; set; }
+        public bool? use_coords { get; set; }
+        public bool? use_order { get; set; }
+        public bool? legacy_uc { get; set; }
+
+        public V4Prompt(Caption cattion, bool? use_coords, bool? use_order, bool? legacy_uc) {
+            this.caption = cattion;
+            this.use_coords=use_coords;
+            this.use_order=use_order;
+            this.legacy_uc=legacy_uc;
         }
     }
 }
