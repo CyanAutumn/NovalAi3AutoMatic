@@ -10,6 +10,9 @@ using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
 using AutoNai3Tools.body;
+using static System.Net.WebRequestMethods;
+using System.Net.Http;
+using File = System.IO.File;
 
 namespace AutoNai3Tools {
     public partial class Form1 : Form {
@@ -28,6 +31,8 @@ namespace AutoNai3Tools {
             cmbEmotionDefry.SelectedIndex = 0;
             cmbNoiseSchedule.SelectedIndex = 0;
             Logger.Initialize(this);
+            PicProperty settings = new PicProperty();
+            propertyGrid1.SelectedObject = settings;
         }
 
         #region 固定画师，随机画师，随机提示词快速插入
@@ -187,8 +192,18 @@ namespace AutoNai3Tools {
             kwargs.Add("sm_dyn", chkDyn.Checked);
             kwargs.Add("negative_prompt", txtNegativePrompt.Text);
             kwargs.Add("seed", GetSeed());
-            if (chkVariety.Checked)
-                kwargs.Add("skip_cfg_above_sigma", 19);
+            if (chkVariety.Checked) {
+                kwargs.Add("autoSmea", true);
+                if (rdoVarietyDefault.Checked) {
+                    kwargs.Add("skip_cfg_above_sigma", 19);
+                }
+                else {
+                    kwargs.Add("skip_cfg_above_sigma", nudVarietyCustom.Value);
+                    kwargs.Add("deliberate_euler_ancestral_bug", false);
+                    kwargs.Add("prefer_brownian", true);
+                }
+            }
+
             kwargs.Add("dynamic_thresholding", chkDecrisp.Checked);
 
             // img2img
@@ -235,7 +250,8 @@ namespace AutoNai3Tools {
             kwargs.Add("prompt", tPrompt);
 
             //nai4
-            kwargs.Add("v4_negative_prompt", new V4Prompt(new Caption(txtNegativePrompt.Text, new List<CharCaption>()), null, null, false));
+            kwargs.Add("v4_negative_prompt",
+                new V4Prompt(new Caption(txtNegativePrompt.Text, new List<CharCaption>()), null, null, false));
             kwargs.Add("v4_prompt", new V4Prompt(new Caption(tPrompt, new List<CharCaption>()), true, true, null));
             BodyBase body = BodyTools.GetBody(cmbModel.Text, kwargs);
             return body;
@@ -848,5 +864,49 @@ namespace AutoNai3Tools {
         }
 
         #endregion
+
+        private int resizeAreaSize = 10;
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 1;
+        private const int HTLEFT = 10;
+        private const int HTRIGHT = 11;
+        private const int HTTOP = 12;
+        private const int HTTOPLEFT = 13;
+        private const int HTTOPRIGHT = 14;
+        private const int HTBOTTOM = 15;
+        private const int HTBOTTOMLEFT = 16;
+        private const int HTBOTTOMRIGHT = 17;
+
+        protected override void WndProc(ref Message m) {
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_NCHITTEST) {
+                // 获取鼠标相对于窗体的位置
+                int x = (m.LParam.ToInt32() & 0xFFFF);
+                int y = (m.LParam.ToInt32() >> 16) & 0xFFFF;
+                var clientPos = this.PointToClient(new System.Drawing.Point(x, y));
+
+                // 判断在哪个边缘
+                if (clientPos.X <= resizeAreaSize && clientPos.Y <= resizeAreaSize)
+                    m.Result = (IntPtr)HTTOPLEFT;
+                else if (clientPos.X >= this.ClientSize.Width - resizeAreaSize && clientPos.Y <= resizeAreaSize)
+                    m.Result = (IntPtr)HTTOPRIGHT;
+                else if (clientPos.X <= resizeAreaSize && clientPos.Y >= this.ClientSize.Height - resizeAreaSize)
+                    m.Result = (IntPtr)HTBOTTOMLEFT;
+                else if (clientPos.X >= this.ClientSize.Width - resizeAreaSize &&
+                         clientPos.Y >= this.ClientSize.Height - resizeAreaSize)
+                    m.Result = (IntPtr)HTBOTTOMRIGHT;
+                else if (clientPos.Y <= resizeAreaSize)
+                    m.Result = (IntPtr)HTTOP;
+                else if (clientPos.Y >= this.ClientSize.Height - resizeAreaSize)
+                    m.Result = (IntPtr)HTBOTTOM;
+                else if (clientPos.X <= resizeAreaSize)
+                    m.Result = (IntPtr)HTLEFT;
+                else if (clientPos.X >= this.ClientSize.Width - resizeAreaSize)
+                    m.Result = (IntPtr)HTRIGHT;
+                else
+                    m.Result = (IntPtr)HTCLIENT; // 其他区域
+            }
+        }
     }
 }

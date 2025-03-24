@@ -66,7 +66,7 @@ namespace AutoNai3Tools.utils {
             List<string> retTagList = new List<string>();
             for (int i = 0; i < tagList.Count; i++) {
                 if (result.ContainsKey(strTagList[i])) {
-                    strTagList[i] += $"_{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds().ToString()}";
+                    strTagList[i] += $"_{new DateTimeOffset(DateTime.UtcNow).ToUnixTimeMilliseconds().ToString()}+{i}";
                 }
 
                 result.Add(strTagList[i], tagList[i].ToString());

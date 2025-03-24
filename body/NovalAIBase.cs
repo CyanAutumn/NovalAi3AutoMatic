@@ -118,7 +118,7 @@ namespace AutoNai3Tools.body {
         public long seed { get; set; }
         public int n_samples { get; set; }
 
-        public int extra_noise_seed { get; set; }
+        public int? extra_noise_seed { get; set; }
         public int ucPreset { get; set; }
         public bool prefer_brownian { get; set; }
         public bool qualityToggle { get; set; }
@@ -134,8 +134,9 @@ namespace AutoNai3Tools.body {
         public float? strength { get; set; }
         public float? noise { get; set; }
         public bool legacy_v3_extend { get; set; }
-        public double? skip_cfg_above_sigma { get; set; }
+        public int? skip_cfg_above_sigma { get; set; }
         public bool? use_coords { get; set; }
+        public bool autoSmea { get; set; }
         public List<string> characterPrompts { get; set; }
         public string negative_prompt { get; set; }
         public List<string> reference_image_multiple { get; set; }
@@ -181,9 +182,9 @@ namespace AutoNai3Tools.body {
 
         public V4Prompt(Caption cattion, bool? use_coords, bool? use_order, bool? legacy_uc) {
             this.caption = cattion;
-            this.use_coords=use_coords;
-            this.use_order=use_order;
-            this.legacy_uc=legacy_uc;
+            this.use_coords = use_coords;
+            this.use_order = use_order;
+            this.legacy_uc = legacy_uc;
         }
     }
 }

@@ -77,6 +77,7 @@
     <Compile Include="tag\TagWildcard.cs" />
     <Compile Include="utils\Config.cs" />
     <Compile Include="utils\Logger.cs" />
+    <Compile Include="utils\PicProperty.cs" />
     <Compile Include="utils\Tools.cs" />
     <Compile Include="utils\NovalAi.cs" />
     <Compile Include="utils\Prompt.cs" />

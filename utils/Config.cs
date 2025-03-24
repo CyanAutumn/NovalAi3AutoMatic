@@ -97,6 +97,9 @@ namespace AutoNai3Tools.utils {
         public bool KeepResolution { get; set; }
         public bool Decrisp { get; set; }
         public bool Variety { get; set; }
+        public bool VarietyDefault { get; set; }
+        public bool VarietyCustom { get; set; }
+        public double VarietyNum { get; set; }
         public int ModelSelect { get; set; }
 
         public static void SaveToml(Form1 form, string fileName) {
@@ -152,6 +155,9 @@ namespace AutoNai3Tools.utils {
             obj.KeepResolution = form.chkKeepResolution.Checked;
             obj.Decrisp = form.chkDecrisp.Checked;
             obj.Variety = form.chkVariety.Checked;
+            obj.VarietyDefault = form.rdoVarietyDefault.Checked;
+            obj.VarietyCustom = form.rdoVarietyCustom.Checked;
+            obj.VarietyNum = (double)form.nudVarietyCustom.Value;
             obj.ModelSelect = form.cmbModel.SelectedIndex;
             Toml.WriteFile(obj, folderPath + fileName + ".toml");
         }
@@ -198,6 +204,9 @@ namespace AutoNai3Tools.utils {
             form.chkKeepResolution.Checked = obj.KeepResolution;
             form.chkDecrisp.Checked = obj.Decrisp;
             form.chkVariety.Checked = obj.Variety;
+            form.rdoVarietyDefault.Checked = obj.VarietyDefault;
+            form.rdoVarietyCustom.Checked = obj.VarietyCustom;
+            form.nudVarietyCustom.Value = ((decimal)obj.VarietyNum);
             form.cmbModel.SelectedIndex = obj.ModelSelect;
         }
     }
