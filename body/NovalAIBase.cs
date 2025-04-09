@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace AutoNai3Tools.body {
     public class NovalAIBase : BodyBase {
-        [JsonProperty("input")] public string prompt { get; set; }
+        [JsonProperty("input")] public override string prompt { get; set; }
         public string model { get; set; }
         public string action { get; set; }
         public GenerationParameters parameters { get; set; }

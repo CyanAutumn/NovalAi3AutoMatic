@@ -1,44 +1,203 @@
-﻿using System;
+﻿using AutoNai3Tools.body;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
-namespace AutoNai3Tools.utils
-{
-    class PicProperty
-    {
-        [Category("图片参数")]
-        [Description("用户名")]
-        public string  { get; set; }
+namespace AutoNai3Tools.utils {
+    public class PicProperty  {
+        [Category("生成")] [DisplayName("模型")] public BodyTools.Model Model { get; set; }
+        [Category("生成")] [DisplayName("噪声")] public NoiseOptions Noise { get; set; }
 
-        [Category("图片参数")]
-        [Description("用户名")]
-        public string Username { get; set; }
+        private int _steps;
+        [Category("生成")] [DisplayName("步数")] public int Steps {
+            get { return _steps; }
+            set {
+                if (value > 28) {
+                    _steps = 28;
+                } else if (value < 1) {
+                    _steps = 1;
+                }
+                else {
+                    _steps = value;
+                }
+            }
+        }
+        [Category("生成")] [DisplayName("采样")] public SamplerOptions Sampler { get; set; }
 
-        [Category("基本参数")]
-        [Description("是否启用功能")]
-        public bool EnableFeature { get; set; }
+        private Switch _smea;  
+        [Category("优化")] [DisplayName("SMEA")] public Switch Smea {
+            get { return _smea; }  
+            set {
+                _smea = value; 
+                if (value == Switch.关) {
+                    Dyn = Switch.关; 
+                }
+            }
+        }
+        [Category("优化")] [DisplayName("DYN")] public Switch Dyn { get; set; }
 
-        [Category("高级参数")]
-        [Description("选项列表")]
-        public MyOptions Option { get; set; }
+        private float _scale;
+        [Category("生成")] [DisplayName("Scale")] public float Scale {
+            get { return _scale; }
+            set {
+                if (value > 10) {
+                    _scale = 10;
+                }
+                else if (value < 0) {
+                    _scale = 0;
+                }
+                else {
+                    _scale = (float)Math.Round(value, 1);
+                }
+            }
+        }
+        [Category("生成")] [DisplayName("Decrisp")] public Switch Decrisp { get; set; }
+        [Category("生成")] [DisplayName("CFG")] public float CFG { get; set; }
+        [Category("生成")] [DisplayName("分辨率切换模式")] public ResolutionMode ResolutionMode { get; set; }
+        [Category("生成")] [DisplayName("分辨率列表")][Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))] public string ResolutionList { get; set; }
+        [Category("生成")][DisplayName("width")] public int Width { get; set; }
+        [Category("生成")][DisplayName("height")] public int Height { get; set; }
+        [Category("生成")] [DisplayName("固定种子")] public Switch FixedSeeds { get; set; }
 
-        [Category("高级参数")]
-        [Description("颜色选择")]
-        public Color ThemeColor { get; set; }
+        [Category("生成")] [DisplayName("种子")] public long Seeds { get; set; }
+        [Category("优化")] [DisplayName("Variety")] public VarietyOptions Variety { get; set; }
+        [Category("优化")] [DisplayName("Variety自定义值")] public double VarietyNum { get; set; }
 
-        [Category("高级参数")]
-        [Description("文件路径")]
-        [Editor(typeof(System.Windows.Forms.Design.FileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
-        public string FilePath { get; set; }
+        public Dictionary<string, object> GetProperty() {
+            if (FixedSeeds == Switch.关) {
+                Random random = new Random();
+                Seeds = (long)(random.NextDouble() * 10000000000);
+            }
+            var kwargs = new Dictionary<string, object> {
+                ["noise_schedule"] = GetEnumDescription(Noise),
+                ["steps"] = Steps,
+                ["sampler"] = GetEnumDescription(Sampler),
+                ["sm"] = Smea == Switch.开,
+                ["sm_dyn"] = Dyn == Switch.开,
+                ["scale"] = Scale,
+                ["dynamic_thresholding"] = Decrisp == Switch.开,
+                ["cfg_rescale"] = CFG,
+                ["seed"] = Seeds,
+                ["width"] = Width,
+                ["height"] = Height,
+            };
+                //OnPropertyChanged("Seeds");
+                //OnPropertyChanged("Width");
+                //OnPropertyChanged("Height");
+
+            if (Variety != VarietyOptions.关) {
+                kwargs["autoSmea"] = true;
+                kwargs["skip_cfg_above_sigma"] = Variety == VarietyOptions.开 ? 19 : VarietyNum;
+
+                if (Variety == VarietyOptions.自定义_风险参数) {
+                    kwargs["deliberate_euler_ancestral_bug"] = false;
+                    kwargs["prefer_brownian"] = true;
+                }
+            }
+
+            return kwargs;
+        }
+
+        private static string GetEnumDescription<T>(T value) where T : Enum {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+            return fi?.GetCustomAttribute<DescriptionAttribute>()?.Description ?? value.ToString();
+        }
+
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //protected void OnPropertyChanged(string name) {
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        //}
     }
 
-    public enum MyOptions {
-        选项A,
-        选项B,
-        选项C
+    public enum Switch {
+         开,
+         关
+    }
+
+    public enum ResolutionMode {
+        固定,
+        顺序,
+        随机
+    }
+
+    public enum NoiseOptions {
+        [Description("native")] native,
+        [Description("karras")] karras,
+        [Description("exponential")] exponential,
+        [Description("polyexponential")] polyexponential
+    }
+
+    public enum SamplerOptions {
+        [Description("k_euler")] Euler,
+        [Description("k_euler_ancestral")] Euler_Ancestral,
+        [Description("k_dpmpp_2s_ancestral")] DPMpp_2S_Ancestral,
+        [Description("k_dpmpp_2m_sde")] DPMpp_2M_SDE,
+        [Description("k_dpmpp_2m")] DPMpp_2M,
+        [Description("k_dpmpp_sde")] DPMpp_SDE,
+        [Description("ddim_v3")] DDIM
+    }
+
+    public enum VarietyOptions {
+        关,
+        开,
+        自定义_风险参数
+    }
+
+    public class MultiLineTextForm : Form {
+        private TextBox textBox;
+        private Button btnOK;
+
+        public string ResultText => textBox.Text;
+
+        public MultiLineTextForm(string initialText) {
+            this.Text = "编辑文本";
+            this.Width = 500;
+            this.Height = 400;
+
+            textBox = new TextBox() {
+                Multiline = true,
+                Dock = DockStyle.Fill,
+                ScrollBars = ScrollBars.Vertical,
+                Text = initialText,
+                AcceptsReturn = true,
+                AcceptsTab = true,
+            };
+
+            btnOK = new Button() {
+                Text = "确定",
+                Dock = DockStyle.Bottom,
+                DialogResult = DialogResult.OK
+            };
+
+            this.Controls.Add(textBox);
+            this.Controls.Add(btnOK);
+        }
+    }
+
+    public class MultiLineTextEditor : UITypeEditor {
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) {
+            return UITypeEditorEditStyle.Modal; // 使用模态弹窗
+        }
+
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value) {
+            string currentValue = value as string ?? "";
+
+            using (var form = new MultiLineTextForm(currentValue)) {
+                if (form.ShowDialog() == DialogResult.OK) {
+                    return form.ResultText;
+                }
+            }
+
+            return value; 
+        }
     }
 }

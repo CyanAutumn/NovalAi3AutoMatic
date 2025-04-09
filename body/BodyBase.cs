@@ -2,7 +2,7 @@
 
 namespace AutoNai3Tools.body {
     public class BodyBase {
-        public string prompt { get; set; }
+        public virtual string prompt { get; set; }
         public BodyBase(Dictionary<string, object> kwargs) { }
 
         public string ToJson() {

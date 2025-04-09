@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutoNai3Tools.body;
 using Nett;
 
 namespace AutoNai3Tools.utils {
@@ -64,9 +65,7 @@ namespace AutoNai3Tools.utils {
         public int KeepParams { get; set; }
         public bool SavePromptToTxt { get; set; }
         public bool SavePromptToTxtNoArtist { get; set; }
-        public bool ResolutionOrder { get; set; }
-        public bool ResolutionRandom { get; set; }
-        public bool ResolutionFixed { get; set; }
+        public ResolutionMode ResolutionMode { get; set; }
         public string RandomPromptFolderPath { get; set; }
         public string WildcardFolderPath { get; set; }
         public string OutputPath { get; set; }
@@ -79,8 +78,6 @@ namespace AutoNai3Tools.utils {
         public bool Smea { get; set; }
         public bool Dyn { get; set; }
         public string[] ResolutionList { get; set; }
-
-        public int ResolutionIndex { get; set; }
 
         //artist
         public string ArtistFixed { get; set; }
@@ -96,11 +93,14 @@ namespace AutoNai3Tools.utils {
         public bool KeepRandomPrompt { get; set; }
         public bool KeepResolution { get; set; }
         public bool Decrisp { get; set; }
+        public long Seeds { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public bool Variety { get; set; }
         public bool VarietyDefault { get; set; }
-        public bool VarietyCustom { get; set; }
         public double VarietyNum { get; set; }
-        public int ModelSelect { get; set; }
+        public Switch FixedSeeds { get; set; }
+        public BodyTools.Model ModelSelect { get; set; }
 
         public static void SaveToml(Form1 form, string fileName) {
             string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_2\\";
@@ -121,26 +121,23 @@ namespace AutoNai3Tools.utils {
             obj.KeepParams = ((int)form.numKeepParams.Value);
             obj.SavePromptToTxt = form.chkSavePromptToTxt.Checked;
             obj.SavePromptToTxtNoArtist = form.chkSavePromptToTxtNoArtist.Checked;
-            obj.ResolutionRandom = form.rdoResolutionRandom.Checked;
-            obj.ResolutionOrder = form.rdoResolutionOrder.Checked;
-            obj.ResolutionFixed = form.rdoResolutionFixed.Checked;
+            obj.ResolutionMode = form.picProps.ResolutionMode;
             obj.RandomPromptFolderPath = form.txtRandomPromptFolderPath.Text;
             obj.WildcardFolderPath = form.txtWildcardFolderPath.Text;
             obj.OutputPath = form.txtOutputPath.Text;
             //obj.Token = form.txtToken.Text;
-            obj.SamplerIndex = form.cmbSampler.SelectedIndex;
-            obj.Steps = ((int)form.numSteps.Value);
-            obj.Scale = ((float)form.numScale.Value);
-            obj.CFG = ((float)form.nudCFG.Value);
-            obj.Noise = form.cmbNoiseSchedule.SelectedIndex;
-            obj.Smea = form.chkSmea.Checked;
-            obj.Dyn = form.chkDyn.Checked;
+            obj.SamplerIndex = (int)form.picProps.Sampler;
+            obj.Steps = form.picProps.Steps;
+            obj.Scale = form.picProps.Scale;
+            obj.CFG = form.picProps.CFG;
+            obj.Noise = (int)form.picProps.Noise;
+            obj.Smea = form.picProps.Smea==Switch.开;
+            obj.Dyn = form.picProps.Dyn==Switch.开;
             List<string> resolutionList = new List<string>();
-            for (int i = 0; i < form.lstResolutionList.Items.Count; i++) {
-                resolutionList.Add(form.lstResolutionList.Items[i].ToString());
+            var _resolutionList = form.picProps.ResolutionList.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            for (int i = 0; i < _resolutionList.Length; i++) {
+                resolutionList.Add(_resolutionList[i]);
             }
-
-            obj.ResolutionIndex = form.lstResolutionList.SelectedIndex;
             obj.ResolutionList = resolutionList.ToArray();
             obj.ArtistFixed = form.txtArtistFixed.Text;
             obj.ArtistRandom = form.txtArtistRandom.Text;
@@ -153,12 +150,15 @@ namespace AutoNai3Tools.utils {
             obj.KeepWildcard = form.chkKeepWildcard.Checked;
             obj.KeepRandomPrompt = form.chkKeepRandomPrompt.Checked;
             obj.KeepResolution = form.chkKeepResolution.Checked;
-            obj.Decrisp = form.chkDecrisp.Checked;
-            obj.Variety = form.chkVariety.Checked;
-            obj.VarietyDefault = form.rdoVarietyDefault.Checked;
-            obj.VarietyCustom = form.rdoVarietyCustom.Checked;
-            obj.VarietyNum = (double)form.nudVarietyCustom.Value;
-            obj.ModelSelect = form.cmbModel.SelectedIndex;
+            obj.Decrisp = form.picProps.Decrisp == Switch.开;
+            obj.FixedSeeds = form.picProps.FixedSeeds ;
+            obj.Seeds = form.picProps.Seeds;
+            obj.Width = form.picProps.Width;
+            obj.Height = form.picProps.Height;
+            obj.Variety = form.picProps.Variety != VarietyOptions.关;
+            obj.VarietyDefault = form.picProps.Variety == VarietyOptions.自定义_风险参数;
+            obj.VarietyNum = form.picProps.VarietyNum;
+            obj.ModelSelect = form.picProps.Model;
             Toml.WriteFile(obj, folderPath + fileName + ".toml");
         }
 
@@ -171,26 +171,23 @@ namespace AutoNai3Tools.utils {
             form.numKeepParams.Value = obj.KeepParams;
             form.chkSavePromptToTxt.Checked = obj.SavePromptToTxt;
             form.chkSavePromptToTxtNoArtist.Checked = obj.SavePromptToTxtNoArtist;
-            form.rdoResolutionRandom.Checked = obj.ResolutionRandom;
-            form.rdoResolutionOrder.Checked = obj.ResolutionOrder;
-            form.rdoResolutionFixed.Checked = obj.ResolutionFixed;
+            form.picProps.ResolutionMode= obj.ResolutionMode;
             form.txtRandomPromptFolderPath.Text = obj.RandomPromptFolderPath;
             form.txtWildcardFolderPath.Text = obj.WildcardFolderPath;
             form.txtOutputPath.Text = obj.OutputPath;
             //form.txtToken.Text = obj.Token;
-            form.cmbSampler.SelectedIndex = obj.SamplerIndex;
-            form.numSteps.Value = obj.Steps;
-            form.numScale.Value = ((decimal)obj.Scale);
-            form.nudCFG.Value = ((decimal)obj.CFG);
-            form.cmbNoiseSchedule.SelectedIndex = obj.Noise;
-            form.chkSmea.Checked = obj.Smea;
-            form.chkDyn.Checked = obj.Dyn;
-            form.lstResolutionList.Items.Clear();
-            for (int i = 0; i < obj.ResolutionList.Length; i++) {
-                form.lstResolutionList.Items.Add(obj.ResolutionList[i]);
+            form.picProps.Sampler = (SamplerOptions)obj.SamplerIndex;
+            form.picProps.Steps = obj.Steps;
+            form.picProps.Scale = obj.Scale;
+            form.picProps.CFG = obj.CFG;
+            form.picProps.Noise = (NoiseOptions)obj.Noise;
+            form.picProps.Smea = obj.Smea?Switch.开:Switch.关;
+            form.picProps.Dyn = obj.Dyn ? Switch.开 : Switch.关;
+            if (obj.ResolutionList == null) {
+                obj.ResolutionList = new string[] { "832x1216", "1216x832", "1024x1024" };
             }
+            form.picProps.ResolutionList = string.Join("\r\n", obj.ResolutionList);
 
-            form.lstResolutionList.SelectedIndex = obj.ResolutionIndex;
             form.txtArtistFixed.Text = obj.ArtistFixed;
             form.txtArtistRandom.Text = obj.ArtistRandom;
             form.numDefaultArtistWeightReduceMax.Value = obj.DefaultArtistWeightReduceMax;
@@ -202,12 +199,14 @@ namespace AutoNai3Tools.utils {
             form.chkKeepWildcard.Checked = obj.KeepWildcard;
             form.chkKeepRandomPrompt.Checked = obj.KeepRandomPrompt;
             form.chkKeepResolution.Checked = obj.KeepResolution;
-            form.chkDecrisp.Checked = obj.Decrisp;
-            form.chkVariety.Checked = obj.Variety;
-            form.rdoVarietyDefault.Checked = obj.VarietyDefault;
-            form.rdoVarietyCustom.Checked = obj.VarietyCustom;
-            form.nudVarietyCustom.Value = ((decimal)obj.VarietyNum);
-            form.cmbModel.SelectedIndex = obj.ModelSelect;
+            form.picProps.Decrisp = obj.Decrisp ? Switch.开 : Switch.关; ;
+            form.picProps.FixedSeeds = obj.FixedSeeds ;
+            form.picProps.Seeds = obj.Seeds;
+            form.picProps.Width = obj.Width;
+            form.picProps.Height = obj.Height;
+            form.picProps.Variety = obj.Variety ? obj.VarietyDefault ? VarietyOptions.自定义_风险参数: VarietyOptions.开 : VarietyOptions.关; ;
+            form.picProps.VarietyNum = obj.VarietyNum;
+            form.picProps.Model= obj.ModelSelect;
         }
     }
 

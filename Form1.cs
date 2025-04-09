@@ -17,22 +17,20 @@ using File = System.IO.File;
 namespace AutoNai3Tools {
     public partial class Form1 : Form {
         public int runNum;
+        public PicProperty picProps = new PicProperty();
 
         public Form1() {
             InitializeComponent();
-            BodyTools.SetModelList(this.cmbModel);
-            lstResolutionList.SelectedIndex = 0;
-            cmbSampler.SelectedIndex = 0;
             Control.CheckForIllegalCrossThreadCalls = false;
             RefreshConfig();
             InitGrpEventArgs();
             cmbColorizeDerfy.SelectedIndex = 0;
             cmbEmotionEmotion.SelectedIndex = 0;
             cmbEmotionDefry.SelectedIndex = 0;
-            cmbNoiseSchedule.SelectedIndex = 0;
             Logger.Initialize(this);
-            PicProperty settings = new PicProperty();
-            propertyGrid1.SelectedObject = settings;
+            tabControl2.TabPages.Remove(tabPage15);
+            tabControl2.TabPages.Remove(tabPage18);
+            propertyGrid1.SelectedObject = picProps;
         }
 
         #region 固定画师，随机画师，随机提示词快速插入
@@ -121,90 +119,34 @@ namespace AutoNai3Tools {
             return txtOutputPath.Text;
         }
 
+        int resolutionSelectIndex = 0;
         private int[] GetResolution(int runNum) {
-            if (chkKeepResolution.Checked) {
-                if (runNum == 0 || runNum % numKeepParams.Value == 0) {
-                    if (rdoResolutionOrder.Checked) {
-                        int selectIndex = lstResolutionList.SelectedIndex + 1;
-                        lstResolutionList.SelectedIndex =
-                            selectIndex >= lstResolutionList.Items.Count ? 0 : selectIndex;
+            if (runNum == 0 || (runNum % numKeepParams.Value == 0&& chkKeepResolution.Checked==true) || chkKeepResolution.Checked == false) {
+                var resolutionList = picProps.ResolutionList.Split(new string[] { "\r\n" }, StringSplitOptions.None); ;
+                if (picProps.ResolutionMode != ResolutionMode.固定) {
+                    switch (picProps.ResolutionMode) {
+                        case ResolutionMode.随机:
+                            Random random = new Random();
+                            resolutionSelectIndex = random.Next(0, resolutionList.Length);
+                            break;
+                        case ResolutionMode.顺序:
+                            resolutionSelectIndex = (resolutionSelectIndex + 1) % resolutionList.Length;
+                            break;
                     }
-                    else if (rdoResolutionRandom.Checked) {
-                        Random random = new Random();
-                        int selectIndex = random.Next(0, lstResolutionList.Items.Count);
-                        lstResolutionList.SelectedIndex = selectIndex;
-                    }
+                    string[] _Resolution = resolutionList[resolutionSelectIndex].Split('x');
+                    picProps.Width = int.Parse(_Resolution[0]);
+                    picProps.Height = int.Parse(_Resolution[1]);
                 }
             }
-            else {
-                if (rdoResolutionOrder.Checked) {
-                    int selectIndex = lstResolutionList.SelectedIndex + 1;
-                    lstResolutionList.SelectedIndex = selectIndex >= lstResolutionList.Items.Count ? 0 : selectIndex;
-                }
-                else if (rdoResolutionRandom.Checked) {
-                    Random random = new Random();
-                    int selectIndex = random.Next(0, lstResolutionList.Items.Count);
-                    lstResolutionList.SelectedIndex = selectIndex;
-                }
-            }
-
-            Logger.Info("分辨率：" + lstResolutionList.SelectedItem.ToString());
-            string[] strResolution = lstResolutionList.SelectedItem.ToString().Split('x');
-            int[] resultResolution = new int[2] { int.Parse(strResolution[0]), int.Parse(strResolution[1]) };
-            return resultResolution;
-        }
-
-        private string GetSampler() {
-            int ret_idx = cmbSampler.SelectedIndex;
-            string[] sampler = new string[] {
-                "k_euler", "k_euler_ancestral", "k_dpmpp_2s_ancestral", "k_dpmpp_2m_sde", "k_dpmpp_2m", "k_dpmpp_sde",
-                "ddim_v3"
-            };
-            Logger.Info("采样：" + sampler[ret_idx]);
-            return sampler[ret_idx];
-        }
-
-        private int GetSeed() {
-            int result = 0;
-            if (!cbkSeedFixed.Checked) {
-                Random random = new Random();
-                nudSeed.Value = random.Next(0, 1000000000);
-            }
-
-            result = ((int)nudSeed.Value);
-            Logger.Info($"种子：{result}");
-            return result;
+            return new int[] { picProps.Width, picProps.Height };
         }
 
         string prevNoArtistPrompt = "";
 
         private BodyBase GetNai3Body(int runNum) {
-            Dictionary<string, object> kwargs = new Dictionary<string, object>();
             int[] resolution = GetResolution(runNum);
-            kwargs.Add("width", resolution[0]);
-            kwargs.Add("height", resolution[1]);
-            kwargs.Add("sampler", GetSampler());
-            kwargs.Add("steps", (int)numSteps.Value);
-            kwargs.Add("scale", (float)numScale.Value);
-            kwargs.Add("cfg_rescale", (float)nudCFG.Value);
-            kwargs.Add("noise_schedule", cmbNoiseSchedule.Text);
-            kwargs.Add("sm", chkSmea.Checked);
-            kwargs.Add("sm_dyn", chkDyn.Checked);
+            Dictionary<string, object> kwargs = picProps.GetProperty();
             kwargs.Add("negative_prompt", txtNegativePrompt.Text);
-            kwargs.Add("seed", GetSeed());
-            if (chkVariety.Checked) {
-                kwargs.Add("autoSmea", true);
-                if (rdoVarietyDefault.Checked) {
-                    kwargs.Add("skip_cfg_above_sigma", 19);
-                }
-                else {
-                    kwargs.Add("skip_cfg_above_sigma", nudVarietyCustom.Value);
-                    kwargs.Add("deliberate_euler_ancestral_bug", false);
-                    kwargs.Add("prefer_brownian", true);
-                }
-            }
-
-            kwargs.Add("dynamic_thresholding", chkDecrisp.Checked);
 
             // img2img
             if (img2ImgCurrentPath != null) {
@@ -253,7 +195,8 @@ namespace AutoNai3Tools {
             kwargs.Add("v4_negative_prompt",
                 new V4Prompt(new Caption(txtNegativePrompt.Text, new List<CharCaption>()), null, null, false));
             kwargs.Add("v4_prompt", new V4Prompt(new Caption(tPrompt, new List<CharCaption>()), true, true, null));
-            BodyBase body = BodyTools.GetBody(cmbModel.Text, kwargs);
+            BodyBase body = BodyTools.GetBody(picProps.Model, kwargs);
+            propertyGrid1.Refresh();
             return body;
         }
 
@@ -261,6 +204,7 @@ namespace AutoNai3Tools {
 
         private void TimerElapsed(object sender, ElapsedEventArgs e) {
             int max_num = int.Parse(numGenerateMaxNum.Value.ToString());
+            var data = this.picProps;
             for (int i = 0; i < max_num; i++) {
                 try {
                     runNum = i;
@@ -352,39 +296,12 @@ namespace AutoNai3Tools {
             }
         }
 
-        private void btnAddResolution_Click(object sender, EventArgs e) {
-            lstResolutionList.Items.Add(
-                numResolutionWidth.Value.ToString() + "x" + numResolutionHeight.Value.ToString());
-        }
-
-        private void btnDeleteResolution_Click(object sender, EventArgs e) {
-            if (lstResolutionList.Items.Count == 1) {
-                Logger.Error("至少需要保留一个分辨率");
-                return;
-            }
-
-            if (lstResolutionList.SelectedItem != null)
-                lstResolutionList.Items.Remove(lstResolutionList.SelectedItem);
-
-            lstResolutionList.SelectedIndex = 0;
-        }
-
         private void picView_Click(object sender, EventArgs e) {
             try {
                 System.Diagnostics.Process.Start(txtOutputPath.Text);
             }
             catch {
                 Logger.Warn("无法打开输出文件夹");
-            }
-        }
-
-        private void chkSmea_CheckedChanged(object sender, EventArgs e) {
-            if (chkSmea.Checked) {
-                chkDyn.Enabled = true;
-            }
-            else {
-                chkDyn.Checked = false;
-                chkDyn.Enabled = false;
             }
         }
 
@@ -404,6 +321,7 @@ namespace AutoNai3Tools {
 
         private void cmbConfigName_SelectedIndexChanged(object sender, EventArgs e) {
             Config.ReadToml(this, cmbConfigName.Text);
+            propertyGrid1.Refresh();
         }
 
         private void RefreshConfig() {
@@ -581,6 +499,9 @@ namespace AutoNai3Tools {
             System.Diagnostics.Process.Start("https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9");
         }
 
+        private void btnDocGithub_Click(object sender, EventArgs e) {
+            System.Diagnostics.Process.Start("https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9");
+        }
         #endregion
 
         #region wildcard

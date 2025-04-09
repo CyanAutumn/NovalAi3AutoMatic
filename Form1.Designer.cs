@@ -41,40 +41,8 @@
             this.txtPicInfo = new System.Windows.Forms.TextBox();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.lstResolutionList = new System.Windows.Forms.ListBox();
-            this.panel18 = new System.Windows.Forms.Panel();
-            this.btnDeleteResolution = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnAddResolution = new System.Windows.Forms.Button();
-            this.numResolutionHeight = new System.Windows.Forms.NumericUpDown();
-            this.numResolutionWidth = new System.Windows.Forms.NumericUpDown();
-            this.panel17 = new System.Windows.Forms.Panel();
-            this.rdoResolutionFixed = new System.Windows.Forms.RadioButton();
-            this.rdoResolutionRandom = new System.Windows.Forms.RadioButton();
-            this.rdoResolutionOrder = new System.Windows.Forms.RadioButton();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.nudVarietyCustom = new System.Windows.Forms.NumericUpDown();
-            this.rdoVarietyCustom = new System.Windows.Forms.RadioButton();
-            this.rdoVarietyDefault = new System.Windows.Forms.RadioButton();
-            this.cbkSeedFixed = new System.Windows.Forms.CheckBox();
-            this.nudSeed = new System.Windows.Forms.NumericUpDown();
-            this.label38 = new System.Windows.Forms.Label();
-            this.chkDecrisp = new System.Windows.Forms.CheckBox();
-            this.chkVariety = new System.Windows.Forms.CheckBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.cmbNoiseSchedule = new System.Windows.Forms.ComboBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.nudCFG = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.numSteps = new System.Windows.Forms.NumericUpDown();
-            this.chkDyn = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.chkSmea = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cmbSampler = new System.Windows.Forms.ComboBox();
-            this.numScale = new System.Windows.Forms.NumericUpDown();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.grpArtistRandom = new System.Windows.Forms.GroupBox();
             this.txtArtistRandom = new System.Windows.Forms.RichTextBox();
@@ -118,8 +86,6 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.cmbModel = new System.Windows.Forms.ComboBox();
-            this.label39 = new System.Windows.Forms.Label();
             this.chkClosePicPreview = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
@@ -147,6 +113,25 @@
             this.nudImg2ImgStrength = new System.Windows.Forms.NumericUpDown();
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
+            this.tabPage15 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tabPage18 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -216,6 +201,7 @@
             this.btnClearLog = new System.Windows.Forms.Button();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.btnDocGithub = new System.Windows.Forms.Button();
             this.btnDocToolsBook = new System.Windows.Forms.Button();
             this.btnTutorial = new System.Windows.Forms.Button();
             this.btnPushBackPic = new System.Windows.Forms.Button();
@@ -224,24 +210,6 @@
             this.btnGetMorePrompt = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.tabPage15 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.dreamForm1.SuspendLayout();
             this.panel16.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -250,17 +218,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picView)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.panel18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numResolutionHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numResolutionWidth)).BeginInit();
-            this.panel17.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudVarietyCustom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCFG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSteps)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numScale)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.grpArtistRandom.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -291,6 +249,7 @@
             this.panel15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgNoise)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgStrength)).BeginInit();
+            this.tabPage15.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -320,7 +279,6 @@
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabPage15.SuspendLayout();
             this.SuspendLayout();
             // 
             // dreamForm1
@@ -338,10 +296,10 @@
             this.dreamForm1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.dreamForm1.Name = "dreamForm1";
             this.dreamForm1.Padding = new System.Windows.Forms.Padding(0);
-            this.dreamForm1.Size = new System.Drawing.Size(2387, 1626);
+            this.dreamForm1.Size = new System.Drawing.Size(2387, 1458);
             this.dreamForm1.TabIndex = 1;
             this.dreamForm1.TabStop = false;
-            this.dreamForm1.Text = "Nai3自动roll图工具 v2.2.5";
+            this.dreamForm1.Text = "Nai3自动roll图工具 v2.2.6";
             this.dreamForm1.TitleAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dreamForm1.TitleHeight = 33;
             this.dreamForm1.UseCompatibleTextRendering = true;
@@ -429,7 +387,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(2387, 1602);
+            this.tabControl1.Size = new System.Drawing.Size(2387, 1434);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -440,7 +398,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage1.Size = new System.Drawing.Size(2379, 1561);
+            this.tabPage1.Size = new System.Drawing.Size(2379, 1393);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "生图";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -454,7 +412,7 @@
             this.panel5.Location = new System.Drawing.Point(6, 533);
             this.panel5.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(2367, 1023);
+            this.panel5.Size = new System.Drawing.Size(2367, 855);
             this.panel5.TabIndex = 1;
             // 
             // picView
@@ -463,7 +421,7 @@
             this.picView.Location = new System.Drawing.Point(614, 0);
             this.picView.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.picView.Name = "picView";
-            this.picView.Size = new System.Drawing.Size(1753, 930);
+            this.picView.Size = new System.Drawing.Size(1753, 762);
             this.picView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picView.TabIndex = 1;
             this.picView.TabStop = false;
@@ -472,7 +430,7 @@
             // txtPicInfo
             // 
             this.txtPicInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.txtPicInfo.Location = new System.Drawing.Point(614, 930);
+            this.txtPicInfo.Location = new System.Drawing.Point(614, 762);
             this.txtPicInfo.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.txtPicInfo.Multiline = true;
             this.txtPicInfo.Name = "txtPicInfo";
@@ -488,503 +446,48 @@
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage14);
             this.tabControl2.Controls.Add(this.tabPage15);
+            this.tabControl2.Controls.Add(this.tabPage18);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Left;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(614, 1023);
+            this.tabControl2.Size = new System.Drawing.Size(614, 855);
             this.tabControl2.TabIndex = 4;
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.panel6);
             this.tabPage2.Location = new System.Drawing.Point(4, 37);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage2.Size = new System.Drawing.Size(606, 982);
+            this.tabPage2.Size = new System.Drawing.Size(606, 814);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "生成参数";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.lstResolutionList);
-            this.groupBox5.Controls.Add(this.panel18);
-            this.groupBox5.Controls.Add(this.panel17);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox5.Location = new System.Drawing.Point(6, 312);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox5.Size = new System.Drawing.Size(594, 665);
-            this.groupBox5.TabIndex = 61;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "生图尺寸";
-            // 
-            // lstResolutionList
-            // 
-            this.lstResolutionList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstResolutionList.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lstResolutionList.FormattingEnabled = true;
-            this.lstResolutionList.ItemHeight = 36;
-            this.lstResolutionList.Items.AddRange(new object[] {
-            "832x1216",
-            "1216x832",
-            "1024x1024"});
-            this.lstResolutionList.Location = new System.Drawing.Point(6, 87);
-            this.lstResolutionList.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.lstResolutionList.Name = "lstResolutionList";
-            this.lstResolutionList.Size = new System.Drawing.Size(582, 435);
-            this.lstResolutionList.TabIndex = 47;
-            // 
-            // panel18
-            // 
-            this.panel18.Controls.Add(this.btnDeleteResolution);
-            this.panel18.Controls.Add(this.label1);
-            this.panel18.Controls.Add(this.label5);
-            this.panel18.Controls.Add(this.btnAddResolution);
-            this.panel18.Controls.Add(this.numResolutionHeight);
-            this.panel18.Controls.Add(this.numResolutionWidth);
-            this.panel18.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel18.Location = new System.Drawing.Point(6, 522);
-            this.panel18.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(582, 138);
-            this.panel18.TabIndex = 58;
-            // 
-            // btnDeleteResolution
-            // 
-            this.btnDeleteResolution.Location = new System.Drawing.Point(438, 18);
-            this.btnDeleteResolution.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnDeleteResolution.Name = "btnDeleteResolution";
-            this.btnDeleteResolution.Size = new System.Drawing.Size(88, 40);
-            this.btnDeleteResolution.TabIndex = 51;
-            this.btnDeleteResolution.Text = "删除";
-            this.btnDeleteResolution.UseVisualStyleBackColor = true;
-            this.btnDeleteResolution.Click += new System.EventHandler(this.btnDeleteResolution_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(205, 23);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 28);
-            this.label1.TabIndex = 52;
-            this.label1.Text = "x";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(35, 65);
-            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(495, 56);
-            this.label5.TabIndex = 55;
-            this.label5.Text = "请在添加尺寸前确保所添加的尺寸在网页端生图成功\r\n大尺寸将会消耗点数";
-            // 
-            // btnAddResolution
-            // 
-            this.btnAddResolution.Location = new System.Drawing.Point(339, 18);
-            this.btnAddResolution.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnAddResolution.Name = "btnAddResolution";
-            this.btnAddResolution.Size = new System.Drawing.Size(88, 40);
-            this.btnAddResolution.TabIndex = 50;
-            this.btnAddResolution.Text = "添加";
-            this.btnAddResolution.UseVisualStyleBackColor = true;
-            this.btnAddResolution.Click += new System.EventHandler(this.btnAddResolution_Click);
-            // 
-            // numResolutionHeight
-            // 
-            this.numResolutionHeight.Location = new System.Drawing.Point(227, 19);
-            this.numResolutionHeight.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.numResolutionHeight.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.numResolutionHeight.Minimum = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-            this.numResolutionHeight.Name = "numResolutionHeight";
-            this.numResolutionHeight.Size = new System.Drawing.Size(101, 35);
-            this.numResolutionHeight.TabIndex = 49;
-            this.numResolutionHeight.Value = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-            // 
-            // numResolutionWidth
-            // 
-            this.numResolutionWidth.Location = new System.Drawing.Point(99, 19);
-            this.numResolutionWidth.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.numResolutionWidth.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.numResolutionWidth.Minimum = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-            this.numResolutionWidth.Name = "numResolutionWidth";
-            this.numResolutionWidth.Size = new System.Drawing.Size(101, 35);
-            this.numResolutionWidth.TabIndex = 48;
-            this.numResolutionWidth.Value = new decimal(new int[] {
-            32,
-            0,
-            0,
-            0});
-            // 
-            // panel17
-            // 
-            this.panel17.Controls.Add(this.rdoResolutionFixed);
-            this.panel17.Controls.Add(this.rdoResolutionRandom);
-            this.panel17.Controls.Add(this.rdoResolutionOrder);
-            this.panel17.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel17.Location = new System.Drawing.Point(6, 33);
-            this.panel17.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(582, 54);
-            this.panel17.TabIndex = 57;
-            // 
-            // rdoResolutionFixed
-            // 
-            this.rdoResolutionFixed.AutoSize = true;
-            this.rdoResolutionFixed.Checked = true;
-            this.rdoResolutionFixed.Location = new System.Drawing.Point(469, 9);
-            this.rdoResolutionFixed.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.rdoResolutionFixed.Name = "rdoResolutionFixed";
-            this.rdoResolutionFixed.Size = new System.Drawing.Size(79, 32);
-            this.rdoResolutionFixed.TabIndex = 56;
-            this.rdoResolutionFixed.TabStop = true;
-            this.rdoResolutionFixed.Text = "固定";
-            this.rdoResolutionFixed.UseVisualStyleBackColor = true;
-            // 
-            // rdoResolutionRandom
-            // 
-            this.rdoResolutionRandom.AutoSize = true;
-            this.rdoResolutionRandom.Location = new System.Drawing.Point(233, 9);
-            this.rdoResolutionRandom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.rdoResolutionRandom.Name = "rdoResolutionRandom";
-            this.rdoResolutionRandom.Size = new System.Drawing.Size(79, 32);
-            this.rdoResolutionRandom.TabIndex = 54;
-            this.rdoResolutionRandom.Text = "随机";
-            this.rdoResolutionRandom.UseVisualStyleBackColor = true;
-            // 
-            // rdoResolutionOrder
-            // 
-            this.rdoResolutionOrder.AutoSize = true;
-            this.rdoResolutionOrder.Location = new System.Drawing.Point(24, 9);
-            this.rdoResolutionOrder.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.rdoResolutionOrder.Name = "rdoResolutionOrder";
-            this.rdoResolutionOrder.Size = new System.Drawing.Size(79, 32);
-            this.rdoResolutionOrder.TabIndex = 53;
-            this.rdoResolutionOrder.Text = "顺序";
-            this.rdoResolutionOrder.UseVisualStyleBackColor = true;
-            // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.nudVarietyCustom);
-            this.panel6.Controls.Add(this.rdoVarietyCustom);
-            this.panel6.Controls.Add(this.rdoVarietyDefault);
-            this.panel6.Controls.Add(this.cbkSeedFixed);
-            this.panel6.Controls.Add(this.nudSeed);
-            this.panel6.Controls.Add(this.label38);
-            this.panel6.Controls.Add(this.chkDecrisp);
-            this.panel6.Controls.Add(this.chkVariety);
-            this.panel6.Controls.Add(this.label31);
-            this.panel6.Controls.Add(this.cmbNoiseSchedule);
-            this.panel6.Controls.Add(this.label30);
-            this.panel6.Controls.Add(this.nudCFG);
-            this.panel6.Controls.Add(this.label11);
-            this.panel6.Controls.Add(this.numSteps);
-            this.panel6.Controls.Add(this.chkDyn);
-            this.panel6.Controls.Add(this.label9);
-            this.panel6.Controls.Add(this.chkSmea);
-            this.panel6.Controls.Add(this.label8);
-            this.panel6.Controls.Add(this.cmbSampler);
-            this.panel6.Controls.Add(this.numScale);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel6.Controls.Add(this.propertyGrid1);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(6, 5);
             this.panel6.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(594, 307);
+            this.panel6.Size = new System.Drawing.Size(594, 804);
             this.panel6.TabIndex = 62;
             // 
-            // nudVarietyCustom
+            // propertyGrid1
             // 
-            this.nudVarietyCustom.DecimalPlaces = 15;
-            this.nudVarietyCustom.Location = new System.Drawing.Point(293, 255);
-            this.nudVarietyCustom.Name = "nudVarietyCustom";
-            this.nudVarietyCustom.Size = new System.Drawing.Size(277, 35);
-            this.nudVarietyCustom.TabIndex = 66;
-            this.nudVarietyCustom.Value = new decimal(new int[] {
-            100093314,
-            4468333,
-            0,
-            983040});
-            // 
-            // rdoVarietyCustom
-            // 
-            this.rdoVarietyCustom.AutoSize = true;
-            this.rdoVarietyCustom.Location = new System.Drawing.Point(293, 217);
-            this.rdoVarietyCustom.Name = "rdoVarietyCustom";
-            this.rdoVarietyCustom.Size = new System.Drawing.Size(226, 32);
-            this.rdoVarietyCustom.TabIndex = 65;
-            this.rdoVarietyCustom.Text = "自定义（风险操作）";
-            this.rdoVarietyCustom.UseVisualStyleBackColor = true;
-            // 
-            // rdoVarietyDefault
-            // 
-            this.rdoVarietyDefault.AutoSize = true;
-            this.rdoVarietyDefault.Checked = true;
-            this.rdoVarietyDefault.Location = new System.Drawing.Point(157, 217);
-            this.rdoVarietyDefault.Name = "rdoVarietyDefault";
-            this.rdoVarietyDefault.Size = new System.Drawing.Size(145, 32);
-            this.rdoVarietyDefault.TabIndex = 64;
-            this.rdoVarietyDefault.TabStop = true;
-            this.rdoVarietyDefault.Text = "默认（19）";
-            this.rdoVarietyDefault.UseVisualStyleBackColor = true;
-            // 
-            // cbkSeedFixed
-            // 
-            this.cbkSeedFixed.AutoSize = true;
-            this.cbkSeedFixed.Location = new System.Drawing.Point(499, 173);
-            this.cbkSeedFixed.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.cbkSeedFixed.Name = "cbkSeedFixed";
-            this.cbkSeedFixed.Size = new System.Drawing.Size(80, 32);
-            this.cbkSeedFixed.TabIndex = 63;
-            this.cbkSeedFixed.Text = "固定";
-            this.cbkSeedFixed.UseVisualStyleBackColor = true;
-            // 
-            // nudSeed
-            // 
-            this.nudSeed.Location = new System.Drawing.Point(336, 172);
-            this.nudSeed.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.nudSeed.Maximum = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            this.nudSeed.Name = "nudSeed";
-            this.nudSeed.Size = new System.Drawing.Size(152, 35);
-            this.nudSeed.TabIndex = 62;
-            this.nudSeed.Value = new decimal(new int[] {
-            999999999,
-            0,
-            0,
-            0});
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(288, 175);
-            this.label38.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(75, 28);
-            this.label38.TabIndex = 61;
-            this.label38.Text = "种子：";
-            // 
-            // chkDecrisp
-            // 
-            this.chkDecrisp.AutoSize = true;
-            this.chkDecrisp.Location = new System.Drawing.Point(293, 122);
-            this.chkDecrisp.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkDecrisp.Name = "chkDecrisp";
-            this.chkDecrisp.Size = new System.Drawing.Size(114, 32);
-            this.chkDecrisp.TabIndex = 60;
-            this.chkDecrisp.Text = "Decrisp";
-            this.chkDecrisp.UseVisualStyleBackColor = true;
-            // 
-            // chkVariety
-            // 
-            this.chkVariety.AutoSize = true;
-            this.chkVariety.Location = new System.Drawing.Point(23, 217);
-            this.chkVariety.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkVariety.Name = "chkVariety";
-            this.chkVariety.Size = new System.Drawing.Size(125, 32);
-            this.chkVariety.TabIndex = 59;
-            this.chkVariety.Text = "Variety+";
-            this.chkVariety.UseVisualStyleBackColor = true;
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(13, 16);
-            this.label31.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(75, 28);
-            this.label31.TabIndex = 58;
-            this.label31.Text = "噪声：";
-            // 
-            // cmbNoiseSchedule
-            // 
-            this.cmbNoiseSchedule.FormattingEnabled = true;
-            this.cmbNoiseSchedule.Items.AddRange(new object[] {
-            "native",
-            "karras",
-            "exponential",
-            "polyexponential"});
-            this.cmbNoiseSchedule.Location = new System.Drawing.Point(104, 12);
-            this.cmbNoiseSchedule.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.cmbNoiseSchedule.Name = "cmbNoiseSchedule";
-            this.cmbNoiseSchedule.Size = new System.Drawing.Size(167, 36);
-            this.cmbNoiseSchedule.TabIndex = 57;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(18, 175);
-            this.label30.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(74, 28);
-            this.label30.TabIndex = 48;
-            this.label30.Text = "CFG：";
-            // 
-            // nudCFG
-            // 
-            this.nudCFG.DecimalPlaces = 2;
-            this.nudCFG.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nudCFG.Location = new System.Drawing.Point(104, 172);
-            this.nudCFG.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.nudCFG.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudCFG.Name = "nudCFG";
-            this.nudCFG.Size = new System.Drawing.Size(170, 35);
-            this.nudCFG.TabIndex = 47;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(13, 72);
-            this.label11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(75, 28);
-            this.label11.TabIndex = 44;
-            this.label11.Text = "采样：";
-            // 
-            // numSteps
-            // 
-            this.numSteps.Location = new System.Drawing.Point(392, 14);
-            this.numSteps.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.numSteps.Maximum = new decimal(new int[] {
-            28,
-            0,
-            0,
-            0});
-            this.numSteps.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numSteps.Name = "numSteps";
-            this.numSteps.Size = new System.Drawing.Size(178, 35);
-            this.numSteps.TabIndex = 40;
-            this.numSteps.Value = new decimal(new int[] {
-            28,
-            0,
-            0,
-            0});
-            // 
-            // chkDyn
-            // 
-            this.chkDyn.AutoSize = true;
-            this.chkDyn.Enabled = false;
-            this.chkDyn.Location = new System.Drawing.Point(446, 72);
-            this.chkDyn.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkDyn.Name = "chkDyn";
-            this.chkDyn.Size = new System.Drawing.Size(84, 32);
-            this.chkDyn.TabIndex = 46;
-            this.chkDyn.Text = "DYN";
-            this.chkDyn.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(288, 18);
-            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(86, 28);
-            this.label9.TabIndex = 39;
-            this.label9.Text = "steps：";
-            // 
-            // chkSmea
-            // 
-            this.chkSmea.AutoSize = true;
-            this.chkSmea.Location = new System.Drawing.Point(293, 72);
-            this.chkSmea.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkSmea.Name = "chkSmea";
-            this.chkSmea.Size = new System.Drawing.Size(98, 32);
-            this.chkSmea.TabIndex = 45;
-            this.chkSmea.Text = "SMEA";
-            this.chkSmea.UseVisualStyleBackColor = true;
-            this.chkSmea.CheckedChanged += new System.EventHandler(this.chkSmea_CheckedChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 124);
-            this.label8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(86, 28);
-            this.label8.TabIndex = 38;
-            this.label8.Text = "Scale：";
-            // 
-            // cmbSampler
-            // 
-            this.cmbSampler.FormattingEnabled = true;
-            this.cmbSampler.Items.AddRange(new object[] {
-            "Euler",
-            "Euler Ancestral",
-            "DPM++ 2S Ancesstral",
-            "DPM++ 2M SDE",
-            "DPM++ 2M",
-            "DPM++ SDE",
-            "DDIM"});
-            this.cmbSampler.Location = new System.Drawing.Point(104, 66);
-            this.cmbSampler.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.cmbSampler.Name = "cmbSampler";
-            this.cmbSampler.Size = new System.Drawing.Size(167, 36);
-            this.cmbSampler.TabIndex = 43;
-            // 
-            // numScale
-            // 
-            this.numScale.DecimalPlaces = 1;
-            this.numScale.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numScale.Location = new System.Drawing.Point(104, 121);
-            this.numScale.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.numScale.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numScale.Name = "numScale";
-            this.numScale.Size = new System.Drawing.Size(170, 35);
-            this.numScale.TabIndex = 37;
-            this.numScale.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
+            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGrid1.HelpVisible = false;
+            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
+            this.propertyGrid1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.PropertySort = System.Windows.Forms.PropertySort.Categorized;
+            this.propertyGrid1.Size = new System.Drawing.Size(594, 804);
+            this.propertyGrid1.TabIndex = 17;
+            this.propertyGrid1.ToolbarVisible = false;
             // 
             // tabPage3
             // 
@@ -994,7 +497,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage3.Size = new System.Drawing.Size(606, 982);
+            this.tabPage3.Size = new System.Drawing.Size(606, 814);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "画师";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1008,7 +511,7 @@
             this.grpArtistRandom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.grpArtistRandom.Name = "grpArtistRandom";
             this.grpArtistRandom.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.grpArtistRandom.Size = new System.Drawing.Size(594, 632);
+            this.grpArtistRandom.Size = new System.Drawing.Size(594, 464);
             this.grpArtistRandom.TabIndex = 3;
             this.grpArtistRandom.TabStop = false;
             this.grpArtistRandom.Text = "随机画师";
@@ -1020,7 +523,7 @@
             this.txtArtistRandom.Location = new System.Drawing.Point(6, 173);
             this.txtArtistRandom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.txtArtistRandom.Name = "txtArtistRandom";
-            this.txtArtistRandom.Size = new System.Drawing.Size(582, 454);
+            this.txtArtistRandom.Size = new System.Drawing.Size(582, 286);
             this.txtArtistRandom.TabIndex = 5;
             this.txtArtistRandom.Text = "画师A\n画师B,1,2,1,2\n画师C,0,0,1,2\n画师D,0,0,1,2|画师E,1,2,0,0";
             // 
@@ -1199,7 +702,7 @@
             this.tabPage8.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage8.Size = new System.Drawing.Size(606, 982);
+            this.tabPage8.Size = new System.Drawing.Size(606, 814);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "wildcard";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -1220,7 +723,7 @@
             this.dgvTagSnippet.RowHeadersVisible = false;
             this.dgvTagSnippet.RowHeadersWidth = 51;
             this.dgvTagSnippet.RowTemplate.Height = 23;
-            this.dgvTagSnippet.Size = new System.Drawing.Size(594, 713);
+            this.dgvTagSnippet.Size = new System.Drawing.Size(594, 545);
             this.dgvTagSnippet.TabIndex = 1;
             this.dgvTagSnippet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTagSnippet_CellClick);
             // 
@@ -1246,7 +749,7 @@
             this.panel10.Controls.Add(this.txtTagSnippetValue);
             this.panel10.Controls.Add(this.panel11);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel10.Location = new System.Drawing.Point(6, 718);
+            this.panel10.Location = new System.Drawing.Point(6, 550);
             this.panel10.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(594, 259);
@@ -1334,7 +837,7 @@
             this.tabPage7.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage7.Size = new System.Drawing.Size(606, 982);
+            this.tabPage7.Size = new System.Drawing.Size(606, 814);
             this.tabPage7.TabIndex = 3;
             this.tabPage7.Text = "Vibe";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -1348,7 +851,7 @@
             this.groupBox9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox9.Size = new System.Drawing.Size(594, 972);
+            this.groupBox9.Size = new System.Drawing.Size(594, 804);
             this.groupBox9.TabIndex = 0;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Vibe";
@@ -1364,7 +867,7 @@
             this.panel9.Controls.Add(this.numVibeIE);
             this.panel9.Controls.Add(this.picVibeView);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel9.Location = new System.Drawing.Point(6, 631);
+            this.panel9.Location = new System.Drawing.Point(6, 463);
             this.panel9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(582, 336);
@@ -1511,7 +1014,7 @@
             this.dgvVibe.RowHeadersVisible = false;
             this.dgvVibe.RowHeadersWidth = 51;
             this.dgvVibe.RowTemplate.Height = 23;
-            this.dgvVibe.Size = new System.Drawing.Size(582, 934);
+            this.dgvVibe.Size = new System.Drawing.Size(582, 766);
             this.dgvVibe.TabIndex = 0;
             this.dgvVibe.SelectionChanged += new System.EventHandler(this.dgvSnippet_SelectionChanged);
             // 
@@ -1542,8 +1045,6 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.cmbModel);
-            this.tabPage5.Controls.Add(this.label39);
             this.tabPage5.Controls.Add(this.chkClosePicPreview);
             this.tabPage5.Controls.Add(this.label37);
             this.tabPage5.Controls.Add(this.label36);
@@ -1563,34 +1064,15 @@
             this.tabPage5.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage5.Size = new System.Drawing.Size(606, 982);
+            this.tabPage5.Size = new System.Drawing.Size(606, 814);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "设置";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // cmbModel
-            // 
-            this.cmbModel.FormattingEnabled = true;
-            this.cmbModel.Location = new System.Drawing.Point(134, 480);
-            this.cmbModel.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.cmbModel.Name = "cmbModel";
-            this.cmbModel.Size = new System.Drawing.Size(451, 36);
-            this.cmbModel.TabIndex = 5;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(42, 485);
-            this.label39.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(75, 28);
-            this.label39.TabIndex = 69;
-            this.label39.Text = "模型：";
-            // 
             // chkClosePicPreview
             // 
             this.chkClosePicPreview.AutoSize = true;
-            this.chkClosePicPreview.Location = new System.Drawing.Point(31, 438);
+            this.chkClosePicPreview.Location = new System.Drawing.Point(31, 427);
             this.chkClosePicPreview.Margin = new System.Windows.Forms.Padding(4);
             this.chkClosePicPreview.Name = "chkClosePicPreview";
             this.chkClosePicPreview.Size = new System.Drawing.Size(164, 32);
@@ -1622,6 +1104,11 @@
             // 
             this.nudSleepTimeShortHigh.Location = new System.Drawing.Point(458, 318);
             this.nudSleepTimeShortHigh.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.nudSleepTimeShortHigh.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.nudSleepTimeShortHigh.Name = "nudSleepTimeShortHigh";
             this.nudSleepTimeShortHigh.Size = new System.Drawing.Size(130, 35);
             this.nudSleepTimeShortHigh.TabIndex = 65;
@@ -1635,6 +1122,11 @@
             // 
             this.nudSleepTimeLongHigh.Location = new System.Drawing.Point(458, 369);
             this.nudSleepTimeLongHigh.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.nudSleepTimeLongHigh.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.nudSleepTimeLongHigh.Name = "nudSleepTimeLongHigh";
             this.nudSleepTimeLongHigh.Size = new System.Drawing.Size(130, 35);
             this.nudSleepTimeLongHigh.TabIndex = 64;
@@ -1648,6 +1140,11 @@
             // 
             this.nudSleepTimeShortLow.Location = new System.Drawing.Point(275, 318);
             this.nudSleepTimeShortLow.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.nudSleepTimeShortLow.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.nudSleepTimeShortLow.Name = "nudSleepTimeShortLow";
             this.nudSleepTimeShortLow.Size = new System.Drawing.Size(130, 35);
             this.nudSleepTimeShortLow.TabIndex = 63;
@@ -1661,6 +1158,11 @@
             // 
             this.nudSleepTimeLongLow.Location = new System.Drawing.Point(275, 369);
             this.nudSleepTimeLongLow.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.nudSleepTimeLongLow.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.nudSleepTimeLongLow.Name = "nudSleepTimeLongLow";
             this.nudSleepTimeLongLow.Size = new System.Drawing.Size(130, 35);
             this.nudSleepTimeLongLow.TabIndex = 62;
@@ -1811,7 +1313,7 @@
             this.tabPage14.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage14.Size = new System.Drawing.Size(606, 982);
+            this.tabPage14.Size = new System.Drawing.Size(606, 814);
             this.tabPage14.TabIndex = 5;
             this.tabPage14.Text = "图生图";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -1823,7 +1325,7 @@
             this.picImg2ImgView.Location = new System.Drawing.Point(6, 5);
             this.picImg2ImgView.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.picImg2ImgView.Name = "picImg2ImgView";
-            this.picImg2ImgView.Size = new System.Drawing.Size(594, 912);
+            this.picImg2ImgView.Size = new System.Drawing.Size(594, 744);
             this.picImg2ImgView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picImg2ImgView.TabIndex = 1;
             this.picImg2ImgView.TabStop = false;
@@ -1837,7 +1339,7 @@
             this.panel15.Controls.Add(this.label33);
             this.panel15.Controls.Add(this.label32);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel15.Location = new System.Drawing.Point(6, 917);
+            this.panel15.Location = new System.Drawing.Point(6, 749);
             this.panel15.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(594, 60);
@@ -1921,6 +1423,198 @@
             this.label32.Size = new System.Drawing.Size(120, 28);
             this.label32.TabIndex = 0;
             this.label32.Text = "Strength：";
+            // 
+            // tabPage15
+            // 
+            this.tabPage15.Controls.Add(this.textBox1);
+            this.tabPage15.Controls.Add(this.button13);
+            this.tabPage15.Controls.Add(this.button14);
+            this.tabPage15.Controls.Add(this.button15);
+            this.tabPage15.Controls.Add(this.button16);
+            this.tabPage15.Controls.Add(this.button9);
+            this.tabPage15.Controls.Add(this.button10);
+            this.tabPage15.Controls.Add(this.button11);
+            this.tabPage15.Controls.Add(this.button12);
+            this.tabPage15.Controls.Add(this.button5);
+            this.tabPage15.Controls.Add(this.button6);
+            this.tabPage15.Controls.Add(this.button7);
+            this.tabPage15.Controls.Add(this.button8);
+            this.tabPage15.Controls.Add(this.button4);
+            this.tabPage15.Controls.Add(this.button3);
+            this.tabPage15.Controls.Add(this.button2);
+            this.tabPage15.Controls.Add(this.button1);
+            this.tabPage15.Location = new System.Drawing.Point(4, 37);
+            this.tabPage15.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage15.Name = "tabPage15";
+            this.tabPage15.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage15.Size = new System.Drawing.Size(606, 814);
+            this.tabPage15.TabIndex = 6;
+            this.tabPage15.Text = "tabPage15";
+            this.tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(90, 320);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(418, 160);
+            this.textBox1.TabIndex = 16;
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(409, 262);
+            this.button13.Margin = new System.Windows.Forms.Padding(4);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(101, 52);
+            this.button13.TabIndex = 15;
+            this.button13.UseVisualStyleBackColor = true;
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(302, 262);
+            this.button14.Margin = new System.Windows.Forms.Padding(4);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(101, 52);
+            this.button14.TabIndex = 14;
+            this.button14.UseVisualStyleBackColor = true;
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(196, 262);
+            this.button15.Margin = new System.Windows.Forms.Padding(4);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(101, 52);
+            this.button15.TabIndex = 13;
+            this.button15.UseVisualStyleBackColor = true;
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(90, 262);
+            this.button16.Margin = new System.Windows.Forms.Padding(4);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(101, 52);
+            this.button16.TabIndex = 12;
+            this.button16.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(409, 205);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(101, 52);
+            this.button9.TabIndex = 11;
+            this.button9.UseVisualStyleBackColor = true;
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(302, 205);
+            this.button10.Margin = new System.Windows.Forms.Padding(4);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(101, 52);
+            this.button10.TabIndex = 10;
+            this.button10.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(196, 205);
+            this.button11.Margin = new System.Windows.Forms.Padding(4);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(101, 52);
+            this.button11.TabIndex = 9;
+            this.button11.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(90, 205);
+            this.button12.Margin = new System.Windows.Forms.Padding(4);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(101, 52);
+            this.button12.TabIndex = 8;
+            this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(409, 147);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(101, 52);
+            this.button5.TabIndex = 7;
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(302, 147);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(101, 52);
+            this.button6.TabIndex = 6;
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(196, 147);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(101, 52);
+            this.button7.TabIndex = 5;
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(90, 147);
+            this.button8.Margin = new System.Windows.Forms.Padding(4);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(101, 52);
+            this.button8.TabIndex = 4;
+            this.button8.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(409, 89);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(101, 52);
+            this.button4.TabIndex = 3;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(302, 89);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(101, 52);
+            this.button3.TabIndex = 2;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(196, 89);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(101, 52);
+            this.button2.TabIndex = 1;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(90, 89);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 52);
+            this.button1.TabIndex = 0;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage18
+            // 
+            this.tabPage18.Location = new System.Drawing.Point(4, 37);
+            this.tabPage18.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage18.Name = "tabPage18";
+            this.tabPage18.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage18.Size = new System.Drawing.Size(606, 814);
+            this.tabPage18.TabIndex = 7;
+            this.tabPage18.Text = "tabPage18";
+            this.tabPage18.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -2307,7 +2001,7 @@
             this.tabPage9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage9.Size = new System.Drawing.Size(2379, 1561);
+            this.tabPage9.Size = new System.Drawing.Size(2379, 1393);
             this.tabPage9.TabIndex = 5;
             this.tabPage9.Text = "导演工具";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -2319,7 +2013,7 @@
             this.panel13.Location = new System.Drawing.Point(695, 5);
             this.panel13.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(1678, 1551);
+            this.panel13.Size = new System.Drawing.Size(1678, 1383);
             this.panel13.TabIndex = 73;
             // 
             // picDirectorToolsOutput
@@ -2329,7 +2023,7 @@
             this.picDirectorToolsOutput.Location = new System.Drawing.Point(0, 0);
             this.picDirectorToolsOutput.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.picDirectorToolsOutput.Name = "picDirectorToolsOutput";
-            this.picDirectorToolsOutput.Size = new System.Drawing.Size(1678, 1551);
+            this.picDirectorToolsOutput.Size = new System.Drawing.Size(1678, 1383);
             this.picDirectorToolsOutput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picDirectorToolsOutput.TabIndex = 3;
             this.picDirectorToolsOutput.TabStop = false;
@@ -2345,7 +2039,7 @@
             this.panel12.Location = new System.Drawing.Point(6, 5);
             this.panel12.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(689, 1551);
+            this.panel12.Size = new System.Drawing.Size(689, 1383);
             this.panel12.TabIndex = 72;
             // 
             // picDirectorToolsInput
@@ -2355,7 +2049,7 @@
             this.picDirectorToolsInput.Location = new System.Drawing.Point(0, 0);
             this.picDirectorToolsInput.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.picDirectorToolsInput.Name = "picDirectorToolsInput";
-            this.picDirectorToolsInput.Size = new System.Drawing.Size(689, 974);
+            this.picDirectorToolsInput.Size = new System.Drawing.Size(689, 806);
             this.picDirectorToolsInput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picDirectorToolsInput.TabIndex = 2;
             this.picDirectorToolsInput.TabStop = false;
@@ -2370,7 +2064,7 @@
             this.panel14.Controls.Add(this.nudLineArtParseNum);
             this.panel14.Controls.Add(this.btnSelectLineArtInputFolderPath);
             this.panel14.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel14.Location = new System.Drawing.Point(0, 974);
+            this.panel14.Location = new System.Drawing.Point(0, 806);
             this.panel14.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(689, 163);
@@ -2457,7 +2151,7 @@
             this.tabDirectorTools.Controls.Add(this.tabPage12);
             this.tabDirectorTools.Controls.Add(this.tabPage13);
             this.tabDirectorTools.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabDirectorTools.Location = new System.Drawing.Point(0, 1137);
+            this.tabDirectorTools.Location = new System.Drawing.Point(0, 969);
             this.tabDirectorTools.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabDirectorTools.Name = "tabDirectorTools";
             this.tabDirectorTools.SelectedIndex = 0;
@@ -2728,7 +2422,7 @@
             // btnDirectorToolsRemoveBGRun
             // 
             this.btnDirectorToolsRemoveBGRun.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnDirectorToolsRemoveBGRun.Location = new System.Drawing.Point(0, 1401);
+            this.btnDirectorToolsRemoveBGRun.Location = new System.Drawing.Point(0, 1233);
             this.btnDirectorToolsRemoveBGRun.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnDirectorToolsRemoveBGRun.Name = "btnDirectorToolsRemoveBGRun";
             this.btnDirectorToolsRemoveBGRun.Size = new System.Drawing.Size(689, 150);
@@ -2744,7 +2438,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 37);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(2379, 1561);
+            this.tabPage4.Size = new System.Drawing.Size(2379, 1393);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "日志";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2769,11 +2463,12 @@
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(2379, 1561);
+            this.txtLog.Size = new System.Drawing.Size(2379, 1393);
             this.txtLog.TabIndex = 0;
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.btnDocGithub);
             this.tabPage6.Controls.Add(this.btnDocToolsBook);
             this.tabPage6.Controls.Add(this.btnTutorial);
             this.tabPage6.Controls.Add(this.btnPushBackPic);
@@ -2786,14 +2481,26 @@
             this.tabPage6.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage6.Size = new System.Drawing.Size(2379, 1561);
+            this.tabPage6.Size = new System.Drawing.Size(2379, 1393);
             this.tabPage6.TabIndex = 4;
             this.tabPage6.Text = "关于";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // btnDocGithub
+            // 
+            this.btnDocGithub.Location = new System.Drawing.Point(644, 210);
+            this.btnDocGithub.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnDocGithub.Name = "btnDocGithub";
+            this.btnDocGithub.Size = new System.Drawing.Size(578, 56);
+            this.btnDocGithub.TabIndex = 8;
+            this.btnDocGithub.Text = "开源地址";
+            this.btnDocGithub.UseVisualStyleBackColor = true;
+            this.btnDocGithub.Visible = false;
+            this.btnDocGithub.Click += new System.EventHandler(this.btnDocGithub_Click);
+            // 
             // btnDocToolsBook
             // 
-            this.btnDocToolsBook.Location = new System.Drawing.Point(55, 77);
+            this.btnDocToolsBook.Location = new System.Drawing.Point(644, 144);
             this.btnDocToolsBook.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnDocToolsBook.Name = "btnDocToolsBook";
             this.btnDocToolsBook.Size = new System.Drawing.Size(578, 56);
@@ -2880,174 +2587,11 @@
             this.label16.TabIndex = 0;
             this.label16.Text = resources.GetString("label16.Text");
             // 
-            // tabPage15
-            // 
-            this.tabPage15.Controls.Add(this.textBox1);
-            this.tabPage15.Controls.Add(this.button13);
-            this.tabPage15.Controls.Add(this.button14);
-            this.tabPage15.Controls.Add(this.button15);
-            this.tabPage15.Controls.Add(this.button16);
-            this.tabPage15.Controls.Add(this.button9);
-            this.tabPage15.Controls.Add(this.button10);
-            this.tabPage15.Controls.Add(this.button11);
-            this.tabPage15.Controls.Add(this.button12);
-            this.tabPage15.Controls.Add(this.button5);
-            this.tabPage15.Controls.Add(this.button6);
-            this.tabPage15.Controls.Add(this.button7);
-            this.tabPage15.Controls.Add(this.button8);
-            this.tabPage15.Controls.Add(this.button4);
-            this.tabPage15.Controls.Add(this.button3);
-            this.tabPage15.Controls.Add(this.button2);
-            this.tabPage15.Controls.Add(this.button1);
-            this.tabPage15.Location = new System.Drawing.Point(4, 37);
-            this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage15.Size = new System.Drawing.Size(606, 982);
-            this.tabPage15.TabIndex = 6;
-            this.tabPage15.Text = "tabPage15";
-            this.tabPage15.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(90, 89);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 52);
-            this.button1.TabIndex = 0;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(196, 89);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(100, 52);
-            this.button2.TabIndex = 1;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(302, 89);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 52);
-            this.button3.TabIndex = 2;
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(408, 89);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 52);
-            this.button4.TabIndex = 3;
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(408, 147);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 52);
-            this.button5.TabIndex = 7;
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(302, 147);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(100, 52);
-            this.button6.TabIndex = 6;
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(196, 147);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(100, 52);
-            this.button7.TabIndex = 5;
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(90, 147);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(100, 52);
-            this.button8.TabIndex = 4;
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(408, 205);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(100, 52);
-            this.button9.TabIndex = 11;
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(302, 205);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(100, 52);
-            this.button10.TabIndex = 10;
-            this.button10.UseVisualStyleBackColor = true;
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(196, 205);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(100, 52);
-            this.button11.TabIndex = 9;
-            this.button11.UseVisualStyleBackColor = true;
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(90, 205);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(100, 52);
-            this.button12.TabIndex = 8;
-            this.button12.UseVisualStyleBackColor = true;
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(408, 263);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(100, 52);
-            this.button13.TabIndex = 15;
-            this.button13.UseVisualStyleBackColor = true;
-            // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(302, 263);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(100, 52);
-            this.button14.TabIndex = 14;
-            this.button14.UseVisualStyleBackColor = true;
-            // 
-            // button15
-            // 
-            this.button15.Location = new System.Drawing.Point(196, 263);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(100, 52);
-            this.button15.TabIndex = 13;
-            this.button15.UseVisualStyleBackColor = true;
-            // 
-            // button16
-            // 
-            this.button16.Location = new System.Drawing.Point(90, 263);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(100, 52);
-            this.button16.TabIndex = 12;
-            this.button16.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(90, 321);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(418, 159);
-            this.textBox1.TabIndex = 16;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2387, 1628);
+            this.ClientSize = new System.Drawing.Size(2387, 1460);
             this.Controls.Add(this.dreamForm1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -3068,20 +2612,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picView)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.panel18.ResumeLayout(false);
-            this.panel18.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numResolutionHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numResolutionWidth)).EndInit();
-            this.panel17.ResumeLayout(false);
-            this.panel17.PerformLayout();
             this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudVarietyCustom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCFG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSteps)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numScale)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.grpArtistRandom.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
@@ -3120,6 +2651,8 @@
             this.panel15.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgNoise)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudImg2ImgStrength)).EndInit();
+            this.tabPage15.ResumeLayout(false);
+            this.tabPage15.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -3164,8 +2697,6 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabPage15.ResumeLayout(false);
-            this.tabPage15.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3180,31 +2711,7 @@
         public System.Windows.Forms.TextBox txtPicInfo;
         public System.Windows.Forms.TabControl tabControl2;
         public System.Windows.Forms.TabPage tabPage2;
-        public System.Windows.Forms.GroupBox groupBox5;
-        public System.Windows.Forms.RadioButton rdoResolutionFixed;
-        public System.Windows.Forms.ListBox lstResolutionList;
-        public System.Windows.Forms.NumericUpDown numResolutionWidth;
-        public System.Windows.Forms.NumericUpDown numResolutionHeight;
-        public System.Windows.Forms.Button btnAddResolution;
-        public System.Windows.Forms.Button btnDeleteResolution;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.RadioButton rdoResolutionOrder;
-        public System.Windows.Forms.RadioButton rdoResolutionRandom;
         public System.Windows.Forms.Panel panel6;
-        public System.Windows.Forms.CheckBox chkDecrisp;
-        public System.Windows.Forms.CheckBox chkVariety;
-        public System.Windows.Forms.Label label31;
-        public System.Windows.Forms.ComboBox cmbNoiseSchedule;
-        public System.Windows.Forms.Label label30;
-        public System.Windows.Forms.NumericUpDown nudCFG;
-        public System.Windows.Forms.Label label11;
-        public System.Windows.Forms.NumericUpDown numSteps;
-        public System.Windows.Forms.CheckBox chkDyn;
-        public System.Windows.Forms.Label label9;
-        public System.Windows.Forms.CheckBox chkSmea;
-        public System.Windows.Forms.Label label8;
-        public System.Windows.Forms.ComboBox cmbSampler;
-        public System.Windows.Forms.NumericUpDown numScale;
         public System.Windows.Forms.TabPage tabPage3;
         public System.Windows.Forms.GroupBox grpArtistRandom;
         public System.Windows.Forms.RichTextBox txtArtistRandom;
@@ -3356,17 +2863,6 @@
         private ReaLTaiizor.Controls.ForeverMinimize foreverMinimize1;
         private ReaLTaiizor.Controls.ForeverMaximize foreverMaximize1;
         public System.Windows.Forms.Button btnDocToolsBook;
-        public System.Windows.Forms.NumericUpDown nudSeed;
-        private System.Windows.Forms.Label label38;
-        public System.Windows.Forms.CheckBox cbkSeedFixed;
-        public System.Windows.Forms.ComboBox cmbModel;
-        public System.Windows.Forms.Label label39;
-        public System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel18;
-        private System.Windows.Forms.Panel panel17;
-        public System.Windows.Forms.NumericUpDown nudVarietyCustom;
-        public System.Windows.Forms.RadioButton rdoVarietyCustom;
-        public System.Windows.Forms.RadioButton rdoVarietyDefault;
         private System.Windows.Forms.TabPage tabPage15;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button13;
@@ -3385,6 +2881,9 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage18;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
+        public System.Windows.Forms.Button btnDocGithub;
     }
 }
 
