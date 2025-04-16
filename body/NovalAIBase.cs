@@ -128,7 +128,7 @@ namespace AutoNai3Tools.body {
         public double controlnet_strength { get; set; }
         public bool legacy { get; set; }
         public bool add_original_image { get; set; }
-        public double cfg_rescale { get; set; }
+        public float cfg_rescale { get; set; }
         public string noise_schedule { get; set; }
         public string image { get; set; }
         public float? strength { get; set; }
