@@ -18,7 +18,12 @@ using AutoNai3Tools.body;
 namespace AutoNai3Tools.utils {
     class Nai3Body {
         public string ToJson() {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings {
+                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                FloatFormatHandling = Newtonsoft.Json.FloatFormatHandling.DefaultValue,
+                FloatParseHandling = Newtonsoft.Json.FloatParseHandling.Double,
+                Formatting = Newtonsoft.Json.Formatting.None
+            });
         }
     }
 
@@ -56,7 +61,7 @@ namespace AutoNai3Tools.utils {
         public bool legacy { get; set; } = false;
         public bool add_original_image { get; set; } = true;
         public int uncond_scale { get; set; } = 1;
-        public float cfg_rescale { get; set; } = 0;
+        public float cfg_rescale { get; set; } = 0f;
         public string noise_schedule { get; set; } = "karras";
         public bool legacy_v3_extend { get; set; } = false;
         public string image { get; set; } = null;
@@ -90,7 +95,7 @@ namespace AutoNai3Tools.utils {
             bool legacy = false,
             bool add_original_image = true,
             int uncond_scale = 1,
-            float cfg_rescale = 0,
+            float cfg_rescale = 0f,
             string noise_schedule = "karras",
             bool legacy_v3_extend = false,
             string image = null,
