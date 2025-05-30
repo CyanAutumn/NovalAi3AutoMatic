@@ -16,6 +16,7 @@ namespace AutoNai3Tools.body {
             [Description("nai-diffusion-4-curated-preview")]
             Nai4_Preview,
             [Description("nai-diffusion-4-full")] Nai4_Full,
+            [Description("nai-diffusion-4-5-curated")] Nai4_5_Curated,
         }
 
         public static BodyBase GetBody(Model modelName, Dictionary<string, object> kwargs) {
@@ -30,6 +31,8 @@ namespace AutoNai3Tools.body {
                     return new Nai4Preview(kwargs);
                 case Model.Nai4_Full:
                     return new Nai4Full(kwargs);
+                case Model.Nai4_5_Curated:
+                    return new Nai4_5Curated(kwargs);
             }
 
             throw new Exception("选择的模型无效");
