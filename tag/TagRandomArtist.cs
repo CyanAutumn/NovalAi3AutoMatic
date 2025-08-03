@@ -23,7 +23,7 @@ namespace AutoNai3Tools.tag
 
         protected override bool KeepText()
         {
-            return form.chkKeepRandomArtist.Checked && (form.runNum % form.numKeepParams.Value) != 0;
+            return form.chkKeepRandomArtist.Checked && (form.runNum % form.picProps.RunKeepParams) != 0;
         }
 
         protected override string ParseResultText()

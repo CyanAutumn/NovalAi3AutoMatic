@@ -120,9 +120,12 @@ namespace AutoNai3Tools {
         }
 
         int resolutionSelectIndex = 0;
+
         private int[] GetResolution(int runNum) {
-            if (runNum == 0 || (runNum % numKeepParams.Value == 0&& chkKeepResolution.Checked==true) || chkKeepResolution.Checked == false) {
-                var resolutionList = picProps.ResolutionList.Split(new string[] { "\r\n" }, StringSplitOptions.None); ;
+            if (runNum == 0 || (runNum % picProps.RunKeepParams == 0 && chkKeepResolution.Checked == true) ||
+                chkKeepResolution.Checked == false) {
+                var resolutionList = picProps.ResolutionList.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+                ;
                 if (picProps.ResolutionMode != ResolutionMode.固定) {
                     switch (picProps.ResolutionMode) {
                         case ResolutionMode.随机:
@@ -133,11 +136,13 @@ namespace AutoNai3Tools {
                             resolutionSelectIndex = (resolutionSelectIndex + 1) % resolutionList.Length;
                             break;
                     }
+
                     string[] _Resolution = resolutionList[resolutionSelectIndex].Split('x');
                     picProps.Width = int.Parse(_Resolution[0]);
                     picProps.Height = int.Parse(_Resolution[1]);
                 }
             }
+
             return new int[] { picProps.Width, picProps.Height };
         }
 
@@ -203,9 +208,8 @@ namespace AutoNai3Tools {
         BodyBase tempNai3Body = null;
 
         private void TimerElapsed(object sender, ElapsedEventArgs e) {
-            int max_num = int.Parse(numGenerateMaxNum.Value.ToString());
-            var data = this.picProps;
-            for (int i = 0; i < max_num; i++) {
+            int max_num = picProps.RunNum;
+            for (int i = 0; i < picProps.RunNum; i++) {
                 try {
                     runNum = i;
                     string output_path = txtOutputPath.Text;
@@ -502,6 +506,7 @@ namespace AutoNai3Tools {
         private void btnDocGithub_Click(object sender, EventArgs e) {
             System.Diagnostics.Process.Start("https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9");
         }
+
         #endregion
 
         #region wildcard

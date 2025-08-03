@@ -117,8 +117,8 @@ namespace AutoNai3Tools.utils {
             obj.Prompt = form.txtPrompt.Text;
             obj.NegativePrompt = form.txtNegativePrompt.Text;
             //obj.PromptBlackList = form.txtPromptBlackList.Text;
-            obj.GenerateMaxNum = ((int)form.numGenerateMaxNum.Value);
-            obj.KeepParams = ((int)form.numKeepParams.Value);
+            obj.GenerateMaxNum = form.picProps.RunNum;
+            obj.KeepParams = ((int)form.picProps.RunKeepParams);
             obj.SavePromptToTxt = form.chkSavePromptToTxt.Checked;
             obj.SavePromptToTxtNoArtist = form.chkSavePromptToTxtNoArtist.Checked;
             obj.ResolutionMode = form.picProps.ResolutionMode;
@@ -167,8 +167,8 @@ namespace AutoNai3Tools.utils {
             form.txtPrompt.Text = obj.Prompt;
             form.txtNegativePrompt.Text = obj.NegativePrompt;
             //form.txtPromptBlackList.Text = obj.PromptBlackList;
-            form.numGenerateMaxNum.Value = obj.GenerateMaxNum;
-            form.numKeepParams.Value = obj.KeepParams;
+            form.picProps.RunNum = obj.GenerateMaxNum;
+            form.picProps.RunKeepParams = obj.KeepParams;
             form.chkSavePromptToTxt.Checked = obj.SavePromptToTxt;
             form.chkSavePromptToTxtNoArtist.Checked = obj.SavePromptToTxtNoArtist;
             form.picProps.ResolutionMode= obj.ResolutionMode;

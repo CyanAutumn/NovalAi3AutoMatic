@@ -1,0 +1,57 @@
+{
+    "input": "artist:suimya, artist:muririn, artist:ciloranko,artist:sho_(sho_lwlw),[[artist:tianliang_duohe_fangdongye]], [artist:eip (pepai)], [artist:rukako], [[artist:memmo]], [[artist:hoshi_(snacherubi)]], year 2023,1girl, loli,catgirl,cat tail,white hair,blue eyes, 1girl, solo, pseudo impasto, flat color, best quality, aesthetic, detailed, crying, long hair, braid, bangs, tears, white shirt, serafuku, short sleeves, blue sailor collar, hydrangea, reflection, blue rose, snail, bouquet, morning glory, rain, purple rose, leaf, best quality, amazing quality, very aesthetic, very aesthetic, masterpiece, no text, -0.8::feet::, rating:general",
+    "model": "nai-diffusion-4-5-curated",
+    "action": "generate",
+    "parameters": {
+        "params_version": 3,
+        "width": 832,
+        "height": 1216,
+        "scale": 5,
+        "sampler": "k_euler_ancestral",
+        "steps": 23,
+        "n_samples": 1,
+        "ucPreset": 0,
+        "qualityToggle": true,
+        "autoSmea": false,
+        "dynamic_thresholding": false,
+        "controlnet_strength": 1,
+        "legacy": false,
+        "add_original_image": true,
+        "cfg_rescale": 0,
+        "noise_schedule": "karras",
+        "legacy_v3_extend": false,
+        "skip_cfg_above_sigma": null,
+        "use_coords": false,
+        "legacy_uc": false,
+        "normalize_reference_strength_multiple": true,
+        "inpaintImg2ImgStrength": 1,
+        "seed": 2437880187,
+        "characterPrompts": [],
+        "reference_image_multiple": [
+            "图片的base64"
+        ],
+        "reference_strength_multiple": [
+            1
+        ],
+        "v4_prompt": {
+            "caption": {
+                "base_caption": "artist:suimya, artist:muririn, artist:ciloranko,artist:sho_(sho_lwlw),[[artist:tianliang_duohe_fangdongye]], [artist:eip (pepai)], [artist:rukako], [[artist:memmo]], [[artist:hoshi_(snacherubi)]], year 2023,1girl, loli,catgirl,cat tail,white hair,blue eyes, 1girl, solo, pseudo impasto, flat color, best quality, aesthetic, detailed, crying, long hair, braid, bangs, tears, white shirt, serafuku, short sleeves, blue sailor collar, hydrangea, reflection, blue rose, snail, bouquet, morning glory, rain, purple rose, leaf, best quality, amazing quality, very aesthetic, very aesthetic, masterpiece, no text, -0.8::feet::, rating:general",
+                "char_captions": []
+            },
+            "use_coords": false,
+            "use_order": true
+        },
+        "v4_negative_prompt": {
+            "caption": {
+                "base_caption": "blurry, lowres, upscaled, artistic error, film grain, scan artifacts, worst quality, bad quality, jpeg artifacts, very displeasing, chromatic aberration, halftone, multiple views, logo, too many watermarks, negative space, blank page, nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract], nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract], lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract],{{weibo_username}},female_pubic_hair,{{weibo_logo}},low quality,@_@,chibi",
+                "char_captions": []
+            },
+            "legacy_uc": false
+        },
+        "negative_prompt": "blurry, lowres, upscaled, artistic error, film grain, scan artifacts, worst quality, bad quality, jpeg artifacts, very displeasing, chromatic aberration, halftone, multiple views, logo, too many watermarks, negative space, blank page, nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract], nsfw, lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract], lowres, {bad}, error, fewer, extra, missing, worst quality, jpeg artifacts, bad quality, watermark, unfinished, displeasing, chromatic aberration, signature, extra digits, artistic error, username, scan, [abstract],{{weibo_username}},female_pubic_hair,{{weibo_logo}},low quality,@_@,chibi",
+        "deliberate_euler_ancestral_bug": false,
+        "prefer_brownian": true,
+        "stream": "msgpack"
+    },
+    "use_new_shared_trial": true,
+}

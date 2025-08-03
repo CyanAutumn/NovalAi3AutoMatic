@@ -15,10 +15,10 @@ using System.Windows.Forms.Design;
 namespace AutoNai3Tools.utils {
     public class PicProperty  {
         [Category("生成")] [DisplayName("模型")] public BodyTools.Model Model { get; set; }
-        [Category("生成")] [DisplayName("噪声")] public NoiseOptions Noise { get; set; }
+        [Category("生成")] [DisplayName("Noise Schedule(噪声)")] public NoiseOptions Noise { get; set; }
 
-        private int _steps;
-        [Category("生成")] [DisplayName("步数")] public int Steps {
+        private int _steps=28;
+        [Category("生成")] [DisplayName("Steps(步数)")] public int Steps {
             get { return _steps; }
             set {
                 if (value > 28) {
@@ -31,7 +31,7 @@ namespace AutoNai3Tools.utils {
                 }
             }
         }
-        [Category("生成")] [DisplayName("采样")] public SamplerOptions Sampler { get; set; }
+        [Category("生成")] [DisplayName("Sampler(采样)")] public SamplerOptions Sampler { get; set; }
 
         private Switch _smea;  
         [Category("优化")] [DisplayName("SMEA")] public Switch Smea {
@@ -46,7 +46,7 @@ namespace AutoNai3Tools.utils {
         [Category("优化")] [DisplayName("DYN")] public Switch Dyn { get; set; }
 
         private float _scale;
-        [Category("生成")] [DisplayName("Scale")] public float Scale {
+        [Category("生成")] [DisplayName("Prompt Guidance(Scale)")] public float Scale {
             get { return _scale; }
             set {
                 if (value > 10) {
@@ -60,17 +60,19 @@ namespace AutoNai3Tools.utils {
                 }
             }
         }
+        [Category("生成")] [DisplayName("Prompt Guidance Rescale(CFG)")] public float CFG { get; set; }
         [Category("生成")] [DisplayName("Decrisp")] public Switch Decrisp { get; set; }
-        [Category("生成")] [DisplayName("CFG")] public float CFG { get; set; }
         [Category("生成")] [DisplayName("分辨率切换模式")] public ResolutionMode ResolutionMode { get; set; }
-        [Category("生成")] [DisplayName("分辨率列表")][Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))] public string ResolutionList { get; set; }
-        [Category("生成")][DisplayName("width")] public int Width { get; set; }
-        [Category("生成")][DisplayName("height")] public int Height { get; set; }
-        [Category("生成")] [DisplayName("固定种子")] public Switch FixedSeeds { get; set; }
+        [Category("生成")] [DisplayName("分辨率列表")][Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))] public string ResolutionList { get; set; } = "832x1216\r\n1216x832\r\n1024x1024";
+        [Category("生成")][DisplayName("width")] public int Width { get; set; } = 832;
+        [Category("生成")][DisplayName("height")] public int Height { get; set; } = 1216;
+        [Category("生成")][DisplayName("固定种子")] public Switch FixedSeeds { get; set; } = Switch.关;
 
-        [Category("生成")] [DisplayName("种子")] public long Seeds { get; set; }
+        [Category("生成")] [DisplayName("Seed(种子)")] public long Seeds { get; set; }
         [Category("优化")] [DisplayName("Variety")] public VarietyOptions Variety { get; set; }
         [Category("优化")] [DisplayName("Variety自定义值")] public double VarietyNum { get; set; }
+        [Category("运行")][DisplayName("跑图数量")] public int RunNum { get; set; } = 1;
+        [Category("运行")][DisplayName("参数固定数量")] public int RunKeepParams { get; set; } = 1;
 
         public Dictionary<string, object> GetProperty() {
             if (FixedSeeds == Switch.关) {
