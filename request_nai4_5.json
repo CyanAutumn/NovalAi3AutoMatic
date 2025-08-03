@@ -23,16 +23,12 @@
         "skip_cfg_above_sigma": null,
         "use_coords": false,
         "legacy_uc": false,
-        "normalize_reference_strength_multiple": true,
+        "normalize_reference_strength_multiple": false,
         "inpaintImg2ImgStrength": 1,
-        "seed": 2437880187,
+        "seed": 2764704618,
         "characterPrompts": [],
-        "reference_image_multiple": [
-            "图片的base64"
-        ],
-        "reference_strength_multiple": [
-            1
-        ],
+        "reference_image_multiple": [],
+        "reference_strength_multiple": [],
         "v4_prompt": {
             "caption": {
                 "base_caption": "artist:suimya, artist:muririn, artist:ciloranko,artist:sho_(sho_lwlw),[[artist:tianliang_duohe_fangdongye]], [artist:eip (pepai)], [artist:rukako], [[artist:memmo]], [[artist:hoshi_(snacherubi)]], year 2023,1girl, loli,catgirl,cat tail,white hair,blue eyes, 1girl, solo, pseudo impasto, flat color, best quality, aesthetic, detailed, crying, long hair, braid, bangs, tears, white shirt, serafuku, short sleeves, blue sailor collar, hydrangea, reflection, blue rose, snail, bouquet, morning glory, rain, purple rose, leaf, best quality, amazing quality, very aesthetic, very aesthetic, masterpiece, no text, -0.8::feet::, rating:general",
@@ -53,5 +49,5 @@
         "prefer_brownian": true,
         "stream": "msgpack"
     },
-    "use_new_shared_trial": true,
+    "use_new_shared_trial": true
 }
