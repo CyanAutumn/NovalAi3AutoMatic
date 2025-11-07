@@ -1,68 +1,251 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using log4net;
-using Microsoft.VisualBasic.Logging;
 
 namespace AutoNai3Tools.utils {
-    public class Logger {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(Logger));
-        private static Form1 _form;
+    [Flags]
+    internal enum LogSinkCapabilities {
+        None = 0,
+        Ui = 1,
+        Persistent = 2,
+    }
+
+    internal enum LogLevel {
+        Debug,
+        Info,
+        Warn,
+        Error,
+        Fatal,
+    }
+
+    internal interface ILogSink {
+        LogSinkCapabilities Capabilities { get; }
+        bool IsEnabled(LogLevel level);
+        void Write(LogEntry entry);
+    }
+
+    internal sealed class LogEntry {
+        public LogEntry(LogLevel level, string message, string category, Exception exception = null,
+            IDictionary<string, object> context = null) {
+            Timestamp = DateTime.Now;
+            Level = level;
+            Message = message ?? string.Empty;
+            Category = category;
+            Exception = exception;
+            if (context != null && context.Count > 0)
+                Context = new ReadOnlyDictionary<string, object>(new Dictionary<string, object>(context));
+            else
+                Context = new ReadOnlyDictionary<string, object>(new Dictionary<string, object>());
+        }
+
+        public DateTime Timestamp { get; }
+        public LogLevel Level { get; }
+        public string Message { get; }
+        public string Category { get; }
+        public Exception Exception { get; }
+        public IReadOnlyDictionary<string, object> Context { get; }
+    }
+
+    internal static class Logger {
+        private static readonly object SyncRoot = new object();
+        private static readonly List<ILogSink> Sinks = new List<ILogSink>();
+        private static UiLogSink uiSink;
+        private static bool initialized;
 
         public static void Initialize(Form1 form) {
-            _form = form;
-        }
+            if (form == null)
+                throw new ArgumentNullException(nameof(form));
 
-        public static void FormLog(string msg) {
-            string logMessage = $"[{DateTime.Now}] {msg}\r\n";
-            UpdateTextBox(_form.txtLog, logMessage, append: true);
-            UpdateTextBox(_form.txtPicInfo, logMessage, append: false);
-        }
-
-        private static void UpdateTextBox(TextBox textBox, string message, bool append) {
-            if (textBox.InvokeRequired) {
-                textBox.Invoke(new Action(() => UpdateTextBox(textBox, message, append)));
-            }
-            else {
-                if (append) {
-                    textBox.AppendText(message);
-                }
-                else {
-                    textBox.Text = message;
-                }
-
-                textBox.SelectionStart = textBox.Text.Length;
-                textBox.ScrollToCaret();
+            lock (SyncRoot) {
+                Sinks.Clear();
+                uiSink = new UiLogSink(form.txtLog, form.txtPicInfo);
+                Sinks.Add(new Log4NetSink());
+                Sinks.Add(uiSink);
+                initialized = true;
             }
         }
 
-        public static void Info(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Info, "[Info]", message, showToTextBox, saveToLocal);
-        public static void Error(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Error, "[Error]", message, showToTextBox, saveToLocal);
-        public static void Debug(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Debug, "[Debug]", message, showToTextBox, saveToLocal);
-        public static void Warn(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Warn, "[Warn]", message, showToTextBox, saveToLocal);
-        public static void Fatal(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Fatal, "[Fatal]", message, showToTextBox, saveToLocal);
+        public static void Info(string message, bool showToTextBox = true, bool saveToLocal = true,
+            IDictionary<string, object> context = null) =>
+            Log(LogLevel.Info, message, showToTextBox, saveToLocal, null, context);
 
-        private static void LogMessage(Action<string> logAction, string prefix, string message, bool showToTextBox, bool saveToLocal) {
-            string className = new StackTrace().GetFrame(1).GetMethod().DeclaringType.Name;
-            
-            // 根据saveToLocal参数决定是否保存到本地文件
-            if (saveToLocal) {
-                logAction(message);
+        public static void Debug(string message, bool showToTextBox = true, bool saveToLocal = true,
+            IDictionary<string, object> context = null) =>
+            Log(LogLevel.Debug, message, showToTextBox, saveToLocal, null, context);
+
+        public static void Warn(string message, bool showToTextBox = true, bool saveToLocal = true,
+            IDictionary<string, object> context = null) =>
+            Log(LogLevel.Warn, message, showToTextBox, saveToLocal, null, context);
+
+        public static void Error(string message, bool showToTextBox = true, bool saveToLocal = true,
+            Exception exception = null, IDictionary<string, object> context = null) =>
+            Log(LogLevel.Error, message, showToTextBox, saveToLocal, exception, context);
+
+        public static void Fatal(string message, bool showToTextBox = true, bool saveToLocal = true,
+            Exception exception = null, IDictionary<string, object> context = null) =>
+            Log(LogLevel.Fatal, message, showToTextBox, saveToLocal, exception, context);
+
+        private static void Log(LogLevel level, string message, bool showToTextBox, bool saveToLocal,
+            Exception exception, IDictionary<string, object> context) {
+            if (!initialized)
+                return;
+
+            string category = GetCallerCategory();
+            var entry = new LogEntry(level, message, category, exception, context);
+
+            List<ILogSink> snapshot;
+            lock (SyncRoot) {
+                snapshot = Sinks.ToList();
             }
-            
-            // 根据showToTextBox参数决定是否显示到界面
-            if (showToTextBox) {
-                FormLog($"{prefix} [{className}]: {message}");
+
+            foreach (var sink in snapshot) {
+                if (!sink.IsEnabled(level))
+                    continue;
+
+                if (!showToTextBox && sink.Capabilities.HasFlag(LogSinkCapabilities.Ui))
+                    continue;
+
+                if (!saveToLocal && sink.Capabilities.HasFlag(LogSinkCapabilities.Persistent))
+                    continue;
+
+                sink.Write(entry);
             }
+        }
+
+        private static string GetCallerCategory() {
+            var frames = new StackTrace().GetFrames();
+            if (frames == null)
+                return "Unknown";
+
+            foreach (var frame in frames) {
+                var method = frame.GetMethod();
+                if (method?.DeclaringType == null)
+                    continue;
+
+                if (method.DeclaringType == typeof(Logger))
+                    continue;
+
+                return method.DeclaringType.Name;
+            }
+
+            return "Unknown";
+        }
+
+        internal static string RenderEntry(LogEntry entry, bool includeContext = true) {
+            var builder = new StringBuilder();
+            builder.Append('[').Append(entry.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+            builder.Append("] [").Append(entry.Level).Append("] ");
+            if (!string.IsNullOrWhiteSpace(entry.Category))
+                builder.Append(entry.Category).Append(": ");
+            builder.Append(entry.Message);
+
+            if (includeContext && entry.Context?.Count > 0) {
+                builder.Append(" | ");
+                builder.Append(string.Join(", ", entry.Context.Select(kvp => $"{kvp.Key}={kvp.Value}")));
+            }
+
+            if (entry.Exception != null)
+                builder.Append(" | ").Append(entry.Exception);
+
+            return builder.ToString();
         }
 
         public static void PicInfo(string message) {
-            _form.txtPicInfo.Text = message;
+            uiSink?.UpdatePicInfo(message);
+        }
+
+        private class Log4NetSink : ILogSink {
+            private readonly ILog internalLogger = LogManager.GetLogger(typeof(Logger));
+
+            public LogSinkCapabilities Capabilities => LogSinkCapabilities.Persistent;
+
+            public bool IsEnabled(LogLevel level) => true;
+
+            public void Write(LogEntry entry) {
+                string formatted = RenderEntry(entry);
+                switch (entry.Level) {
+                    case LogLevel.Debug:
+                        internalLogger.Debug(formatted);
+                        break;
+                    case LogLevel.Info:
+                        internalLogger.Info(formatted);
+                        break;
+                    case LogLevel.Warn:
+                        internalLogger.Warn(formatted);
+                        break;
+                    case LogLevel.Error:
+                        if (entry.Exception != null)
+                            internalLogger.Error(formatted, entry.Exception);
+                        else
+                            internalLogger.Error(formatted);
+                        break;
+                    case LogLevel.Fatal:
+                        if (entry.Exception != null)
+                            internalLogger.Fatal(formatted, entry.Exception);
+                        else
+                            internalLogger.Fatal(formatted);
+                        break;
+                }
+            }
+        }
+
+        private class UiLogSink : ILogSink {
+            private readonly TextBox logTextBox;
+            private readonly TextBox picInfoTextBox;
+
+            public UiLogSink(TextBox logTextBox, TextBox picInfoTextBox) {
+                this.logTextBox = logTextBox ?? throw new ArgumentNullException(nameof(logTextBox));
+                this.picInfoTextBox = picInfoTextBox;
+            }
+
+            public LogSinkCapabilities Capabilities => LogSinkCapabilities.Ui;
+
+            public bool IsEnabled(LogLevel level) => logTextBox != null && !logTextBox.IsDisposed;
+
+            public void Write(LogEntry entry) {
+                ExecuteOnUi(() => Append(entry));
+            }
+
+            public void UpdatePicInfo(string message) {
+                ExecuteOnUi(() => {
+                    if (picInfoTextBox == null || picInfoTextBox.IsDisposed)
+                        return;
+                    picInfoTextBox.Text = message ?? string.Empty;
+                    picInfoTextBox.SelectionStart = picInfoTextBox.TextLength;
+                    picInfoTextBox.ScrollToCaret();
+                });
+            }
+
+            private void Append(LogEntry entry) {
+                if (logTextBox == null || logTextBox.IsDisposed)
+                    return;
+
+                string formatted = RenderEntry(entry);
+                logTextBox.AppendText(formatted + Environment.NewLine);
+                logTextBox.SelectionStart = logTextBox.TextLength;
+                logTextBox.ScrollToCaret();
+
+                if (picInfoTextBox != null && !picInfoTextBox.IsDisposed) {
+                    picInfoTextBox.Text = formatted;
+                    picInfoTextBox.SelectionStart = picInfoTextBox.TextLength;
+                    picInfoTextBox.ScrollToCaret();
+                }
+            }
+
+            private void ExecuteOnUi(Action action) {
+                if (logTextBox == null || logTextBox.IsDisposed)
+                    return;
+
+                if (logTextBox.InvokeRequired)
+                    logTextBox.BeginInvoke(action);
+                else
+                    action();
+            }
         }
     }
 }
