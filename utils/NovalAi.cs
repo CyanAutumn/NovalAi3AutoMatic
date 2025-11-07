@@ -10,11 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Runtime.Remoting.Messaging;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Net;
 using AutoNai3Tools.body;
-using Microsoft.VisualBasic.Logging;
 using AutoNai3Tools.novalai;
 
 namespace AutoNai3Tools.utils {
@@ -251,32 +249,27 @@ namespace AutoNai3Tools.utils {
             return EnsureUniqueFileName(outputDirectory, baseName);
         }
 
-        private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string noArtistPrompt) {
+        private Bitmap UnZipAndSaveImage(RestResponse response, PicProperty picProps, string prompt, string noArtistPrompt) {
             if (!response.IsSuccessful) {
                 Logger.Warn($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
                 return null;
             }
 
             using (MemoryStream memoryStream = new MemoryStream(response.RawBytes)) {
-                Tools.IsExist(form.picProps.OutputPath, true);
+                Tools.IsExist(picProps.OutputPath, true);
                 using (ZipArchive archive = new ZipArchive(memoryStream)) {
                     foreach (ZipArchiveEntry entry in archive.Entries) {
-                        long seed = form.picProps.Seeds;
-                        string file_name = BuildFileName(prompt, seed, form.picProps.OutputPath);
-                        string entryFileName = Path.Combine(form.picProps.OutputPath, file_name);
+                        long seed = picProps.Seeds;
+                        string file_name = BuildFileName(prompt, seed, picProps.OutputPath);
+                        string entryFileName = Path.Combine(picProps.OutputPath, file_name);
 
                         using (Stream entryStream = entry.Open()) {
                             using (MemoryStream entryMemoryStream = new MemoryStream()) {
                                 entryStream.CopyTo(entryMemoryStream);
                                 File.WriteAllBytes(entryFileName + ".png", entryMemoryStream.ToArray());
-
-                                if (form.picView.Image != null) {
-                                    form.picView.Image.Dispose();
-                                }
-
                                 Bitmap bitmap = new Bitmap(entryMemoryStream);
-                                if (form.picProps.SavePromptToTxt)
-                                    if (form.picProps.SavePromptToTxtNoArtist)
+                                if (picProps.SavePromptToTxt)
+                                    if (picProps.SavePromptToTxtNoArtist)
                                         File.WriteAllText(entryFileName + ".txt", noArtistPrompt);
                                     else
                                         File.WriteAllText(entryFileName + ".txt", prompt);
@@ -290,11 +283,11 @@ namespace AutoNai3Tools.utils {
             return null;
         }
 
-        public Bitmap SendDirectorToolsRequests(string token, Nai3DirectorToolsBody body, Form1 form) {
+        public Bitmap SendDirectorToolsRequests(string token, Nai3DirectorToolsBody body, PicProperty picProps, string proxy) {
             try {
-                var response = Request.Post("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, form.settingProps.Proxy);
+                var response = Request.Post("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, proxy);
                 Thread.Sleep(1000);
-                Bitmap pic = UnZipAndSaveImage(response, form, null, null);
+                Bitmap pic = UnZipAndSaveImage(response, picProps, null, null);
                 Logger.Info($"生成成功");
                 return pic;
             }
@@ -304,12 +297,12 @@ namespace AutoNai3Tools.utils {
             }
         }
 
-        public Bitmap SendGenerateRequests(string token, BodyBase body, string noArtistPrompt, Form1 form) {
+        public Bitmap SendGenerateRequests(string token, BodyBase body, string noArtistPrompt, PicProperty picProps, string proxy) {
             try {
                 //Logger.Info(body.ToJson(), false, true);
-                var response = Request.Post("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, form.settingProps.Proxy);
+                var response = Request.Post("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, proxy);
                 Thread.Sleep(1000);
-                Bitmap pic = UnZipAndSaveImage(response, form, body.prompt, noArtistPrompt);
+                Bitmap pic = UnZipAndSaveImage(response, picProps, body.prompt, noArtistPrompt);
                 Logger.Info("生成成功");
                 return pic;
             }

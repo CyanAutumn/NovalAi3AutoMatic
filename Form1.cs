@@ -21,6 +21,9 @@ namespace AutoNai3Tools {
         public int runNum;
         public PicProperty picProps = new PicProperty();
         public SettingProperty settingProps = new SettingProperty();
+        private CancellationTokenSource generationCancellationSource;
+        private GenerationPipeline currentGenerationPipeline;
+        private bool isGenerating;
 
         public Form1() {
             InitializeComponent();
@@ -117,36 +120,28 @@ namespace AutoNai3Tools {
             return new int[] { picProps.Width, picProps.Height };
         }
 
-        string prevNoArtistPrompt = "";
+        
 
-        private BodyBase GetNai3Body(int runNum) {
-            int[] resolution = GetResolution(runNum);
-            Dictionary<string, object> kwargs = picProps.GetProperty();
-            kwargs.Add("negative_prompt", txtNegativePrompt.Text);
+        private GenerationRequest BuildGenerationRequest(GenerationContext context, int runIndex) {
+            runNum = runIndex;
+            _ = GetResolution(runIndex);
+            Dictionary<string, object> kwargs = context.PicProps.GetProperty();
+            kwargs["negative_prompt"] = context.NegativePrompt;
 
-            // img2img
-            if (img2ImgCurrentPath != null) {
-                kwargs.Add("image", Tools.ConvertImageToBase64(img2ImgCurrentPath));
-                kwargs.Add("strength", (float)nudImg2ImgStrength.Value);
-                kwargs.Add("noise", (float)nudImg2ImgNoise.Value);
+            if (context.HasImg2Img) {
+                kwargs["image"] = Tools.ConvertImageToBase64(context.Img2Img.ImagePath);
+                kwargs["strength"] = context.Img2Img.Strength;
+                kwargs["noise"] = context.Img2Img.Noise;
             }
 
-            // vibe
-            List<VibeData> vibes = new List<VibeData>(); 
-            foreach (DataGridViewRow row in dgvVibe.Rows) {
-                VibeData vibe = new VibeData();
-                var picPath = row.Cells["Column1"].Value;
-                if (picPath == null) continue;
-                vibe.imagePath = picPath.ToString();
+            List<VibeData> vibes = context.Vibes.Select(v => new VibeData {
+                imagePath = v.ImagePath,
+                informationExtracted = v.InformationExtracted,
+                referenceStrength = v.ReferenceStrength
+            }).ToList();
 
-                var ie = row.Cells["Column2"].Value;
-                vibe.informationExtracted = ie != null ? float.Parse(ie.ToString()) : 0;
-
-                var rs = row.Cells["Column3"].Value;
-                vibe.referenceStrength = rs != null ? float.Parse(rs.ToString()) : 0;
-                vibes.Add(vibe);
-            }
-            vibes = Vibe.GetVibe(picProps.Model, vibes,this);
+            if (vibes.Count > 0)
+                vibes = Vibe.GetVibe(context.PicProps.Model, vibes, context.SettingProps.Token);
 
             List<string> t_rim = new List<string>();
             List<float> t_riem = new List<float>();
@@ -156,118 +151,187 @@ namespace AutoNai3Tools {
                 t_riem.Add(vibe.informationExtracted);
                 t_rsm.Add(vibe.referenceStrength);
             }
-            kwargs.Add("reference_image_multiple", t_rim);
-            kwargs.Add("reference_information_extracted_multiple", t_riem);
-            kwargs.Add("reference_strength_multiple", t_rsm);
-
-            var prompt = Prompt.GetPrompt(txtPrompt.Text, this);
-            prevNoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
-            string tPrompt = Prompt.GetDataPrompt(prompt);
-            kwargs.Add("prompt", tPrompt);
-
-            //nai4
-            kwargs.Add("v4_negative_prompt",
-                new V4Prompt(new Caption(txtNegativePrompt.Text, new List<CharCaption>()), null, null, false));
-            kwargs.Add("v4_prompt", new V4Prompt(new Caption(tPrompt, new List<CharCaption>()), true, true, null));
-            BodyBase body = BodyTools.GetBody(picProps.Model, kwargs);
-            propertyGrid1.Refresh();
-            return body;
-        }
-
-        BodyBase tempNai3Body = null;
-
-        private void TimerElapsed(object sender, ElapsedEventArgs e) {
-            int max_num = picProps.RunNum;
-            for (int i = 0; i < picProps.RunNum; i++) {
-                try {
-                    runNum = i;
-                    NovalAi novalAi = new NovalAi();
-                    try {
-                        tempNai3Body = GetNai3Body(i);
-                    }
-                    catch (Exception ex) {
-                        Logger.Error("参数错误：" + ex.ToString());
-                        Logger.Info(
-                            "-----------------------------------------------------------------------------------------------------------------------------------------");
-                        continue;
-                    }
-
-                    Logger.Info("开始发送生图请求");
-                    Bitmap img = novalAi.SendGenerateRequests(settingProps.Token, tempNai3Body, prevNoArtistPrompt, this);
-                    if (!settingProps.ClosePicPreview) {
-                        picView.Image = img;
-                    }
-
-                    Random random = new Random();
-                    if (timer_status == false) {
-                        timer.Dispose();
-                        Logger.Info(
-                            "-----------------------------------------------------------------------------------------------------------------------------------------");
-                        break;
-                    }
-
-                    if (i == max_num - 1) {
-                        Logger.Info("运行完毕，共运行" + (i + 1).ToString() + "次");
-                        timer_status = false;
-                        timer.Dispose();
-                    }
-                    else if (i % 10 == 0 && i != 0) {
-                        int longLow = settingProps.SleepTimeLongLow;
-                        int longHigh = Math.Max(settingProps.SleepTimeLongHigh, longLow);
-                        if (settingProps.SleepTimeLongHigh < settingProps.SleepTimeLongLow) {
-                            Logger.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
-                        }
-
-                        int delay = random.Next(longLow * 1000,
-                            longHigh * 1000);
-                        Logger.Info("图片信息：" + tempNai3Body.prompt + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay +
-                                    "毫秒");
-                        Thread.Sleep(delay);
-                    }
-                    else {
-                        int shortLow = settingProps.SleepTimeShortLow;
-                        int shortHigh = Math.Max(settingProps.SleepTimeShortHigh, shortLow);
-                        if (settingProps.SleepTimeShortHigh < settingProps.SleepTimeShortLow) {
-                            Logger.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
-                        }
-
-                        int delay = random.Next(shortLow * 1000,
-                            shortHigh * 1000);
-                        Logger.Info("图片信息：" + tempNai3Body.prompt + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay +
-                                    "毫秒");
-                        Thread.Sleep(delay);
-                    }
-
-                    Logger.Info(
-                        "-----------------------------------------------------------------------------------------------------------------------------------------");
-                }
-                catch { }
+            if (t_rim.Count > 0) {
+                kwargs["reference_image_multiple"] = t_rim;
+                kwargs["reference_information_extracted_multiple"] = t_riem;
+                kwargs["reference_strength_multiple"] = t_rsm;
             }
 
-            Action<string> actionDelegate = (x) => { this.btnGenerate.Text = x; };
-            Action<string> actionDelegate2 = (x) => { this.btnGenerate.Enabled = true; };
-            this.btnGenerate.Invoke(actionDelegate, "生成");
-            this.btnGenerate.Invoke(actionDelegate2, "");
+            var prompt = Prompt.GetPrompt(context.PromptText, this);
+            string noArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
+            string tPrompt = Prompt.GetDataPrompt(prompt);
+            kwargs["prompt"] = tPrompt;
+
+            kwargs["v4_negative_prompt"] =
+                new V4Prompt(new Caption(context.NegativePrompt, new List<CharCaption>()), null, null, false);
+            kwargs["v4_prompt"] = new V4Prompt(new Caption(tPrompt, new List<CharCaption>()), true, true, null);
+            BodyBase body = BodyTools.GetBody(context.PicProps.Model, kwargs);
+            return new GenerationRequest(body, tPrompt, noArtistPrompt);
         }
 
-        System.Timers.Timer timer = null;
-        bool timer_status = false;
+        private GenerationContext BuildGenerationContext() {
+            List<VibeSelection> selections = new List<VibeSelection>();
+            foreach (DataGridViewRow row in dgvVibe.Rows) {
+                var picPath = row.Cells["Column1"].Value;
+                if (picPath == null)
+                    continue;
+
+                float informationExtracted = ParseFloat(row.Cells["Column2"].Value);
+                float referenceStrength = ParseFloat(row.Cells["Column3"].Value);
+                selections.Add(new VibeSelection(picPath.ToString(), informationExtracted, referenceStrength));
+            }
+
+            Img2ImgOptions img2Img = null;
+            if (!string.IsNullOrEmpty(img2ImgCurrentPath)) {
+                img2Img = new Img2ImgOptions(img2ImgCurrentPath, (float)nudImg2ImgStrength.Value,
+                    (float)nudImg2ImgNoise.Value);
+            }
+
+            return new GenerationContext(picProps, settingProps, txtPrompt.Text, txtNegativePrompt.Text, selections,
+                img2Img, picProps.RunNum);
+        }
+
+        private static float ParseFloat(object value) {
+            if (value == null)
+                return 0f;
+
+            if (value is float f)
+                return f;
+            if (value is double d)
+                return (float)d;
+            if (value is decimal dec)
+                return (float)dec;
+
+            float result;
+            return float.TryParse(value.ToString(), out result) ? result : 0f;
+        }
+
+        private void StartGeneration(GenerationContext context) {
+            generationCancellationSource = new CancellationTokenSource();
+            currentGenerationPipeline = new GenerationPipeline(context, index => BuildGenerationRequest(context, index));
+            currentGenerationPipeline.IterationStarted += HandleGenerationIterationStarted;
+            currentGenerationPipeline.ImageReady += HandleGenerationImageReady;
+            currentGenerationPipeline.DelayPlanned += HandleGenerationDelayPlanned;
+            currentGenerationPipeline.Completed += HandleGenerationCompleted;
+            currentGenerationPipeline.Cancelled += HandleGenerationCancelled;
+            currentGenerationPipeline.Failed += HandleGenerationFailed;
+
+            isGenerating = true;
+            btnGenerate.Text = "停止";
+            btnGenerate.Enabled = true;
+
+            _ = currentGenerationPipeline.RunAsync(generationCancellationSource.Token);
+        }
+
+        private void RequestStopGeneration() {
+            if (!isGenerating || generationCancellationSource == null)
+                return;
+
+            btnGenerate.Text = "停止中...";
+            btnGenerate.Enabled = false;
+            generationCancellationSource.Cancel();
+        }
+
+        private void HandleGenerationIterationStarted(int iteration) {
+            if (InvokeRequired) {
+                BeginInvoke(new Action<int>(HandleGenerationIterationStarted), iteration);
+                return;
+            }
+
+            propertyGrid1.Refresh();
+        }
+
+        private void HandleGenerationImageReady(int iteration, Bitmap bitmap) {
+            if (bitmap == null)
+                return;
+
+            if (InvokeRequired) {
+                BeginInvoke(new Action<int, Bitmap>(HandleGenerationImageReady), iteration, bitmap);
+                return;
+            }
+
+            if (settingProps.ClosePicPreview) {
+                bitmap.Dispose();
+                return;
+            }
+
+            if (picView.Image != null) {
+                picView.Image.Dispose();
+                picView.Image = null;
+            }
+
+            picView.Image = bitmap;
+        }
+
+        private void HandleGenerationDelayPlanned(int iteration, DelayInfo delayInfo, string prompt) {
+            // 保留扩展接口，当前无需额外 UI 行为
+        }
+
+        private void HandleGenerationCompleted() {
+            if (InvokeRequired) {
+                BeginInvoke(new Action(HandleGenerationCompleted));
+                return;
+            }
+
+            ResetGenerationState();
+        }
+
+        private void HandleGenerationCancelled() {
+            if (InvokeRequired) {
+                BeginInvoke(new Action(HandleGenerationCancelled));
+                return;
+            }
+
+            ResetGenerationState();
+        }
+
+        private void HandleGenerationFailed(Exception ex) {
+            if (InvokeRequired) {
+                BeginInvoke(new Action<Exception>(HandleGenerationFailed), ex);
+                return;
+            }
+
+            Logger.Error($"生成任务失败：{ex.Message}");
+            ResetGenerationState();
+        }
+
+        private void ResetGenerationState() {
+            isGenerating = false;
+            btnGenerate.Text = "生成";
+            btnGenerate.Enabled = true;
+
+            generationCancellationSource?.Dispose();
+            generationCancellationSource = null;
+
+            if (currentGenerationPipeline != null) {
+                currentGenerationPipeline.IterationStarted -= HandleGenerationIterationStarted;
+                currentGenerationPipeline.ImageReady -= HandleGenerationImageReady;
+                currentGenerationPipeline.DelayPlanned -= HandleGenerationDelayPlanned;
+                currentGenerationPipeline.Completed -= HandleGenerationCompleted;
+                currentGenerationPipeline.Cancelled -= HandleGenerationCancelled;
+                currentGenerationPipeline.Failed -= HandleGenerationFailed;
+            }
+
+            currentGenerationPipeline = null;
+        }
 
         private void btnGenerate_Click(object sender, EventArgs e) {
-            if (timer_status) {
-                timer.Dispose();
-                timer_status = false;
-                btnGenerate.Text = "等待当前生成结束";
-                btnGenerate.Enabled = false;
+            if (isGenerating) {
+                RequestStopGeneration();
+                return;
             }
-            else {
-                timer = new System.Timers.Timer();
-                timer.Elapsed += TimerElapsed;
-                timer.AutoReset = false;
-                timer.Start();
-                timer_status = true;
-                btnGenerate.Text = "停止";
+
+            GenerationContext context;
+            try {
+                context = BuildGenerationContext();
             }
+            catch (Exception ex) {
+                Logger.Error("构建生成参数失败：" + ex);
+                MessageBox.Show("生成参数无效，请检查设置", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            StartGeneration(context);
         }
 
         private void picView_Click(object sender, EventArgs e) {
@@ -611,7 +675,7 @@ namespace AutoNai3Tools {
                     if (body == null)
                         return;
                     NovalAi novalAi = new NovalAi();
-                    Bitmap img = novalAi.SendDirectorToolsRequests(settingProps.Token, body, this);
+                    Bitmap img = novalAi.SendDirectorToolsRequests(settingProps.Token, body, picProps, settingProps.Proxy);
                     picDirectorToolsOutput.Image = img;
                 }
             }

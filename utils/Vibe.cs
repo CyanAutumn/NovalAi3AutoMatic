@@ -121,7 +121,7 @@ namespace AutoNai3Tools.utils {
             return results;
         }
 
-        public static List<VibeData> ParseNai4_UP_Vibe(BodyTools.Model model, List<VibeData> vibe_list, Form1 form) {
+        public static List<VibeData> ParseNai4_UP_Vibe(BodyTools.Model model, List<VibeData> vibe_list, string token) {
             for (int i = 0; i < vibe_list.Count; i++) {
                 if (vibe_list[i].imagePath.EndsWith(".naiv4vibe")) {
                     try {
@@ -155,7 +155,7 @@ namespace AutoNai3Tools.utils {
                             continue;
                         }
 
-                        var vibeBase64img = NovalAIAPI.GetVibeID(base64img, vibe_list[i].informationExtracted, model_name, form.settingProps.Token);
+                        var vibeBase64img = NovalAIAPI.GetVibeID(base64img, vibe_list[i].informationExtracted, model_name, token);
                         File.WriteAllText(vibe_path, vibeBase64img, Encoding.UTF8);
                         Logger.Info($"创建成功");
                     }
@@ -178,9 +178,9 @@ namespace AutoNai3Tools.utils {
             return vibe_list;
         }
 
-        public static List<VibeData> GetVibe(BodyTools.Model model, List<VibeData> vibe_list, Form1 form) {
+        public static List<VibeData> GetVibe(BodyTools.Model model, List<VibeData> vibe_list, string token) {
             if (model == BodyTools.Model.Nai4_Full || model == BodyTools.Model.Nai4_5_Full || model == BodyTools.Model.Nai4_5_Curated || model == BodyTools.Model.Nai4_Preview) {
-                return ParseNai4_UP_Vibe(model, vibe_list, form);
+                return ParseNai4_UP_Vibe(model, vibe_list, token);
             }
             return ParseOtherVibe(model, vibe_list);
         }
