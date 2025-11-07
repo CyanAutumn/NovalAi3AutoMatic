@@ -90,6 +90,20 @@ namespace AutoNai3Tools.utils {
             Exception exception = null, IDictionary<string, object> context = null) =>
             Log(LogLevel.Fatal, message, showToTextBox, saveToLocal, exception, context);
 
+        public static IDictionary<string, object> Context(params (string Key, object Value)[] pairs) {
+            var dict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+            if (pairs == null)
+                return dict;
+
+            foreach (var (key, value) in pairs) {
+                if (string.IsNullOrWhiteSpace(key))
+                    continue;
+                dict[key] = value;
+            }
+
+            return dict;
+        }
+
         private static void Log(LogLevel level, string message, bool showToTextBox, bool saveToLocal,
             Exception exception, IDictionary<string, object> context) {
             if (!initialized)
@@ -225,7 +239,7 @@ namespace AutoNai3Tools.utils {
                 if (logTextBox == null || logTextBox.IsDisposed)
                     return;
 
-                string formatted = RenderEntry(entry);
+                string formatted = RenderEntry(entry, includeContext: false);
                 logTextBox.AppendText(formatted + Environment.NewLine);
                 logTextBox.SelectionStart = logTextBox.TextLength;
                 logTextBox.ScrollToCaret();

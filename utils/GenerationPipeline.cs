@@ -6,15 +6,40 @@ using AutoNai3Tools.body;
 
 namespace AutoNai3Tools.utils {
     internal class GenerationRequest {
-        public GenerationRequest(BodyBase body, string prompt, string noArtistPrompt) {
+        public GenerationRequest(BodyBase body, string originalPrompt, string noArtistPrompt, GenerationRunInfo runInfo) {
             Body = body;
-            Prompt = prompt;
+            OriginalPrompt = originalPrompt;
             NoArtistPrompt = noArtistPrompt;
+            RunInfo = runInfo;
         }
 
         public BodyBase Body { get; }
-        public string Prompt { get; }
+        public string OriginalPrompt { get; }
         public string NoArtistPrompt { get; }
+        public GenerationRunInfo RunInfo { get; }
+    }
+
+    internal class GenerationRunInfo {
+        public GenerationRunInfo(string model, int width, int height, float scale, float cfg, string sampler,
+            int steps, string wildcardPath) {
+            Model = model;
+            Width = width;
+            Height = height;
+            Scale = scale;
+            Cfg = cfg;
+            Sampler = sampler;
+            Steps = steps;
+            WildcardPath = wildcardPath;
+        }
+
+        public string Model { get; }
+        public int Width { get; }
+        public int Height { get; }
+        public float Scale { get; }
+        public float Cfg { get; }
+        public string Sampler { get; }
+        public int Steps { get; }
+        public string WildcardPath { get; }
     }
 
     internal class GenerationPipeline {
@@ -48,21 +73,36 @@ namespace AutoNai3Tools.utils {
                             request = _requestFactory(i);
                         }
                         catch (Exception ex) {
-                            Logger.Error("参数错误：" + ex);
-                            Logger.Info(
-                                "-----------------------------------------------------------------------------------------------------------------------------------------");
+                            Logger.Error("第" + iterationNumber + "次生成参数构建失败", exception: ex,
+                                context: Logger.Context(("iteration", iterationNumber)));
                             continue;
                         }
 
                         IterationStarted?.Invoke(iterationNumber);
 
-                        Logger.Info("开始发送生图请求");
+                        var runInfo = request.RunInfo;
+                        Logger.Info(
+                            $"本次参数 | 模型:{runInfo.Model} | 尺寸:{runInfo.Width}x{runInfo.Height} | Scale:{runInfo.Scale} | CFG:{runInfo.Cfg} | 采样:{runInfo.Sampler} | Steps:{runInfo.Steps} | Wildcard:{runInfo.WildcardPath}",
+                            context: Logger.Context(("iteration", iterationNumber),
+                                ("model", runInfo.Model),
+                                ("width", runInfo.Width),
+                                ("height", runInfo.Height),
+                                ("scale", runInfo.Scale),
+                                ("cfg", runInfo.Cfg),
+                                ("sampler", runInfo.Sampler),
+                                ("steps", runInfo.Steps),
+                                ("wildcard", runInfo.WildcardPath)));
+
+                        Logger.Info($"开始第{iterationNumber}次生成 | 原始Prompt：{request.OriginalPrompt}",
+                            context: Logger.Context(("iteration", iterationNumber),
+                                ("originalPrompt", request.OriginalPrompt)));
                         Bitmap bitmap = _novalAi.SendGenerateRequests(
                             _context.SettingProps.Token,
                             request.Body,
                             request.NoArtistPrompt,
                             _context.PicProps,
-                            _context.SettingProps.Proxy);
+                            _context.SettingProps.Proxy,
+                            request.OriginalPrompt);
 
                         if (bitmap != null)
                             ImageReady?.Invoke(iterationNumber, bitmap);
@@ -70,31 +110,33 @@ namespace AutoNai3Tools.utils {
                         token.ThrowIfCancellationRequested();
 
                         if (i == _context.RunCount - 1) {
-                            Logger.Info($"运行完毕，共运行{iterationNumber}次");
+                            Logger.Info($"生成任务已完成，共运行{iterationNumber}次",
+                                context: Logger.Context(("totalIterations", iterationNumber)));
                             break;
                         }
 
                         DelayInfo delay = _delayStrategy.GetDelay(i);
-                        string prompt = request.Body?.prompt ?? string.Empty;
-                        DelayPlanned?.Invoke(iterationNumber, delay, prompt);
+                        DelayPlanned?.Invoke(iterationNumber, delay, request.OriginalPrompt);
 
                         string restType = delay.IsLongBreak ? "长休" : "短休";
-                        Logger.Info(
-                            $"图片信息：{prompt}\r\n已运行{iterationNumber}次，开始{restType}{delay.Milliseconds}毫秒");
+                        Logger.Info($"已完成第{iterationNumber}次生成，进入{restType} {delay.Milliseconds} 毫秒",
+                            context: Logger.Context(("iteration", iterationNumber),
+                                ("originalPrompt", request.OriginalPrompt),
+                                ("delayMs", delay.Milliseconds),
+                                ("type", restType)));
                         await Task.Delay(delay.Milliseconds, token);
-                        Logger.Info(
-                            "-----------------------------------------------------------------------------------------------------------------------------------------");
                     }
                 }, token);
 
                 Completed?.Invoke();
             }
             catch (OperationCanceledException) {
-                Logger.Info("已停止，等待当前生成结束");
+                Logger.Info("生成任务已取消，等待当前批次结束",
+                    context: Logger.Context(("reason", "user")));
                 Cancelled?.Invoke();
             }
             catch (Exception ex) {
-                Logger.Error($"生成任务异常：{ex}");
+                Logger.Error("生成任务异常", exception: ex);
                 Failed?.Invoke(ex);
             }
         }
@@ -113,7 +155,9 @@ namespace AutoNai3Tools.utils {
             int lowSeconds = isLongBreak ? _settings.SleepTimeLongLow : _settings.SleepTimeShortLow;
             int highSeconds = isLongBreak ? _settings.SleepTimeLongHigh : _settings.SleepTimeShortHigh;
             if (highSeconds < lowSeconds) {
-                Logger.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
+                Logger.Warn("检测到休眠时间设置错误，已自动校正",
+                    context: Logger.Context(("iteration", iterationIndex),
+                        ("low", lowSeconds), ("high", highSeconds)));
                 highSeconds = lowSeconds;
             }
 

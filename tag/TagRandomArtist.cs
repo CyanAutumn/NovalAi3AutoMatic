@@ -32,7 +32,8 @@ namespace AutoNai3Tools.tag
             string randomArtist = ArtistTools.GetArtistPrompt(artistGroupList,
                 ((int)form.numDefaultArtistWeightReduceMax.Value), ((int)form.numDefaultArtistWeightIncreaseMax.Value),
                 form.chkArtistModify.Checked, ((int)form.numArtistMin.Value), ((int)form.numArtistMax.Value));
-            Logger.Info($"<随机画师>:{randomArtist}");
+            Logger.Info($"<随机画师>：{randomArtist}",
+                context: Logger.Context(("value", randomArtist)));
             return randomArtist;
         }
     }

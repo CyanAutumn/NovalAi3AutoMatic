@@ -47,14 +47,17 @@ namespace AutoNai3Tools.tag
                 Random random = new Random();
                 int tIndex = random.Next(lines.Length);
                 string words = lines[tIndex];
-                Logger.Info($"<{this.text}> {tIndex}:{words}");
+                Logger.Info($"<{this.text}>：{words}",
+                    context: Logger.Context(("tag", this.text), ("index", tIndex), ("value", words)));
                 return words;
             }
             else
             {
                 string words = lines[index];
+                int currentIndex = index;
                 index = (index + 1) % lines.Length;
-                Logger.Info($"<{this.text}> {index}:{words}");
+                Logger.Info($"<{this.text}>：{words}",
+                    context: Logger.Context(("tag", this.text), ("index", currentIndex), ("value", words)));
                 return words;
             }
         }

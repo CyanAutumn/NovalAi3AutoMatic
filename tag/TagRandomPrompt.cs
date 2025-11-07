@@ -70,7 +70,8 @@ namespace AutoNai3Tools.tag
             }
 
             string strResult = string.Join(",", filtered).Trim();
-            Logger.Info($"<随机提示词> {tIndex}:{strResult}");
+            Logger.Info($"<随机提示词>：{strResult}",
+                context: Logger.Context(("index", tIndex), ("value", strResult)));
             return strResult;
         }
     }

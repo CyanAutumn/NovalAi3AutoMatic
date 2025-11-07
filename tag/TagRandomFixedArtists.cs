@@ -25,7 +25,8 @@ namespace AutoNai3Tools.tag {
         protected override string ParseResultText() {
             List<List<Artist>> artistGroupList = ArtistTools.ParseArtistTxtToArtistGroupList(form.txtArtistRandomFixed.Text);
             string randomArtist = ArtistTools.GetArtistPromptFixed(artistGroupList, ((int)form.numDefaultArtistRandomFixedWeightIncreaseMin.Value), ((int)form.numDefaultArtistRandomFixedWeightIncreaseMax.Value), form.chkArtistModifyRandomFixedArtist.Checked);
-            Logger.Info($"<固定随机画师>:{randomArtist}");
+            Logger.Info($"<固定随机画师>：{randomArtist}",
+                context: Logger.Context(("value", randomArtist)));
             return randomArtist;
         }
     }

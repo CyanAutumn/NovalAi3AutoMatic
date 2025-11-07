@@ -21,7 +21,8 @@ namespace AutoNai3Tools.tag
 
         protected override string ParseResultText()
         {
-            Logger.Info($"<固定画师>:{form.txtArtistFixed.Text}");
+            Logger.Info($"<固定画师>：{form.txtArtistFixed.Text}",
+                context: Logger.Context(("value", form.txtArtistFixed.Text)));
             return form.txtArtistFixed.Text;
         }
     }

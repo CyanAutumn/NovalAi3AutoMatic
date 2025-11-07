@@ -251,7 +251,9 @@ namespace AutoNai3Tools.utils {
 
         private Bitmap UnZipAndSaveImage(RestResponse response, PicProperty picProps, string prompt, string noArtistPrompt) {
             if (!response.IsSuccessful) {
-                Logger.Warn($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
+                Logger.Warn("生图请求失败",
+                    context: Logger.Context(("statusCode", response.StatusCode),
+                        ("description", response.StatusDescription)));
                 return null;
             }
 
@@ -288,27 +290,37 @@ namespace AutoNai3Tools.utils {
                 var response = Request.Post("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, proxy);
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, picProps, null, null);
-                Logger.Info($"生成成功");
+                if (pic != null) {
+                    Logger.Info("绘导工具生成完成",
+                        context: Logger.Context(("type", body.req_type), ("height", body.height),
+                            ("width", body.width)));
+                }
                 return pic;
             }
             catch (Exception ex) {
-                Logger.Warn($"生成失败，错误信息{ex.ToString()}");
+                Logger.Error("DirectorTools 请求失败", exception: ex,
+                    context: Logger.Context(("type", body?.req_type)));
                 return null;
             }
         }
 
-        public Bitmap SendGenerateRequests(string token, BodyBase body, string noArtistPrompt, PicProperty picProps, string proxy) {
+        public Bitmap SendGenerateRequests(string token, BodyBase body, string noArtistPrompt, PicProperty picProps,
+            string proxy, string originalPrompt) {
             try {
                 //Logger.Info(body.ToJson(), false, true);
                 var response = Request.Post("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, proxy);
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, picProps, body.prompt, noArtistPrompt);
-                Logger.Info("生成成功");
+                if (pic != null) {
+                    Logger.Info("生图完成",
+                        context: Logger.Context(("originalPrompt", originalPrompt ?? body?.prompt),
+                            ("seed", picProps.Seeds)));
+                }
                 return pic;
             }
             catch (Exception ex) {
-                Logger.Warn($"生成失败，错误信息{ex.Message}");
-                Logger.Warn($"{ex.ToString()}");
+                Logger.Error("图像生成请求失败", exception: ex,
+                    context: Logger.Context(("originalPrompt", originalPrompt ?? body?.prompt)));
                 return null;
             }
         }

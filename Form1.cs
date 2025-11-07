@@ -183,7 +183,18 @@ namespace AutoNai3Tools {
                 new V4Prompt(new Caption(context.NegativePrompt, new List<CharCaption>()), null, null, false);
             kwargs["v4_prompt"] = new V4Prompt(new Caption(tPrompt, new List<CharCaption>()), true, true, null);
             BodyBase body = BodyTools.GetBody(context.PicProps.Model, kwargs);
-            return new GenerationRequest(body, tPrompt, noArtistPrompt);
+
+            var runInfo = new GenerationRunInfo(
+                BodyTools.GetEnumDescription(context.PicProps.Model),
+                context.PicProps.Width,
+                context.PicProps.Height,
+                context.PicProps.Scale,
+                context.PicProps.CFG,
+                BodyTools.GetEnumDescription(context.PicProps.Sampler),
+                context.PicProps.Steps,
+                context.PicProps.WildcardFolderPath);
+
+            return new GenerationRequest(body, context.PromptText, noArtistPrompt, runInfo);
         }
 
         private GenerationContext BuildGenerationContext() {
@@ -308,7 +319,8 @@ namespace AutoNai3Tools {
                 return;
             }
 
-            Logger.Error($"生成任务失败：{ex.Message}");
+            Logger.Error("生成任务发生未处理异常", exception: ex,
+                context: Logger.Context(("stage", "pipeline")));
             ResetGenerationState();
         }
 
@@ -343,7 +355,8 @@ namespace AutoNai3Tools {
                 context = BuildGenerationContext();
             }
             catch (Exception ex) {
-                Logger.Error("构建生成参数失败：" + ex);
+                Logger.Error("构建生成参数失败", exception: ex,
+                    context: Logger.Context(("action", nameof(BuildGenerationContext))));
                 MessageBox.Show("生成参数无效，请检查设置", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -355,8 +368,9 @@ namespace AutoNai3Tools {
             try {
                 System.Diagnostics.Process.Start(picProps.OutputPath);
             }
-            catch {
-                Logger.Warn("无法打开输出文件夹");
+            catch (Exception ex) {
+                Logger.Warn("无法打开输出目录",
+                    context: Logger.Context(("path", picProps.OutputPath), ("reason", ex.Message)));
             }
         }
 
@@ -409,15 +423,17 @@ namespace AutoNai3Tools {
                 Config.ReadToml(this, "上一次关闭时的自动保存");
                 cmbConfigName.Text = "上一次关闭时的自动保存";
             }
-            catch {
-                Logger.Warn("未找到上一次关闭时的保存记录，以初始状态开始");
+            catch (Exception ex) {
+                Logger.Warn("未找到上一次关闭时的自动保存，使用默认配置",
+                    context: Logger.Context(("config", "autoSave"), ("reason", ex.Message)));
             }
 
             try {
                 SystemConfig.ReadToml(this);
             }
-            catch {
-                Logger.Warn("未找到全局配置，以初始状态开始");
+            catch (Exception ex) {
+                Logger.Warn("未找到系统配置文件，使用默认配置",
+                    context: Logger.Context(("config", "system"), ("reason", ex.Message)));
             }
 
             InitTagSnippetDGV();
@@ -460,7 +476,8 @@ namespace AutoNai3Tools {
                 vibeCurrentPicPath = null;
             }
             else {
-                Logger.Warn("请点击左侧空白处选择一张图片后添加");
+                Logger.Warn("未选择可添加的参考图",
+                    context: Logger.Context(("action", "VibeAdd")));
             }
         }
 
@@ -470,7 +487,8 @@ namespace AutoNai3Tools {
                 dgvVibe.Rows.RemoveAt(rowIndex);
             }
             else {
-                Logger.Warn("请先选择要删除的行");
+                Logger.Warn("未选择要删除的参考图",
+                    context: Logger.Context(("action", "VibeDelete")));
             }
         }
 
@@ -499,7 +517,8 @@ namespace AutoNai3Tools {
                 selectedRow.Cells["Column3"].Value = numVibeRS.Value;
             }
             else {
-                Logger.Warn("请先选择要修改的行");
+                Logger.Warn("未选择要修改的参考图",
+                    context: Logger.Context(("action", "VibeEdit")));
             }
         }
 
@@ -553,8 +572,9 @@ namespace AutoNai3Tools {
                     dgvTagSnippet.Rows.Add(fileName, fileContent);
                 }
             }
-            catch {
-                Logger.Warn("wildcard文件夹下未找到任何相关文件");
+            catch (Exception ex) {
+                Logger.Warn("未能加载 wildcard 片段文件",
+                    context: Logger.Context(("folder", picProps.WildcardFolderPath), ("reason", ex.Message)));
             }
         }
 
@@ -564,14 +584,16 @@ namespace AutoNai3Tools {
                     if (row.Cells[0].Value != null) {
                         if (row.Cells[0].Value.ToString() == (txtTagSnippetName.Text +=
                                 (txtTagSnippetName.Text.EndsWith(".txt") ? "" : ".txt"))) {
-                            Logger.Warn("片段名已存在，无法添加");
+                            Logger.Warn("片段名已存在，无法添加",
+                                context: Logger.Context(("snippet", txtTagSnippetName.Text)));
                             return;
                         }
                     }
                 }
 
                 if (txtTagSnippetName.Text == "") {
-                    Logger.Warn("片段名不能为空");
+                    Logger.Warn("片段名不能为空",
+                        context: Logger.Context(("action", "SnippetAdd")));
                     return;
                 }
 
@@ -585,16 +607,19 @@ namespace AutoNai3Tools {
                 File.WriteAllText(filePath, fileContent);
                 dgvTagSnippet.Rows.Add(txtTagSnippetName.Text, txtTagSnippetValue.Text);
 
-                Logger.Info("增加成功！");
+                Logger.Info("片段已新增",
+                    context: Logger.Context(("snippet", fileName), ("folder", folderPath)));
             }
             else {
-                Logger.Warn("请输入一个片段名");
+                Logger.Warn("片段名不能为空",
+                    context: Logger.Context(("action", "SnippetAdd")));
             }
         }
 
         private void btnTagSnippetEdit_Click(object sender, EventArgs e) {
             if (dgvTagSnippet.CurrentRow.Index == 0) {
-                Logger.Warn("请先选中要编辑的行");
+                Logger.Warn("未选择要编辑的片段",
+                    context: Logger.Context(("action", "SnippetEdit")));
                 return;
             }
 
@@ -606,12 +631,14 @@ namespace AutoNai3Tools {
                     string filePath = Path.Combine(folderPath, fileName);
                     File.WriteAllText(filePath, fileContent);
                     dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[1].Value = fileContent;
-                    Logger.Info("修改成功");
+                    Logger.Info("片段已更新",
+                        context: Logger.Context(("snippet", fileName)));
                     return;
                 }
             }
 
-            Logger.Warn("片段名不存在");
+            Logger.Warn("片段名不存在",
+                context: Logger.Context(("snippet", txtTagSnippetName.Text)));
         }
 
         private void btnTagSnippetDelete_Click(object sender, EventArgs e) {
@@ -624,7 +651,8 @@ namespace AutoNai3Tools {
                 dgvTagSnippet.Rows.RemoveAt(rowIndex);
             }
             else {
-                Logger.Warn("请先选择要删除的行");
+                Logger.Warn("未选择要删除的片段",
+                    context: Logger.Context(("action", "SnippetDelete")));
             }
         }
 

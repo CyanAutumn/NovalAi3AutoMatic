@@ -22,24 +22,25 @@ namespace AutoNai3Tools.novalai
                 var response = Request.Post(VIBE_ENCODE_URL, "/ai/encode-vibe", json, token);
 
                 if (response.IsSuccessStatusCode) {
-                    // The response is raw binary data (the vibe signature).
                     var vibeBytes = response.RawBytes;
-
-                    // The vibe data must be Base64 encoded to be used in the next request.
                     string base64Vibe = Convert.ToBase64String(vibeBytes);
 
-                    Logger.Info($"Vibe编码成功");
+                    Logger.Info("Vibe 编码成功",
+                        context: Logger.Context(("model", model), ("informationExtracted", information_extracted)));
                     return base64Vibe;
                 }
-                else {
-                    Logger.Error($"Vibe编码失败: {response.StatusCode} - {response.StatusDescription}");
-                    var errorContent = response.Content;
-                    Logger.Error($"错误详情: {errorContent}");
-                    return null;
-                }
+
+                Logger.Error("Vibe 编码失败",
+                    context: Logger.Context(("statusCode", response.StatusCode),
+                        ("description", response.StatusDescription),
+                        ("model", model),
+                        ("informationExtracted", information_extracted),
+                        ("responseBody", response.Content)));
+                return null;
             }
             catch (Exception ex) {
-                Logger.Error($"Vibe编码异常: {ex.Message}");
+                Logger.Error("Vibe 编码请求异常", exception: ex,
+                    context: Logger.Context(("model", model), ("informationExtracted", information_extracted)));
                 return null;
             }
         }

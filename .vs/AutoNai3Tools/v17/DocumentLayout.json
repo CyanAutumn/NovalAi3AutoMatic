@@ -3,16 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\admin\\onedrive\\code\\novalai3automatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\admin\\onedrive\\code\\novalai3automatic\\utils\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:utils\\logger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,39 +23,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAlwG4AAAARAAAAAAAAAA==",
+              "Title": "Logger.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\Logger.cs",
+              "RelativeDocumentMoniker": "utils\\Logger.cs",
+              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\Logger.cs",
+              "RelativeToolTip": "utils\\Logger.cs",
+              "ViewState": "AgIAAM8AAAAAAAAAAAAAAOAAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T04:09:13.817Z",
+              "WhenOpened": "2025-11-07T05:13:00.562Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "App.config",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\App.config",
-              "RelativeDocumentMoniker": "App.config",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\App.config",
-              "RelativeToolTip": "App.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2025-11-07T03:13:03.356Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Form1.cs [\u8BBE\u8BA1]",
-              "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs [\u8BBE\u8BA1]",
-              "RelativeToolTip": "Form1.cs [\u8BBE\u8BA1]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T03:13:02.196Z"
             }
           ]
         }

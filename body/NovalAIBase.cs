@@ -101,7 +101,8 @@ namespace AutoNai3Tools.body {
                         }
                     }
                     catch (Exception ex) {
-                        Logger.Error($"属性 {key} 赋值失败: {ex.Message}");
+                        Logger.Error("属性赋值失败", exception: ex,
+                            context: Logger.Context(("property", key), ("target", target?.GetType().Name)));
                     }
                 }
             }

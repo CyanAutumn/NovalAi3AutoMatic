@@ -43,7 +43,8 @@ namespace AutoNai3Tools.utils {
                     patterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
                 }
                 catch (Exception ex) {
-                    Logger.Warn($"提示词正则黑名单无效：{pattern}，错误：{ex.Message}");
+                    Logger.Warn("提示词正则黑名单无效",
+                        context: Logger.Context(("pattern", pattern), ("reason", ex.Message)));
                 }
             }
             return patterns;

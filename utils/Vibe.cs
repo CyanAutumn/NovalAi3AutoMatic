@@ -132,11 +132,14 @@ namespace AutoNai3Tools.utils {
                             vibe_list[i].base64Image = encoding;
                         }
                         else {
-                            Logger.Warn($"未能在 {vibe_list[i].imagePath} 中找到与信息抽取 {vibe_list[i].informationExtracted} 匹配的vibe编码");
+                            Logger.Warn("未找到匹配的信息抽取编码",
+                                context: Logger.Context(("path", vibe_list[i].imagePath),
+                                    ("informationExtracted", vibe_list[i].informationExtracted)));
                         }
                     }
                     catch (Exception ex) {
-                        Logger.Error($"解析 {vibe_list[i].imagePath} 失败: {ex.Message}");
+                        Logger.Error("解析 Vibe 文件失败", exception: ex,
+                            context: Logger.Context(("path", vibe_list[i].imagePath)));
                     }
                 }
                 else {
@@ -147,17 +150,20 @@ namespace AutoNai3Tools.utils {
                     var vibe_path = Path.GetDirectoryName(vibe_list[i].imagePath) + $"\\{vibe_name}";
 
                     if (!File.Exists(vibe_path)) {
-                        Logger.Info("未找到nai4+ vibe缓存文件，使用点数进行创建");
+                        Logger.Info("未找到 Vibe 缓存文件，准备创建",
+                            context: Logger.Context(("path", vibe_path)));
 
                         var base64img = Tools.ConvertImageToBase64(vibe_list[i].imagePath);
                         if (string.IsNullOrEmpty(base64img)) {
-                            Logger.Error($"图片转换失败，跳过当前图片，路径为 {vibe_list[i]}");
+                            Logger.Error("图片转换失败，跳过该 Vibe",
+                                context: Logger.Context(("path", vibe_list[i].imagePath)));
                             continue;
                         }
 
                         var vibeBase64img = NovalAIAPI.GetVibeID(base64img, vibe_list[i].informationExtracted, model_name, token);
                         File.WriteAllText(vibe_path, vibeBase64img, Encoding.UTF8);
-                        Logger.Info($"创建成功");
+                        Logger.Info("Vibe 缓存已创建",
+                            context: Logger.Context(("path", vibe_path)));
                     }
 
                     vibe_list[i].base64Image = File.ReadAllText(vibe_path, Encoding.UTF8);
@@ -171,7 +177,8 @@ namespace AutoNai3Tools.utils {
                 var base64img = Tools.ConvertImageToBase64(vibe_list[i].imagePath);
                 vibe_list[i].base64Image = base64img;
                 if (string.IsNullOrEmpty(base64img)) {
-                    Logger.Error($"图片转换失败，跳过当前图片，路径为 {vibe_list[i]}");
+                    Logger.Error("图片转换失败，跳过该 Vibe",
+                        context: Logger.Context(("path", vibe_list[i].imagePath)));
                     continue;
                 }
             }
@@ -207,7 +214,8 @@ namespace AutoNai3Tools.utils {
                     }
                 }
                 catch (Exception ex) {
-                    Logger.Warn($"读取vibe文件失败: {ex.Message}");
+                    Logger.Warn("读取 Vibe 文件失败",
+                        context: Logger.Context(("path", vibe_path), ("reason", ex.Message)));
                     form.nudVibeIE.Visible = true;
                     form.cmbVibeIE.Visible = false;
                 }

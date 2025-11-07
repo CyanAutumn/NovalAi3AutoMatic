@@ -519,7 +519,7 @@
             this.tabControl2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(596, 916);
+            this.tabControl2.Size = new System.Drawing.Size(596, 1165);
             this.tabControl2.TabIndex = 4;
             // 
             // tabPage2
@@ -529,7 +529,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage2.Size = new System.Drawing.Size(588, 875);
+            this.tabPage2.Size = new System.Drawing.Size(588, 1124);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "生成参数";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -541,7 +541,7 @@
             this.panel6.Location = new System.Drawing.Point(6, 5);
             this.panel6.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(576, 865);
+            this.panel6.Size = new System.Drawing.Size(576, 1114);
             this.panel6.TabIndex = 62;
             // 
             // propertyGrid1
@@ -552,7 +552,7 @@
             this.propertyGrid1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.propertyGrid1.Name = "propertyGrid1";
             this.propertyGrid1.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.propertyGrid1.Size = new System.Drawing.Size(576, 865);
+            this.propertyGrid1.Size = new System.Drawing.Size(576, 1114);
             this.propertyGrid1.TabIndex = 17;
             this.propertyGrid1.ToolbarVisible = false;
             this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid1_PropertyValueChanged);
@@ -1460,11 +1460,11 @@
             // 
             this.groupBox5.Controls.Add(this.btnGenerate);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox5.Location = new System.Drawing.Point(0, 1007);
+            this.groupBox5.Location = new System.Drawing.Point(0, 1256);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(596, 376);
+            this.groupBox5.Size = new System.Drawing.Size(596, 127);
             this.groupBox5.TabIndex = 67;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "运行";
@@ -1476,7 +1476,7 @@
             this.btnGenerate.Location = new System.Drawing.Point(4, 32);
             this.btnGenerate.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(588, 340);
+            this.btnGenerate.Size = new System.Drawing.Size(588, 91);
             this.btnGenerate.TabIndex = 5;
             this.btnGenerate.Text = "生成";
             this.btnGenerate.UseVisualStyleBackColor = true;
