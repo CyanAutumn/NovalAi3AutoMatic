@@ -97,6 +97,11 @@
     <Compile Include="controllers\GenerationUiDataProvider.cs" />
     <Compile Include="controllers\IGenerationDataProvider.cs" />
     <Compile Include="controllers\DirectorToolController.cs" />
+    <Compile Include="services\ConfigService.cs" />
+    <Compile Include="services\IConfigService.cs" />
+    <Compile Include="services\IWildcardService.cs" />
+    <Compile Include="services\WildcardService.cs" />
+    <Compile Include="services\WildcardSnippet.cs" />
     <Compile Include="novalai\NovalAIAPI.cs" />
     <Compile Include="utils\Vibe.cs" />
     <Compile Include="Program.cs" />

@@ -231,6 +231,7 @@ namespace AutoNai3Tools.utils {
         }
 
         private class UiLogSink : ILogSink, ILogSpacerSink {
+            private const int MaxLogLines = 500;
             private readonly TextBox logTextBox;
             private readonly TextBox picInfoTextBox;
 
@@ -263,6 +264,7 @@ namespace AutoNai3Tools.utils {
 
                 string formatted = RenderEntry(entry, includeContext: false);
                 logTextBox.AppendText(formatted + Environment.NewLine);
+                TrimLogLines();
                 logTextBox.SelectionStart = logTextBox.TextLength;
                 logTextBox.ScrollToCaret();
 
@@ -294,6 +296,23 @@ namespace AutoNai3Tools.utils {
                     logTextBox.SelectionStart = logTextBox.TextLength;
                     logTextBox.ScrollToCaret();
                 });
+            }
+
+            private void TrimLogLines() {
+                if (logTextBox == null || logTextBox.IsDisposed)
+                    return;
+
+                var lines = logTextBox.Lines;
+                if (lines == null)
+                    return;
+
+                int excess = lines.Length - MaxLogLines;
+                if (excess <= 0)
+                    return;
+
+                var trimmed = lines.Skip(excess).ToArray();
+                logTextBox.Lines = trimmed;
+                logTextBox.SelectionStart = logTextBox.TextLength;
             }
         }
     }

@@ -155,7 +155,7 @@ namespace AutoNai3Tools {
 
         private void RefreshConfig() {
             try {
-                var names = presetConfigRepository.ListPresetNames();
+                var names = configService.GetPresetNames();
                 cmbConfigName.Items.Clear();
                 foreach (var name in names)
                     cmbConfigName.Items.Add(name);
@@ -173,7 +173,7 @@ namespace AutoNai3Tools {
             }
 
             try {
-                presetConfigRepository.Save(name, CapturePresetConfig());
+                configService.SavePreset(name, CapturePresetConfig());
                 RefreshConfig();
                 Logger.Info("配置已保存", context: Logger.Context(("config", name)));
             }
@@ -186,11 +186,11 @@ namespace AutoNai3Tools {
 
         private void btnOpenConfigFolder_Click(object sender, EventArgs e) {
             try {
-                System.Diagnostics.Process.Start(presetConfigRepository.FolderPath);
+                System.Diagnostics.Process.Start(configService.PresetFolderPath);
             }
             catch (Exception ex) {
                 Logger.Warn("无法打开配置目录",
-                    context: Logger.Context(("folder", presetConfigRepository.FolderPath), ("reason", ex.Message)));
+                    context: Logger.Context(("folder", configService.PresetFolderPath), ("reason", ex.Message)));
             }
         }
 
@@ -202,7 +202,7 @@ namespace AutoNai3Tools {
             }
 
             try {
-                presetConfigRepository.Delete(name);
+                configService.DeletePreset(name);
                 RefreshConfig();
             }
             catch (Exception ex) {
@@ -218,7 +218,7 @@ namespace AutoNai3Tools {
                 return;
 
             try {
-                var data = presetConfigRepository.Load(name);
+                var data = configService.LoadPreset(name);
                 ApplyPresetConfig(data);
                 InitTagSnippetDGV();
                 propertyGrid1.Refresh();
@@ -233,7 +233,7 @@ namespace AutoNai3Tools {
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             try {
-                presetConfigRepository.Save("上一次关闭时的自动保存", CapturePresetConfig());
+                configService.SaveAutoPreset(CapturePresetConfig());
             }
             catch (Exception ex) {
                 Logger.Warn("自动保存图像配置失败",
@@ -241,7 +241,7 @@ namespace AutoNai3Tools {
             }
 
             try {
-                systemConfigRepository.Save(CaptureSystemConfig());
+                configService.SaveSystemConfig(CaptureSystemConfig());
             }
             catch (Exception ex) {
                 Logger.Warn("保存系统配置失败",
@@ -251,9 +251,9 @@ namespace AutoNai3Tools {
 
         private void Form1_Load(object sender, EventArgs e) {
             try {
-                var data = presetConfigRepository.Load("上一次关闭时的自动保存");
+                var data = configService.LoadAutoPreset();
                 ApplyPresetConfig(data);
-                cmbConfigName.Text = "上一次关闭时的自动保存";
+                cmbConfigName.Text = configService.AutoSavePresetName;
             }
             catch (Exception ex) {
                 Logger.Warn("未找到上一次关闭的自动保存，使用默认配置",
@@ -261,7 +261,7 @@ namespace AutoNai3Tools {
             }
 
             try {
-                var systemConfig = systemConfigRepository.Load();
+                var systemConfig = configService.LoadSystemConfig();
                 ApplySystemConfig(systemConfig);
             }
             catch (Exception ex) {

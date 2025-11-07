@@ -1,4 +1,5 @@
-﻿using AutoNai3Tools.utils;
+﻿using AutoNai3Tools.Services;
+using AutoNai3Tools.utils;
 using System;
 using System.Drawing;
 using System.Reflection;
@@ -11,11 +12,11 @@ namespace AutoNai3Tools {
         public int runNum;
         public PicProperty picProps = new PicProperty();
         public SettingProperty settingProps = new SettingProperty();
-        private readonly PresetConfigRepository presetConfigRepository = new PresetConfigRepository();
-        private readonly SystemConfigRepository systemConfigRepository = new SystemConfigRepository();
         private readonly GenerationController generationController;
         private readonly IGenerationDataProvider generationDataProvider;
         private readonly DirectorToolController directorToolController;
+        private readonly IConfigService configService;
+        private readonly IWildcardService wildcardService;
 
         public Form1() {
             InitializeComponent();
@@ -34,6 +35,9 @@ namespace AutoNai3Tools {
             tabControl2.TabPages.Remove(tabPage18);
             propertyGrid1.SelectedObject = picProps;
             propertyGridSettings.SelectedObject = settingProps;
+
+            configService = new ConfigService();
+            wildcardService = new WildcardService();
 
             generationDataProvider = new GenerationUiDataProvider(
                 picProps,
