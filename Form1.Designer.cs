@@ -178,6 +178,7 @@
             this.btnGetMorePrompt = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.panel17 = new System.Windows.Forms.Panel();
             this.dreamForm1.SuspendLayout();
             this.panel16.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -241,6 +242,7 @@
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel17.SuspendLayout();
             this.SuspendLayout();
             // 
             // dreamForm1
@@ -565,7 +567,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage3.Size = new System.Drawing.Size(588, 875);
+            this.tabPage3.Size = new System.Drawing.Size(588, 1124);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "画师";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -579,7 +581,7 @@
             this.grpArtistRandom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.grpArtistRandom.Name = "grpArtistRandom";
             this.grpArtistRandom.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.grpArtistRandom.Size = new System.Drawing.Size(576, 525);
+            this.grpArtistRandom.Size = new System.Drawing.Size(576, 774);
             this.grpArtistRandom.TabIndex = 3;
             this.grpArtistRandom.TabStop = false;
             this.grpArtistRandom.Text = "随机画师";
@@ -591,7 +593,7 @@
             this.txtArtistRandom.Location = new System.Drawing.Point(6, 173);
             this.txtArtistRandom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.txtArtistRandom.Name = "txtArtistRandom";
-            this.txtArtistRandom.Size = new System.Drawing.Size(564, 347);
+            this.txtArtistRandom.Size = new System.Drawing.Size(564, 596);
             this.txtArtistRandom.TabIndex = 5;
             this.txtArtistRandom.Text = "画师A\n画师B,1,2,1,2\n画师C,0,0,1,2\n画师D,0,0,1,2|画师E,1,2,0,0";
             // 
@@ -770,7 +772,7 @@
             this.tabPage8.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage8.Size = new System.Drawing.Size(588, 875);
+            this.tabPage8.Size = new System.Drawing.Size(588, 1124);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "wildcard";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -791,7 +793,7 @@
             this.dgvTagSnippet.RowHeadersVisible = false;
             this.dgvTagSnippet.RowHeadersWidth = 51;
             this.dgvTagSnippet.RowTemplate.Height = 23;
-            this.dgvTagSnippet.Size = new System.Drawing.Size(576, 606);
+            this.dgvTagSnippet.Size = new System.Drawing.Size(576, 855);
             this.dgvTagSnippet.TabIndex = 1;
             this.dgvTagSnippet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTagSnippet_CellClick);
             // 
@@ -817,7 +819,7 @@
             this.panel10.Controls.Add(this.txtTagSnippetValue);
             this.panel10.Controls.Add(this.panel11);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel10.Location = new System.Drawing.Point(6, 611);
+            this.panel10.Location = new System.Drawing.Point(6, 860);
             this.panel10.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(576, 259);
@@ -905,7 +907,7 @@
             this.tabPage7.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage7.Size = new System.Drawing.Size(588, 875);
+            this.tabPage7.Size = new System.Drawing.Size(588, 1124);
             this.tabPage7.TabIndex = 3;
             this.tabPage7.Text = "Vibe";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -919,7 +921,7 @@
             this.groupBox9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox9.Size = new System.Drawing.Size(576, 865);
+            this.groupBox9.Size = new System.Drawing.Size(576, 1114);
             this.groupBox9.TabIndex = 0;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Vibe";
@@ -936,7 +938,7 @@
             this.panel9.Controls.Add(this.cmbVibeIE);
             this.panel9.Controls.Add(this.nudVibeIE);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel9.Location = new System.Drawing.Point(6, 524);
+            this.panel9.Location = new System.Drawing.Point(6, 773);
             this.panel9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(564, 336);
@@ -1092,7 +1094,7 @@
             this.dgvVibe.RowHeadersVisible = false;
             this.dgvVibe.RowHeadersWidth = 51;
             this.dgvVibe.RowTemplate.Height = 23;
-            this.dgvVibe.Size = new System.Drawing.Size(564, 827);
+            this.dgvVibe.Size = new System.Drawing.Size(564, 1076);
             this.dgvVibe.TabIndex = 0;
             this.dgvVibe.SelectionChanged += new System.EventHandler(this.dgvSnippet_SelectionChanged);
             // 
@@ -1128,7 +1130,7 @@
             this.tabPage5.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage5.Size = new System.Drawing.Size(588, 875);
+            this.tabPage5.Size = new System.Drawing.Size(588, 1124);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "设置";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1141,7 +1143,7 @@
             this.propertyGridSettings.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.propertyGridSettings.Name = "propertyGridSettings";
             this.propertyGridSettings.PropertySort = System.Windows.Forms.PropertySort.Categorized;
-            this.propertyGridSettings.Size = new System.Drawing.Size(576, 865);
+            this.propertyGridSettings.Size = new System.Drawing.Size(576, 1114);
             this.propertyGridSettings.TabIndex = 0;
             this.propertyGridSettings.ToolbarVisible = false;
             // 
@@ -1153,7 +1155,7 @@
             this.tabPage14.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage14.Size = new System.Drawing.Size(588, 875);
+            this.tabPage14.Size = new System.Drawing.Size(588, 1124);
             this.tabPage14.TabIndex = 5;
             this.tabPage14.Text = "图生图";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -1165,7 +1167,7 @@
             this.picImg2ImgView.Location = new System.Drawing.Point(6, 5);
             this.picImg2ImgView.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.picImg2ImgView.Name = "picImg2ImgView";
-            this.picImg2ImgView.Size = new System.Drawing.Size(576, 805);
+            this.picImg2ImgView.Size = new System.Drawing.Size(576, 1054);
             this.picImg2ImgView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picImg2ImgView.TabIndex = 1;
             this.picImg2ImgView.TabStop = false;
@@ -1179,7 +1181,7 @@
             this.panel15.Controls.Add(this.label33);
             this.panel15.Controls.Add(this.label32);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel15.Location = new System.Drawing.Point(6, 810);
+            this.panel15.Location = new System.Drawing.Point(6, 1059);
             this.panel15.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(576, 60);
@@ -1287,7 +1289,7 @@
             this.tabPage15.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage15.Name = "tabPage15";
             this.tabPage15.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage15.Size = new System.Drawing.Size(588, 875);
+            this.tabPage15.Size = new System.Drawing.Size(588, 1124);
             this.tabPage15.TabIndex = 6;
             this.tabPage15.Text = "tabPage15";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -1451,7 +1453,7 @@
             this.tabPage18.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage18.Name = "tabPage18";
             this.tabPage18.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage18.Size = new System.Drawing.Size(588, 875);
+            this.tabPage18.Size = new System.Drawing.Size(588, 1124);
             this.tabPage18.TabIndex = 7;
             this.tabPage18.Text = "tabPage18";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -2017,13 +2019,7 @@
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.btnDocGithub);
-            this.tabPage6.Controls.Add(this.btnDocToolsBook);
-            this.tabPage6.Controls.Add(this.btnTutorial);
-            this.tabPage6.Controls.Add(this.btnPushBackPic);
-            this.tabPage6.Controls.Add(this.btnParsePrompt);
-            this.tabPage6.Controls.Add(this.btnGetRollDoc);
-            this.tabPage6.Controls.Add(this.btnGetMorePrompt);
+            this.tabPage6.Controls.Add(this.panel17);
             this.tabPage6.Controls.Add(this.pictureBox1);
             this.tabPage6.Controls.Add(this.label16);
             this.tabPage6.Location = new System.Drawing.Point(4, 37);
@@ -2037,10 +2033,11 @@
             // 
             // btnDocGithub
             // 
-            this.btnDocGithub.Location = new System.Drawing.Point(644, 210);
+            this.btnDocGithub.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDocGithub.Location = new System.Drawing.Point(0, 224);
             this.btnDocGithub.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnDocGithub.Name = "btnDocGithub";
-            this.btnDocGithub.Size = new System.Drawing.Size(578, 56);
+            this.btnDocGithub.Size = new System.Drawing.Size(460, 56);
             this.btnDocGithub.TabIndex = 8;
             this.btnDocGithub.Text = "开源地址";
             this.btnDocGithub.UseVisualStyleBackColor = true;
@@ -2049,10 +2046,11 @@
             // 
             // btnDocToolsBook
             // 
-            this.btnDocToolsBook.Location = new System.Drawing.Point(644, 144);
+            this.btnDocToolsBook.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDocToolsBook.Location = new System.Drawing.Point(0, 56);
             this.btnDocToolsBook.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnDocToolsBook.Name = "btnDocToolsBook";
-            this.btnDocToolsBook.Size = new System.Drawing.Size(578, 56);
+            this.btnDocToolsBook.Size = new System.Drawing.Size(460, 56);
             this.btnDocToolsBook.TabIndex = 7;
             this.btnDocToolsBook.Text = "Stable Diffusion 潜工具书（九月）";
             this.btnDocToolsBook.UseVisualStyleBackColor = true;
@@ -2061,10 +2059,11 @@
             // 
             // btnTutorial
             // 
-            this.btnTutorial.Location = new System.Drawing.Point(644, 10);
+            this.btnTutorial.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTutorial.Location = new System.Drawing.Point(0, 0);
             this.btnTutorial.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnTutorial.Name = "btnTutorial";
-            this.btnTutorial.Size = new System.Drawing.Size(578, 56);
+            this.btnTutorial.Size = new System.Drawing.Size(460, 56);
             this.btnTutorial.TabIndex = 6;
             this.btnTutorial.Text = "使用文档";
             this.btnTutorial.UseVisualStyleBackColor = true;
@@ -2072,10 +2071,11 @@
             // 
             // btnPushBackPic
             // 
-            this.btnPushBackPic.Location = new System.Drawing.Point(1232, 10);
+            this.btnPushBackPic.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPushBackPic.Location = new System.Drawing.Point(0, 336);
             this.btnPushBackPic.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnPushBackPic.Name = "btnPushBackPic";
-            this.btnPushBackPic.Size = new System.Drawing.Size(578, 56);
+            this.btnPushBackPic.Size = new System.Drawing.Size(460, 56);
             this.btnPushBackPic.TabIndex = 5;
             this.btnPushBackPic.Text = "在线图片反推";
             this.btnPushBackPic.UseVisualStyleBackColor = true;
@@ -2083,10 +2083,11 @@
             // 
             // btnParsePrompt
             // 
-            this.btnParsePrompt.Location = new System.Drawing.Point(1232, 144);
+            this.btnParsePrompt.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnParsePrompt.Location = new System.Drawing.Point(0, 280);
             this.btnParsePrompt.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnParsePrompt.Name = "btnParsePrompt";
-            this.btnParsePrompt.Size = new System.Drawing.Size(578, 56);
+            this.btnParsePrompt.Size = new System.Drawing.Size(460, 56);
             this.btnParsePrompt.TabIndex = 4;
             this.btnParsePrompt.Text = "在线解析图片prompt";
             this.btnParsePrompt.UseVisualStyleBackColor = true;
@@ -2094,10 +2095,11 @@
             // 
             // btnGetRollDoc
             // 
-            this.btnGetRollDoc.Location = new System.Drawing.Point(644, 77);
+            this.btnGetRollDoc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnGetRollDoc.Location = new System.Drawing.Point(0, 112);
             this.btnGetRollDoc.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnGetRollDoc.Name = "btnGetRollDoc";
-            this.btnGetRollDoc.Size = new System.Drawing.Size(578, 56);
+            this.btnGetRollDoc.Size = new System.Drawing.Size(460, 56);
             this.btnGetRollDoc.TabIndex = 3;
             this.btnGetRollDoc.Text = "Nai3-Roll画风专用表（卡拉卡拉）需要登录QQ";
             this.btnGetRollDoc.UseVisualStyleBackColor = true;
@@ -2105,10 +2107,11 @@
             // 
             // btnGetMorePrompt
             // 
-            this.btnGetMorePrompt.Location = new System.Drawing.Point(1232, 77);
+            this.btnGetMorePrompt.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnGetMorePrompt.Location = new System.Drawing.Point(0, 168);
             this.btnGetMorePrompt.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnGetMorePrompt.Name = "btnGetMorePrompt";
-            this.btnGetMorePrompt.Size = new System.Drawing.Size(578, 56);
+            this.btnGetMorePrompt.Size = new System.Drawing.Size(460, 56);
             this.btnGetMorePrompt.TabIndex = 2;
             this.btnGetMorePrompt.Text = "获取更多随机prompt";
             this.btnGetMorePrompt.UseVisualStyleBackColor = true;
@@ -2117,10 +2120,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(763, 978);
+            this.pictureBox1.Location = new System.Drawing.Point(475, 665);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(900, 418);
+            this.pictureBox1.Size = new System.Drawing.Size(824, 348);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -2129,12 +2132,27 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label16.Location = new System.Drawing.Point(636, 369);
+            this.label16.Location = new System.Drawing.Point(475, 5);
             this.label16.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(1165, 546);
             this.label16.TabIndex = 0;
             this.label16.Text = resources.GetString("label16.Text");
+            // 
+            // panel17
+            // 
+            this.panel17.Controls.Add(this.btnPushBackPic);
+            this.panel17.Controls.Add(this.btnParsePrompt);
+            this.panel17.Controls.Add(this.btnDocGithub);
+            this.panel17.Controls.Add(this.btnGetMorePrompt);
+            this.panel17.Controls.Add(this.btnGetRollDoc);
+            this.panel17.Controls.Add(this.btnDocToolsBook);
+            this.panel17.Controls.Add(this.btnTutorial);
+            this.panel17.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel17.Location = new System.Drawing.Point(6, 5);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(460, 1383);
+            this.panel17.TabIndex = 9;
             // 
             // Form1
             // 
@@ -2236,6 +2254,7 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel17.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2391,6 +2410,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Panel panel8;
         public System.Windows.Forms.ComboBox cmbVibeIE;
+        private System.Windows.Forms.Panel panel17;
     }
 }
 
