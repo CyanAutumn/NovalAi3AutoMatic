@@ -88,6 +88,7 @@
     <Compile Include="utils\SettingProperty.cs" />
     <Compile Include="utils\Request.cs" />
     <Compile Include="utils\Tools.cs" />
+    <Compile Include="utils\DirectorToolProcessor.cs" />
     <Compile Include="utils\NovalAi.cs" />
     <Compile Include="utils\Prompt.cs" />
     <EmbeddedResource Include="Form1.resx">

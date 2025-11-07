@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Timers;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using AutoNai3Tools.body;
 using static System.Net.WebRequestMethods;
@@ -24,6 +24,7 @@ namespace AutoNai3Tools {
         private CancellationTokenSource generationCancellationSource;
         private GenerationPipeline currentGenerationPipeline;
         private bool isGenerating;
+        private readonly DirectorToolProcessor directorToolProcessor = new DirectorToolProcessor();
 
         public Form1() {
             InitializeComponent();
@@ -672,23 +673,17 @@ namespace AutoNai3Tools {
 
         string directorToolsRemoveBGInputPath = null;
 
-        private string GetBodyType(int input) {
-            switch (input) {
-                case 0:
-                    return "bg-removal";
-                case 1:
-                    return "lineart";
-                case 2:
-                    return "sketch";
-                case 3:
-                    return "colorize";
-                case 4:
-                    return "emotion";
-                case 5:
-                    return "declutter";
-            }
-
-            return null;
+        private DirectorToolExecutionOptions CaptureDirectorToolOptions() {
+            return new DirectorToolExecutionOptions {
+                Iterations = (int)nudLineArtParseNum.Value,
+                ColorizePrompt = txtColorizePrompt.Text,
+                ColorizeDefry = cmbColorizeDerfy.SelectedIndex,
+                Emotion = cmbEmotionEmotion.Text,
+                EmotionPrompt = txtEmotionPrompt.Text,
+                EmotionDefry = cmbEmotionDefry.SelectedIndex,
+                Token = settingProps.Token,
+                Proxy = settingProps.Proxy
+            };
         }
 
         private void picDirectorToolsRemoveBGInput_Click(object sender, EventArgs e) {
@@ -697,122 +692,123 @@ namespace AutoNai3Tools {
                 directorToolsRemoveBGInputPath = path;
         }
 
-        public void ParseLineArtSign(int type) {
-            if (directorToolsRemoveBGInputPath != null) {
-                for (int i = 0; i < nudLineArtParseNum.Value; i++) {
-                    string base64img = Tools.ConvertImageToBase64(directorToolsRemoveBGInputPath);
-                    int width, height;
-                    using (Image image = Image.FromFile(directorToolsRemoveBGInputPath)) {
-                        width = image.Width;
-                        height = image.Height;
-                    }
-
-                    Nai3DirectorToolsBody body = null;
-                    if (type == 0 || type == 1 || type == 2 || type == 5)
-                        body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type));
-                    else if (type == 3)
-                        body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type),
-                            txtColorizePrompt.Text, cmbColorizeDerfy.SelectedIndex);
-                    else if (type == 4)
-                        body = new Nai3DirectorToolsBody(height, width, base64img, GetBodyType(type),
-                            $"{cmbEmotionEmotion.Text};;{txtEmotionPrompt.Text}", cmbEmotionDefry.SelectedIndex);
-
-                    if (body == null)
-                        return;
-                    NovalAi novalAi = new NovalAi();
-                    Bitmap img = novalAi.SendDirectorToolsRequests(settingProps.Token, body, picProps, settingProps.Proxy);
-                    picDirectorToolsOutput.Image = img;
-                }
-            }
-            else {
+        private async Task ParseLineArtSignAsync(int type) {
+            if (directorToolsRemoveBGInputPath == null) {
                 MessageBox.Show("请先选择图片");
+                return;
             }
+
+            var options = CaptureDirectorToolOptions();
+            await RunDirectorToolForImageAsync(directorToolsRemoveBGInputPath, type, options);
         }
 
-        public void TaskLineArtFolder(object source, System.Timers.ElapsedEventArgs e, int count) {
+        private async Task ParseLineArtFolderAsync(int type) {
+            string folderPath = txtLineArtInputFolder.Text;
+            if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath)) {
+                MessageBox.Show("请选择有效的输入文件夹");
+                return;
+            }
+
             string[] validExtensions = { ".xbm", "tif", "ico", ".jpg", ".jpeg", ".png", ".gif", ".webp" };
-            var files = Directory.GetFiles(txtLineArtInputFolder.Text, "*.*", SearchOption.AllDirectories)
-                .Where(file => validExtensions.Contains(Path.GetExtension(file).ToLower()));
+            var files = Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories)
+                .Where(file => validExtensions.Contains(Path.GetExtension(file).ToLower())).ToList();
+
+            if (files.Count == 0) {
+                MessageBox.Show("所选文件夹中未找到可用图片");
+                return;
+            }
+
+            var options = CaptureDirectorToolOptions();
 
             foreach (string filePath in files) {
                 directorToolsRemoveBGInputPath = filePath;
-                if (picDirectorToolsInput.Image != null) {
-                    picDirectorToolsInput.Image.Dispose();
-                    picDirectorToolsInput.Image = null;
+                var preview = await directorToolProcessor.LoadPreviewAsync(filePath);
+                if (preview != null) {
+                    ReplacePictureBoxImage(picDirectorToolsInput, preview);
                 }
 
-                using (FileStream fs = new FileStream(directorToolsRemoveBGInputPath, FileMode.Open, FileAccess.Read)) {
-                    using (MemoryStream ms = new MemoryStream()) {
-                        fs.CopyTo(ms);
-                        ms.Position = 0;
-                        picDirectorToolsInput.Image = System.Drawing.Image.FromStream(ms);
-                    }
-                }
+                await RunDirectorToolForImageAsync(filePath, type, options);
+            }
+        }
 
-                ParseLineArtSign(count);
+        private async Task RunDirectorToolForImageAsync(string imagePath, int type, DirectorToolExecutionOptions options) {
+            if (string.IsNullOrEmpty(imagePath) || options == null)
+                return;
+
+            if (options.Iterations <= 0)
+                return;
+
+            for (int i = 0; i < options.Iterations; i++) {
+                Bitmap img = await directorToolProcessor.ExecuteAsync(imagePath, type, options, picProps);
+                if (img != null) {
+                    ReplacePictureBoxImage(picDirectorToolsOutput, img);
+                }
+            }
+        }
+
+        private void ReplacePictureBoxImage(PictureBox pictureBox, Image newImage) {
+            if (pictureBox.Image != null) {
+                pictureBox.Image.Dispose();
+                pictureBox.Image = null;
             }
 
-            btnDirectorToolsRemoveBGRun.Text = "运行";
-            btnDirectorToolsRemoveBGRun.Enabled = true;
+            if (newImage != null)
+                pictureBox.Image = newImage;
         }
 
-        public void ParseLineArtFolder(int type) {
-            System.Timers.Timer timerLineArtFolder = new System.Timers.Timer(1);
-            timerLineArtFolder.Elapsed += (sender, e) => TaskLineArtFolder(sender, e, type);
-            timerLineArtFolder.AutoReset = false;
-            timerLineArtFolder.Enabled = true;
-        }
-
-        private void btnDirectorToolsRemoveBGRun_Click(object sender, EventArgs e) {
+        private async void btnDirectorToolsRemoveBGRun_Click(object sender, EventArgs e) {
             btnDirectorToolsRemoveBGRun.Text = "运行中";
             btnDirectorToolsRemoveBGRun.Enabled = false;
-            switch (tabDirectorTools.SelectedIndex) {
-                case 0:
-                    ParseLineArtSign(0);
-                    btnDirectorToolsRemoveBGRun.Text = "运行";
-                    btnDirectorToolsRemoveBGRun.Enabled = true;
-                    break;
-                case 1:
-                    if (rdoLineArtParseSignPic.Checked) {
-                        ParseLineArtSign(1);
-                        btnDirectorToolsRemoveBGRun.Text = "运行";
-                        btnDirectorToolsRemoveBGRun.Enabled = true;
-                    }
-                    else if (rdoLineArtParseFolderPic.Checked)
-                        ParseLineArtFolder(1);
+            try {
+                switch (tabDirectorTools.SelectedIndex) {
+                    case 0:
+                        await ParseLineArtSignAsync(0);
+                        break;
+                    case 1:
+                        if (rdoLineArtParseSignPic.Checked)
+                            await ParseLineArtSignAsync(1);
+                        else if (rdoLineArtParseFolderPic.Checked)
+                            await ParseLineArtFolderAsync(1);
 
-                    break;
-                case 2:
-                    if (rdoLineArtParseSignPic.Checked) {
-                        ParseLineArtSign(2);
-                        btnDirectorToolsRemoveBGRun.Text = "运行";
-                        btnDirectorToolsRemoveBGRun.Enabled = true;
-                    }
-                    else if (rdoLineArtParseFolderPic.Checked)
-                        ParseLineArtFolder(2);
+                        break;
+                    case 2:
+                        if (rdoLineArtParseSignPic.Checked)
+                            await ParseLineArtSignAsync(2);
+                        else if (rdoLineArtParseFolderPic.Checked)
+                            await ParseLineArtFolderAsync(2);
 
-                    break;
-                case 3:
-                    if (rdoLineArtParseSignPic.Checked) {
-                        ParseLineArtSign(3);
-                        btnDirectorToolsRemoveBGRun.Text = "运行";
-                        btnDirectorToolsRemoveBGRun.Enabled = true;
-                    }
-                    else if (rdoLineArtParseFolderPic.Checked)
-                        ParseLineArtFolder(3);
+                        break;
+                    case 3:
+                        if (rdoLineArtParseSignPic.Checked)
+                            await ParseLineArtSignAsync(3);
+                        else if (rdoLineArtParseFolderPic.Checked)
+                            await ParseLineArtFolderAsync(3);
 
-                    break;
-                case 4:
-                    if (rdoLineArtParseSignPic.Checked) {
-                        ParseLineArtSign(4);
-                        btnDirectorToolsRemoveBGRun.Text = "运行";
-                        btnDirectorToolsRemoveBGRun.Enabled = true;
-                    }
-                    else if (rdoLineArtParseFolderPic.Checked) {
-                        ParseLineArtFolder(4);
-                    }
+                        break;
+                    case 4:
+                        if (rdoLineArtParseSignPic.Checked)
+                            await ParseLineArtSignAsync(4);
+                        else if (rdoLineArtParseFolderPic.Checked)
+                            await ParseLineArtFolderAsync(4);
 
-                    break;
+                        break;
+                    case 5:
+                        if (rdoLineArtParseSignPic.Checked)
+                            await ParseLineArtSignAsync(5);
+                        else if (rdoLineArtParseFolderPic.Checked)
+                            await ParseLineArtFolderAsync(5);
+
+                        break;
+                }
+            }
+            catch (Exception ex) {
+                Logger.Error("导演工具运行失败", exception: ex,
+                    context: Logger.Context(("tabIndex", tabDirectorTools.SelectedIndex)));
+                MessageBox.Show("导演工具运行失败，详情请查看日志。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally {
+                btnDirectorToolsRemoveBGRun.Text = "运行";
+                btnDirectorToolsRemoveBGRun.Enabled = true;
             }
         }
 
