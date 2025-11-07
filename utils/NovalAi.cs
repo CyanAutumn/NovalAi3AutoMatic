@@ -211,9 +211,44 @@ namespace AutoNai3Tools.utils {
 
 
     internal class NovalAi {
-        private string GetFileName() {
-            // 获取当前时间并转换为适合作为文件名的格式
-            return DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        private string SanitizePromptForFileName(string prompt) {
+            string fallback = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            if (string.IsNullOrWhiteSpace(prompt))
+                return fallback;
+
+            string normalized = Regex.Replace(prompt, @"\s+", " ").Trim();
+            if (string.IsNullOrEmpty(normalized))
+                return fallback;
+
+            char[] invalidChars = Path.GetInvalidFileNameChars();
+            StringBuilder builder = new StringBuilder(normalized.Length);
+            foreach (char c in normalized) {
+                builder.Append(invalidChars.Contains(c) ? '_' : c);
+            }
+
+            string sanitized = builder.ToString().Trim();
+            if (sanitized.Length > 120) {
+                sanitized = sanitized.Substring(0, 120).Trim();
+            }
+
+            return string.IsNullOrEmpty(sanitized) ? fallback : sanitized;
+        }
+
+        private string EnsureUniqueFileName(string directory, string baseName) {
+            int counter = 1;
+            string candidate = baseName;
+            while (File.Exists(Path.Combine(directory, candidate + ".png")) ||
+                   File.Exists(Path.Combine(directory, candidate + ".txt"))) {
+                candidate = $"{baseName} ({counter})";
+                counter++;
+            }
+            return candidate;
+        }
+
+        private string BuildFileName(string prompt, long seed, string outputDirectory) {
+            string promptPart = SanitizePromptForFileName(prompt);
+            string baseName = $"{promptPart} s-{seed}";
+            return EnsureUniqueFileName(outputDirectory, baseName);
         }
 
         private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string noArtistPrompt) {
@@ -226,8 +261,9 @@ namespace AutoNai3Tools.utils {
                 Tools.IsExist(form.txtOutputPath.Text, true);
                 using (ZipArchive archive = new ZipArchive(memoryStream)) {
                     foreach (ZipArchiveEntry entry in archive.Entries) {
-                        string file_name = GetFileName();
-                        string entryFileName = form.txtOutputPath.Text + '/' + file_name;
+                        long seed = form.picProps.Seeds;
+                        string file_name = BuildFileName(prompt, seed, form.txtOutputPath.Text);
+                        string entryFileName = Path.Combine(form.txtOutputPath.Text, file_name);
 
                         using (Stream entryStream = entry.Open()) {
                             using (MemoryStream entryMemoryStream = new MemoryStream()) {

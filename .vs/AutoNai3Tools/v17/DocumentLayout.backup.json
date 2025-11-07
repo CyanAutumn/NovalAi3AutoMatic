@@ -3,6 +3,9 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Admin\\AppData\\Local\\Temp\\.vsdbgsrc\\48a7821977726f87973ba8146fffe6d47b23958fc1d6a998ca0f3caad8e5a894\\Image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|c:\\users\\admin\\onedrive\\code\\novalai3automatic\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A979E67E-E9CB-4E54-80B1-740BDA8ED2B1}|AutoNai3Tools.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
@@ -34,7 +37,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,7 +45,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "Image.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\AppData\\Local\\Temp\\.vsdbgsrc\\48a7821977726f87973ba8146fffe6d47b23958fc1d6a998ca0f3caad8e5a894\\Image.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\48a7821977726f87973ba8146fffe6d47b23958fc1d6a998ca0f3caad8e5a894\\Image.cs",
+              "ToolTip": "C:\\Users\\Admin\\AppData\\Local\\Temp\\.vsdbgsrc\\48a7821977726f87973ba8146fffe6d47b23958fc1d6a998ca0f3caad8e5a894\\Image.cs [\u53EA\u8BFB]",
+              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\48a7821977726f87973ba8146fffe6d47b23958fc1d6a998ca0f3caad8e5a894\\Image.cs [\u53EA\u8BFB]",
+              "ViewState": "AgIAAC0AAAAAAAAAAAASwDwAAAADAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-07T02:28:26.57Z",
+              "EditorCaption": " [\u53EA\u8BFB]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "TagTools.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\tag\\TagTools.cs",
               "RelativeDocumentMoniker": "tag\\TagTools.cs",
@@ -54,7 +70,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "NovalAi.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\NovalAi.cs",
               "RelativeDocumentMoniker": "utils\\NovalAi.cs",
@@ -66,7 +82,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -79,7 +95,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "Form1.Designer.cs",
@@ -92,7 +108,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -104,7 +120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Vibe.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\OneDrive\\Code\\NovalAi3AutoMatic\\utils\\Vibe.cs",
               "RelativeDocumentMoniker": "utils\\Vibe.cs",
