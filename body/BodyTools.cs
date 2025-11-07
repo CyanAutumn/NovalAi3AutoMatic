@@ -2,57 +2,69 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Reflection;
 
 namespace AutoNai3Tools.body {
     public class BodyTools {
         public enum Model {
-            [Description("nai-diffusion-2")] Nai2,
-            [Description("nai-diffusion-3")] Nai3,
-            [Description("nai-diffusion-furry-3")] Nai3_Furry,
-            [Description("nai-diffusion-4-curated-preview")]
+            [ModelInfo(typeof(Nai2), "nai-diffusion-2")]
+            Nai2,
+            [ModelInfo(typeof(Nai3), "nai-diffusion-3")]
+            Nai3,
+            [ModelInfo(typeof(Nai3Furry), "nai-diffusion-furry-3")]
+            Nai3_Furry,
+            [ModelInfo(typeof(Nai4Preview), "nai-diffusion-4-curated-preview", "v4curated")]
             Nai4_Preview,
-            [Description("nai-diffusion-4-full")] Nai4_Full,
-            [Description("nai-diffusion-4-5-curated")] Nai4_5_Curated,
-            [Description("nai-diffusion-4-5-full")] Nai4_5_Full,
+            [ModelInfo(typeof(Nai4Full), "nai-diffusion-4-full", "v4full")]
+            Nai4_Full,
+            [ModelInfo(typeof(Nai4_5Curated), "nai-diffusion-4-5-curated", "v4-5curated")]
+            Nai4_5_Curated,
+            [ModelInfo(typeof(Nai4_5Full), "nai-diffusion-4-5-full", "v4-5full")]
+            Nai4_5_Full,
+        }
+
+        private static readonly IReadOnlyDictionary<Model, ModelInfoAttribute> ModelInfos;
+        private static readonly IReadOnlyDictionary<string, Model> ApiNameLookup;
+
+        static BodyTools() {
+            ModelInfos = Enum.GetValues(typeof(Model))
+                .Cast<Model>()
+                .ToDictionary(m => m, GetModelInfoAttribute);
+
+            ApiNameLookup = ModelInfos.ToDictionary(
+                kvp => kvp.Value.Description,
+                kvp => kvp.Key,
+                StringComparer.OrdinalIgnoreCase);
         }
 
         public static BodyBase GetBody(Model modelName, Dictionary<string, object> kwargs) {
-            switch (modelName) {
-                case Model.Nai2:
-                    return new Nai2(kwargs);
-                case Model.Nai3:
-                    return new Nai3(kwargs);
-                case Model.Nai3_Furry:
-                    return new Nai3Furry(kwargs);
-                case Model.Nai4_Preview:
-                    return new Nai4Preview(kwargs);
-                case Model.Nai4_Full:
-                    return new Nai4Full(kwargs);
-                case Model.Nai4_5_Curated:
-                    return new Nai4_5Curated(kwargs);
-                case Model.Nai4_5_Full:
-                    return new Nai4_5Full(kwargs);
-            }
+            if (kwargs == null)
+                throw new ArgumentNullException(nameof(kwargs));
 
-            throw new Exception("选择的模型无效");
+            var info = ModelInfos[modelName];
+            var instance = Activator.CreateInstance(info.BodyType, kwargs) as BodyBase;
+            if (instance == null)
+                throw new InvalidOperationException($"无法创建模型 {modelName} 对应的 Body 实例。");
+
+            return instance;
         }
 
         public static string GetAnotherName(Model modelName) {
-            switch (modelName) {
-                case Model.Nai4_Preview:
-                    return "v4curated";
-                case Model.Nai4_Full:
-                    return "v4full";
-                case Model.Nai4_5_Curated:
-                    return "v4-5curated";
-                case Model.Nai4_5_Full:
-                    return "v4-5full";
+            var alias = ModelInfos[modelName].Alias;
+            return string.IsNullOrWhiteSpace(alias) ? null : alias;
+        }
+
+        public static bool TryGetModelByApiName(string apiName, out Model model) {
+            if (string.IsNullOrWhiteSpace(apiName)) {
+                model = default;
+                return false;
             }
 
-            throw new Exception("未找到对应模型别名");
+            return ApiNameLookup.TryGetValue(apiName, out model);
+        }
+
+        public static string GetAliasByApiName(string apiName) {
+            return TryGetModelByApiName(apiName, out var model) ? GetAnotherName(model) : null;
         }
 
         public static string GetEnumDescription(Enum value) {
@@ -60,5 +72,25 @@ namespace AutoNai3Tools.body {
             var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
             return attribute?.Description ?? value.ToString();
         }
+
+        private static ModelInfoAttribute GetModelInfoAttribute(Model model) {
+            var field = typeof(Model).GetField(model.ToString());
+            var attribute = field?.GetCustomAttribute<ModelInfoAttribute>();
+            if (attribute == null)
+                throw new InvalidOperationException($"模型 {model} 缺少 ModelInfoAttribute 定义。");
+
+            return attribute;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Field)]
+    internal sealed class ModelInfoAttribute : DescriptionAttribute {
+        public ModelInfoAttribute(Type bodyType, string apiName, string alias = null) : base(apiName) {
+            BodyType = bodyType ?? throw new ArgumentNullException(nameof(bodyType));
+            Alias = alias;
+        }
+
+        public Type BodyType { get; }
+        public string Alias { get; }
     }
 }

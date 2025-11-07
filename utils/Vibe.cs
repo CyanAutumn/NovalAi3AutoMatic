@@ -12,20 +12,8 @@ using System.Windows.Forms;
 
 namespace AutoNai3Tools.utils {
     internal class Vibe {
-        private static string GetEncodingAliasFromModelName(string modelName) {
-            switch (modelName) {
-                case "nai-diffusion-4-curated-preview":
-                    return "v4curated";
-                case "nai-diffusion-4-full":
-                    return "v4full";
-                case "nai-diffusion-4-5-curated":
-                    return "v4-5curated";
-                case "nai-diffusion-4-5-full":
-                    return "v4-5full";
-                default:
-                    return null;
-            }
-        }
+        private static string GetEncodingAliasFromModelName(string modelName) =>
+            BodyTools.GetAliasByApiName(modelName);
 
         private static JObject GetEncodingBlock(JObject encodingsObj, string alias) {
             if (encodingsObj == null || string.IsNullOrEmpty(alias))
