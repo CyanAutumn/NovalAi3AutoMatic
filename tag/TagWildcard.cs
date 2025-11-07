@@ -13,15 +13,15 @@ namespace AutoNai3Tools.tag
         public string text { get; set; }
         public int index { get; set; }
         public bool pickRandom { get; set; }
-        Form1 form;
+        private readonly IPromptContext context;
 
-        public TagWildcard(string tag, Form1 form, string originalTag)
+        public TagWildcard(string tag, IPromptContext context, string originalTag)
         {
             tag = tag.Trim();
             this.text = tag;
             this.pickRandom = GetPickType(tag);
             this.index = 0;
-            this.form = form;
+            this.context = context;
             this.originalTag = originalTag;
         }
 
@@ -36,12 +36,12 @@ namespace AutoNai3Tools.tag
 
         protected override bool KeepText()
         {
-            return form.settingProps.KeepWildcard && (form.runNum % form.picProps.RunKeepParams) != 0;
+            return context.SettingProps.KeepWildcard && (context.RunNumber % context.RunKeepParams) != 0;
         }
 
         protected override string ParseResultText()
         {
-            string[] lines = Tools.GetFileLine(this.form.picProps.WildcardFolderPath, text);
+            string[] lines = Tools.GetFileLine(this.context.PicProps.WildcardFolderPath, text);
             if (pickRandom)
             {
                 Random random = new Random();

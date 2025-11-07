@@ -46,16 +46,15 @@ namespace AutoNai3Tools.utils {
             }
         }
 
-        public Task<Bitmap> ExecuteAsync(string imagePath, int type, DirectorToolExecutionOptions options, PicProperty picProps,
+        public async Task<Bitmap> ExecuteAsync(string imagePath, int type, DirectorToolExecutionOptions options, PicProperty picProps,
             CancellationToken cancellationToken = default) {
-            return Task.Run(() => Execute(imagePath, type, options, picProps, cancellationToken), cancellationToken);
-        }
-
-        private Bitmap Execute(string imagePath, int type, DirectorToolExecutionOptions options, PicProperty picProps,
-            CancellationToken cancellationToken) {
             try {
                 cancellationToken.ThrowIfCancellationRequested();
-                string base64img = Tools.ConvertImageToBase64(imagePath);
+                string base64img = await Task.Run(() => Tools.ConvertImageToBase64(imagePath), cancellationToken)
+                    .ConfigureAwait(false);
+                if (string.IsNullOrEmpty(base64img))
+                    return null;
+
                 int width;
                 int height;
 
@@ -69,7 +68,9 @@ namespace AutoNai3Tools.utils {
                     return null;
 
                 cancellationToken.ThrowIfCancellationRequested();
-                return novalAi.SendDirectorToolsRequests(options.Token, body, picProps, options.Proxy);
+                return await novalAi.SendDirectorToolsRequestsAsync(options.Token, body, picProps, options.Proxy,
+                        cancellationToken)
+                    .ConfigureAwait(false);
             }
             catch (OperationCanceledException) {
                 throw;

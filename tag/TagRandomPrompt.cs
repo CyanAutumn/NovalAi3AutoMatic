@@ -13,15 +13,15 @@ namespace AutoNai3Tools.tag
         public int index { get; set; }
         public int length { get; set; }
         public bool pickRandom { get; set; }
-        Form1 form;
+        private readonly IPromptContext context;
 
-        public TagRandomPrompt(string tag, Form1 form, string originalTag)
+        public TagRandomPrompt(string tag, IPromptContext context, string originalTag)
         {
             this.text = tag;
             this.pickRandom = GetPickType(tag);
             this.index = 0;
-            this.form = form;
-            this.length = Tools.GetFileSize(this.form.picProps.RandomPromptFolderPath);
+            this.context = context;
+            this.length = Tools.GetFileSize(this.context.PicProps.RandomPromptFolderPath);
             this.originalTag = originalTag;
         }
 
@@ -37,7 +37,7 @@ namespace AutoNai3Tools.tag
 
         protected override bool KeepText()
         {
-            return form.settingProps.KeepRandomPrompt && (form.runNum % form.picProps.RunKeepParams) != 0;
+            return context.SettingProps.KeepRandomPrompt && (context.RunNumber % context.RunKeepParams) != 0;
         }
 
         protected override string ParseResultText()
@@ -48,22 +48,22 @@ namespace AutoNai3Tools.tag
             {
                 Random random = new Random();
                 tIndex = random.Next(length);
-                tPrompt = Tools.GetPromptFromFolderTxt(this.form.picProps.RandomPromptFolderPath, tIndex);
+                tPrompt = Tools.GetPromptFromFolderTxt(this.context.PicProps.RandomPromptFolderPath, tIndex);
             }
             else
             {
-                tPrompt = Tools.GetPromptFromFolderTxt(this.form.picProps.RandomPromptFolderPath, index);
+                tPrompt = Tools.GetPromptFromFolderTxt(this.context.PicProps.RandomPromptFolderPath, index);
                 index = (index + 1) % length;
             }
 
             string[] words1 = tPrompt.Split(',').Select(word => word.Trim()).ToArray();
             IEnumerable<string> filtered = words1;
-            if (form.picProps.EnablePromptBlackList) {
-                string[] words2 = Prompt.GetPromptBlackList(form);
+            if (context.PicProps.EnablePromptBlackList) {
+                string[] words2 = Prompt.GetPromptBlackList(context);
                 filtered = filtered.Where(word => !words2.Contains(word));
-                string[] words3 = Prompt.GetPromptBlackList(form, true);
+                string[] words3 = Prompt.GetPromptBlackList(context, true);
                 filtered = filtered.Where(word => !words3.Contains(word));
-                var regexList = Prompt.GetPromptBlackListRegex(form);
+                var regexList = Prompt.GetPromptBlackListRegex(context);
                 if (regexList.Count > 0) {
                     filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word)));
                 }

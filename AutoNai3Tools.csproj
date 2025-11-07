@@ -65,9 +65,38 @@
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form1.PromptContext.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Config.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Vibe.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Wildcard.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.DirectorTools.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Img2Img.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="controllers\GenerationController.cs" />
+    <Compile Include="controllers\GenerationInput.cs" />
+    <Compile Include="controllers\GenerationUiDataProvider.cs" />
+    <Compile Include="controllers\IGenerationDataProvider.cs" />
+    <Compile Include="controllers\DirectorToolController.cs" />
     <Compile Include="novalai\NovalAIAPI.cs" />
     <Compile Include="utils\Vibe.cs" />
     <Compile Include="Program.cs" />
@@ -91,6 +120,7 @@
     <Compile Include="utils\DirectorToolProcessor.cs" />
     <Compile Include="utils\NovalAi.cs" />
     <Compile Include="utils\Prompt.cs" />
+    <Compile Include="utils\IPromptContext.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

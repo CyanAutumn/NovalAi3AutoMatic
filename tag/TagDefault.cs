@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 namespace AutoNai3Tools.tag {
     internal class TagDefault : TagBase {
         public string text { get; set; }
-        Form1 form;
 
-        public TagDefault(string tag, Form1 form, string originalTag) {
+        public TagDefault(string tag, IPromptContext context, string originalTag) {
             this.text = tag;
-            this.form = form;
             this.originalTag = originalTag;
         }
 

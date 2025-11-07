@@ -13,11 +13,11 @@ using Newtonsoft.Json.Linq;
 
 namespace AutoNai3Tools.utils {
     internal class Prompt {
-        internal static string[] GetPromptBlackList(Form1 form, bool replaceSpaceWithUnderscore = false) {
-            if (form?.picProps == null || !form.picProps.EnablePromptBlackList)
+        internal static string[] GetPromptBlackList(IPromptContext context, bool replaceSpaceWithUnderscore = false) {
+            if (context?.PicProps == null || !context.PicProps.EnablePromptBlackList)
                 return Array.Empty<string>();
 
-            string raw = form.picProps.PromptBlackList ?? string.Empty;
+            string raw = context.PicProps.PromptBlackList ?? string.Empty;
             if (replaceSpaceWithUnderscore) {
                 raw = raw.Replace(" ", "_");
             }
@@ -28,12 +28,12 @@ namespace AutoNai3Tools.utils {
                 .ToArray();
         }
 
-        internal static List<Regex> GetPromptBlackListRegex(Form1 form) {
+        internal static List<Regex> GetPromptBlackListRegex(IPromptContext context) {
             List<Regex> patterns = new List<Regex>();
-            if (form?.picProps == null || !form.picProps.EnablePromptBlackList)
+            if (context?.PicProps == null || !context.PicProps.EnablePromptBlackList)
                 return patterns;
 
-            string raw = form.picProps.PromptBlackListRegex ?? string.Empty;
+            string raw = context.PicProps.PromptBlackListRegex ?? string.Empty;
             var lines = raw.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var line in lines) {
                 var pattern = line.Trim();
@@ -50,8 +50,8 @@ namespace AutoNai3Tools.utils {
             return patterns;
         }
 
-        private static string GetFolderPrompt(Form1 form) {
-            string folderPath = form.picProps.RandomPromptFolderPath;
+        private static string GetFolderPrompt(IPromptContext context) {
+            string folderPath = context.PicProps.RandomPromptFolderPath;
             string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 
             if (txtFiles.Length == 0) {
@@ -64,12 +64,12 @@ namespace AutoNai3Tools.utils {
             string[] words1 = t_prompt.Split(',').Select(word => word.Trim()).ToArray();
 
             IEnumerable<string> filtered = words1;
-            if (form.picProps.EnablePromptBlackList) {
-                string[] words2 = GetPromptBlackList(form);
+            if (context.PicProps.EnablePromptBlackList) {
+                string[] words2 = GetPromptBlackList(context);
                 filtered = filtered.Where(word => !words2.Contains(word));
-                string[] words3 = GetPromptBlackList(form, true);
+                string[] words3 = GetPromptBlackList(context, true);
                 filtered = filtered.Where(word => !words3.Contains(word));
-                var regexList = GetPromptBlackListRegex(form);
+                var regexList = GetPromptBlackListRegex(context);
                 if (regexList.Count > 0) {
                     filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word)));
                 }
@@ -78,8 +78,8 @@ namespace AutoNai3Tools.utils {
             return string.Join(",", filtered).Trim();
         }
 
-        private static string GetWillcard(string tag, Form1 form) {
-            string folderPath = form.picProps.WildcardFolderPath;
+        private static string GetWillcard(string tag, IPromptContext context) {
+            string folderPath = context.PicProps.WildcardFolderPath;
             string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 
             tag = tag.Substring(1, tag.Length - 2);
@@ -97,13 +97,13 @@ namespace AutoNai3Tools.utils {
         public static List<TagBase> tagList = new List<TagBase>();
         public static string prevPrompt = "";
 
-        public static Dictionary<string, string> GetPrompt(string prompt, Form1 form) {
+        public static Dictionary<string, string> GetPrompt(string prompt, IPromptContext context) {
             Dictionary<string, string> result = new Dictionary<string, string>();
             string[] strTagList = prompt.Split(',');
             if (prompt != prevPrompt) {
                 tagList.Clear();
                 foreach (var item in strTagList) {
-                    tagList.Add(TagTools.GetTagExample(item, form));
+                    tagList.Add(TagTools.GetTagExample(item, context));
                 }
 
                 prevPrompt = prompt;

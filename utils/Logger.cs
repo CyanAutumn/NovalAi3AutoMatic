@@ -29,6 +29,10 @@ namespace AutoNai3Tools.utils {
         void Write(LogEntry entry);
     }
 
+    internal interface ILogSpacerSink {
+        void InsertSpacer();
+    }
+
     internal sealed class LogEntry {
         public LogEntry(LogLevel level, string message, string category, Exception exception = null,
             IDictionary<string, object> context = null) {
@@ -173,7 +177,22 @@ namespace AutoNai3Tools.utils {
             uiSink?.UpdatePicInfo(message);
         }
 
-        private class Log4NetSink : ILogSink {
+        public static void Spacer() {
+            if (!initialized)
+                return;
+
+            List<ILogSink> snapshot;
+            lock (SyncRoot) {
+                snapshot = Sinks.ToList();
+            }
+
+            foreach (var sink in snapshot) {
+                if (sink is ILogSpacerSink spacerSink)
+                    spacerSink.InsertSpacer();
+            }
+        }
+
+        private class Log4NetSink : ILogSink, ILogSpacerSink {
             private readonly ILog internalLogger = LogManager.GetLogger(typeof(Logger));
 
             public LogSinkCapabilities Capabilities => LogSinkCapabilities.Persistent;
@@ -206,9 +225,12 @@ namespace AutoNai3Tools.utils {
                         break;
                 }
             }
+            public void InsertSpacer() {
+                internalLogger.Info(string.Empty);
+            }
         }
 
-        private class UiLogSink : ILogSink {
+        private class UiLogSink : ILogSink, ILogSpacerSink {
             private readonly TextBox logTextBox;
             private readonly TextBox picInfoTextBox;
 
@@ -259,6 +281,19 @@ namespace AutoNai3Tools.utils {
                     logTextBox.BeginInvoke(action);
                 else
                     action();
+            }
+
+            public void InsertSpacer() {
+                ExecuteOnUi(() => {
+                    if (logTextBox == null || logTextBox.IsDisposed)
+                        return;
+
+                    if (logTextBox.TextLength > 0)
+                        logTextBox.AppendText(Environment.NewLine);
+
+                    logTextBox.SelectionStart = logTextBox.TextLength;
+                    logTextBox.ScrollToCaret();
+                });
             }
         }
     }

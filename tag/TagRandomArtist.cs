@@ -12,26 +12,26 @@ namespace AutoNai3Tools.tag
     {
         public string text { get; set; }
         public bool pickRandom { get; set; }
-        Form1 form;
+        private readonly IPromptContext context;
 
-        public TagRandomArtist(string tag, Form1 form, string originalTag)
+        public TagRandomArtist(string tag, IPromptContext context, string originalTag)
         {
             this.text = tag;
-            this.form = form;
+            this.context = context;
             this.originalTag = originalTag;
         }
 
         protected override bool KeepText()
         {
-            return form.settingProps.KeepRandomArtist && (form.runNum % form.picProps.RunKeepParams) != 0;
+            return context.SettingProps.KeepRandomArtist && (context.RunNumber % context.RunKeepParams) != 0;
         }
 
         protected override string ParseResultText()
         {
-            List<List<Artist>> artistGroupList = ArtistTools.ParseArtistTxtToArtistGroupList(form.txtArtistRandom.Text);
+            List<List<Artist>> artistGroupList = ArtistTools.ParseArtistTxtToArtistGroupList(context.ArtistRandomText);
             string randomArtist = ArtistTools.GetArtistPrompt(artistGroupList,
-                ((int)form.numDefaultArtistWeightReduceMax.Value), ((int)form.numDefaultArtistWeightIncreaseMax.Value),
-                form.chkArtistModify.Checked, ((int)form.numArtistMin.Value), ((int)form.numArtistMax.Value));
+                context.DefaultArtistWeightReduceMax, context.DefaultArtistWeightIncreaseMax,
+                context.ArtistModify, context.ArtistMin, context.ArtistMax);
             Logger.Info($"<随机画师>：{randomArtist}",
                 context: Logger.Context(("value", randomArtist)));
             return randomArtist;

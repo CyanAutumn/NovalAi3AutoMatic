@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using AutoNai3Tools.body;
 using Nett;
 
 namespace AutoNai3Tools.utils {
-    internal class SystemConfig {
+    internal class SystemConfigData {
         public string Token { get; set; }
-        public List<SnippetItem> SnippetItems { get; set; } // 添加用于保存dgvSnippet行数据的属性
+        public List<SnippetItem> SnippetItems { get; set; }
         public string PromptBlackList { get; set; }
         public bool? PromptBlackListEnabled { get; set; }
         public string PromptBlackListRegex { get; set; }
@@ -19,54 +16,44 @@ namespace AutoNai3Tools.utils {
         public int? SleepTimeShortHigh { get; set; }
         public int? SleepTimeLongLow { get; set; }
         public int? SleepTimeLongHigh { get; set; }
+    }
 
-        public static void SaveToml(Form1 form) {
-            string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_system\\";
-            if (!Directory.Exists(folderPath)) {
-                try {
-                    Directory.CreateDirectory(folderPath);
-                }
-                catch (Exception e) { }
-            }
+    internal class SystemConfigRepository {
+        private readonly string folderPath;
+        private readonly string fileName;
 
-            SystemConfig obj = new SystemConfig();
-            obj.Token = form.settingProps.Token;
-            obj.PromptBlackList = form.picProps.PromptBlackList;
-            obj.PromptBlackListEnabled = form.picProps.EnablePromptBlackList;
-            obj.PromptBlackListRegex = form.picProps.PromptBlackListRegex;
-            obj.SleepTimeShortLow = form.settingProps.SleepTimeShortLow;
-            obj.SleepTimeShortHigh = form.settingProps.SleepTimeShortHigh;
-            obj.SleepTimeLongLow = form.settingProps.SleepTimeLongLow;
-            obj.SleepTimeLongHigh = form.settingProps.SleepTimeLongHigh;
-            Toml.WriteFile(obj, Path.Combine(folderPath, "config.toml"));
+        public SystemConfigRepository(string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_system\\",
+            string fileName = "config.toml") {
+            this.folderPath = folderPath;
+            this.fileName = fileName;
         }
 
-        public static void ReadToml(Form1 form) {
-            string configFilePath = "C:\\Users\\Public\\Documents\\auto_nai3_system\\config.toml";
+        private string ConfigFilePath => Path.Combine(folderPath, fileName);
 
-            if (File.Exists(configFilePath)) {
-                SystemConfig obj = Toml.ReadFile<SystemConfig>(configFilePath);
-                form.settingProps.Token = obj.Token;
-                if (!string.IsNullOrEmpty(obj.PromptBlackList))
-                    form.picProps.PromptBlackList = obj.PromptBlackList;
-                form.picProps.EnablePromptBlackList = obj.PromptBlackListEnabled ?? true;
-                if (!string.IsNullOrEmpty(obj.PromptBlackListRegex))
-                    form.picProps.PromptBlackListRegex = obj.PromptBlackListRegex;
-                form.settingProps.SleepTimeShortLow = obj.SleepTimeShortLow ?? form.settingProps.SleepTimeShortLow;
-                form.settingProps.SleepTimeShortHigh = obj.SleepTimeShortHigh ?? form.settingProps.SleepTimeShortHigh;
-                form.settingProps.SleepTimeLongLow = obj.SleepTimeLongLow ?? form.settingProps.SleepTimeLongLow;
-                form.settingProps.SleepTimeLongHigh = obj.SleepTimeLongHigh ?? form.settingProps.SleepTimeLongHigh;
-            }
+        public void Save(SystemConfigData data) {
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
+            EnsureDirectory();
+            Toml.WriteFile(data, ConfigFilePath);
+        }
+
+        public SystemConfigData Load() {
+            if (!File.Exists(ConfigFilePath))
+                return null;
+
+            return Toml.ReadFile<SystemConfigData>(ConfigFilePath);
+        }
+
+        private void EnsureDirectory() {
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
         }
     }
 
-
-    internal class Config {
-        // prompt
+    internal class PresetConfigData {
         public string Prompt { get; set; }
-
         public string NegativePrompt { get; set; }
-
         public string PromptBlackList { get; set; }
         public bool? PromptBlackListEnabled { get; set; }
         public string PromptBlackListRegex { get; set; }
@@ -87,8 +74,6 @@ namespace AutoNai3Tools.utils {
         public bool Smea { get; set; }
         public bool Dyn { get; set; }
         public string[] ResolutionList { get; set; }
-
-        //artist
         public string ArtistFixed { get; set; }
         public string ArtistRandom { get; set; }
         public int DefaultArtistWeightReduceMax { get; set; }
@@ -110,123 +95,64 @@ namespace AutoNai3Tools.utils {
         public double VarietyNum { get; set; }
         public Switch FixedSeeds { get; set; }
         public BodyTools.Model ModelSelect { get; set; }
+    }
 
-        public static void SaveToml(Form1 form, string fileName) {
-            string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_2\\";
-            //判断文件夹是否存在
-            if (!Directory.Exists(folderPath)) {
-                //创建文件夹
-                try {
-                    Directory.CreateDirectory(folderPath);
-                }
-                catch (Exception e) { }
-            }
+    internal class PresetConfigRepository {
+        private readonly string folderPath;
 
-            Config obj = new Config();
-            obj.Prompt = form.txtPrompt.Text;
-            obj.NegativePrompt = form.txtNegativePrompt.Text;
-            obj.PromptBlackList = form.picProps.PromptBlackList;
-            obj.PromptBlackListEnabled = form.picProps.EnablePromptBlackList;
-            obj.PromptBlackListRegex = form.picProps.PromptBlackListRegex;
-            obj.GenerateMaxNum = form.picProps.RunNum;
-            obj.KeepParams = ((int)form.picProps.RunKeepParams);
-            obj.SavePromptToTxt = form.picProps.SavePromptToTxt;
-            obj.SavePromptToTxtNoArtist = form.picProps.SavePromptToTxtNoArtist;
-            obj.ResolutionMode = form.picProps.ResolutionMode;
-            obj.RandomPromptFolderPath = form.picProps.RandomPromptFolderPath;
-            obj.WildcardFolderPath = form.picProps.WildcardFolderPath;
-            obj.OutputPath = form.picProps.OutputPath;
-            obj.SamplerIndex = (int)form.picProps.Sampler;
-            obj.Steps = form.picProps.Steps;
-            obj.Scale = form.picProps.Scale;
-            obj.CFG = form.picProps.CFG;
-            obj.Noise = (int)form.picProps.Noise;
-            obj.Smea = form.picProps.Smea==Switch.开;
-            obj.Dyn = form.picProps.Dyn==Switch.开;
-            List<string> resolutionList = new List<string>();
-            var _resolutionList = form.picProps.ResolutionList.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            for (int i = 0; i < _resolutionList.Length; i++) {
-                resolutionList.Add(_resolutionList[i]);
-            }
-            obj.ResolutionList = resolutionList.ToArray();
-            obj.ArtistFixed = form.txtArtistFixed.Text;
-            obj.ArtistRandom = form.txtArtistRandom.Text;
-            obj.DefaultArtistWeightReduceMax = ((int)form.numDefaultArtistWeightReduceMax.Value);
-            obj.DefaultArtistWeightIncreaseMax = ((int)form.numDefaultArtistWeightIncreaseMax.Value);
-            obj.ArtistMin = ((int)form.numArtistMin.Value);
-            obj.ArtistMax = ((int)form.numArtistMax.Value);
-            obj.Proxy = form.settingProps.Proxy;
-            obj.KeepRandomArtist = form.settingProps.KeepRandomArtist;
-            obj.KeepWildcard = form.settingProps.KeepWildcard;
-            obj.KeepRandomPrompt = form.settingProps.KeepRandomPrompt;
-            obj.KeepResolution = form.settingProps.KeepResolution;
-            obj.Decrisp = form.picProps.Decrisp == Switch.开;
-            obj.FixedSeeds = form.picProps.FixedSeeds ;
-            obj.Seeds = form.picProps.Seeds;
-            obj.Width = form.picProps.Width;
-            obj.Height = form.picProps.Height;
-            obj.Variety = form.picProps.Variety != VarietyOptions.关;
-            obj.VarietyDefault = form.picProps.Variety == VarietyOptions.自定义_风险参数;
-            obj.VarietyNum = form.picProps.VarietyNum;
-            obj.ModelSelect = form.picProps.Model;
-            Toml.WriteFile(obj, folderPath + fileName + ".toml");
+        public PresetConfigRepository(string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_2\\") {
+            this.folderPath = folderPath;
         }
 
-        public static void ReadToml(Form1 form, string fileName) {
-            Config obj = Toml.ReadFile<Config>("C:\\Users\\Public\\Documents\\auto_nai3_2\\" + fileName + ".toml");
-            form.txtPrompt.Text = obj.Prompt;
-            form.txtNegativePrompt.Text = obj.NegativePrompt;
-            if (!string.IsNullOrEmpty(obj.PromptBlackList))
-                form.picProps.PromptBlackList = obj.PromptBlackList;
-            form.picProps.EnablePromptBlackList = obj.PromptBlackListEnabled ?? true;
-            if (!string.IsNullOrEmpty(obj.PromptBlackListRegex))
-                form.picProps.PromptBlackListRegex = obj.PromptBlackListRegex;
-            form.picProps.RunNum = obj.GenerateMaxNum;
-            form.picProps.RunKeepParams = obj.KeepParams;
-            form.picProps.SavePromptToTxt = obj.SavePromptToTxt;
-            form.picProps.SavePromptToTxtNoArtist = obj.SavePromptToTxtNoArtist;
-            form.picProps.ResolutionMode= obj.ResolutionMode;
-            if (!string.IsNullOrEmpty(obj.RandomPromptFolderPath))
-                form.picProps.RandomPromptFolderPath = obj.RandomPromptFolderPath;
-            if (!string.IsNullOrEmpty(obj.WildcardFolderPath))
-                form.picProps.WildcardFolderPath = obj.WildcardFolderPath;
-            if (!string.IsNullOrEmpty(obj.OutputPath))
-                form.picProps.OutputPath = obj.OutputPath;
-            form.picProps.Sampler = (SamplerOptions)obj.SamplerIndex;
-            form.picProps.Steps = obj.Steps;
-            form.picProps.Scale = obj.Scale;
-            form.picProps.CFG = obj.CFG;
-            form.picProps.Noise = (NoiseOptions)obj.Noise;
-            form.picProps.Smea = obj.Smea?Switch.开:Switch.关;
-            form.picProps.Dyn = obj.Dyn ? Switch.开 : Switch.关;
-            if (obj.ResolutionList == null) {
-                obj.ResolutionList = new string[] { "832x1216", "1216x832", "1024x1024" };
-            }
-            form.picProps.ResolutionList = string.Join("\r\n", obj.ResolutionList);
+        public string FolderPath => folderPath;
 
-            form.txtArtistFixed.Text = obj.ArtistFixed;
-            form.txtArtistRandom.Text = obj.ArtistRandom;
-            form.numDefaultArtistWeightReduceMax.Value = obj.DefaultArtistWeightReduceMax;
-            form.numDefaultArtistWeightIncreaseMax.Value = obj.DefaultArtistWeightIncreaseMax;
-            form.numArtistMin.Value = obj.ArtistMin;
-            form.numArtistMax.Value = obj.ArtistMax;
-            form.settingProps.Proxy = obj.Proxy;
-            form.settingProps.KeepRandomArtist = obj.KeepRandomArtist;
-            form.settingProps.KeepWildcard = obj.KeepWildcard;
-            form.settingProps.KeepRandomPrompt = obj.KeepRandomPrompt;
-            form.settingProps.KeepResolution = obj.KeepResolution;
-            form.picProps.Decrisp = obj.Decrisp ? Switch.开 : Switch.关; ;
-            form.picProps.FixedSeeds = obj.FixedSeeds ;
-            form.picProps.Seeds = obj.Seeds;
-            form.picProps.Width = obj.Width;
-            form.picProps.Height = obj.Height;
-            form.picProps.Variety = obj.Variety ? obj.VarietyDefault ? VarietyOptions.自定义_风险参数: VarietyOptions.开 : VarietyOptions.关; ;
-            form.picProps.VarietyNum = obj.VarietyNum;
-            form.picProps.Model= obj.ModelSelect;
+        public void Save(string name, PresetConfigData data) {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("配置名称不能为空", nameof(name));
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
+            EnsureDirectory();
+            Toml.WriteFile(data, BuildFilePath(name));
+        }
+
+        public PresetConfigData Load(string name) {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("配置名称不能为空", nameof(name));
+
+            string path = BuildFilePath(name);
+            if (!File.Exists(path))
+                throw new FileNotFoundException("未找到配置文件", path);
+
+            return Toml.ReadFile<PresetConfigData>(path);
+        }
+
+        public IReadOnlyList<string> ListPresetNames() {
+            EnsureDirectory();
+            return Directory.GetFiles(folderPath, "*.toml")
+                .Select(file => Path.GetFileNameWithoutExtension(file))
+                .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+
+        public void Delete(string name) {
+            if (string.IsNullOrWhiteSpace(name))
+                return;
+
+            string path = BuildFilePath(name);
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+
+        private string BuildFilePath(string name) => Path.Combine(folderPath, name + ".toml");
+
+        private void EnsureDirectory() {
+            if (!Directory.Exists(folderPath))
+                Directory.CreateDirectory(folderPath);
         }
     }
 
-    class SnippetItem {
+    internal class SnippetItem {
         public string Name { get; set; }
         public string Value { get; set; }
     }

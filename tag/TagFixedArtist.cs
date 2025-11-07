@@ -10,20 +10,20 @@ namespace AutoNai3Tools.tag
     internal class TagFixedArtist : TagBase
     {
         public string text { get; set; }
-        Form1 form;
+        private readonly IPromptContext context;
 
-        public TagFixedArtist(string tag, Form1 form, string originalTag)
+        public TagFixedArtist(string tag, IPromptContext context, string originalTag)
         {
             this.text = tag;
-            this.form = form;
+            this.context = context;
             this.originalTag = originalTag;
         }
 
         protected override string ParseResultText()
         {
-            Logger.Info($"<固定画师>：{form.txtArtistFixed.Text}",
-                context: Logger.Context(("value", form.txtArtistFixed.Text)));
-            return form.txtArtistFixed.Text;
+            Logger.Info($"<固定画师>：{context.ArtistFixedText}",
+                context: Logger.Context(("value", context.ArtistFixedText)));
+            return context.ArtistFixedText;
         }
     }
 }

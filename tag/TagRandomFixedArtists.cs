@@ -10,21 +10,24 @@ namespace AutoNai3Tools.tag {
     internal class TagRandomFixedArtists : TagBase {
         public string text { get; set; }
         public bool pickRandom { get; set; }
-        Form1 form;
+        private readonly IPromptContext context;
 
-        public TagRandomFixedArtists(string tag, Form1 form, string originalTag) {
+        public TagRandomFixedArtists(string tag, IPromptContext context, string originalTag) {
             this.text = tag;
-            this.form = form;
+            this.context = context;
             this.originalTag = originalTag;
         }
 
         protected override bool KeepText() {
-            return form.settingProps.KeepRandomArtist && (form.runNum % form.numKeepParams.Value) != 0;
+            return context.SettingProps.KeepRandomArtist && (context.RunNumber % context.RandomFixedKeepParams) != 0;
         }
 
         protected override string ParseResultText() {
-            List<List<Artist>> artistGroupList = ArtistTools.ParseArtistTxtToArtistGroupList(form.txtArtistRandomFixed.Text);
-            string randomArtist = ArtistTools.GetArtistPromptFixed(artistGroupList, ((int)form.numDefaultArtistRandomFixedWeightIncreaseMin.Value), ((int)form.numDefaultArtistRandomFixedWeightIncreaseMax.Value), form.chkArtistModifyRandomFixedArtist.Checked);
+            List<List<Artist>> artistGroupList = ArtistTools.ParseArtistTxtToArtistGroupList(context.ArtistRandomFixedText);
+            string randomArtist = ArtistTools.GetArtistPromptFixed(artistGroupList,
+                context.DefaultArtistRandomFixedWeightIncreaseMin,
+                context.DefaultArtistRandomFixedWeightIncreaseMax,
+                context.ArtistModifyRandomFixed);
             Logger.Info($"<固定随机画师>：{randomArtist}",
                 context: Logger.Context(("value", randomArtist)));
             return randomArtist;

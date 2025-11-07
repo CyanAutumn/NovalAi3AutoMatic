@@ -285,10 +285,17 @@ namespace AutoNai3Tools.utils {
             return null;
         }
 
-        public Bitmap SendDirectorToolsRequests(string token, Nai3DirectorToolsBody body, PicProperty picProps, string proxy) {
+        public async Task<Bitmap> SendDirectorToolsRequestsAsync(
+            string token,
+            Nai3DirectorToolsBody body,
+            PicProperty picProps,
+            string proxy,
+            CancellationToken cancellationToken = default) {
             try {
-                var response = Request.Post("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, proxy);
-                Thread.Sleep(1000);
+                var response = await Request.PostAsync("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, proxy,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
                 Bitmap pic = UnZipAndSaveImage(response, picProps, null, null);
                 if (pic != null) {
                     Logger.Info("绘导工具生成完成",
@@ -297,6 +304,11 @@ namespace AutoNai3Tools.utils {
                 }
                 return pic;
             }
+            catch (OperationCanceledException) {
+                Logger.Info("导演工具请求被取消",
+                    context: Logger.Context(("type", body?.req_type)));
+                throw;
+            }
             catch (Exception ex) {
                 Logger.Error("DirectorTools 请求失败", exception: ex,
                     context: Logger.Context(("type", body?.req_type)));
@@ -304,12 +316,19 @@ namespace AutoNai3Tools.utils {
             }
         }
 
-        public Bitmap SendGenerateRequests(string token, BodyBase body, string noArtistPrompt, PicProperty picProps,
-            string proxy, string originalPrompt) {
+        public async Task<Bitmap> SendGenerateRequestsAsync(
+            string token,
+            BodyBase body,
+            string noArtistPrompt,
+            PicProperty picProps,
+            string proxy,
+            string originalPrompt,
+            CancellationToken cancellationToken = default) {
             try {
-                //Logger.Info(body.ToJson(), false, true);
-                var response = Request.Post("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, proxy);
-                Thread.Sleep(1000);
+                var response = await Request.PostAsync("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, proxy,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
                 Bitmap pic = UnZipAndSaveImage(response, picProps, body.prompt, noArtistPrompt);
                 if (pic != null) {
                     Logger.Info("生图完成",
@@ -317,6 +336,11 @@ namespace AutoNai3Tools.utils {
                             ("seed", picProps.Seeds)));
                 }
                 return pic;
+            }
+            catch (OperationCanceledException) {
+                Logger.Info("生成请求被取消",
+                    context: Logger.Context(("originalPrompt", originalPrompt ?? body?.prompt)));
+                throw;
             }
             catch (Exception ex) {
                 Logger.Error("图像生成请求失败", exception: ex,

@@ -1,30 +1,21 @@
 ﻿using AutoNai3Tools.utils;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoNai3Tools.body;
-using static System.Net.WebRequestMethods;
-using System.Net.Http;
-using File = System.IO.File;
-using AutoNai3Tools.novalai;
-using System.Collections;
+using AutoNai3Tools.Controllers;
 
 namespace AutoNai3Tools {
     public partial class Form1 : Form {
         public int runNum;
         public PicProperty picProps = new PicProperty();
         public SettingProperty settingProps = new SettingProperty();
-        private CancellationTokenSource generationCancellationSource;
-        private GenerationPipeline currentGenerationPipeline;
-        private bool isGenerating;
-        private readonly DirectorToolProcessor directorToolProcessor = new DirectorToolProcessor();
+        private readonly PresetConfigRepository presetConfigRepository = new PresetConfigRepository();
+        private readonly SystemConfigRepository systemConfigRepository = new SystemConfigRepository();
+        private readonly GenerationController generationController;
+        private readonly IGenerationDataProvider generationDataProvider;
+        private readonly DirectorToolController directorToolController;
 
         public Form1() {
             InitializeComponent();
@@ -43,6 +34,21 @@ namespace AutoNai3Tools {
             tabControl2.TabPages.Remove(tabPage18);
             propertyGrid1.SelectedObject = picProps;
             propertyGridSettings.SelectedObject = settingProps;
+
+            generationDataProvider = new GenerationUiDataProvider(
+                picProps,
+                settingProps,
+                this,
+                () => txtPrompt.Text,
+                () => txtNegativePrompt.Text,
+                dgvVibe,
+                CaptureImg2ImgOptions);
+            generationController = new GenerationController(generationDataProvider);
+            AttachGenerationControllerEvents();
+
+            var directorProcessor = new DirectorToolProcessor();
+            directorToolController = new DirectorToolController(directorProcessor, picProps);
+            AttachDirectorToolEvents();
         }
 
         private void EnableDoubleBuffer(Control control) {
@@ -109,156 +115,131 @@ namespace AutoNai3Tools {
                 Tools.InsertTextToTextBox(txtPrompt, insertPrompt);
         }
 
-        #endregion
-
-        int resolutionSelectIndex = 0;
-
-        private int[] GetResolution(int runNum) {
-            if (runNum == 0 || (runNum % picProps.RunKeepParams == 0 && settingProps.KeepResolution) ||
-                !settingProps.KeepResolution) {
-                var resolutionList = picProps.ResolutionList.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-                ;
-                if (picProps.ResolutionMode != ResolutionMode.固定) {
-                    switch (picProps.ResolutionMode) {
-                        case ResolutionMode.随机:
-                            Random random = new Random();
-                            resolutionSelectIndex = random.Next(0, resolutionList.Length);
-                            break;
-                        case ResolutionMode.顺序:
-                            resolutionSelectIndex = (resolutionSelectIndex + 1) % resolutionList.Length;
-                            break;
-                    }
-
-                    string[] _Resolution = resolutionList[resolutionSelectIndex].Split('x');
-                    picProps.Width = int.Parse(_Resolution[0]);
-                    picProps.Height = int.Parse(_Resolution[1]);
-                }
-            }
-
-            return new int[] { picProps.Width, picProps.Height };
+        private void AttachGenerationControllerEvents() {
+            generationController.IterationStarted += HandleGenerationIterationStarted;
+            generationController.ImageReady += HandleGenerationImageReady;
+            generationController.DelayPlanned += HandleGenerationDelayPlanned;
+            generationController.Completed += HandleGenerationCompleted;
+            generationController.Cancelled += HandleGenerationCancelled;
+            generationController.Failed += HandleGenerationFailed;
+            generationController.Started += HandleGenerationStarted;
+            generationController.Stopped += HandleGenerationStopped;
         }
 
-        
-
-        private GenerationRequest BuildGenerationRequest(GenerationContext context, int runIndex) {
-            runNum = runIndex;
-            _ = GetResolution(runIndex);
-            Dictionary<string, object> kwargs = context.PicProps.GetProperty();
-            kwargs["negative_prompt"] = context.NegativePrompt;
-
-            if (context.HasImg2Img) {
-                kwargs["image"] = Tools.ConvertImageToBase64(context.Img2Img.ImagePath);
-                kwargs["strength"] = context.Img2Img.Strength;
-                kwargs["noise"] = context.Img2Img.Noise;
-            }
-
-            List<VibeData> vibes = context.Vibes.Select(v => new VibeData {
-                imagePath = v.ImagePath,
-                informationExtracted = v.InformationExtracted,
-                referenceStrength = v.ReferenceStrength
-            }).ToList();
-
-            if (vibes.Count > 0)
-                vibes = Vibe.GetVibe(context.PicProps.Model, vibes, context.SettingProps.Token);
-
-            List<string> t_rim = new List<string>();
-            List<float> t_riem = new List<float>();
-            List<float> t_rsm = new List<float>();
-            foreach (var vibe in vibes) {
-                t_rim.Add(vibe.base64Image);
-                t_riem.Add(vibe.informationExtracted);
-                t_rsm.Add(vibe.referenceStrength);
-            }
-            if (t_rim.Count > 0) {
-                kwargs["reference_image_multiple"] = t_rim;
-                kwargs["reference_information_extracted_multiple"] = t_riem;
-                kwargs["reference_strength_multiple"] = t_rsm;
-            }
-
-            var prompt = Prompt.GetPrompt(context.PromptText, this);
-            string noArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
-            string tPrompt = Prompt.GetDataPrompt(prompt);
-            kwargs["prompt"] = tPrompt;
-
-            kwargs["v4_negative_prompt"] =
-                new V4Prompt(new Caption(context.NegativePrompt, new List<CharCaption>()), null, null, false);
-            kwargs["v4_prompt"] = new V4Prompt(new Caption(tPrompt, new List<CharCaption>()), true, true, null);
-            BodyBase body = BodyTools.GetBody(context.PicProps.Model, kwargs);
-
-            var runInfo = new GenerationRunInfo(
-                BodyTools.GetEnumDescription(context.PicProps.Model),
-                context.PicProps.Width,
-                context.PicProps.Height,
-                context.PicProps.Scale,
-                context.PicProps.CFG,
-                BodyTools.GetEnumDescription(context.PicProps.Sampler),
-                context.PicProps.Steps,
-                context.PicProps.WildcardFolderPath);
-
-            return new GenerationRequest(body, context.PromptText, noArtistPrompt, runInfo);
+        private void AttachDirectorToolEvents() {
+            directorToolController.BusyStateChanged += HandleDirectorToolBusyStateChanged;
+            directorToolController.PreviewUpdated += HandleDirectorToolPreviewUpdated;
+            directorToolController.OutputUpdated += HandleDirectorToolOutputUpdated;
+            directorToolController.Completed += HandleDirectorToolCompleted;
+            directorToolController.Failed += HandleDirectorToolFailed;
         }
 
-        private GenerationContext BuildGenerationContext() {
-            List<VibeSelection> selections = new List<VibeSelection>();
-            foreach (DataGridViewRow row in dgvVibe.Rows) {
-                var picPath = row.Cells["Column1"].Value;
-                if (picPath == null)
-                    continue;
-
-                float informationExtracted = ParseFloat(row.Cells["Column2"].Value);
-                float referenceStrength = ParseFloat(row.Cells["Column3"].Value);
-                selections.Add(new VibeSelection(picPath.ToString(), informationExtracted, referenceStrength));
+        private void HandleGenerationStarted() {
+            if (InvokeRequired) {
+                BeginInvoke(new Action(HandleGenerationStarted));
+                return;
             }
 
-            Img2ImgOptions img2Img = null;
-            if (!string.IsNullOrEmpty(img2ImgCurrentPath)) {
-                img2Img = new Img2ImgOptions(img2ImgCurrentPath, (float)nudImg2ImgStrength.Value,
-                    (float)nudImg2ImgNoise.Value);
-            }
-
-            return new GenerationContext(picProps, settingProps, txtPrompt.Text, txtNegativePrompt.Text, selections,
-                img2Img, picProps.RunNum);
-        }
-
-        private static float ParseFloat(object value) {
-            if (value == null)
-                return 0f;
-
-            if (value is float f)
-                return f;
-            if (value is double d)
-                return (float)d;
-            if (value is decimal dec)
-                return (float)dec;
-
-            float result;
-            return float.TryParse(value.ToString(), out result) ? result : 0f;
-        }
-
-        private void StartGeneration(GenerationContext context) {
-            generationCancellationSource = new CancellationTokenSource();
-            currentGenerationPipeline = new GenerationPipeline(context, index => BuildGenerationRequest(context, index));
-            currentGenerationPipeline.IterationStarted += HandleGenerationIterationStarted;
-            currentGenerationPipeline.ImageReady += HandleGenerationImageReady;
-            currentGenerationPipeline.DelayPlanned += HandleGenerationDelayPlanned;
-            currentGenerationPipeline.Completed += HandleGenerationCompleted;
-            currentGenerationPipeline.Cancelled += HandleGenerationCancelled;
-            currentGenerationPipeline.Failed += HandleGenerationFailed;
-
-            isGenerating = true;
             btnGenerate.Text = "停止";
             btnGenerate.Enabled = true;
+        }
 
-            _ = currentGenerationPipeline.RunAsync(generationCancellationSource.Token);
+        private void HandleGenerationStopped() {
+            if (InvokeRequired) {
+                BeginInvoke(new Action(HandleGenerationStopped));
+                return;
+            }
+
+            ResetGenerationState();
+        }
+
+        private void HandleDirectorToolBusyStateChanged(bool isBusy) {
+            if (InvokeRequired) {
+                BeginInvoke(new Action<bool>(HandleDirectorToolBusyStateChanged), isBusy);
+                return;
+            }
+
+            btnDirectorToolsRemoveBGRun.Text = isBusy ? "运行中" : "运行";
+            btnDirectorToolsRemoveBGRun.Enabled = !isBusy;
+        }
+
+        private void HandleDirectorToolPreviewUpdated(Image preview) {
+            if (InvokeRequired) {
+                BeginInvoke(new Action<Image>(HandleDirectorToolPreviewUpdated), preview);
+                return;
+            }
+
+            ReplacePictureBoxImage(picDirectorToolsInput, preview);
+        }
+
+        private void HandleDirectorToolOutputUpdated(Image image) {
+            if (InvokeRequired) {
+                BeginInvoke(new Action<Image>(HandleDirectorToolOutputUpdated), image);
+                return;
+            }
+
+            ReplacePictureBoxImage(picDirectorToolsOutput, image);
+        }
+
+        private void HandleDirectorToolCompleted() {
+            if (InvokeRequired) {
+                BeginInvoke(new Action(HandleDirectorToolCompleted));
+                return;
+            }
+
+            Logger.Info("导演工具任务完成");
+        }
+
+        private void HandleDirectorToolFailed(Exception exception) {
+            if (InvokeRequired) {
+                BeginInvoke(new Action<Exception>(HandleDirectorToolFailed), exception);
+                return;
+            }
+
+            if (exception == null)
+                return;
+
+            if (exception is OperationCanceledException)
+                return;
+
+            MessageBox.Show("导演工具运行失败，详情请查看日志。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void ResetGenerationState() {
+            btnGenerate.Text = "生成";
+            btnGenerate.Enabled = true;
+        }
+
+        private void btnGenerate_Click(object sender, EventArgs e) {
+            if (generationController.IsGenerating) {
+                RequestStopGeneration();
+                return;
+            }
+
+            try {
+                generationController.StartGeneration();
+            }
+            catch (Exception ex) {
+                Logger.Error("构建生成参数失败", exception: ex,
+                    context: Logger.Context(("action", "StartGeneration")));
+                MessageBox.Show("生成参数无效，请检查设置", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void picView_Click(object sender, EventArgs e) {
+            try {
+                System.Diagnostics.Process.Start(picProps.OutputPath);
+            }
+            catch (Exception ex) {
+                Logger.Warn("无法打开输出目录",
+                    context: Logger.Context(("path", picProps.OutputPath), ("reason", ex.Message)));
+            }
         }
 
         private void RequestStopGeneration() {
-            if (!isGenerating || generationCancellationSource == null)
-                return;
-
             btnGenerate.Text = "停止中...";
             btnGenerate.Enabled = false;
-            generationCancellationSource.Cancel();
+            generationController.RequestStopGeneration();
         }
 
         private void HandleGenerationIterationStarted(int iteration) {
@@ -325,203 +306,7 @@ namespace AutoNai3Tools {
             ResetGenerationState();
         }
 
-        private void ResetGenerationState() {
-            isGenerating = false;
-            btnGenerate.Text = "生成";
-            btnGenerate.Enabled = true;
-
-            generationCancellationSource?.Dispose();
-            generationCancellationSource = null;
-
-            if (currentGenerationPipeline != null) {
-                currentGenerationPipeline.IterationStarted -= HandleGenerationIterationStarted;
-                currentGenerationPipeline.ImageReady -= HandleGenerationImageReady;
-                currentGenerationPipeline.DelayPlanned -= HandleGenerationDelayPlanned;
-                currentGenerationPipeline.Completed -= HandleGenerationCompleted;
-                currentGenerationPipeline.Cancelled -= HandleGenerationCancelled;
-                currentGenerationPipeline.Failed -= HandleGenerationFailed;
-            }
-
-            currentGenerationPipeline = null;
-        }
-
-        private void btnGenerate_Click(object sender, EventArgs e) {
-            if (isGenerating) {
-                RequestStopGeneration();
-                return;
-            }
-
-            GenerationContext context;
-            try {
-                context = BuildGenerationContext();
-            }
-            catch (Exception ex) {
-                Logger.Error("构建生成参数失败", exception: ex,
-                    context: Logger.Context(("action", nameof(BuildGenerationContext))));
-                MessageBox.Show("生成参数无效，请检查设置", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            StartGeneration(context);
-        }
-
-        private void picView_Click(object sender, EventArgs e) {
-            try {
-                System.Diagnostics.Process.Start(picProps.OutputPath);
-            }
-            catch (Exception ex) {
-                Logger.Warn("无法打开输出目录",
-                    context: Logger.Context(("path", picProps.OutputPath), ("reason", ex.Message)));
-            }
-        }
-
-        private void btnAddOrEditConfig_Click(object sender, EventArgs e) {
-            Config.SaveToml(this, cmbConfigName.Text);
-            RefreshConfig();
-        }
-
-        private void btnOpenConfigFolder_Click(object sender, EventArgs e) {
-            System.Diagnostics.Process.Start("C:\\Users\\Public\\Documents\\auto_nai3_2\\");
-        }
-
-        private void btnDeleteConfig_Click(object sender, EventArgs e) {
-            File.Delete("C:\\Users\\Public\\Documents\\auto_nai3_2\\" + cmbConfigName.Text + ".toml");
-            RefreshConfig();
-        }
-
-        private void cmbConfigName_SelectedIndexChanged(object sender, EventArgs e) {
-            Config.ReadToml(this, cmbConfigName.Text);
-            InitTagSnippetDGV();
-            propertyGrid1.Refresh();
-            propertyGridSettings.Refresh();
-        }
-
-        private void RefreshConfig() {
-            string folderPath = "C:\\Users\\Public\\Documents\\auto_nai3_2\\";
-            if (!Directory.Exists(folderPath)) {
-                try {
-                    Directory.CreateDirectory(folderPath);
-                }
-                catch (Exception e) { }
-            }
-
-            string[] txtFiles = Directory.GetFiles(folderPath, "*.toml");
-            cmbConfigName.Items.Clear();
-            for (int idx = 0; idx < txtFiles.Length; idx++) {
-                txtFiles[idx] = txtFiles[idx].Replace(folderPath, "");
-                txtFiles[idx] = txtFiles[idx].Replace(".toml", "");
-                cmbConfigName.Items.Add(txtFiles[idx]);
-            }
-        }
-
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
-            Config.SaveToml(this, "上一次关闭时的自动保存");
-            SystemConfig.SaveToml(this);
-        }
-
-        private void Form1_Load(object sender, EventArgs e) {
-            try {
-                Config.ReadToml(this, "上一次关闭时的自动保存");
-                cmbConfigName.Text = "上一次关闭时的自动保存";
-            }
-            catch (Exception ex) {
-                Logger.Warn("未找到上一次关闭时的自动保存，使用默认配置",
-                    context: Logger.Context(("config", "autoSave"), ("reason", ex.Message)));
-            }
-
-            try {
-                SystemConfig.ReadToml(this);
-            }
-            catch (Exception ex) {
-                Logger.Warn("未找到系统配置文件，使用默认配置",
-                    context: Logger.Context(("config", "system"), ("reason", ex.Message)));
-            }
-
-            InitTagSnippetDGV();
-            propertyGrid1.Refresh();
-            propertyGridSettings.Refresh();
-        }
-
-        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) {
-            if (e.ChangedItem?.PropertyDescriptor?.Name == nameof(picProps.WildcardFolderPath)) {
-                InitTagSnippetDGV();
-            }
-        }
-
-        private void cmbConfigName_MouseClick(object sender, MouseEventArgs e) {
-            RefreshConfig();
-        }
-
-        private void btnClearAllLog_Click(object sender, EventArgs e) {
-            txtLog.Text = "";
-        }
-
-        #region vibe
-
-        string vibeCurrentPicPath = null;
-
-        private void picVibeView_Click(object sender, EventArgs e) {
-            var t_path = Vibe.SelectAndMappingPicToPictureBox(this);
-            if (t_path != null)
-                vibeCurrentPicPath = t_path;
-        }
-
-        private void btnVibeAdd_Click(object sender, EventArgs e) {
-            if (vibeCurrentPicPath != null) {
-                dgvVibe.Rows.Add(vibeCurrentPicPath, nudVibeIE.Value, numVibeRS.Value);
-                if (picVibeView.Image != null) {
-                    picVibeView.Image.Dispose();
-                    picVibeView.Image = null; // 确保引用被清空
-                }
-
-                vibeCurrentPicPath = null;
-            }
-            else {
-                Logger.Warn("未选择可添加的参考图",
-                    context: Logger.Context(("action", "VibeAdd")));
-            }
-        }
-
-        private void btnVibeDelete_Click(object sender, EventArgs e) {
-            if (dgvVibe.CurrentRow != null) {
-                int rowIndex = dgvVibe.CurrentRow.Index;
-                dgvVibe.Rows.RemoveAt(rowIndex);
-            }
-            else {
-                Logger.Warn("未选择要删除的参考图",
-                    context: Logger.Context(("action", "VibeDelete")));
-            }
-        }
-
         #endregion
-
-        private void dgvSnippet_SelectionChanged(object sender, EventArgs e) {
-            if (dgvVibe.CurrentRow != null) {
-                DataGridViewRow selectedRow = dgvVibe.CurrentRow;
-                vibeCurrentPicPath = selectedRow.Cells["Column1"].Value.ToString();
-                var imgPath = selectedRow.Cells["Column1"].Value;
-                var ie = selectedRow.Cells["Column2"].Value;
-                nudVibeIE.Value = (decimal)ie;
-                var rs = selectedRow.Cells["Column3"].Value;
-                numVibeRS.Value = (decimal)rs;
-
-                Vibe.SetVibeInterfaceStatus(vibeCurrentPicPath, this);
-                Tools.ShowImage(imgPath.ToString(), picVibeView);
-            }
-        }
-
-        private void btnVibeEdit_Click(object sender, EventArgs e) {
-            if (dgvVibe.CurrentRow != null) {
-                DataGridViewRow selectedRow = dgvVibe.CurrentRow;
-                selectedRow.Cells["Column1"].Value = vibeCurrentPicPath;
-                selectedRow.Cells["Column2"].Value = nudVibeIE.Value;
-                selectedRow.Cells["Column3"].Value = numVibeRS.Value;
-            }
-            else {
-                Logger.Warn("未选择要修改的参考图",
-                    context: Logger.Context(("action", "VibeEdit")));
-            }
-        }
 
         #region 详情页
 
@@ -551,294 +336,6 @@ namespace AutoNai3Tools {
 
         private void btnDocGithub_Click(object sender, EventArgs e) {
             System.Diagnostics.Process.Start("https://docs.qq.com/doc/p/230e7ada2a60d8e347d639edd5521f5e62332fe9");
-        }
-
-        #endregion
-
-        #region wildcard
-
-        private void InitTagSnippetDGV() {
-            try {
-                string folderPath = picProps.WildcardFolderPath;
-                if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath))
-                    throw new DirectoryNotFoundException();
-                string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
-
-                dgvTagSnippet.Rows.Clear();
-                foreach (string file in txtFiles) {
-                    string fileName = Path.GetFileName(file);
-                    string fileContent = File.ReadAllText(file);
-
-                    // 将文件名和内容添加到DataGridView中的新行
-                    dgvTagSnippet.Rows.Add(fileName, fileContent);
-                }
-            }
-            catch (Exception ex) {
-                Logger.Warn("未能加载 wildcard 片段文件",
-                    context: Logger.Context(("folder", picProps.WildcardFolderPath), ("reason", ex.Message)));
-            }
-        }
-
-        private void btnTagSnippetAdd_Click(object sender, EventArgs e) {
-            if (txtTagSnippetName.Text != "") {
-                foreach (DataGridViewRow row in dgvTagSnippet.Rows) {
-                    if (row.Cells[0].Value != null) {
-                        if (row.Cells[0].Value.ToString() == (txtTagSnippetName.Text +=
-                                (txtTagSnippetName.Text.EndsWith(".txt") ? "" : ".txt"))) {
-                            Logger.Warn("片段名已存在，无法添加",
-                                context: Logger.Context(("snippet", txtTagSnippetName.Text)));
-                            return;
-                        }
-                    }
-                }
-
-                if (txtTagSnippetName.Text == "") {
-                    Logger.Warn("片段名不能为空",
-                        context: Logger.Context(("action", "SnippetAdd")));
-                    return;
-                }
-
-                string fileName = txtTagSnippetName.Text;
-                if (!fileName.EndsWith(".txt"))
-                    fileName = fileName + ".txt";
-                string fileContent = txtTagSnippetValue.Text;
-                string folderPath = picProps.WildcardFolderPath;
-                string filePath = Path.Combine(folderPath, fileName);
-                Tools.IsExist(folderPath, true);
-                File.WriteAllText(filePath, fileContent);
-                dgvTagSnippet.Rows.Add(txtTagSnippetName.Text, txtTagSnippetValue.Text);
-
-                Logger.Info("片段已新增",
-                    context: Logger.Context(("snippet", fileName), ("folder", folderPath)));
-            }
-            else {
-                Logger.Warn("片段名不能为空",
-                    context: Logger.Context(("action", "SnippetAdd")));
-            }
-        }
-
-        private void btnTagSnippetEdit_Click(object sender, EventArgs e) {
-            if (dgvTagSnippet.CurrentRow.Index == 0) {
-                Logger.Warn("未选择要编辑的片段",
-                    context: Logger.Context(("action", "SnippetEdit")));
-                return;
-            }
-
-            foreach (DataGridViewRow row in dgvTagSnippet.Rows) {
-                if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == txtTagSnippetName.Text) {
-                    string fileContent = txtTagSnippetValue.Text;
-                    string fileName = dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[0].Value.ToString();
-                    string folderPath = picProps.WildcardFolderPath;
-                    string filePath = Path.Combine(folderPath, fileName);
-                    File.WriteAllText(filePath, fileContent);
-                    dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[1].Value = fileContent;
-                    Logger.Info("片段已更新",
-                        context: Logger.Context(("snippet", fileName)));
-                    return;
-                }
-            }
-
-            Logger.Warn("片段名不存在",
-                context: Logger.Context(("snippet", txtTagSnippetName.Text)));
-        }
-
-        private void btnTagSnippetDelete_Click(object sender, EventArgs e) {
-            if (dgvTagSnippet.CurrentRow != null) {
-                int rowIndex = dgvTagSnippet.CurrentRow.Index;
-                string fileName = dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[0].Value.ToString();
-                string folderPath = picProps.WildcardFolderPath;
-                string filePath = Path.Combine(folderPath, fileName);
-                File.Delete(filePath);
-                dgvTagSnippet.Rows.RemoveAt(rowIndex);
-            }
-            else {
-                Logger.Warn("未选择要删除的片段",
-                    context: Logger.Context(("action", "SnippetDelete")));
-            }
-        }
-
-        private void dgvTagSnippet_CellClick(object sender, DataGridViewCellEventArgs e) {
-            if (e.RowIndex >= 0) {
-                DataGridViewRow selectedRow = dgvTagSnippet.Rows[e.RowIndex];
-                txtTagSnippetName.Text = selectedRow.Cells[0].Value.ToString();
-                txtTagSnippetValue.Text = selectedRow.Cells[1].Value.ToString();
-                string cellPrompt = "<" + selectedRow.Cells[0].Value.ToString().Replace(".txt", "") + ">";
-                Tools.InsertTextToTextBox(txtPrompt, cellPrompt);
-            }
-        }
-
-        #endregion
-
-        #region
-
-        string directorToolsRemoveBGInputPath = null;
-
-        private DirectorToolExecutionOptions CaptureDirectorToolOptions() {
-            return new DirectorToolExecutionOptions {
-                Iterations = (int)nudLineArtParseNum.Value,
-                ColorizePrompt = txtColorizePrompt.Text,
-                ColorizeDefry = cmbColorizeDerfy.SelectedIndex,
-                Emotion = cmbEmotionEmotion.Text,
-                EmotionPrompt = txtEmotionPrompt.Text,
-                EmotionDefry = cmbEmotionDefry.SelectedIndex,
-                Token = settingProps.Token,
-                Proxy = settingProps.Proxy
-            };
-        }
-
-        private void picDirectorToolsRemoveBGInput_Click(object sender, EventArgs e) {
-            var path = Vibe.SelectAndMappingPicToPictureBox(this);
-            if (path != null)
-                directorToolsRemoveBGInputPath = path;
-        }
-
-        private async Task ParseLineArtSignAsync(int type) {
-            if (directorToolsRemoveBGInputPath == null) {
-                MessageBox.Show("请先选择图片");
-                return;
-            }
-
-            var options = CaptureDirectorToolOptions();
-            await RunDirectorToolForImageAsync(directorToolsRemoveBGInputPath, type, options);
-        }
-
-        private async Task ParseLineArtFolderAsync(int type) {
-            string folderPath = txtLineArtInputFolder.Text;
-            if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath)) {
-                MessageBox.Show("请选择有效的输入文件夹");
-                return;
-            }
-
-            string[] validExtensions = { ".xbm", "tif", "ico", ".jpg", ".jpeg", ".png", ".gif", ".webp" };
-            var files = Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories)
-                .Where(file => validExtensions.Contains(Path.GetExtension(file).ToLower())).ToList();
-
-            if (files.Count == 0) {
-                MessageBox.Show("所选文件夹中未找到可用图片");
-                return;
-            }
-
-            var options = CaptureDirectorToolOptions();
-
-            foreach (string filePath in files) {
-                directorToolsRemoveBGInputPath = filePath;
-                var preview = await directorToolProcessor.LoadPreviewAsync(filePath);
-                if (preview != null) {
-                    ReplacePictureBoxImage(picDirectorToolsInput, preview);
-                }
-
-                await RunDirectorToolForImageAsync(filePath, type, options);
-            }
-        }
-
-        private async Task RunDirectorToolForImageAsync(string imagePath, int type, DirectorToolExecutionOptions options) {
-            if (string.IsNullOrEmpty(imagePath) || options == null)
-                return;
-
-            if (options.Iterations <= 0)
-                return;
-
-            for (int i = 0; i < options.Iterations; i++) {
-                Bitmap img = await directorToolProcessor.ExecuteAsync(imagePath, type, options, picProps);
-                if (img != null) {
-                    ReplacePictureBoxImage(picDirectorToolsOutput, img);
-                }
-            }
-        }
-
-        private void ReplacePictureBoxImage(PictureBox pictureBox, Image newImage) {
-            if (pictureBox.Image != null) {
-                pictureBox.Image.Dispose();
-                pictureBox.Image = null;
-            }
-
-            if (newImage != null)
-                pictureBox.Image = newImage;
-        }
-
-        private async void btnDirectorToolsRemoveBGRun_Click(object sender, EventArgs e) {
-            btnDirectorToolsRemoveBGRun.Text = "运行中";
-            btnDirectorToolsRemoveBGRun.Enabled = false;
-            try {
-                switch (tabDirectorTools.SelectedIndex) {
-                    case 0:
-                        await ParseLineArtSignAsync(0);
-                        break;
-                    case 1:
-                        if (rdoLineArtParseSignPic.Checked)
-                            await ParseLineArtSignAsync(1);
-                        else if (rdoLineArtParseFolderPic.Checked)
-                            await ParseLineArtFolderAsync(1);
-
-                        break;
-                    case 2:
-                        if (rdoLineArtParseSignPic.Checked)
-                            await ParseLineArtSignAsync(2);
-                        else if (rdoLineArtParseFolderPic.Checked)
-                            await ParseLineArtFolderAsync(2);
-
-                        break;
-                    case 3:
-                        if (rdoLineArtParseSignPic.Checked)
-                            await ParseLineArtSignAsync(3);
-                        else if (rdoLineArtParseFolderPic.Checked)
-                            await ParseLineArtFolderAsync(3);
-
-                        break;
-                    case 4:
-                        if (rdoLineArtParseSignPic.Checked)
-                            await ParseLineArtSignAsync(4);
-                        else if (rdoLineArtParseFolderPic.Checked)
-                            await ParseLineArtFolderAsync(4);
-
-                        break;
-                    case 5:
-                        if (rdoLineArtParseSignPic.Checked)
-                            await ParseLineArtSignAsync(5);
-                        else if (rdoLineArtParseFolderPic.Checked)
-                            await ParseLineArtFolderAsync(5);
-
-                        break;
-                }
-            }
-            catch (Exception ex) {
-                Logger.Error("导演工具运行失败", exception: ex,
-                    context: Logger.Context(("tabIndex", tabDirectorTools.SelectedIndex)));
-                MessageBox.Show("导演工具运行失败，详情请查看日志。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally {
-                btnDirectorToolsRemoveBGRun.Text = "运行";
-                btnDirectorToolsRemoveBGRun.Enabled = true;
-            }
-        }
-
-        private void picDirectorToolsRemoveBGOutput_Click(object sender, EventArgs e) {
-            System.Diagnostics.Process.Start(picProps.OutputPath);
-        }
-
-        private void btnSelectLineArtInputFolderPath_Click(object sender, EventArgs e) {
-            string folderPath = Tools.SelectFolder();
-            if (folderPath != null) {
-                txtLineArtInputFolder.Text = folderPath;
-            }
-        }
-
-        #endregion
-
-        #region img2img
-
-        string img2ImgCurrentPath;
-
-        private void picImg2ImgView_Click(object sender, EventArgs e) {
-            var t_path = Vibe.SelectAndMappingPicToPictureBox(this);
-            if (t_path != null)
-                img2ImgCurrentPath = t_path;
-        }
-
-        private void btnImg2ImgDel_Click(object sender, EventArgs e) {
-            img2ImgCurrentPath = null;
-            picImg2ImgView.Image.Dispose();
-            picImg2ImgView.Image = null;
         }
 
         #endregion
