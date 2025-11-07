@@ -96,25 +96,7 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.chkClosePicPreview = new System.Windows.Forms.CheckBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.nudSleepTimeShortHigh = new System.Windows.Forms.NumericUpDown();
-            this.nudSleepTimeLongHigh = new System.Windows.Forms.NumericUpDown();
-            this.nudSleepTimeShortLow = new System.Windows.Forms.NumericUpDown();
-            this.nudSleepTimeLongLow = new System.Windows.Forms.NumericUpDown();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.chkKeepResolution = new System.Windows.Forms.CheckBox();
-            this.chkKeepRandomPrompt = new System.Windows.Forms.CheckBox();
-            this.chkKeepWildcard = new System.Windows.Forms.CheckBox();
-            this.chkKeepRandomArtist = new System.Windows.Forms.CheckBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtProxy = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtToken = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.propertyGridSettings = new System.Windows.Forms.PropertyGrid();
             this.tabPage14 = new System.Windows.Forms.TabPage();
             this.picImg2ImgView = new System.Windows.Forms.PictureBox();
             this.panel15 = new System.Windows.Forms.Panel();
@@ -144,17 +126,6 @@
             this.tabPage18 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btnGenerate = new System.Windows.Forms.Button();
-            this.chkSavePromptToTxt = new System.Windows.Forms.CheckBox();
-            this.btnRandomFilePath = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtRandomPromptFolderPath = new System.Windows.Forms.TextBox();
-            this.txtOutputPath = new System.Windows.Forms.TextBox();
-            this.lblRandomPromp = new System.Windows.Forms.Label();
-            this.chkSavePromptToTxtNoArtist = new System.Windows.Forms.CheckBox();
-            this.btnWildcardFolderPath = new System.Windows.Forms.Button();
-            this.btnSetOutputFolder = new System.Windows.Forms.Button();
-            this.txtWildcardFolderPath = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cmbConfigName = new System.Windows.Forms.ComboBox();
             this.btnAddOrEditConfig = new System.Windows.Forms.Button();
@@ -243,11 +214,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudVibeIE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVibe)).BeginInit();
             this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortLow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongLow)).BeginInit();
-            this.groupBox7.SuspendLayout();
             this.tabPage14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).BeginInit();
             this.panel15.SuspendLayout();
@@ -311,7 +277,7 @@
             this.panel16.Location = new System.Drawing.Point(2275, 2);
             this.panel16.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel16.Name = "panel16";
-            this.panel16.Padding = new System.Windows.Forms.Padding(9, 9, 9, 9);
+            this.panel16.Padding = new System.Windows.Forms.Padding(9);
             this.panel16.Size = new System.Drawing.Size(112, 58);
             this.panel16.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             this.panel16.TabIndex = 7;
@@ -405,7 +371,7 @@
             this.panel8.Controls.Add(this.panel1);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel8.Location = new System.Drawing.Point(6, 5);
-            this.panel8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel8.Margin = new System.Windows.Forms.Padding(4);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(1771, 1383);
             this.panel8.TabIndex = 18;
@@ -589,6 +555,7 @@
             this.propertyGrid1.Size = new System.Drawing.Size(576, 865);
             this.propertyGrid1.TabIndex = 17;
             this.propertyGrid1.ToolbarVisible = false;
+            this.propertyGrid1.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propertyGrid1_PropertyValueChanged);
             // 
             // tabPage3
             // 
@@ -598,7 +565,7 @@
             this.tabPage3.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage3.Size = new System.Drawing.Size(588, 862);
+            this.tabPage3.Size = new System.Drawing.Size(588, 875);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "画师";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -612,7 +579,7 @@
             this.grpArtistRandom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.grpArtistRandom.Name = "grpArtistRandom";
             this.grpArtistRandom.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.grpArtistRandom.Size = new System.Drawing.Size(576, 512);
+            this.grpArtistRandom.Size = new System.Drawing.Size(576, 525);
             this.grpArtistRandom.TabIndex = 3;
             this.grpArtistRandom.TabStop = false;
             this.grpArtistRandom.Text = "随机画师";
@@ -624,7 +591,7 @@
             this.txtArtistRandom.Location = new System.Drawing.Point(6, 173);
             this.txtArtistRandom.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.txtArtistRandom.Name = "txtArtistRandom";
-            this.txtArtistRandom.Size = new System.Drawing.Size(564, 334);
+            this.txtArtistRandom.Size = new System.Drawing.Size(564, 347);
             this.txtArtistRandom.TabIndex = 5;
             this.txtArtistRandom.Text = "画师A\n画师B,1,2,1,2\n画师C,0,0,1,2\n画师D,0,0,1,2|画师E,1,2,0,0";
             // 
@@ -803,7 +770,7 @@
             this.tabPage8.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage8.Size = new System.Drawing.Size(588, 862);
+            this.tabPage8.Size = new System.Drawing.Size(588, 875);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "wildcard";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -824,7 +791,7 @@
             this.dgvTagSnippet.RowHeadersVisible = false;
             this.dgvTagSnippet.RowHeadersWidth = 51;
             this.dgvTagSnippet.RowTemplate.Height = 23;
-            this.dgvTagSnippet.Size = new System.Drawing.Size(576, 593);
+            this.dgvTagSnippet.Size = new System.Drawing.Size(576, 606);
             this.dgvTagSnippet.TabIndex = 1;
             this.dgvTagSnippet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTagSnippet_CellClick);
             // 
@@ -850,7 +817,7 @@
             this.panel10.Controls.Add(this.txtTagSnippetValue);
             this.panel10.Controls.Add(this.panel11);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel10.Location = new System.Drawing.Point(6, 598);
+            this.panel10.Location = new System.Drawing.Point(6, 611);
             this.panel10.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(576, 259);
@@ -938,7 +905,7 @@
             this.tabPage7.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage7.Size = new System.Drawing.Size(588, 862);
+            this.tabPage7.Size = new System.Drawing.Size(588, 875);
             this.tabPage7.TabIndex = 3;
             this.tabPage7.Text = "Vibe";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -952,7 +919,7 @@
             this.groupBox9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox9.Size = new System.Drawing.Size(576, 852);
+            this.groupBox9.Size = new System.Drawing.Size(576, 865);
             this.groupBox9.TabIndex = 0;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Vibe";
@@ -969,7 +936,7 @@
             this.panel9.Controls.Add(this.cmbVibeIE);
             this.panel9.Controls.Add(this.nudVibeIE);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel9.Location = new System.Drawing.Point(6, 511);
+            this.panel9.Location = new System.Drawing.Point(6, 524);
             this.panel9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(564, 336);
@@ -1125,7 +1092,7 @@
             this.dgvVibe.RowHeadersVisible = false;
             this.dgvVibe.RowHeadersWidth = 51;
             this.dgvVibe.RowTemplate.Height = 23;
-            this.dgvVibe.Size = new System.Drawing.Size(564, 814);
+            this.dgvVibe.Size = new System.Drawing.Size(564, 827);
             this.dgvVibe.TabIndex = 0;
             this.dgvVibe.SelectionChanged += new System.EventHandler(this.dgvSnippet_SelectionChanged);
             // 
@@ -1156,265 +1123,27 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.chkClosePicPreview);
-            this.tabPage5.Controls.Add(this.label37);
-            this.tabPage5.Controls.Add(this.label36);
-            this.tabPage5.Controls.Add(this.nudSleepTimeShortHigh);
-            this.tabPage5.Controls.Add(this.nudSleepTimeLongHigh);
-            this.tabPage5.Controls.Add(this.nudSleepTimeShortLow);
-            this.tabPage5.Controls.Add(this.nudSleepTimeLongLow);
-            this.tabPage5.Controls.Add(this.label35);
-            this.tabPage5.Controls.Add(this.label34);
-            this.tabPage5.Controls.Add(this.groupBox7);
-            this.tabPage5.Controls.Add(this.label18);
-            this.tabPage5.Controls.Add(this.txtProxy);
-            this.tabPage5.Controls.Add(this.label17);
-            this.tabPage5.Controls.Add(this.txtToken);
-            this.tabPage5.Controls.Add(this.label4);
+            this.tabPage5.Controls.Add(this.propertyGridSettings);
             this.tabPage5.Location = new System.Drawing.Point(4, 37);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage5.Size = new System.Drawing.Size(588, 862);
+            this.tabPage5.Size = new System.Drawing.Size(588, 875);
             this.tabPage5.TabIndex = 2;
             this.tabPage5.Text = "设置";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // chkClosePicPreview
+            // propertyGridSettings
             // 
-            this.chkClosePicPreview.AutoSize = true;
-            this.chkClosePicPreview.Location = new System.Drawing.Point(31, 427);
-            this.chkClosePicPreview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.chkClosePicPreview.Name = "chkClosePicPreview";
-            this.chkClosePicPreview.Size = new System.Drawing.Size(164, 32);
-            this.chkClosePicPreview.TabIndex = 68;
-            this.chkClosePicPreview.Text = "关闭图片预览";
-            this.chkClosePicPreview.UseVisualStyleBackColor = true;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(416, 322);
-            this.label37.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(28, 28);
-            this.label37.TabIndex = 67;
-            this.label37.Text = "~";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(416, 373);
-            this.label36.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(28, 28);
-            this.label36.TabIndex = 66;
-            this.label36.Text = "~";
-            // 
-            // nudSleepTimeShortHigh
-            // 
-            this.nudSleepTimeShortHigh.Location = new System.Drawing.Point(458, 318);
-            this.nudSleepTimeShortHigh.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.nudSleepTimeShortHigh.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudSleepTimeShortHigh.Name = "nudSleepTimeShortHigh";
-            this.nudSleepTimeShortHigh.Size = new System.Drawing.Size(130, 35);
-            this.nudSleepTimeShortHigh.TabIndex = 65;
-            this.nudSleepTimeShortHigh.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            // 
-            // nudSleepTimeLongHigh
-            // 
-            this.nudSleepTimeLongHigh.Location = new System.Drawing.Point(458, 369);
-            this.nudSleepTimeLongHigh.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.nudSleepTimeLongHigh.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudSleepTimeLongHigh.Name = "nudSleepTimeLongHigh";
-            this.nudSleepTimeLongHigh.Size = new System.Drawing.Size(130, 35);
-            this.nudSleepTimeLongHigh.TabIndex = 64;
-            this.nudSleepTimeLongHigh.Value = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            // 
-            // nudSleepTimeShortLow
-            // 
-            this.nudSleepTimeShortLow.Location = new System.Drawing.Point(275, 318);
-            this.nudSleepTimeShortLow.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.nudSleepTimeShortLow.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudSleepTimeShortLow.Name = "nudSleepTimeShortLow";
-            this.nudSleepTimeShortLow.Size = new System.Drawing.Size(130, 35);
-            this.nudSleepTimeShortLow.TabIndex = 63;
-            this.nudSleepTimeShortLow.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // nudSleepTimeLongLow
-            // 
-            this.nudSleepTimeLongLow.Location = new System.Drawing.Point(275, 369);
-            this.nudSleepTimeLongLow.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.nudSleepTimeLongLow.Maximum = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.nudSleepTimeLongLow.Name = "nudSleepTimeLongLow";
-            this.nudSleepTimeLongLow.Size = new System.Drawing.Size(130, 35);
-            this.nudSleepTimeLongLow.TabIndex = 62;
-            this.nudSleepTimeLongLow.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(26, 322);
-            this.label35.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(180, 28);
-            this.label35.TabIndex = 61;
-            this.label35.Text = "短休（每次）秒：";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(26, 373);
-            this.label34.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(204, 28);
-            this.label34.TabIndex = 60;
-            this.label34.Text = "长休（每10次）秒：";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.chkKeepResolution);
-            this.groupBox7.Controls.Add(this.chkKeepRandomPrompt);
-            this.groupBox7.Controls.Add(this.chkKeepWildcard);
-            this.groupBox7.Controls.Add(this.chkKeepRandomArtist);
-            this.groupBox7.Location = new System.Drawing.Point(11, 163);
-            this.groupBox7.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox7.Size = new System.Drawing.Size(574, 145);
-            this.groupBox7.TabIndex = 59;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "参数不变";
-            // 
-            // chkKeepResolution
-            // 
-            this.chkKeepResolution.AutoSize = true;
-            this.chkKeepResolution.Checked = true;
-            this.chkKeepResolution.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkKeepResolution.Location = new System.Drawing.Point(264, 86);
-            this.chkKeepResolution.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkKeepResolution.Name = "chkKeepResolution";
-            this.chkKeepResolution.Size = new System.Drawing.Size(164, 32);
-            this.chkKeepResolution.TabIndex = 4;
-            this.chkKeepResolution.Text = "生图尺寸不变";
-            this.chkKeepResolution.UseVisualStyleBackColor = true;
-            // 
-            // chkKeepRandomPrompt
-            // 
-            this.chkKeepRandomPrompt.AutoSize = true;
-            this.chkKeepRandomPrompt.Checked = true;
-            this.chkKeepRandomPrompt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkKeepRandomPrompt.Location = new System.Drawing.Point(20, 86);
-            this.chkKeepRandomPrompt.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkKeepRandomPrompt.Name = "chkKeepRandomPrompt";
-            this.chkKeepRandomPrompt.Size = new System.Drawing.Size(185, 32);
-            this.chkKeepRandomPrompt.TabIndex = 3;
-            this.chkKeepRandomPrompt.Text = "随机提示词不变";
-            this.chkKeepRandomPrompt.UseVisualStyleBackColor = true;
-            // 
-            // chkKeepWildcard
-            // 
-            this.chkKeepWildcard.AutoSize = true;
-            this.chkKeepWildcard.Checked = true;
-            this.chkKeepWildcard.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkKeepWildcard.Location = new System.Drawing.Point(264, 38);
-            this.chkKeepWildcard.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkKeepWildcard.Name = "chkKeepWildcard";
-            this.chkKeepWildcard.Size = new System.Drawing.Size(166, 32);
-            this.chkKeepWildcard.TabIndex = 2;
-            this.chkKeepWildcard.Text = "wildcard不变";
-            this.chkKeepWildcard.UseVisualStyleBackColor = true;
-            // 
-            // chkKeepRandomArtist
-            // 
-            this.chkKeepRandomArtist.AutoSize = true;
-            this.chkKeepRandomArtist.Checked = true;
-            this.chkKeepRandomArtist.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkKeepRandomArtist.Location = new System.Drawing.Point(20, 38);
-            this.chkKeepRandomArtist.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkKeepRandomArtist.Name = "chkKeepRandomArtist";
-            this.chkKeepRandomArtist.Size = new System.Drawing.Size(164, 32);
-            this.chkKeepRandomArtist.TabIndex = 1;
-            this.chkKeepRandomArtist.Text = "随机画师不变";
-            this.chkKeepRandomArtist.UseVisualStyleBackColor = true;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(170, 128);
-            this.label18.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(271, 28);
-            this.label18.TabIndex = 2;
-            this.label18.Text = "例如http://127.0.0.1:10809";
-            // 
-            // txtProxy
-            // 
-            this.txtProxy.Location = new System.Drawing.Point(121, 82);
-            this.txtProxy.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.txtProxy.Name = "txtProxy";
-            this.txtProxy.Size = new System.Drawing.Size(448, 35);
-            this.txtProxy.TabIndex = 1;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(26, 88);
-            this.label17.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(75, 28);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "代理：";
-            // 
-            // txtToken
-            // 
-            this.txtToken.Location = new System.Drawing.Point(121, 19);
-            this.txtToken.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.txtToken.Name = "txtToken";
-            this.txtToken.Size = new System.Drawing.Size(448, 35);
-            this.txtToken.TabIndex = 57;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 24);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(94, 28);
-            this.label4.TabIndex = 58;
-            this.label4.Text = "Token：";
+            this.propertyGridSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGridSettings.HelpVisible = false;
+            this.propertyGridSettings.Location = new System.Drawing.Point(6, 5);
+            this.propertyGridSettings.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.propertyGridSettings.Name = "propertyGridSettings";
+            this.propertyGridSettings.PropertySort = System.Windows.Forms.PropertySort.Categorized;
+            this.propertyGridSettings.Size = new System.Drawing.Size(576, 865);
+            this.propertyGridSettings.TabIndex = 0;
+            this.propertyGridSettings.ToolbarVisible = false;
             // 
             // tabPage14
             // 
@@ -1424,7 +1153,7 @@
             this.tabPage14.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage14.Size = new System.Drawing.Size(588, 862);
+            this.tabPage14.Size = new System.Drawing.Size(588, 875);
             this.tabPage14.TabIndex = 5;
             this.tabPage14.Text = "图生图";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -1436,7 +1165,7 @@
             this.picImg2ImgView.Location = new System.Drawing.Point(6, 5);
             this.picImg2ImgView.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.picImg2ImgView.Name = "picImg2ImgView";
-            this.picImg2ImgView.Size = new System.Drawing.Size(576, 792);
+            this.picImg2ImgView.Size = new System.Drawing.Size(576, 805);
             this.picImg2ImgView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picImg2ImgView.TabIndex = 1;
             this.picImg2ImgView.TabStop = false;
@@ -1450,7 +1179,7 @@
             this.panel15.Controls.Add(this.label33);
             this.panel15.Controls.Add(this.label32);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel15.Location = new System.Drawing.Point(6, 797);
+            this.panel15.Location = new System.Drawing.Point(6, 810);
             this.panel15.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(576, 60);
@@ -1555,10 +1284,10 @@
             this.tabPage15.Controls.Add(this.button2);
             this.tabPage15.Controls.Add(this.button1);
             this.tabPage15.Location = new System.Drawing.Point(4, 37);
-            this.tabPage15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage15.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage15.Size = new System.Drawing.Size(588, 862);
+            this.tabPage15.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage15.Size = new System.Drawing.Size(588, 875);
             this.tabPage15.TabIndex = 6;
             this.tabPage15.Text = "tabPage15";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -1566,7 +1295,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(90, 320);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(418, 160);
@@ -1575,7 +1304,7 @@
             // button13
             // 
             this.button13.Location = new System.Drawing.Point(409, 262);
-            this.button13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button13.Margin = new System.Windows.Forms.Padding(4);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(101, 52);
             this.button13.TabIndex = 15;
@@ -1584,7 +1313,7 @@
             // button14
             // 
             this.button14.Location = new System.Drawing.Point(302, 262);
-            this.button14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button14.Margin = new System.Windows.Forms.Padding(4);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(101, 52);
             this.button14.TabIndex = 14;
@@ -1593,7 +1322,7 @@
             // button15
             // 
             this.button15.Location = new System.Drawing.Point(196, 262);
-            this.button15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button15.Margin = new System.Windows.Forms.Padding(4);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(101, 52);
             this.button15.TabIndex = 13;
@@ -1602,7 +1331,7 @@
             // button16
             // 
             this.button16.Location = new System.Drawing.Point(90, 262);
-            this.button16.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button16.Margin = new System.Windows.Forms.Padding(4);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(101, 52);
             this.button16.TabIndex = 12;
@@ -1611,7 +1340,7 @@
             // button9
             // 
             this.button9.Location = new System.Drawing.Point(409, 205);
-            this.button9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(101, 52);
             this.button9.TabIndex = 11;
@@ -1620,7 +1349,7 @@
             // button10
             // 
             this.button10.Location = new System.Drawing.Point(302, 205);
-            this.button10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button10.Margin = new System.Windows.Forms.Padding(4);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(101, 52);
             this.button10.TabIndex = 10;
@@ -1629,7 +1358,7 @@
             // button11
             // 
             this.button11.Location = new System.Drawing.Point(196, 205);
-            this.button11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button11.Margin = new System.Windows.Forms.Padding(4);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(101, 52);
             this.button11.TabIndex = 9;
@@ -1638,7 +1367,7 @@
             // button12
             // 
             this.button12.Location = new System.Drawing.Point(90, 205);
-            this.button12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button12.Margin = new System.Windows.Forms.Padding(4);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(101, 52);
             this.button12.TabIndex = 8;
@@ -1647,7 +1376,7 @@
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(409, 147);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(101, 52);
             this.button5.TabIndex = 7;
@@ -1656,7 +1385,7 @@
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(302, 147);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(101, 52);
             this.button6.TabIndex = 6;
@@ -1665,7 +1394,7 @@
             // button7
             // 
             this.button7.Location = new System.Drawing.Point(196, 147);
-            this.button7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(101, 52);
             this.button7.TabIndex = 5;
@@ -1674,7 +1403,7 @@
             // button8
             // 
             this.button8.Location = new System.Drawing.Point(90, 147);
-            this.button8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button8.Margin = new System.Windows.Forms.Padding(4);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(101, 52);
             this.button8.TabIndex = 4;
@@ -1683,7 +1412,7 @@
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(409, 89);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(101, 52);
             this.button4.TabIndex = 3;
@@ -1692,7 +1421,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(302, 89);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(101, 52);
             this.button3.TabIndex = 2;
@@ -1701,7 +1430,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(196, 89);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 52);
             this.button2.TabIndex = 1;
@@ -1710,7 +1439,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(90, 89);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(101, 52);
             this.button1.TabIndex = 0;
@@ -1722,7 +1451,7 @@
             this.tabPage18.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage18.Name = "tabPage18";
             this.tabPage18.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage18.Size = new System.Drawing.Size(588, 862);
+            this.tabPage18.Size = new System.Drawing.Size(588, 875);
             this.tabPage18.TabIndex = 7;
             this.tabPage18.Text = "tabPage18";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -1730,22 +1459,11 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.btnGenerate);
-            this.groupBox5.Controls.Add(this.chkSavePromptToTxt);
-            this.groupBox5.Controls.Add(this.btnRandomFilePath);
-            this.groupBox5.Controls.Add(this.label3);
-            this.groupBox5.Controls.Add(this.txtRandomPromptFolderPath);
-            this.groupBox5.Controls.Add(this.txtOutputPath);
-            this.groupBox5.Controls.Add(this.lblRandomPromp);
-            this.groupBox5.Controls.Add(this.chkSavePromptToTxtNoArtist);
-            this.groupBox5.Controls.Add(this.btnWildcardFolderPath);
-            this.groupBox5.Controls.Add(this.btnSetOutputFolder);
-            this.groupBox5.Controls.Add(this.txtWildcardFolderPath);
-            this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox5.Location = new System.Drawing.Point(0, 1007);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox5.Size = new System.Drawing.Size(596, 376);
             this.groupBox5.TabIndex = 67;
             this.groupBox5.TabStop = false;
@@ -1753,128 +1471,16 @@
             // 
             // btnGenerate
             // 
-            this.btnGenerate.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnGenerate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnGenerate.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnGenerate.Location = new System.Drawing.Point(4, 241);
+            this.btnGenerate.Location = new System.Drawing.Point(4, 32);
             this.btnGenerate.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(588, 131);
+            this.btnGenerate.Size = new System.Drawing.Size(588, 340);
             this.btnGenerate.TabIndex = 5;
             this.btnGenerate.Text = "生成";
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
-            // 
-            // chkSavePromptToTxt
-            // 
-            this.chkSavePromptToTxt.AutoSize = true;
-            this.chkSavePromptToTxt.Location = new System.Drawing.Point(48, 37);
-            this.chkSavePromptToTxt.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkSavePromptToTxt.Name = "chkSavePromptToTxt";
-            this.chkSavePromptToTxt.Size = new System.Drawing.Size(233, 32);
-            this.chkSavePromptToTxt.TabIndex = 49;
-            this.chkSavePromptToTxt.Text = "保存提示词到同名txt";
-            this.chkSavePromptToTxt.UseVisualStyleBackColor = true;
-            // 
-            // btnRandomFilePath
-            // 
-            this.btnRandomFilePath.Location = new System.Drawing.Point(517, 79);
-            this.btnRandomFilePath.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnRandomFilePath.Name = "btnRandomFilePath";
-            this.btnRandomFilePath.Size = new System.Drawing.Size(73, 40);
-            this.btnRandomFilePath.TabIndex = 66;
-            this.btnRandomFilePath.Text = "...";
-            this.btnRandomFilePath.UseVisualStyleBackColor = true;
-            this.btnRandomFilePath.Click += new System.EventHandler(this.btnRandomPromptFolderPath_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 182);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(117, 28);
-            this.label3.TabIndex = 59;
-            this.label3.Text = "输出路径：";
-            // 
-            // txtRandomPromptFolderPath
-            // 
-            this.txtRandomPromptFolderPath.Location = new System.Drawing.Point(244, 80);
-            this.txtRandomPromptFolderPath.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.txtRandomPromptFolderPath.Name = "txtRandomPromptFolderPath";
-            this.txtRandomPromptFolderPath.Size = new System.Drawing.Size(257, 35);
-            this.txtRandomPromptFolderPath.TabIndex = 64;
-            this.txtRandomPromptFolderPath.Text = ".\\prompt\\prompt_by_风吟";
-            // 
-            // txtOutputPath
-            // 
-            this.txtOutputPath.Location = new System.Drawing.Point(196, 177);
-            this.txtOutputPath.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.txtOutputPath.Name = "txtOutputPath";
-            this.txtOutputPath.Size = new System.Drawing.Size(306, 35);
-            this.txtOutputPath.TabIndex = 60;
-            this.txtOutputPath.Text = ".\\output";
-            // 
-            // lblRandomPromp
-            // 
-            this.lblRandomPromp.AutoSize = true;
-            this.lblRandomPromp.Location = new System.Drawing.Point(29, 86);
-            this.lblRandomPromp.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.lblRandomPromp.Name = "lblRandomPromp";
-            this.lblRandomPromp.Size = new System.Drawing.Size(180, 28);
-            this.lblRandomPromp.TabIndex = 65;
-            this.lblRandomPromp.Text = "随机提示词路径：";
-            // 
-            // chkSavePromptToTxtNoArtist
-            // 
-            this.chkSavePromptToTxtNoArtist.AutoSize = true;
-            this.chkSavePromptToTxtNoArtist.Location = new System.Drawing.Point(339, 37);
-            this.chkSavePromptToTxtNoArtist.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.chkSavePromptToTxtNoArtist.Name = "chkSavePromptToTxtNoArtist";
-            this.chkSavePromptToTxtNoArtist.Size = new System.Drawing.Size(233, 32);
-            this.chkSavePromptToTxtNoArtist.TabIndex = 50;
-            this.chkSavePromptToTxtNoArtist.Text = "同名的txt不保存画师";
-            this.chkSavePromptToTxtNoArtist.UseVisualStyleBackColor = true;
-            // 
-            // btnWildcardFolderPath
-            // 
-            this.btnWildcardFolderPath.Location = new System.Drawing.Point(517, 128);
-            this.btnWildcardFolderPath.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnWildcardFolderPath.Name = "btnWildcardFolderPath";
-            this.btnWildcardFolderPath.Size = new System.Drawing.Size(73, 40);
-            this.btnWildcardFolderPath.TabIndex = 63;
-            this.btnWildcardFolderPath.Text = "...";
-            this.btnWildcardFolderPath.UseVisualStyleBackColor = true;
-            this.btnWildcardFolderPath.Click += new System.EventHandler(this.btnWildcardFolderPath_Click);
-            // 
-            // btnSetOutputFolder
-            // 
-            this.btnSetOutputFolder.Location = new System.Drawing.Point(517, 177);
-            this.btnSetOutputFolder.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.btnSetOutputFolder.Name = "btnSetOutputFolder";
-            this.btnSetOutputFolder.Size = new System.Drawing.Size(73, 40);
-            this.btnSetOutputFolder.TabIndex = 61;
-            this.btnSetOutputFolder.Text = "...";
-            this.btnSetOutputFolder.UseVisualStyleBackColor = true;
-            this.btnSetOutputFolder.Click += new System.EventHandler(this.btnSetOutputFolder_Click);
-            // 
-            // txtWildcardFolderPath
-            // 
-            this.txtWildcardFolderPath.Location = new System.Drawing.Point(196, 130);
-            this.txtWildcardFolderPath.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.txtWildcardFolderPath.Name = "txtWildcardFolderPath";
-            this.txtWildcardFolderPath.Size = new System.Drawing.Size(306, 35);
-            this.txtWildcardFolderPath.TabIndex = 5;
-            this.txtWildcardFolderPath.Text = ".\\wildcard";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(31, 135);
-            this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(149, 28);
-            this.label14.TabIndex = 62;
-            this.label14.Text = "<>文件路径：";
             // 
             // groupBox4
             // 
@@ -1944,7 +1550,7 @@
             this.tabPage9.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage9.Size = new System.Drawing.Size(2379, 1392);
+            this.tabPage9.Size = new System.Drawing.Size(2379, 1393);
             this.tabPage9.TabIndex = 5;
             this.tabPage9.Text = "导演工具";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -1956,7 +1562,7 @@
             this.panel13.Location = new System.Drawing.Point(695, 5);
             this.panel13.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(1678, 1382);
+            this.panel13.Size = new System.Drawing.Size(1678, 1383);
             this.panel13.TabIndex = 73;
             // 
             // picDirectorToolsOutput
@@ -1966,7 +1572,7 @@
             this.picDirectorToolsOutput.Location = new System.Drawing.Point(0, 0);
             this.picDirectorToolsOutput.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.picDirectorToolsOutput.Name = "picDirectorToolsOutput";
-            this.picDirectorToolsOutput.Size = new System.Drawing.Size(1678, 1382);
+            this.picDirectorToolsOutput.Size = new System.Drawing.Size(1678, 1383);
             this.picDirectorToolsOutput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picDirectorToolsOutput.TabIndex = 3;
             this.picDirectorToolsOutput.TabStop = false;
@@ -1982,7 +1588,7 @@
             this.panel12.Location = new System.Drawing.Point(6, 5);
             this.panel12.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(689, 1382);
+            this.panel12.Size = new System.Drawing.Size(689, 1383);
             this.panel12.TabIndex = 72;
             // 
             // picDirectorToolsInput
@@ -1992,7 +1598,7 @@
             this.picDirectorToolsInput.Location = new System.Drawing.Point(0, 0);
             this.picDirectorToolsInput.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.picDirectorToolsInput.Name = "picDirectorToolsInput";
-            this.picDirectorToolsInput.Size = new System.Drawing.Size(689, 805);
+            this.picDirectorToolsInput.Size = new System.Drawing.Size(689, 806);
             this.picDirectorToolsInput.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picDirectorToolsInput.TabIndex = 2;
             this.picDirectorToolsInput.TabStop = false;
@@ -2007,7 +1613,7 @@
             this.panel14.Controls.Add(this.nudLineArtParseNum);
             this.panel14.Controls.Add(this.btnSelectLineArtInputFolderPath);
             this.panel14.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel14.Location = new System.Drawing.Point(0, 805);
+            this.panel14.Location = new System.Drawing.Point(0, 806);
             this.panel14.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(689, 163);
@@ -2094,7 +1700,7 @@
             this.tabDirectorTools.Controls.Add(this.tabPage12);
             this.tabDirectorTools.Controls.Add(this.tabPage13);
             this.tabDirectorTools.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabDirectorTools.Location = new System.Drawing.Point(0, 968);
+            this.tabDirectorTools.Location = new System.Drawing.Point(0, 969);
             this.tabDirectorTools.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabDirectorTools.Name = "tabDirectorTools";
             this.tabDirectorTools.SelectedIndex = 0;
@@ -2365,7 +1971,7 @@
             // btnDirectorToolsRemoveBGRun
             // 
             this.btnDirectorToolsRemoveBGRun.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnDirectorToolsRemoveBGRun.Location = new System.Drawing.Point(0, 1232);
+            this.btnDirectorToolsRemoveBGRun.Location = new System.Drawing.Point(0, 1233);
             this.btnDirectorToolsRemoveBGRun.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnDirectorToolsRemoveBGRun.Name = "btnDirectorToolsRemoveBGRun";
             this.btnDirectorToolsRemoveBGRun.Size = new System.Drawing.Size(689, 150);
@@ -2381,7 +1987,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 37);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(2379, 1392);
+            this.tabPage4.Size = new System.Drawing.Size(2379, 1393);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "日志";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -2406,7 +2012,7 @@
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(2379, 1392);
+            this.txtLog.Size = new System.Drawing.Size(2379, 1393);
             this.txtLog.TabIndex = 0;
             // 
             // tabPage6
@@ -2424,7 +2030,7 @@
             this.tabPage6.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage6.Size = new System.Drawing.Size(2379, 1392);
+            this.tabPage6.Size = new System.Drawing.Size(2379, 1393);
             this.tabPage6.TabIndex = 4;
             this.tabPage6.Text = "关于";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -2590,13 +2196,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudVibeIE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVibe)).EndInit();
             this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortLow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeLongLow)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.tabPage14.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picImg2ImgView)).EndInit();
             this.panel15.ResumeLayout(false);
@@ -2606,7 +2205,6 @@
             this.tabPage15.ResumeLayout(false);
             this.tabPage15.PerformLayout();
             this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.tabPage9.ResumeLayout(false);
             this.panel13.ResumeLayout(false);
@@ -2696,25 +2294,7 @@
         public System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         public System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         public System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.CheckBox chkClosePicPreview;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.Label label36;
-        public System.Windows.Forms.NumericUpDown nudSleepTimeShortHigh;
-        public System.Windows.Forms.NumericUpDown nudSleepTimeLongHigh;
-        public System.Windows.Forms.NumericUpDown nudSleepTimeShortLow;
-        public System.Windows.Forms.NumericUpDown nudSleepTimeLongLow;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label34;
-        public System.Windows.Forms.GroupBox groupBox7;
-        public System.Windows.Forms.CheckBox chkKeepResolution;
-        public System.Windows.Forms.CheckBox chkKeepRandomPrompt;
-        public System.Windows.Forms.CheckBox chkKeepWildcard;
-        public System.Windows.Forms.CheckBox chkKeepRandomArtist;
-        public System.Windows.Forms.Label label18;
-        public System.Windows.Forms.TextBox txtProxy;
-        public System.Windows.Forms.Label label17;
-        public System.Windows.Forms.TextBox txtToken;
-        public System.Windows.Forms.Label label4;
+        private System.Windows.Forms.PropertyGrid propertyGridSettings;
         private System.Windows.Forms.TabPage tabPage14;
         public System.Windows.Forms.PictureBox picImg2ImgView;
         private System.Windows.Forms.Panel panel15;
@@ -2732,17 +2312,6 @@
         public System.Windows.Forms.TextBox txtPrompt;
         public System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.Button btnGenerate;
-        public System.Windows.Forms.Button btnRandomFilePath;
-        public System.Windows.Forms.TextBox txtRandomPromptFolderPath;
-        public System.Windows.Forms.Label lblRandomPromp;
-        public System.Windows.Forms.Button btnWildcardFolderPath;
-        public System.Windows.Forms.TextBox txtWildcardFolderPath;
-        public System.Windows.Forms.Label label14;
-        public System.Windows.Forms.Button btnSetOutputFolder;
-        public System.Windows.Forms.CheckBox chkSavePromptToTxtNoArtist;
-        public System.Windows.Forms.TextBox txtOutputPath;
-        public System.Windows.Forms.Label label3;
-        public System.Windows.Forms.CheckBox chkSavePromptToTxt;
         public System.Windows.Forms.GroupBox groupBox4;
         public System.Windows.Forms.ComboBox cmbConfigName;
         public System.Windows.Forms.Button btnAddOrEditConfig;

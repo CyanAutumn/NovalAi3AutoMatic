@@ -155,7 +155,7 @@ namespace AutoNai3Tools.utils {
                             continue;
                         }
 
-                        var vibeBase64img = NovalAIAPI.GetVibeID(base64img, vibe_list[i].informationExtracted, model_name, form.txtToken.Text);
+                        var vibeBase64img = NovalAIAPI.GetVibeID(base64img, vibe_list[i].informationExtracted, model_name, form.settingProps.Token);
                         File.WriteAllText(vibe_path, vibeBase64img, Encoding.UTF8);
                         Logger.Info($"创建成功");
                     }

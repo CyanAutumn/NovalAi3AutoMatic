@@ -20,6 +20,7 @@ namespace AutoNai3Tools {
     public partial class Form1 : Form {
         public int runNum;
         public PicProperty picProps = new PicProperty();
+        public SettingProperty settingProps = new SettingProperty();
 
         public Form1() {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace AutoNai3Tools {
             tabControl2.TabPages.Remove(tabPage15);
             tabControl2.TabPages.Remove(tabPage18);
             propertyGrid1.SelectedObject = picProps;
+            propertyGridSettings.SelectedObject = settingProps;
         }
 
         #region 固定画师，随机画师，随机提示词快速插入
@@ -44,9 +46,6 @@ namespace AutoNai3Tools {
             grpArtistRandom.MouseHover += EventGRBMouseHover;
             grpArtistRandom.MouseLeave += EventGRBMouseLeave;
             grpArtistRandom.MouseClick += EventGRBMouseClick;
-            lblRandomPromp.MouseHover += EventGRBMouseHover;
-            lblRandomPromp.MouseLeave += EventGRBMouseLeave;
-            lblRandomPromp.MouseClick += EventGRBMouseClick;
         }
 
         private void EventGRBMouseHover(object sender, EventArgs e) {
@@ -60,11 +59,6 @@ namespace AutoNai3Tools {
                 return;
             }
 
-            Label label = sender as Label;
-            if (label == lblRandomPromp) {
-                label.Text = "插入/删除<随机提示词>";
-                return;
-            }
         }
 
         private void EventGRBMouseLeave(object sender, EventArgs e) {
@@ -78,11 +72,6 @@ namespace AutoNai3Tools {
                 return;
             }
 
-            Label label = sender as Label;
-            if (label == lblRandomPromp) {
-                label.Text = "随机提示词路径：";
-                return;
-            }
         }
 
         private void EventGRBMouseClick(object sender, EventArgs e) {
@@ -95,37 +84,17 @@ namespace AutoNai3Tools {
                 insertPrompt = "<随机画师>";
             }
 
-            Label label = sender as Label;
-            if (label == lblRandomPromp) {
-                insertPrompt = "<随机提示词>";
-            }
-
             if (insertPrompt != null)
                 Tools.InsertTextToTextBox(txtPrompt, insertPrompt);
         }
 
         #endregion
 
-        private string GetOutputPath() {
-            string OutPutPath = txtOutputPath.Text;
-            if (!Directory.Exists(OutPutPath)) {
-                Logger.Warn("未找到输出路径" + OutPutPath + "，进行创建");
-                try {
-                    Directory.CreateDirectory(OutPutPath);
-                }
-                catch (Exception e) {
-                    Logger.Error(e.ToString());
-                }
-            }
-
-            return txtOutputPath.Text;
-        }
-
         int resolutionSelectIndex = 0;
 
         private int[] GetResolution(int runNum) {
-            if (runNum == 0 || (runNum % picProps.RunKeepParams == 0 && chkKeepResolution.Checked == true) ||
-                chkKeepResolution.Checked == false) {
+            if (runNum == 0 || (runNum % picProps.RunKeepParams == 0 && settingProps.KeepResolution) ||
+                !settingProps.KeepResolution) {
                 var resolutionList = picProps.ResolutionList.Split(new string[] { "\r\n" }, StringSplitOptions.None);
                 ;
                 if (picProps.ResolutionMode != ResolutionMode.固定) {
@@ -212,7 +181,6 @@ namespace AutoNai3Tools {
             for (int i = 0; i < picProps.RunNum; i++) {
                 try {
                     runNum = i;
-                    string output_path = txtOutputPath.Text;
                     NovalAi novalAi = new NovalAi();
                     try {
                         tempNai3Body = GetNai3Body(i);
@@ -225,8 +193,8 @@ namespace AutoNai3Tools {
                     }
 
                     Logger.Info("开始发送生图请求");
-                    Bitmap img = novalAi.SendGenerateRequests(txtToken.Text, tempNai3Body, prevNoArtistPrompt, this);
-                    if (!chkClosePicPreview.Checked) {
+                    Bitmap img = novalAi.SendGenerateRequests(settingProps.Token, tempNai3Body, prevNoArtistPrompt, this);
+                    if (!settingProps.ClosePicPreview) {
                         picView.Image = img;
                     }
 
@@ -244,25 +212,27 @@ namespace AutoNai3Tools {
                         timer.Dispose();
                     }
                     else if (i % 10 == 0 && i != 0) {
-                        if (nudSleepTimeLongHigh.Value < nudSleepTimeLongLow.Value) {
+                        int longLow = settingProps.SleepTimeLongLow;
+                        int longHigh = Math.Max(settingProps.SleepTimeLongHigh, longLow);
+                        if (settingProps.SleepTimeLongHigh < settingProps.SleepTimeLongLow) {
                             Logger.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
-                            nudSleepTimeLongHigh.Value = nudSleepTimeLongLow.Value;
                         }
 
-                        int delay = random.Next(((int)nudSleepTimeLongLow.Value) * 1000,
-                            ((int)nudSleepTimeLongHigh.Value) * 1000);
+                        int delay = random.Next(longLow * 1000,
+                            longHigh * 1000);
                         Logger.Info("图片信息：" + tempNai3Body.prompt + "\r\n已运行" + (i + 1).ToString() + "次，开始长休" + delay +
                                     "毫秒");
                         Thread.Sleep(delay);
                     }
                     else {
-                        if (nudSleepTimeShortHigh.Value < nudSleepTimeShortLow.Value) {
+                        int shortLow = settingProps.SleepTimeShortLow;
+                        int shortHigh = Math.Max(settingProps.SleepTimeShortHigh, shortLow);
+                        if (settingProps.SleepTimeShortHigh < settingProps.SleepTimeShortLow) {
                             Logger.Info("设置页面中的休息时间左侧不得大于右侧，已自动更改完毕");
-                            nudSleepTimeShortHigh.Value = nudSleepTimeShortLow.Value;
                         }
 
-                        int delay = random.Next(((int)nudSleepTimeShortLow.Value) * 1000,
-                            ((int)nudSleepTimeShortHigh.Value) * 1000);
+                        int delay = random.Next(shortLow * 1000,
+                            shortHigh * 1000);
                         Logger.Info("图片信息：" + tempNai3Body.prompt + "\r\n已运行" + (i + 1).ToString() + "次，开始短休" + delay +
                                     "毫秒");
                         Thread.Sleep(delay);
@@ -302,7 +272,7 @@ namespace AutoNai3Tools {
 
         private void picView_Click(object sender, EventArgs e) {
             try {
-                System.Diagnostics.Process.Start(txtOutputPath.Text);
+                System.Diagnostics.Process.Start(picProps.OutputPath);
             }
             catch {
                 Logger.Warn("无法打开输出文件夹");
@@ -325,7 +295,9 @@ namespace AutoNai3Tools {
 
         private void cmbConfigName_SelectedIndexChanged(object sender, EventArgs e) {
             Config.ReadToml(this, cmbConfigName.Text);
+            InitTagSnippetDGV();
             propertyGrid1.Refresh();
+            propertyGridSettings.Refresh();
         }
 
         private void RefreshConfig() {
@@ -369,6 +341,13 @@ namespace AutoNai3Tools {
 
             InitTagSnippetDGV();
             propertyGrid1.Refresh();
+            propertyGridSettings.Refresh();
+        }
+
+        private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) {
+            if (e.ChangedItem?.PropertyDescriptor?.Name == nameof(picProps.WildcardFolderPath)) {
+                InitTagSnippetDGV();
+            }
         }
 
         private void cmbConfigName_MouseClick(object sender, MouseEventArgs e) {
@@ -377,28 +356,6 @@ namespace AutoNai3Tools {
 
         private void btnClearAllLog_Click(object sender, EventArgs e) {
             txtLog.Text = "";
-        }
-
-        private void btnRandomPromptFolderPath_Click(object sender, EventArgs e) {
-            string folderPath = Tools.SelectFolder();
-            if (folderPath != null) {
-                txtRandomPromptFolderPath.Text = folderPath;
-            }
-        }
-
-        private void btnWildcardFolderPath_Click(object sender, EventArgs e) {
-            string folderPath = Tools.SelectFolder();
-            if (folderPath != null) {
-                txtWildcardFolderPath.Text = folderPath;
-                InitTagSnippetDGV();
-            }
-        }
-
-        private void btnSetOutputFolder_Click(object sender, EventArgs e) {
-            string folderPath = Tools.SelectFolder();
-            if (folderPath != null) {
-                txtOutputPath.Text = folderPath;
-            }
         }
 
         #region vibe
@@ -501,7 +458,9 @@ namespace AutoNai3Tools {
 
         private void InitTagSnippetDGV() {
             try {
-                string folderPath = txtWildcardFolderPath.Text;
+                string folderPath = picProps.WildcardFolderPath;
+                if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath))
+                    throw new DirectoryNotFoundException();
                 string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 
                 dgvTagSnippet.Rows.Clear();
@@ -539,7 +498,7 @@ namespace AutoNai3Tools {
                 if (!fileName.EndsWith(".txt"))
                     fileName = fileName + ".txt";
                 string fileContent = txtTagSnippetValue.Text;
-                string folderPath = txtWildcardFolderPath.Text;
+                string folderPath = picProps.WildcardFolderPath;
                 string filePath = Path.Combine(folderPath, fileName);
                 Tools.IsExist(folderPath, true);
                 File.WriteAllText(filePath, fileContent);
@@ -562,7 +521,7 @@ namespace AutoNai3Tools {
                 if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == txtTagSnippetName.Text) {
                     string fileContent = txtTagSnippetValue.Text;
                     string fileName = dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[0].Value.ToString();
-                    string folderPath = txtWildcardFolderPath.Text;
+                    string folderPath = picProps.WildcardFolderPath;
                     string filePath = Path.Combine(folderPath, fileName);
                     File.WriteAllText(filePath, fileContent);
                     dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[1].Value = fileContent;
@@ -578,7 +537,7 @@ namespace AutoNai3Tools {
             if (dgvTagSnippet.CurrentRow != null) {
                 int rowIndex = dgvTagSnippet.CurrentRow.Index;
                 string fileName = dgvTagSnippet.Rows[dgvTagSnippet.CurrentRow.Index].Cells[0].Value.ToString();
-                string folderPath = txtWildcardFolderPath.Text;
+                string folderPath = picProps.WildcardFolderPath;
                 string filePath = Path.Combine(folderPath, fileName);
                 File.Delete(filePath);
                 dgvTagSnippet.Rows.RemoveAt(rowIndex);
@@ -652,7 +611,7 @@ namespace AutoNai3Tools {
                     if (body == null)
                         return;
                     NovalAi novalAi = new NovalAi();
-                    Bitmap img = novalAi.SendDirectorToolsRequests(txtToken.Text, body, this);
+                    Bitmap img = novalAi.SendDirectorToolsRequests(settingProps.Token, body, this);
                     picDirectorToolsOutput.Image = img;
                 }
             }
@@ -749,7 +708,7 @@ namespace AutoNai3Tools {
         }
 
         private void picDirectorToolsRemoveBGOutput_Click(object sender, EventArgs e) {
-            System.Diagnostics.Process.Start(txtOutputPath.Text);
+            System.Diagnostics.Process.Start(picProps.OutputPath);
         }
 
         private void btnSelectLineArtInputFolderPath_Click(object sender, EventArgs e) {

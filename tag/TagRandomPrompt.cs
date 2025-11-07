@@ -21,7 +21,7 @@ namespace AutoNai3Tools.tag
             this.pickRandom = GetPickType(tag);
             this.index = 0;
             this.form = form;
-            this.length = Tools.GetFileSize(this.form.txtRandomPromptFolderPath.Text);
+            this.length = Tools.GetFileSize(this.form.picProps.RandomPromptFolderPath);
             this.originalTag = originalTag;
         }
 
@@ -37,7 +37,7 @@ namespace AutoNai3Tools.tag
 
         protected override bool KeepText()
         {
-            return form.chkKeepRandomPrompt.Checked && (form.runNum % form.picProps.RunKeepParams) != 0;
+            return form.settingProps.KeepRandomPrompt && (form.runNum % form.picProps.RunKeepParams) != 0;
         }
 
         protected override string ParseResultText()
@@ -48,23 +48,27 @@ namespace AutoNai3Tools.tag
             {
                 Random random = new Random();
                 tIndex = random.Next(length);
-                tPrompt = Tools.GetPromptFromFolderTxt(this.form.txtRandomPromptFolderPath.Text, tIndex);
+                tPrompt = Tools.GetPromptFromFolderTxt(this.form.picProps.RandomPromptFolderPath, tIndex);
             }
             else
             {
-                tPrompt = Tools.GetPromptFromFolderTxt(this.form.txtRandomPromptFolderPath.Text, index);
+                tPrompt = Tools.GetPromptFromFolderTxt(this.form.picProps.RandomPromptFolderPath, index);
                 index = (index + 1) % length;
             }
 
             string[] words1 = tPrompt.Split(',').Select(word => word.Trim()).ToArray();
-            string[] words2 = Prompt.GetPromptBlackList(form);
-            var result = words1.Where(word => !words2.Contains(word));
-            string[] words3 = Prompt.GetPromptBlackList(form, true);
-            var filtered = result.Where(word => !words3.Contains(word)).ToList();
-            var regexList = Prompt.GetPromptBlackListRegex(form);
-            if (regexList.Count > 0) {
-                filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word))).ToList();
+            IEnumerable<string> filtered = words1;
+            if (form.picProps.EnablePromptBlackList) {
+                string[] words2 = Prompt.GetPromptBlackList(form);
+                filtered = filtered.Where(word => !words2.Contains(word));
+                string[] words3 = Prompt.GetPromptBlackList(form, true);
+                filtered = filtered.Where(word => !words3.Contains(word));
+                var regexList = Prompt.GetPromptBlackListRegex(form);
+                if (regexList.Count > 0) {
+                    filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word)));
+                }
             }
+
             string strResult = string.Join(",", filtered).Trim();
             Logger.Info($"<随机提示词> {tIndex}:{strResult}");
             return strResult;

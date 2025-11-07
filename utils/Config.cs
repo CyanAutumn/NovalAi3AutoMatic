@@ -30,14 +30,14 @@ namespace AutoNai3Tools.utils {
             }
 
             SystemConfig obj = new SystemConfig();
-            obj.Token = form.txtToken.Text;
+            obj.Token = form.settingProps.Token;
             obj.PromptBlackList = form.picProps.PromptBlackList;
             obj.PromptBlackListEnabled = form.picProps.EnablePromptBlackList;
             obj.PromptBlackListRegex = form.picProps.PromptBlackListRegex;
-            obj.SleepTimeShortLow = ((int)form.nudSleepTimeShortLow.Value);
-            obj.SleepTimeShortHigh = ((int)form.nudSleepTimeShortHigh.Value);
-            obj.SleepTimeLongLow = ((int)form.nudSleepTimeLongLow.Value);
-            obj.SleepTimeLongHigh = ((int)form.nudSleepTimeLongHigh.Value);
+            obj.SleepTimeShortLow = form.settingProps.SleepTimeShortLow;
+            obj.SleepTimeShortHigh = form.settingProps.SleepTimeShortHigh;
+            obj.SleepTimeLongLow = form.settingProps.SleepTimeLongLow;
+            obj.SleepTimeLongHigh = form.settingProps.SleepTimeLongHigh;
             Toml.WriteFile(obj, Path.Combine(folderPath, "config.toml"));
         }
 
@@ -46,17 +46,16 @@ namespace AutoNai3Tools.utils {
 
             if (File.Exists(configFilePath)) {
                 SystemConfig obj = Toml.ReadFile<SystemConfig>(configFilePath);
-                form.txtToken.Text = obj.Token;
+                form.settingProps.Token = obj.Token;
                 if (!string.IsNullOrEmpty(obj.PromptBlackList))
                     form.picProps.PromptBlackList = obj.PromptBlackList;
                 form.picProps.EnablePromptBlackList = obj.PromptBlackListEnabled ?? true;
                 if (!string.IsNullOrEmpty(obj.PromptBlackListRegex))
                     form.picProps.PromptBlackListRegex = obj.PromptBlackListRegex;
-                form.nudSleepTimeShortLow.Value = obj.SleepTimeShortLow == null ? 5 : ((int)obj.SleepTimeShortLow);
-                form.nudSleepTimeShortHigh.Value = obj.SleepTimeShortHigh == null ? 8 : ((int)obj.SleepTimeShortHigh);
-                form.nudSleepTimeLongLow.Value = obj.SleepTimeLongLow == null ? 20 : ((int)obj.SleepTimeLongLow.Value);
-                form.nudSleepTimeLongHigh.Value =
-                    obj.SleepTimeLongHigh == null ? 25 : ((int)obj.SleepTimeLongHigh.Value);
+                form.settingProps.SleepTimeShortLow = obj.SleepTimeShortLow ?? form.settingProps.SleepTimeShortLow;
+                form.settingProps.SleepTimeShortHigh = obj.SleepTimeShortHigh ?? form.settingProps.SleepTimeShortHigh;
+                form.settingProps.SleepTimeLongLow = obj.SleepTimeLongLow ?? form.settingProps.SleepTimeLongLow;
+                form.settingProps.SleepTimeLongHigh = obj.SleepTimeLongHigh ?? form.settingProps.SleepTimeLongHigh;
             }
         }
     }
@@ -131,13 +130,12 @@ namespace AutoNai3Tools.utils {
             obj.PromptBlackListRegex = form.picProps.PromptBlackListRegex;
             obj.GenerateMaxNum = form.picProps.RunNum;
             obj.KeepParams = ((int)form.picProps.RunKeepParams);
-            obj.SavePromptToTxt = form.chkSavePromptToTxt.Checked;
-            obj.SavePromptToTxtNoArtist = form.chkSavePromptToTxtNoArtist.Checked;
+            obj.SavePromptToTxt = form.picProps.SavePromptToTxt;
+            obj.SavePromptToTxtNoArtist = form.picProps.SavePromptToTxtNoArtist;
             obj.ResolutionMode = form.picProps.ResolutionMode;
-            obj.RandomPromptFolderPath = form.txtRandomPromptFolderPath.Text;
-            obj.WildcardFolderPath = form.txtWildcardFolderPath.Text;
-            obj.OutputPath = form.txtOutputPath.Text;
-            //obj.Token = form.txtToken.Text;
+            obj.RandomPromptFolderPath = form.picProps.RandomPromptFolderPath;
+            obj.WildcardFolderPath = form.picProps.WildcardFolderPath;
+            obj.OutputPath = form.picProps.OutputPath;
             obj.SamplerIndex = (int)form.picProps.Sampler;
             obj.Steps = form.picProps.Steps;
             obj.Scale = form.picProps.Scale;
@@ -157,11 +155,11 @@ namespace AutoNai3Tools.utils {
             obj.DefaultArtistWeightIncreaseMax = ((int)form.numDefaultArtistWeightIncreaseMax.Value);
             obj.ArtistMin = ((int)form.numArtistMin.Value);
             obj.ArtistMax = ((int)form.numArtistMax.Value);
-            obj.Proxy = form.txtProxy.Text;
-            obj.KeepRandomArtist = form.chkKeepRandomArtist.Checked;
-            obj.KeepWildcard = form.chkKeepWildcard.Checked;
-            obj.KeepRandomPrompt = form.chkKeepRandomPrompt.Checked;
-            obj.KeepResolution = form.chkKeepResolution.Checked;
+            obj.Proxy = form.settingProps.Proxy;
+            obj.KeepRandomArtist = form.settingProps.KeepRandomArtist;
+            obj.KeepWildcard = form.settingProps.KeepWildcard;
+            obj.KeepRandomPrompt = form.settingProps.KeepRandomPrompt;
+            obj.KeepResolution = form.settingProps.KeepResolution;
             obj.Decrisp = form.picProps.Decrisp == Switch.开;
             obj.FixedSeeds = form.picProps.FixedSeeds ;
             obj.Seeds = form.picProps.Seeds;
@@ -185,13 +183,15 @@ namespace AutoNai3Tools.utils {
                 form.picProps.PromptBlackListRegex = obj.PromptBlackListRegex;
             form.picProps.RunNum = obj.GenerateMaxNum;
             form.picProps.RunKeepParams = obj.KeepParams;
-            form.chkSavePromptToTxt.Checked = obj.SavePromptToTxt;
-            form.chkSavePromptToTxtNoArtist.Checked = obj.SavePromptToTxtNoArtist;
+            form.picProps.SavePromptToTxt = obj.SavePromptToTxt;
+            form.picProps.SavePromptToTxtNoArtist = obj.SavePromptToTxtNoArtist;
             form.picProps.ResolutionMode= obj.ResolutionMode;
-            form.txtRandomPromptFolderPath.Text = obj.RandomPromptFolderPath;
-            form.txtWildcardFolderPath.Text = obj.WildcardFolderPath;
-            form.txtOutputPath.Text = obj.OutputPath;
-            //form.txtToken.Text = obj.Token;
+            if (!string.IsNullOrEmpty(obj.RandomPromptFolderPath))
+                form.picProps.RandomPromptFolderPath = obj.RandomPromptFolderPath;
+            if (!string.IsNullOrEmpty(obj.WildcardFolderPath))
+                form.picProps.WildcardFolderPath = obj.WildcardFolderPath;
+            if (!string.IsNullOrEmpty(obj.OutputPath))
+                form.picProps.OutputPath = obj.OutputPath;
             form.picProps.Sampler = (SamplerOptions)obj.SamplerIndex;
             form.picProps.Steps = obj.Steps;
             form.picProps.Scale = obj.Scale;
@@ -210,11 +210,11 @@ namespace AutoNai3Tools.utils {
             form.numDefaultArtistWeightIncreaseMax.Value = obj.DefaultArtistWeightIncreaseMax;
             form.numArtistMin.Value = obj.ArtistMin;
             form.numArtistMax.Value = obj.ArtistMax;
-            form.txtProxy.Text = obj.Proxy;
-            form.chkKeepRandomArtist.Checked = obj.KeepRandomArtist;
-            form.chkKeepWildcard.Checked = obj.KeepWildcard;
-            form.chkKeepRandomPrompt.Checked = obj.KeepRandomPrompt;
-            form.chkKeepResolution.Checked = obj.KeepResolution;
+            form.settingProps.Proxy = obj.Proxy;
+            form.settingProps.KeepRandomArtist = obj.KeepRandomArtist;
+            form.settingProps.KeepWildcard = obj.KeepWildcard;
+            form.settingProps.KeepRandomPrompt = obj.KeepRandomPrompt;
+            form.settingProps.KeepResolution = obj.KeepResolution;
             form.picProps.Decrisp = obj.Decrisp ? Switch.开 : Switch.关; ;
             form.picProps.FixedSeeds = obj.FixedSeeds ;
             form.picProps.Seeds = obj.Seeds;

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -86,6 +87,24 @@ namespace AutoNai3Tools.utils {
         [Category("提示词")]
         [DisplayName("启用提示词黑名单")]
         public bool EnablePromptBlackList { get; set; } = true;
+        [Category("提示词")]
+        [DisplayName("保存提示词到同名TXT")]
+        public bool SavePromptToTxt { get; set; } = false;
+        [Category("提示词")]
+        [DisplayName("同名TXT不包含画师")]
+        public bool SavePromptToTxtNoArtist { get; set; } = false;
+        [Category("路径")]
+        [DisplayName("随机提示词路径")]
+        [Editor(typeof(FolderPathEditor), typeof(UITypeEditor))]
+        public string RandomPromptFolderPath { get; set; } = ".\\prompt\\prompt_by_风吟";
+        [Category("路径")]
+        [DisplayName("通配符<>文件路径")]
+        [Editor(typeof(FolderPathEditor), typeof(UITypeEditor))]
+        public string WildcardFolderPath { get; set; } = ".\\wildcard";
+        [Category("路径")]
+        [DisplayName("输出路径")]
+        [Editor(typeof(FolderPathEditor), typeof(UITypeEditor))]
+        public string OutputPath { get; set; } = ".\\output";
         [Category("优化")] [DisplayName("Variety")] public VarietyOptions Variety { get; set; }
         [Category("优化")] [DisplayName("Variety自定义值")] public double VarietyNum { get; set; }
         [Category("运行")][DisplayName("跑图数量")] public int RunNum { get; set; } = 1;
@@ -217,6 +236,27 @@ namespace AutoNai3Tools.utils {
             }
 
             return value; 
+        }
+    }
+
+    public class FolderPathEditor : UITypeEditor {
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context) {
+            return UITypeEditorEditStyle.Modal;
+        }
+
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value) {
+            string currentValue = value as string ?? "";
+            using (var dialog = new FolderBrowserDialog()) {
+                if (!string.IsNullOrEmpty(currentValue) && Directory.Exists(currentValue)) {
+                    dialog.SelectedPath = currentValue;
+                }
+
+                var result = dialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrEmpty(dialog.SelectedPath)) {
+                    return dialog.SelectedPath;
+                }
+            }
+            return value;
         }
     }
 }

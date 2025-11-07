@@ -50,7 +50,7 @@ namespace AutoNai3Tools.utils {
         }
 
         private static string GetFolderPrompt(Form1 form) {
-            string folderPath = form.txtRandomPromptFolderPath.Text;
+            string folderPath = form.picProps.RandomPromptFolderPath;
             string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 
             if (txtFiles.Length == 0) {
@@ -61,19 +61,24 @@ namespace AutoNai3Tools.utils {
             string randomTxtFile = txtFiles[random.Next(txtFiles.Length)];
             string t_prompt = File.ReadAllText(randomTxtFile);
             string[] words1 = t_prompt.Split(',').Select(word => word.Trim()).ToArray();
-            string[] words2 = GetPromptBlackList(form);
-            var result = words1.Where(word => !words2.Contains(word));
-            string[] words3 = GetPromptBlackList(form, true);
-            var filtered = result.Where(word => !words3.Contains(word)).ToList();
-            var regexList = GetPromptBlackListRegex(form);
-            if (regexList.Count > 0) {
-                filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word))).ToList();
+
+            IEnumerable<string> filtered = words1;
+            if (form.picProps.EnablePromptBlackList) {
+                string[] words2 = GetPromptBlackList(form);
+                filtered = filtered.Where(word => !words2.Contains(word));
+                string[] words3 = GetPromptBlackList(form, true);
+                filtered = filtered.Where(word => !words3.Contains(word));
+                var regexList = GetPromptBlackListRegex(form);
+                if (regexList.Count > 0) {
+                    filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word)));
+                }
             }
+
             return string.Join(",", filtered).Trim();
         }
 
         private static string GetWillcard(string tag, Form1 form) {
-            string folderPath = form.txtWildcardFolderPath.Text;
+            string folderPath = form.picProps.WildcardFolderPath;
             string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 
             tag = tag.Substring(1, tag.Length - 2);

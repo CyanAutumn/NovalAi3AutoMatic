@@ -258,12 +258,12 @@ namespace AutoNai3Tools.utils {
             }
 
             using (MemoryStream memoryStream = new MemoryStream(response.RawBytes)) {
-                Tools.IsExist(form.txtOutputPath.Text, true);
+                Tools.IsExist(form.picProps.OutputPath, true);
                 using (ZipArchive archive = new ZipArchive(memoryStream)) {
                     foreach (ZipArchiveEntry entry in archive.Entries) {
                         long seed = form.picProps.Seeds;
-                        string file_name = BuildFileName(prompt, seed, form.txtOutputPath.Text);
-                        string entryFileName = Path.Combine(form.txtOutputPath.Text, file_name);
+                        string file_name = BuildFileName(prompt, seed, form.picProps.OutputPath);
+                        string entryFileName = Path.Combine(form.picProps.OutputPath, file_name);
 
                         using (Stream entryStream = entry.Open()) {
                             using (MemoryStream entryMemoryStream = new MemoryStream()) {
@@ -275,8 +275,8 @@ namespace AutoNai3Tools.utils {
                                 }
 
                                 Bitmap bitmap = new Bitmap(entryMemoryStream);
-                                if (form.chkSavePromptToTxt.Checked)
-                                    if (form.chkSavePromptToTxtNoArtist.Checked)
+                                if (form.picProps.SavePromptToTxt)
+                                    if (form.picProps.SavePromptToTxtNoArtist)
                                         File.WriteAllText(entryFileName + ".txt", noArtistPrompt);
                                     else
                                         File.WriteAllText(entryFileName + ".txt", prompt);
@@ -292,7 +292,7 @@ namespace AutoNai3Tools.utils {
 
         public Bitmap SendDirectorToolsRequests(string token, Nai3DirectorToolsBody body, Form1 form) {
             try {
-                var response = Request.Post("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, form.txtProxy.Text);
+                var response = Request.Post("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, form.settingProps.Proxy);
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, form, null, null);
                 Logger.Info($"生成成功");
@@ -307,7 +307,7 @@ namespace AutoNai3Tools.utils {
         public Bitmap SendGenerateRequests(string token, BodyBase body, string noArtistPrompt, Form1 form) {
             try {
                 //Logger.Info(body.ToJson(), false, true);
-                var response = Request.Post("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, form.txtProxy.Text);
+                var response = Request.Post("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, form.settingProps.Proxy);
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, form, body.prompt, noArtistPrompt);
                 Logger.Info("生成成功");

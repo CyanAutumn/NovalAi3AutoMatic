@@ -36,12 +36,12 @@ namespace AutoNai3Tools.tag
 
         protected override bool KeepText()
         {
-            return form.chkKeepWildcard.Checked && (form.runNum % form.picProps.RunKeepParams) != 0;
+            return form.settingProps.KeepWildcard && (form.runNum % form.picProps.RunKeepParams) != 0;
         }
 
         protected override string ParseResultText()
         {
-            string[] lines = Tools.GetFileLine(this.form.txtWildcardFolderPath.Text, text);
+            string[] lines = Tools.GetFileLine(this.form.picProps.WildcardFolderPath, text);
             if (pickRandom)
             {
                 Random random = new Random();
