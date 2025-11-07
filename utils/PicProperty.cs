@@ -76,6 +76,16 @@ namespace AutoNai3Tools.utils {
         [DisplayName("提示词黑名单")]
         [Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
         public string PromptBlackList { get; set; } = DefaultPromptBlackList;
+        private const string DefaultPromptBlackListRegex =
+            "(?i).*hair.*\r\n(?i).*girls.*\r\n(?i).*eyes.*";
+
+        [Category("提示词")]
+        [DisplayName("提示词黑名单（正则）")]
+        [Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
+        public string PromptBlackListRegex { get; set; } = DefaultPromptBlackListRegex;
+        [Category("提示词")]
+        [DisplayName("启用提示词黑名单")]
+        public bool EnablePromptBlackList { get; set; } = true;
         [Category("优化")] [DisplayName("Variety")] public VarietyOptions Variety { get; set; }
         [Category("优化")] [DisplayName("Variety自定义值")] public double VarietyNum { get; set; }
         [Category("运行")][DisplayName("跑图数量")] public int RunNum { get; set; } = 1;

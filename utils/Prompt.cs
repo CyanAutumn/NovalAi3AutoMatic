@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 using Newtonsoft.Json.Linq;
@@ -13,6 +14,9 @@ using Newtonsoft.Json.Linq;
 namespace AutoNai3Tools.utils {
     internal class Prompt {
         internal static string[] GetPromptBlackList(Form1 form, bool replaceSpaceWithUnderscore = false) {
+            if (form?.picProps == null || !form.picProps.EnablePromptBlackList)
+                return Array.Empty<string>();
+
             string raw = form.picProps.PromptBlackList ?? string.Empty;
             if (replaceSpaceWithUnderscore) {
                 raw = raw.Replace(" ", "_");
@@ -22,6 +26,27 @@ namespace AutoNai3Tools.utils {
                 .Select(word => word.Trim())
                 .Where(word => !string.IsNullOrEmpty(word))
                 .ToArray();
+        }
+
+        internal static List<Regex> GetPromptBlackListRegex(Form1 form) {
+            List<Regex> patterns = new List<Regex>();
+            if (form?.picProps == null || !form.picProps.EnablePromptBlackList)
+                return patterns;
+
+            string raw = form.picProps.PromptBlackListRegex ?? string.Empty;
+            var lines = raw.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var line in lines) {
+                var pattern = line.Trim();
+                if (string.IsNullOrEmpty(pattern))
+                    continue;
+                try {
+                    patterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+                }
+                catch (Exception ex) {
+                    Logger.Warn($"提示词正则黑名单无效：{pattern}，错误：{ex.Message}");
+                }
+            }
+            return patterns;
         }
 
         private static string GetFolderPrompt(Form1 form) {
@@ -39,8 +64,12 @@ namespace AutoNai3Tools.utils {
             string[] words2 = GetPromptBlackList(form);
             var result = words1.Where(word => !words2.Contains(word));
             string[] words3 = GetPromptBlackList(form, true);
-            result = result.Where(word => !words3.Contains(word));
-            return string.Join(",", result).Trim();
+            var filtered = result.Where(word => !words3.Contains(word)).ToList();
+            var regexList = GetPromptBlackListRegex(form);
+            if (regexList.Count > 0) {
+                filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word))).ToList();
+            }
+            return string.Join(",", filtered).Trim();
         }
 
         private static string GetWillcard(string tag, Form1 form) {

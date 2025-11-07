@@ -60,8 +60,12 @@ namespace AutoNai3Tools.tag
             string[] words2 = Prompt.GetPromptBlackList(form);
             var result = words1.Where(word => !words2.Contains(word));
             string[] words3 = Prompt.GetPromptBlackList(form, true);
-            result = result.Where(word => !words3.Contains(word));
-            string strResult = string.Join(",", result).Trim();
+            var filtered = result.Where(word => !words3.Contains(word)).ToList();
+            var regexList = Prompt.GetPromptBlackListRegex(form);
+            if (regexList.Count > 0) {
+                filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word))).ToList();
+            }
+            string strResult = string.Join(",", filtered).Trim();
             Logger.Info($"<随机提示词> {tIndex}:{strResult}");
             return strResult;
         }

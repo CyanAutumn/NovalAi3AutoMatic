@@ -13,6 +13,8 @@ namespace AutoNai3Tools.utils {
         public string Token { get; set; }
         public List<SnippetItem> SnippetItems { get; set; } // 添加用于保存dgvSnippet行数据的属性
         public string PromptBlackList { get; set; }
+        public bool? PromptBlackListEnabled { get; set; }
+        public string PromptBlackListRegex { get; set; }
         public int? SleepTimeShortLow { get; set; }
         public int? SleepTimeShortHigh { get; set; }
         public int? SleepTimeLongLow { get; set; }
@@ -30,6 +32,8 @@ namespace AutoNai3Tools.utils {
             SystemConfig obj = new SystemConfig();
             obj.Token = form.txtToken.Text;
             obj.PromptBlackList = form.picProps.PromptBlackList;
+            obj.PromptBlackListEnabled = form.picProps.EnablePromptBlackList;
+            obj.PromptBlackListRegex = form.picProps.PromptBlackListRegex;
             obj.SleepTimeShortLow = ((int)form.nudSleepTimeShortLow.Value);
             obj.SleepTimeShortHigh = ((int)form.nudSleepTimeShortHigh.Value);
             obj.SleepTimeLongLow = ((int)form.nudSleepTimeLongLow.Value);
@@ -45,6 +49,9 @@ namespace AutoNai3Tools.utils {
                 form.txtToken.Text = obj.Token;
                 if (!string.IsNullOrEmpty(obj.PromptBlackList))
                     form.picProps.PromptBlackList = obj.PromptBlackList;
+                form.picProps.EnablePromptBlackList = obj.PromptBlackListEnabled ?? true;
+                if (!string.IsNullOrEmpty(obj.PromptBlackListRegex))
+                    form.picProps.PromptBlackListRegex = obj.PromptBlackListRegex;
                 form.nudSleepTimeShortLow.Value = obj.SleepTimeShortLow == null ? 5 : ((int)obj.SleepTimeShortLow);
                 form.nudSleepTimeShortHigh.Value = obj.SleepTimeShortHigh == null ? 8 : ((int)obj.SleepTimeShortHigh);
                 form.nudSleepTimeLongLow.Value = obj.SleepTimeLongLow == null ? 20 : ((int)obj.SleepTimeLongLow.Value);
@@ -62,6 +69,8 @@ namespace AutoNai3Tools.utils {
         public string NegativePrompt { get; set; }
 
         public string PromptBlackList { get; set; }
+        public bool? PromptBlackListEnabled { get; set; }
+        public string PromptBlackListRegex { get; set; }
         public int GenerateMaxNum { get; set; }
         public int KeepParams { get; set; }
         public bool SavePromptToTxt { get; set; }
@@ -118,6 +127,8 @@ namespace AutoNai3Tools.utils {
             obj.Prompt = form.txtPrompt.Text;
             obj.NegativePrompt = form.txtNegativePrompt.Text;
             obj.PromptBlackList = form.picProps.PromptBlackList;
+            obj.PromptBlackListEnabled = form.picProps.EnablePromptBlackList;
+            obj.PromptBlackListRegex = form.picProps.PromptBlackListRegex;
             obj.GenerateMaxNum = form.picProps.RunNum;
             obj.KeepParams = ((int)form.picProps.RunKeepParams);
             obj.SavePromptToTxt = form.chkSavePromptToTxt.Checked;
@@ -169,6 +180,9 @@ namespace AutoNai3Tools.utils {
             form.txtNegativePrompt.Text = obj.NegativePrompt;
             if (!string.IsNullOrEmpty(obj.PromptBlackList))
                 form.picProps.PromptBlackList = obj.PromptBlackList;
+            form.picProps.EnablePromptBlackList = obj.PromptBlackListEnabled ?? true;
+            if (!string.IsNullOrEmpty(obj.PromptBlackListRegex))
+                form.picProps.PromptBlackListRegex = obj.PromptBlackListRegex;
             form.picProps.RunNum = obj.GenerateMaxNum;
             form.picProps.RunKeepParams = obj.KeepParams;
             form.chkSavePromptToTxt.Checked = obj.SavePromptToTxt;
