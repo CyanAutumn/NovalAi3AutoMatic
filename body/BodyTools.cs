@@ -47,8 +47,9 @@ namespace AutoNai3Tools.body {
                 case Model.Nai4_Full:
                     return "v4full";
                 case Model.Nai4_5_Curated:
-                case Model.Nai4_5_Full:
                     return "v4-5curated";
+                case Model.Nai4_5_Full:
+                    return "v4-5full";
             }
 
             throw new Exception("未找到对应模型别名");
