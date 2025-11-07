@@ -68,6 +68,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="novalai\NovalAIAPI.cs" />
+    <Compile Include="utils\Vibe.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tag\TagBase.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="utils\Config.cs" />
     <Compile Include="utils\Logger.cs" />
     <Compile Include="utils\PicProperty.cs" />
+    <Compile Include="utils\Request.cs" />
     <Compile Include="utils\Tools.cs" />
     <Compile Include="utils\NovalAi.cs" />
     <Compile Include="utils\Prompt.cs" />
@@ -111,6 +114,9 @@
   <ItemGroup>
     <PackageReference Include="log4net">
       <Version>3.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="MessagePack">
+      <Version>3.1.4</Version>
     </PackageReference>
     <PackageReference Include="Nett">
       <Version>0.15.0</Version>

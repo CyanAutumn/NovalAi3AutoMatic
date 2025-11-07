@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,17 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Net;
 using AutoNai3Tools.body;
+using Microsoft.VisualBasic.Logging;
+using AutoNai3Tools.novalai;
 
 namespace AutoNai3Tools.utils {
+    class VibeData:Object {
+        public string imagePath {  get; set; }
+        public string base64Image {  get; set; }
+        public float informationExtracted { get; set; }
+        public float referenceStrength { get; set; }
+    }
+
     class Nai3Body {
         public string ToJson() {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings {
@@ -207,40 +216,6 @@ namespace AutoNai3Tools.utils {
             return DateTime.Now.ToString("yyyyMMdd_HHmmss");
         }
 
-        private RestRequest GetRequest(string token, string path) {
-            var request = new RestRequest(path, Method.Post);
-            request.AddHeader("accept", "*/*");
-            request.AddHeader("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
-            request.AddHeader("authorization", $"Bearer {token}");
-            request.AddHeader("content-type", "application/json");
-            request.AddHeader("dnt", "1");
-            request.AddHeader("origin", "https://novelai.net");
-            request.AddHeader("priority", "u=1, i");
-            request.AddHeader("referer", "https://novelai.net/");
-            request.AddHeader("sec-ch-ua",
-                "\"Chromium\";v=\"124\", \"Google Chrome\";v=\"124\", \"Not-A.Brand\";v=\"99\"");
-            request.AddHeader("sec-ch-ua-mobile", "?0");
-            request.AddHeader("sec-ch-ua-platform", "\"Windows\"");
-            request.AddHeader("sec-fetch-dest", "empty");
-            request.AddHeader("sec-fetch-mode", "cors");
-            request.AddHeader("sec-fetch-site", "same-site");
-            return request;
-        }
-
-        private RestClient GetClient(string proxy) {
-            var options = new RestClientOptions("https://image.novelai.net") {
-                Timeout = TimeSpan.FromSeconds(120),
-                UserAgent =
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
-                ThrowOnAnyError = true,
-            };
-
-            if (proxy != null && proxy != "")
-                options.Proxy = new WebProxy(proxy);
-            var client = new RestClient(options);
-            return client;
-        }
-
         private Bitmap UnZipAndSaveImage(RestResponse response, Form1 form, string prompt, string noArtistPrompt) {
             if (!response.IsSuccessful) {
                 Logger.Warn($"生成失败，错误码{response.StatusCode}，错误信息{response.StatusDescription}");
@@ -281,12 +256,7 @@ namespace AutoNai3Tools.utils {
 
         public Bitmap SendDirectorToolsRequests(string token, Nai3DirectorToolsBody body, Form1 form) {
             try {
-                var request = GetRequest(token, "/ai/augment-image");
-                request.AddStringBody(body.ToJson(), DataFormat.Json);
-                var client = GetClient(form.txtProxy.Text);
-                Task<RestResponse> task = client.ExecuteAsync(request);
-                task.Wait();
-                RestResponse response = task.Result;
+                var response = Request.Post("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, form.txtProxy.Text);
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, form, null, null);
                 Logger.Info($"生成成功");
@@ -300,13 +270,8 @@ namespace AutoNai3Tools.utils {
 
         public Bitmap SendGenerateRequests(string token, BodyBase body, string noArtistPrompt, Form1 form) {
             try {
-                string data = body.ToJson();
-                var request = GetRequest(token, "/ai/generate-image");
-                request.AddStringBody(body.ToJson(), DataFormat.Json);
-                var client = GetClient(form.txtProxy.Text);
-                Task<RestResponse> task = client.ExecuteAsync(request);
-                task.Wait();
-                RestResponse response = task.Result;
+                //Logger.Info(body.ToJson(), false, true);
+                var response = Request.Post("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, form.txtProxy.Text);
                 Thread.Sleep(1000);
                 Bitmap pic = UnZipAndSaveImage(response, form, body.prompt, noArtistPrompt);
                 Logger.Info("生成成功");

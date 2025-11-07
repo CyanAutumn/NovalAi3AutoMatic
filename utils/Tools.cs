@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoNai3Tools.body;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 
 namespace AutoNai3Tools.utils {
     internal class Tools {
@@ -34,6 +36,9 @@ namespace AutoNai3Tools.utils {
         }
         public static string SelectIMGFile() {
             return SelectFile("Image Files|*.jpg;*.jpeg;*.png;*.bmp", true);
+        }
+        public static string SelectVibeFile() {
+            return SelectFile("Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.naiv4vibe", true);
         }
 
         public static bool IsExist(string path, bool isCreateFolder) {
@@ -138,26 +143,20 @@ namespace AutoNai3Tools.utils {
             }
         }
 
-        public static string SelectAndMappingPicToPictureBox(PictureBox pictureBox) {
-            string path = Tools.SelectIMGFile();
-            if (path != null) {
-                // 如果 form.picView.Image 已经存在，先释放它
-                if (pictureBox.Image != null) {
-                    pictureBox.Image.Dispose();
-                    pictureBox.Image = null; // 确保引用被清空
-                }
-
-                // 使用 MemoryStream 加载图片
-                using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read)) {
-                    using (MemoryStream ms = new MemoryStream()) {
-                        fs.CopyTo(ms);
-                        ms.Position = 0; // 重置流位置
-                        pictureBox.Image = System.Drawing.Image.FromStream(ms);
-                    }
-                }
-                return path;
+        public static void ShowImage(string path, PictureBox pictureBox) {
+            if (pictureBox.Image != null) {
+                pictureBox.Image.Dispose();
+                pictureBox.Image = null;
             }
-            return null;
+
+            if (path.EndsWith(".naiv4vibe")) return;
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read)) {
+                using (MemoryStream ms = new MemoryStream()) {
+                    fs.CopyTo(ms);
+                    ms.Position = 0;
+                    pictureBox.Image = System.Drawing.Image.FromStream(ms);
+                }
+            }
         }
 
         public static string[] GetFileLine(string folderPath, string fileName) {

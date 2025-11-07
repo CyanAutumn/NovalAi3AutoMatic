@@ -90,8 +90,9 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.numVibeRS = new System.Windows.Forms.NumericUpDown();
-            this.numVibeIE = new System.Windows.Forms.NumericUpDown();
             this.picVibeView = new System.Windows.Forms.PictureBox();
+            this.cmbVibeIE = new System.Windows.Forms.ComboBox();
+            this.nudVibeIE = new System.Windows.Forms.NumericUpDown();
             this.dgvVibe = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -241,8 +242,8 @@
             this.groupBox9.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numVibeRS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numVibeIE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVibeView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudVibeIE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVibe)).BeginInit();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSleepTimeShortHigh)).BeginInit();
@@ -296,7 +297,7 @@
             this.dreamForm1.Size = new System.Drawing.Size(1302, 833);
             this.dreamForm1.TabIndex = 1;
             this.dreamForm1.TabStop = false;
-            this.dreamForm1.Text = "Nai3自动roll图工具 v2.2.7";
+            this.dreamForm1.Text = "Nai3自动roll图工具 v2.3.0";
             this.dreamForm1.TitleAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dreamForm1.TitleHeight = 33;
             this.dreamForm1.UseCompatibleTextRendering = true;
@@ -938,8 +939,9 @@
             this.panel9.Controls.Add(this.label21);
             this.panel9.Controls.Add(this.label19);
             this.panel9.Controls.Add(this.numVibeRS);
-            this.panel9.Controls.Add(this.numVibeIE);
             this.panel9.Controls.Add(this.picVibeView);
+            this.panel9.Controls.Add(this.cmbVibeIE);
+            this.panel9.Controls.Add(this.nudVibeIE);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel9.Location = new System.Drawing.Point(3, 285);
             this.panel9.Name = "panel9";
@@ -1022,34 +1024,6 @@
             0,
             65536});
             // 
-            // numVibeIE
-            // 
-            this.numVibeIE.DecimalPlaces = 2;
-            this.numVibeIE.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numVibeIE.Location = new System.Drawing.Point(174, 28);
-            this.numVibeIE.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numVibeIE.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numVibeIE.Name = "numVibeIE";
-            this.numVibeIE.Size = new System.Drawing.Size(131, 23);
-            this.numVibeIE.TabIndex = 1;
-            this.numVibeIE.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // picVibeView
             // 
             this.picVibeView.BackColor = System.Drawing.Color.LightGray;
@@ -1061,6 +1035,42 @@
             this.picVibeView.TabIndex = 0;
             this.picVibeView.TabStop = false;
             this.picVibeView.Click += new System.EventHandler(this.picVibeView_Click);
+            // 
+            // cmbVibeIE
+            // 
+            this.cmbVibeIE.FormattingEnabled = true;
+            this.cmbVibeIE.Location = new System.Drawing.Point(174, 26);
+            this.cmbVibeIE.Name = "cmbVibeIE";
+            this.cmbVibeIE.Size = new System.Drawing.Size(131, 25);
+            this.cmbVibeIE.TabIndex = 3;
+            // 
+            // nudVibeIE
+            // 
+            this.nudVibeIE.DecimalPlaces = 2;
+            this.nudVibeIE.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudVibeIE.Location = new System.Drawing.Point(174, 28);
+            this.nudVibeIE.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudVibeIE.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudVibeIE.Name = "nudVibeIE";
+            this.nudVibeIE.Size = new System.Drawing.Size(131, 23);
+            this.nudVibeIE.TabIndex = 1;
+            this.nudVibeIE.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // dgvVibe
             // 
@@ -2444,8 +2454,8 @@
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numVibeRS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numVibeIE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picVibeView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudVibeIE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVibe)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
@@ -2547,7 +2557,7 @@
         public System.Windows.Forms.Label label21;
         public System.Windows.Forms.Label label19;
         public System.Windows.Forms.NumericUpDown numVibeRS;
-        public System.Windows.Forms.NumericUpDown numVibeIE;
+        public System.Windows.Forms.NumericUpDown nudVibeIE;
         public System.Windows.Forms.PictureBox picVibeView;
         public System.Windows.Forms.DataGridView dgvVibe;
         public System.Windows.Forms.DataGridViewTextBoxColumn Column1;
@@ -2681,6 +2691,7 @@
         public System.Windows.Forms.Button btnDocGithub;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Panel panel8;
+        public System.Windows.Forms.ComboBox cmbVibeIE;
     }
 }
 

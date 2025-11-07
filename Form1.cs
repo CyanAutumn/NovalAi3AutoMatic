@@ -13,6 +13,8 @@ using AutoNai3Tools.body;
 using static System.Net.WebRequestMethods;
 using System.Net.Http;
 using File = System.IO.File;
+using AutoNai3Tools.novalai;
+using System.Collections;
 
 namespace AutoNai3Tools {
     public partial class Form1 : Form {
@@ -161,35 +163,33 @@ namespace AutoNai3Tools {
             }
 
             // vibe
-            List<string> referenceImages = new List<string>();
-            List<float> referenceInfoExtracted = new List<float>();
-            List<float> referenceStrength = new List<float>();
-
+            List<VibeData> vibes = new List<VibeData>(); 
             foreach (DataGridViewRow row in dgvVibe.Rows) {
+                VibeData vibe = new VibeData();
                 var picPath = row.Cells["Column1"].Value;
                 if (picPath == null) continue;
-
-                string base64img = Tools.ConvertImageToBase64(picPath.ToString());
-                if (string.IsNullOrEmpty(base64img)) {
-                    Logger.Error("图片转换失败，路径为" + picPath);
-                    continue;
-                }
-
-                referenceImages.Add(base64img);
+                vibe.imagePath = picPath.ToString();
 
                 var ie = row.Cells["Column2"].Value;
-                referenceInfoExtracted.Add(ie != null ? float.Parse(ie.ToString()) : 0);
+                vibe.informationExtracted = ie != null ? float.Parse(ie.ToString()) : 0;
 
                 var rs = row.Cells["Column3"].Value;
-                referenceStrength.Add(rs != null ? float.Parse(rs.ToString()) : 0);
+                vibe.referenceStrength = rs != null ? float.Parse(rs.ToString()) : 0;
+                vibes.Add(vibe);
             }
+            vibes = Vibe.GetVibe(picProps.Model, vibes,this);
 
-            //vibe
-            if (referenceImages.Count > 0) {
-                kwargs.Add("reference_image_multiple", referenceImages);
-                kwargs.Add("reference_information_extracted_multiple", referenceInfoExtracted);
-                kwargs.Add("reference_strength_multiple", referenceStrength);
+            List<string> t_rim = new List<string>();
+            List<float> t_riem = new List<float>();
+            List<float> t_rsm = new List<float>();
+            foreach (var vibe in vibes) {
+                t_rim.Add(vibe.base64Image);
+                t_riem.Add(vibe.informationExtracted);
+                t_rsm.Add(vibe.referenceStrength);
             }
+            kwargs.Add("reference_image_multiple", t_rim);
+            kwargs.Add("reference_information_extracted_multiple", t_riem);
+            kwargs.Add("reference_strength_multiple", t_rsm);
 
             var prompt = Prompt.GetPrompt(txtPrompt.Text, this);
             prevNoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
@@ -405,14 +405,14 @@ namespace AutoNai3Tools {
         string vibeCurrentPicPath = null;
 
         private void picVibeView_Click(object sender, EventArgs e) {
-            var t_path = Tools.SelectAndMappingPicToPictureBox(picVibeView);
+            var t_path = Vibe.SelectAndMappingPicToPictureBox(this);
             if (t_path != null)
                 vibeCurrentPicPath = t_path;
         }
 
         private void btnVibeAdd_Click(object sender, EventArgs e) {
             if (vibeCurrentPicPath != null) {
-                dgvVibe.Rows.Add(vibeCurrentPicPath, numVibeIE.Value, numVibeRS.Value);
+                dgvVibe.Rows.Add(vibeCurrentPicPath, nudVibeIE.Value, numVibeRS.Value);
                 if (picVibeView.Image != null) {
                     picVibeView.Image.Dispose();
                     picVibeView.Image = null; // 确保引用被清空
@@ -438,30 +438,17 @@ namespace AutoNai3Tools {
         #endregion
 
         private void dgvSnippet_SelectionChanged(object sender, EventArgs e) {
-            // 检查是否有当前选中行
             if (dgvVibe.CurrentRow != null) {
                 DataGridViewRow selectedRow = dgvVibe.CurrentRow;
                 vibeCurrentPicPath = selectedRow.Cells["Column1"].Value.ToString();
                 var imgPath = selectedRow.Cells["Column1"].Value;
                 var ie = selectedRow.Cells["Column2"].Value;
-                numVibeIE.Value = (decimal)ie;
+                nudVibeIE.Value = (decimal)ie;
                 var rs = selectedRow.Cells["Column3"].Value;
                 numVibeRS.Value = (decimal)rs;
 
-                // 如果 form.picView.Image 已经存在，先释放它
-                if (picVibeView.Image != null) {
-                    picVibeView.Image.Dispose();
-                    picVibeView.Image = null; // 确保引用被清空
-                }
-
-                // 使用 MemoryStream 加载图片
-                using (FileStream fs = new FileStream(imgPath.ToString(), FileMode.Open, FileAccess.Read)) {
-                    using (MemoryStream ms = new MemoryStream()) {
-                        fs.CopyTo(ms);
-                        ms.Position = 0; // 重置流位置
-                        picVibeView.Image = System.Drawing.Image.FromStream(ms);
-                    }
-                }
+                Vibe.SetVibeInterfaceStatus(vibeCurrentPicPath, this);
+                Tools.ShowImage(imgPath.ToString(), picVibeView);
             }
         }
 
@@ -469,7 +456,7 @@ namespace AutoNai3Tools {
             if (dgvVibe.CurrentRow != null) {
                 DataGridViewRow selectedRow = dgvVibe.CurrentRow;
                 selectedRow.Cells["Column1"].Value = vibeCurrentPicPath;
-                selectedRow.Cells["Column2"].Value = numVibeIE.Value;
+                selectedRow.Cells["Column2"].Value = nudVibeIE.Value;
                 selectedRow.Cells["Column3"].Value = numVibeRS.Value;
             }
             else {
@@ -636,7 +623,7 @@ namespace AutoNai3Tools {
         }
 
         private void picDirectorToolsRemoveBGInput_Click(object sender, EventArgs e) {
-            var path = Tools.SelectAndMappingPicToPictureBox(picDirectorToolsInput);
+            var path = Vibe.SelectAndMappingPicToPictureBox(this);
             if (path != null)
                 directorToolsRemoveBGInputPath = path;
         }
@@ -778,7 +765,7 @@ namespace AutoNai3Tools {
         string img2ImgCurrentPath;
 
         private void picImg2ImgView_Click(object sender, EventArgs e) {
-            var t_path = Tools.SelectAndMappingPicToPictureBox(picImg2ImgView);
+            var t_path = Vibe.SelectAndMappingPicToPictureBox(this);
             if (t_path != null)
                 img2ImgCurrentPath = t_path;
         }

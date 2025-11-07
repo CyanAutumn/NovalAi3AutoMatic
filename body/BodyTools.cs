@@ -40,6 +40,20 @@ namespace AutoNai3Tools.body {
             throw new Exception("选择的模型无效");
         }
 
+        public static string GetAnotherName(Model modelName) {
+            switch (modelName) {
+                case Model.Nai4_Preview:
+                    return "v4curated";
+                case Model.Nai4_Full:
+                    return "v4full";
+                case Model.Nai4_5_Curated:
+                case Model.Nai4_5_Full:
+                    return "v4-5curated";
+            }
+
+            throw new Exception("未找到对应模型别名");
+        }
+
         public static string GetEnumDescription(Enum value) {
             var field = value.GetType().GetField(value.ToString());
             var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));

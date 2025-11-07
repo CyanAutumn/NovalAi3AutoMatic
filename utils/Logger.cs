@@ -41,16 +41,24 @@ namespace AutoNai3Tools.utils {
             }
         }
 
-        public static void Info(string message) => LogMessage(_logger.Info, "[Info]", message);
-        public static void Error(string message) => LogMessage(_logger.Error, "[Error]", message);
-        public static void Debug(string message) => LogMessage(_logger.Debug, "[Debug]", message);
-        public static void Warn(string message) => LogMessage(_logger.Warn, "[Warn]", message);
-        public static void Fatal(string message) => LogMessage(_logger.Fatal, "[Fatal]", message);
+        public static void Info(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Info, "[Info]", message, showToTextBox, saveToLocal);
+        public static void Error(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Error, "[Error]", message, showToTextBox, saveToLocal);
+        public static void Debug(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Debug, "[Debug]", message, showToTextBox, saveToLocal);
+        public static void Warn(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Warn, "[Warn]", message, showToTextBox, saveToLocal);
+        public static void Fatal(string message, bool showToTextBox = true, bool saveToLocal = true) => LogMessage(_logger.Fatal, "[Fatal]", message, showToTextBox, saveToLocal);
 
-        private static void LogMessage(Action<string> logAction, string prefix, string message) {
+        private static void LogMessage(Action<string> logAction, string prefix, string message, bool showToTextBox, bool saveToLocal) {
             string className = new StackTrace().GetFrame(1).GetMethod().DeclaringType.Name;
-            logAction(message);
-            FormLog($"{prefix} [{className}]: {message}");
+            
+            // 根据saveToLocal参数决定是否保存到本地文件
+            if (saveToLocal) {
+                logAction(message);
+            }
+            
+            // 根据showToTextBox参数决定是否显示到界面
+            if (showToTextBox) {
+                FormLog($"{prefix} [{className}]: {message}");
+            }
         }
 
         public static void PicInfo(string message) {

@@ -187,4 +187,77 @@ namespace AutoNai3Tools.body {
             this.legacy_uc = legacy_uc;
         }
     }
+
+    public class VibeRequest {
+        public string image { get; set; }
+        public float information_extracted { get; set; }
+        public string model { get; set; }
+
+        public VibeRequest(string image, float information_extracted, string model) {
+            this.image = image;
+            this.information_extracted = information_extracted;
+            this.model = model;
+        }
+    }
+
+    public class NaiV4Vibe {
+        [JsonProperty("identifier")]
+        public string Identifier { get; set; }
+
+        [JsonProperty("version")]
+        public int Version { get; set; }
+
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
+        [JsonProperty("image")]
+        public string Image { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("encodings")]
+        public VibeEncodings Encodings { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("thumbnail")]
+        public string Thumbnail { get; set; }
+
+        [JsonProperty("createdAt")]
+        public long CreatedAt { get; set; }
+
+        [JsonProperty("importInfo")]
+        public ImportInfo ImportInfo { get; set; }
+    }
+
+    public class VibeEncodings {
+        [JsonProperty("v4-5curated")]
+        public Dictionary<string, EncodingDetails> V45curated { get; set; }
+    }
+
+    public class EncodingDetails {
+        [JsonProperty("encoding")]
+        public string Encoding { get; set; }
+
+        [JsonProperty("params")]
+        public VibeParams Params { get; set; }
+    }
+
+    public class VibeParams {
+        [JsonProperty("information_extracted")]
+        public int InformationExtracted { get; set; }
+    }
+
+    public class ImportInfo {
+        [JsonProperty("model")]
+        public string Model { get; set; }
+
+        [JsonProperty("information_extracted")]
+        public int InformationExtracted { get; set; }
+
+        [JsonProperty("strength")]
+        public double Strength { get; set; }
+    }
 }
