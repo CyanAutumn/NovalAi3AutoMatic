@@ -81,6 +81,7 @@
     <Compile Include="tag\TagWildcard.cs" />
     <Compile Include="utils\Config.cs" />
     <Compile Include="utils\Logger.cs" />
+    <Compile Include="utils\FolderPicker.cs" />
     <Compile Include="utils\PicProperty.cs" />
     <Compile Include="utils\SettingProperty.cs" />
     <Compile Include="utils\Request.cs" />

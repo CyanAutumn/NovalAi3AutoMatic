@@ -246,16 +246,14 @@ namespace AutoNai3Tools.utils {
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value) {
             string currentValue = value as string ?? "";
-            using (var dialog = new FolderBrowserDialog()) {
-                if (!string.IsNullOrEmpty(currentValue) && Directory.Exists(currentValue)) {
-                    dialog.SelectedPath = currentValue;
-                }
+            var owner = provider?.GetService(typeof(IWin32Window)) as IWin32Window;
+            IntPtr ownerHandle = owner?.Handle ?? IntPtr.Zero;
 
-                var result = dialog.ShowDialog();
-                if (result == DialogResult.OK && !string.IsNullOrEmpty(dialog.SelectedPath)) {
-                    return dialog.SelectedPath;
-                }
+            string selectedPath = FolderPicker.PickFolder(currentValue, ownerHandle);
+            if (!string.IsNullOrEmpty(selectedPath)) {
+                return selectedPath;
             }
+
             return value;
         }
     }
