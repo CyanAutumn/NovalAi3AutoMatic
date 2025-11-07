@@ -57,10 +57,9 @@ namespace AutoNai3Tools.tag
             }
 
             string[] words1 = tPrompt.Split(',').Select(word => word.Trim()).ToArray();
-            string[] words2 = form.txtPromptBlackList.Text.Split(',').Select(word => word.Trim()).ToArray();
+            string[] words2 = Prompt.GetPromptBlackList(form);
             var result = words1.Where(word => !words2.Contains(word));
-            string[] words3 = form.txtPromptBlackList.Text.Replace(" ", "_").Split(',').Select(word => word.Trim())
-                .ToArray();
+            string[] words3 = Prompt.GetPromptBlackList(form, true);
             result = result.Where(word => !words3.Contains(word));
             string strResult = string.Join(",", result).Trim();
             Logger.Info($"<随机提示词> {tIndex}:{strResult}");

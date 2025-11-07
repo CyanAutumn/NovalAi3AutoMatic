@@ -45,8 +45,6 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtNegativePrompt = new System.Windows.Forms.TextBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.txtPromptBlackList = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtPrompt = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -220,7 +218,6 @@
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControl2.SuspendLayout();
@@ -470,7 +467,6 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.groupBox2);
-            this.panel4.Controls.Add(this.groupBox8);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 261);
             this.panel4.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -486,7 +482,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox2.Size = new System.Drawing.Size(1043, 267);
+            this.groupBox2.Size = new System.Drawing.Size(1771, 267);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "负面提示词";
@@ -500,35 +496,9 @@
             this.txtNegativePrompt.Multiline = true;
             this.txtNegativePrompt.Name = "txtNegativePrompt";
             this.txtNegativePrompt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNegativePrompt.Size = new System.Drawing.Size(1031, 229);
+            this.txtNegativePrompt.Size = new System.Drawing.Size(1759, 229);
             this.txtNegativePrompt.TabIndex = 0;
             this.txtNegativePrompt.Text = resources.GetString("txtNegativePrompt.Text");
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.txtPromptBlackList);
-            this.groupBox8.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox8.Location = new System.Drawing.Point(1043, 0);
-            this.groupBox8.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox8.Size = new System.Drawing.Size(728, 267);
-            this.groupBox8.TabIndex = 1;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "提示词黑名单";
-            // 
-            // txtPromptBlackList
-            // 
-            this.txtPromptBlackList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPromptBlackList.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtPromptBlackList.Location = new System.Drawing.Point(6, 33);
-            this.txtPromptBlackList.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.txtPromptBlackList.Multiline = true;
-            this.txtPromptBlackList.Name = "txtPromptBlackList";
-            this.txtPromptBlackList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPromptBlackList.Size = new System.Drawing.Size(716, 229);
-            this.txtPromptBlackList.TabIndex = 0;
-            this.txtPromptBlackList.Text = resources.GetString("txtPromptBlackList.Text");
             // 
             // groupBox1
             // 
@@ -2589,8 +2559,6 @@
             this.panel4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -2760,8 +2728,6 @@
         public System.Windows.Forms.Panel panel4;
         public System.Windows.Forms.GroupBox groupBox2;
         public System.Windows.Forms.TextBox txtNegativePrompt;
-        public System.Windows.Forms.GroupBox groupBox8;
-        public System.Windows.Forms.TextBox txtPromptBlackList;
         public System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.TextBox txtPrompt;
         public System.Windows.Forms.Panel panel3;

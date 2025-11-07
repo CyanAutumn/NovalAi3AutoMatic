@@ -368,6 +368,7 @@ namespace AutoNai3Tools {
             }
 
             InitTagSnippetDGV();
+            propertyGrid1.Refresh();
         }
 
         private void cmbConfigName_MouseClick(object sender, MouseEventArgs e) {

@@ -29,7 +29,7 @@ namespace AutoNai3Tools.utils {
 
             SystemConfig obj = new SystemConfig();
             obj.Token = form.txtToken.Text;
-            obj.PromptBlackList = form.txtPromptBlackList.Text;
+            obj.PromptBlackList = form.picProps.PromptBlackList;
             obj.SleepTimeShortLow = ((int)form.nudSleepTimeShortLow.Value);
             obj.SleepTimeShortHigh = ((int)form.nudSleepTimeShortHigh.Value);
             obj.SleepTimeLongLow = ((int)form.nudSleepTimeLongLow.Value);
@@ -43,7 +43,8 @@ namespace AutoNai3Tools.utils {
             if (File.Exists(configFilePath)) {
                 SystemConfig obj = Toml.ReadFile<SystemConfig>(configFilePath);
                 form.txtToken.Text = obj.Token;
-                form.txtPromptBlackList.Text = obj.PromptBlackList;
+                if (!string.IsNullOrEmpty(obj.PromptBlackList))
+                    form.picProps.PromptBlackList = obj.PromptBlackList;
                 form.nudSleepTimeShortLow.Value = obj.SleepTimeShortLow == null ? 5 : ((int)obj.SleepTimeShortLow);
                 form.nudSleepTimeShortHigh.Value = obj.SleepTimeShortHigh == null ? 8 : ((int)obj.SleepTimeShortHigh);
                 form.nudSleepTimeLongLow.Value = obj.SleepTimeLongLow == null ? 20 : ((int)obj.SleepTimeLongLow.Value);
@@ -60,7 +61,7 @@ namespace AutoNai3Tools.utils {
 
         public string NegativePrompt { get; set; }
 
-        //public string PromptBlackList { get; set; }
+        public string PromptBlackList { get; set; }
         public int GenerateMaxNum { get; set; }
         public int KeepParams { get; set; }
         public bool SavePromptToTxt { get; set; }
@@ -116,7 +117,7 @@ namespace AutoNai3Tools.utils {
             Config obj = new Config();
             obj.Prompt = form.txtPrompt.Text;
             obj.NegativePrompt = form.txtNegativePrompt.Text;
-            //obj.PromptBlackList = form.txtPromptBlackList.Text;
+            obj.PromptBlackList = form.picProps.PromptBlackList;
             obj.GenerateMaxNum = form.picProps.RunNum;
             obj.KeepParams = ((int)form.picProps.RunKeepParams);
             obj.SavePromptToTxt = form.chkSavePromptToTxt.Checked;
@@ -166,7 +167,8 @@ namespace AutoNai3Tools.utils {
             Config obj = Toml.ReadFile<Config>("C:\\Users\\Public\\Documents\\auto_nai3_2\\" + fileName + ".toml");
             form.txtPrompt.Text = obj.Prompt;
             form.txtNegativePrompt.Text = obj.NegativePrompt;
-            //form.txtPromptBlackList.Text = obj.PromptBlackList;
+            if (!string.IsNullOrEmpty(obj.PromptBlackList))
+                form.picProps.PromptBlackList = obj.PromptBlackList;
             form.picProps.RunNum = obj.GenerateMaxNum;
             form.picProps.RunKeepParams = obj.KeepParams;
             form.chkSavePromptToTxt.Checked = obj.SavePromptToTxt;

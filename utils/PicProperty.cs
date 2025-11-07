@@ -69,6 +69,13 @@ namespace AutoNai3Tools.utils {
         [Category("生成")][DisplayName("固定种子")] public Switch FixedSeeds { get; set; } = Switch.关;
 
         [Category("生成")] [DisplayName("Seed(种子)")] public long Seeds { get; set; }
+        private const string DefaultPromptBlackList =
+            "cyan hair,grey hair,blonde hair,yellow hair,pink hair,orange hair,black hair,red hair,green hair,blue hair,purple hair,white hair,silver hair,brown hair,gold hair,light green hair,light grey hair,light gold hair,light silver hair,light brown hair,light red hair,light yellow hair,light black hair,light orange hair,light purple hair,light blue hair,light blonde hair,light white hair,light cyan hair,light pink hair,long hair,short hair,very long hair,double bun,twintails,curly hair,straight hair,ponytail,single side bun,side ponytail,bangs,ahoge,hair between eyes,blunt bangs,yellow eyes,purple eyes,blonde eyes,black eyes,grey eyes,white eyes,green eyes,blue eyes,gold eyes,brown eyes,red eyes,orange eyes,cyan eyes,silver eyes,pink eyes,masterpiece,best quality,breasts,small breasts,medium breasts,large breasts,huge breasts";
+
+        [Category("提示词")]
+        [DisplayName("提示词黑名单")]
+        [Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
+        public string PromptBlackList { get; set; } = DefaultPromptBlackList;
         [Category("优化")] [DisplayName("Variety")] public VarietyOptions Variety { get; set; }
         [Category("优化")] [DisplayName("Variety自定义值")] public double VarietyNum { get; set; }
         [Category("运行")][DisplayName("跑图数量")] public int RunNum { get; set; } = 1;

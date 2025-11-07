@@ -12,6 +12,18 @@ using Newtonsoft.Json.Linq;
 
 namespace AutoNai3Tools.utils {
     internal class Prompt {
+        internal static string[] GetPromptBlackList(Form1 form, bool replaceSpaceWithUnderscore = false) {
+            string raw = form.picProps.PromptBlackList ?? string.Empty;
+            if (replaceSpaceWithUnderscore) {
+                raw = raw.Replace(" ", "_");
+            }
+
+            return raw.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(word => word.Trim())
+                .Where(word => !string.IsNullOrEmpty(word))
+                .ToArray();
+        }
+
         private static string GetFolderPrompt(Form1 form) {
             string folderPath = form.txtRandomPromptFolderPath.Text;
             string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
@@ -24,10 +36,9 @@ namespace AutoNai3Tools.utils {
             string randomTxtFile = txtFiles[random.Next(txtFiles.Length)];
             string t_prompt = File.ReadAllText(randomTxtFile);
             string[] words1 = t_prompt.Split(',').Select(word => word.Trim()).ToArray();
-            string[] words2 = form.txtPromptBlackList.Text.Split(',').Select(word => word.Trim()).ToArray();
+            string[] words2 = GetPromptBlackList(form);
             var result = words1.Where(word => !words2.Contains(word));
-            string[] words3 = form.txtPromptBlackList.Text.Replace(" ", "_").Split(',').Select(word => word.Trim())
-                .ToArray();
+            string[] words3 = GetPromptBlackList(form, true);
             result = result.Where(word => !words3.Contains(word));
             return string.Join(",", result).Trim();
         }
