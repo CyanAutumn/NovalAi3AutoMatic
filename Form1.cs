@@ -27,6 +27,10 @@ namespace AutoNai3Tools {
 
         public Form1() {
             InitializeComponent();
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer,
+                true);
+            UpdateStyles();
+            EnableDoubleBuffer(this);
             Control.CheckForIllegalCrossThreadCalls = false;
             RefreshConfig();
             InitGrpEventArgs();
@@ -38,6 +42,19 @@ namespace AutoNai3Tools {
             tabControl2.TabPages.Remove(tabPage18);
             propertyGrid1.SelectedObject = picProps;
             propertyGridSettings.SelectedObject = settingProps;
+        }
+
+        private void EnableDoubleBuffer(Control control) {
+            if (control == null)
+                return;
+
+            var doubleBufferProperty = typeof(Control).GetProperty("DoubleBuffered",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            doubleBufferProperty?.SetValue(control, true, null);
+
+            foreach (Control child in control.Controls) {
+                EnableDoubleBuffer(child);
+            }
         }
 
         #region 固定画师，随机画师，随机提示词快速插入
