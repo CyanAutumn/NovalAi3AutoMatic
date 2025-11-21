@@ -93,6 +93,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="controllers\GenerationController.cs" />
+    <Compile Include="controllers\GenerationRequestPipeline.cs" />
     <Compile Include="controllers\GenerationInput.cs" />
     <Compile Include="controllers\GenerationUiDataProvider.cs" />
     <Compile Include="controllers\IGenerationDataProvider.cs" />
