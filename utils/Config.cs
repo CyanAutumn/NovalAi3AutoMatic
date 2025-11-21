@@ -95,6 +95,7 @@ namespace AutoNai3Tools.utils {
         public double VarietyNum { get; set; }
         public Switch FixedSeeds { get; set; }
         public BodyTools.Model ModelSelect { get; set; }
+        public OutputFileNameFormat OutputFileNameFormat { get; set; }
     }
 
     internal class PresetConfigRepository {

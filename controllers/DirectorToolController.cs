@@ -10,10 +10,13 @@ namespace AutoNai3Tools.Controllers {
     internal sealed class DirectorToolController {
         private readonly DirectorToolProcessor processor;
         private readonly PicProperty picProperty;
+        private readonly SettingProperty settingProperty;
 
-        public DirectorToolController(DirectorToolProcessor processor, PicProperty picProperty) {
+        public DirectorToolController(DirectorToolProcessor processor, PicProperty picProperty,
+            SettingProperty settingProperty) {
             this.processor = processor ?? throw new ArgumentNullException(nameof(processor));
             this.picProperty = picProperty ?? throw new ArgumentNullException(nameof(picProperty));
+            this.settingProperty = settingProperty ?? throw new ArgumentNullException(nameof(settingProperty));
         }
 
         public event Action<bool> BusyStateChanged;
@@ -82,7 +85,8 @@ namespace AutoNai3Tools.Controllers {
             CancellationToken cancellationToken) {
             for (int i = 0; i < options.Iterations; i++) {
                 cancellationToken.ThrowIfCancellationRequested();
-                Bitmap img = await processor.ExecuteAsync(imagePath, type, options, picProperty, cancellationToken)
+                Bitmap img = await processor.ExecuteAsync(imagePath, type, options, picProperty, settingProperty,
+                        cancellationToken)
                     .ConfigureAwait(false);
                 if (img != null)
                     OutputUpdated?.Invoke(img);

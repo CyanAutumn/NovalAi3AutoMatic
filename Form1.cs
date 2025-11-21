@@ -51,7 +51,7 @@ namespace AutoNai3Tools {
             AttachGenerationControllerEvents();
 
             var directorProcessor = new DirectorToolProcessor();
-            directorToolController = new DirectorToolController(directorProcessor, picProps);
+            directorToolController = new DirectorToolController(directorProcessor, picProps, settingProps);
             AttachDirectorToolEvents();
         }
 

@@ -46,7 +46,8 @@ namespace AutoNai3Tools.utils {
             }
         }
 
-        public async Task<Bitmap> ExecuteAsync(string imagePath, int type, DirectorToolExecutionOptions options, PicProperty picProps,
+        public async Task<Bitmap> ExecuteAsync(string imagePath, int type, DirectorToolExecutionOptions options,
+            PicProperty picProps, SettingProperty settingProps,
             CancellationToken cancellationToken = default) {
             try {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -68,7 +69,8 @@ namespace AutoNai3Tools.utils {
                     return null;
 
                 cancellationToken.ThrowIfCancellationRequested();
-                return await novalAi.SendDirectorToolsRequestsAsync(options.Token, body, picProps, options.Proxy,
+                return await novalAi.SendDirectorToolsRequestsAsync(options.Token, body, picProps, settingProps,
+                        options.Proxy,
                         cancellationToken)
                     .ConfigureAwait(false);
             }

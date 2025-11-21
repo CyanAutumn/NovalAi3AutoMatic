@@ -57,7 +57,8 @@ namespace AutoNai3Tools {
                 Variety = picProps.Variety != VarietyOptions.关,
                 VarietyDefault = picProps.Variety == VarietyOptions.自定义_风险参数,
                 VarietyNum = picProps.VarietyNum,
-                ModelSelect = picProps.Model
+                ModelSelect = picProps.Model,
+                OutputFileNameFormat = settingProps.OutputFileNameFormat
             };
         }
 
@@ -118,6 +119,7 @@ namespace AutoNai3Tools {
             }
             picProps.VarietyNum = data.VarietyNum;
             picProps.Model = data.ModelSelect;
+            settingProps.OutputFileNameFormat = data.OutputFileNameFormat;
         }
 
         private SystemConfigData CaptureSystemConfig() {

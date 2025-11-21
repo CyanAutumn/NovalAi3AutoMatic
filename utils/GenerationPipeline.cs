@@ -6,16 +6,19 @@ using AutoNai3Tools.body;
 
 namespace AutoNai3Tools.utils {
     internal class GenerationRequest {
-        public GenerationRequest(BodyBase body, string originalPrompt, string noArtistPrompt, GenerationRunInfo runInfo) {
+        public GenerationRequest(BodyBase body, string originalPrompt, string noArtistPrompt, string artistSummary,
+            GenerationRunInfo runInfo) {
             Body = body;
             OriginalPrompt = originalPrompt;
             NoArtistPrompt = noArtistPrompt;
+            ArtistSummary = artistSummary;
             RunInfo = runInfo;
         }
 
         public BodyBase Body { get; }
         public string OriginalPrompt { get; }
         public string NoArtistPrompt { get; }
+        public string ArtistSummary { get; }
         public GenerationRunInfo RunInfo { get; }
     }
 
@@ -102,7 +105,9 @@ namespace AutoNai3Tools.utils {
                             _context.SettingProps.Token,
                             request.Body,
                             request.NoArtistPrompt,
+                            request.ArtistSummary,
                             _context.PicProps,
+                            _context.SettingProps,
                             _context.SettingProps.Proxy,
                             request.OriginalPrompt)
                         .ConfigureAwait(false);

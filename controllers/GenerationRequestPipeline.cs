@@ -23,6 +23,7 @@ namespace AutoNai3Tools.Controllers {
         public string NegativePrompt { get; set; }
         public string ResolvedPrompt { get; set; }
         public string NoArtistPrompt { get; set; }
+        public string ArtistSummary { get; set; }
         public BodyBase Body { get; set; }
         public GenerationRunInfo RunInfo { get; set; }
     }
@@ -57,7 +58,8 @@ namespace AutoNai3Tools.Controllers {
             if (state.RunInfo == null)
                 throw new InvalidOperationException("未构建生成 RunInfo。");
 
-            return new GenerationRequest(state.Body, state.OriginalPrompt, state.NoArtistPrompt, state.RunInfo);
+            return new GenerationRequest(state.Body, state.OriginalPrompt, state.NoArtistPrompt, state.ArtistSummary,
+                state.RunInfo);
         }
     }
 
@@ -199,11 +201,34 @@ namespace AutoNai3Tools.Controllers {
             var prompt = Prompt.GetPrompt(context.OriginalPrompt, context.PromptContext);
             context.NoArtistPrompt = Prompt.GetNoArtistPrompt(prompt);
             context.ResolvedPrompt = Prompt.GetDataPrompt(prompt);
+            context.ArtistSummary = BuildArtistSummary(prompt);
 
             context.Kwargs["prompt"] = context.ResolvedPrompt;
             context.Kwargs["v4_negative_prompt"] =
                 new V4Prompt(new Caption(context.NegativePrompt, new List<CharCaption>()), null, null, false);
             context.Kwargs["v4_prompt"] = new V4Prompt(new Caption(context.ResolvedPrompt, new List<CharCaption>()), true, true, null);
+        }
+
+        private static string BuildArtistSummary(Dictionary<string, string> promptData) {
+            if (promptData == null || promptData.Count == 0)
+                return null;
+
+            var artistValues = promptData
+                .Where(kvp => kvp.Key.Contains("<固定画师") || kvp.Key.Contains("<随机画师"))
+                .Select(kvp => kvp.Value)
+                .Where(value => !string.IsNullOrWhiteSpace(value))
+                .ToList();
+
+            if (artistValues.Count == 0)
+                return null;
+
+            var parts = artistValues
+                .SelectMany(value => value.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                .Select(part => part.Trim())
+                .Where(part => !string.IsNullOrWhiteSpace(part))
+                .ToList();
+
+            return parts.Count == 0 ? null : string.Join(",", parts);
         }
     }
 

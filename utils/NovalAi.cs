@@ -209,12 +209,15 @@ namespace AutoNai3Tools.utils {
 
 
     internal class NovalAi {
-        private string SanitizePromptForFileName(string prompt) {
-            string fallback = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            if (string.IsNullOrWhiteSpace(prompt))
+        private string GetTimestamp() {
+            return DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        }
+
+        private string SanitizeForFileName(string value, string fallback, int maxLength = 120) {
+            if (string.IsNullOrWhiteSpace(value))
                 return fallback;
 
-            string normalized = Regex.Replace(prompt, @"\s+", " ").Trim();
+            string normalized = Regex.Replace(value, @"\s+", " ").Trim();
             if (string.IsNullOrEmpty(normalized))
                 return fallback;
 
@@ -225,8 +228,8 @@ namespace AutoNai3Tools.utils {
             }
 
             string sanitized = builder.ToString().Trim();
-            if (sanitized.Length > 120) {
-                sanitized = sanitized.Substring(0, 120).Trim();
+            if (maxLength > 0 && sanitized.Length > maxLength) {
+                sanitized = sanitized.Substring(0, maxLength).Trim();
             }
 
             return string.IsNullOrEmpty(sanitized) ? fallback : sanitized;
@@ -243,13 +246,29 @@ namespace AutoNai3Tools.utils {
             return candidate;
         }
 
-        private string BuildFileName(string prompt, long seed, string outputDirectory) {
-            string promptPart = SanitizePromptForFileName(prompt);
-            string baseName = $"{promptPart} s-{seed}";
+        private string BuildFileName(string prompt, long seed, string outputDirectory, SettingProperty settingProps,
+            string artistSummary) {
+            var format = settingProps?.OutputFileNameFormat ?? OutputFileNameFormat.NovalAI;
+            string baseName;
+            switch (format) {
+                case OutputFileNameFormat.AllArtists:
+                    var artistPart = SanitizeForFileName(artistSummary, GetTimestamp(), 230);
+                    baseName = $"{artistPart}_{seed}";
+                    break;
+                case OutputFileNameFormat.DateTime:
+                    baseName = GetTimestamp();
+                    break;
+                default:
+                    string promptPart = SanitizeForFileName(prompt, GetTimestamp());
+                    baseName = $"{promptPart} s-{seed}";
+                    break;
+            }
+
             return EnsureUniqueFileName(outputDirectory, baseName);
         }
 
-        private Bitmap UnZipAndSaveImage(RestResponse response, PicProperty picProps, string prompt, string noArtistPrompt) {
+        private Bitmap UnZipAndSaveImage(RestResponse response, PicProperty picProps, SettingProperty settingProps,
+            string prompt, string noArtistPrompt, string artistSummary) {
             if (!response.IsSuccessful) {
                 Logger.Warn("生图请求失败",
                     context: Logger.Context(("statusCode", response.StatusCode),
@@ -262,7 +281,7 @@ namespace AutoNai3Tools.utils {
                 using (ZipArchive archive = new ZipArchive(memoryStream)) {
                     foreach (ZipArchiveEntry entry in archive.Entries) {
                         long seed = picProps.Seeds;
-                        string file_name = BuildFileName(prompt, seed, picProps.OutputPath);
+                        string file_name = BuildFileName(prompt, seed, picProps.OutputPath, settingProps, artistSummary);
                         string entryFileName = Path.Combine(picProps.OutputPath, file_name);
 
                         using (Stream entryStream = entry.Open()) {
@@ -289,6 +308,7 @@ namespace AutoNai3Tools.utils {
             string token,
             Nai3DirectorToolsBody body,
             PicProperty picProps,
+            SettingProperty settingProps,
             string proxy,
             CancellationToken cancellationToken = default) {
             try {
@@ -296,7 +316,7 @@ namespace AutoNai3Tools.utils {
                         cancellationToken)
                     .ConfigureAwait(false);
                 await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
-                Bitmap pic = UnZipAndSaveImage(response, picProps, null, null);
+                Bitmap pic = UnZipAndSaveImage(response, picProps, settingProps, null, null, null);
                 if (pic != null) {
                     Logger.Info("绘导工具生成完成",
                         context: Logger.Context(("type", body.req_type), ("height", body.height),
@@ -320,7 +340,9 @@ namespace AutoNai3Tools.utils {
             string token,
             BodyBase body,
             string noArtistPrompt,
+            string artistSummary,
             PicProperty picProps,
+            SettingProperty settingProps,
             string proxy,
             string originalPrompt,
             CancellationToken cancellationToken = default) {
@@ -329,7 +351,8 @@ namespace AutoNai3Tools.utils {
                         cancellationToken)
                     .ConfigureAwait(false);
                 await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
-                Bitmap pic = UnZipAndSaveImage(response, picProps, body.prompt, noArtistPrompt);
+                Bitmap pic = UnZipAndSaveImage(response, picProps, settingProps, body.prompt, noArtistPrompt,
+                    artistSummary);
                 if (pic != null) {
                     Logger.Info("生图完成",
                         context: Logger.Context(("originalPrompt", originalPrompt ?? body?.prompt),
