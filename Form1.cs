@@ -241,7 +241,7 @@ namespace AutoNai3Tools {
         }
 
         private void RequestStopGeneration() {
-            btnGenerate.Text = "停止中...";
+            btnGenerate.Text = "停止";
             btnGenerate.Enabled = false;
             generationController.RequestStopGeneration();
         }

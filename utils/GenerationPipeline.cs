@@ -104,8 +104,7 @@ namespace AutoNai3Tools.utils {
                             request.NoArtistPrompt,
                             _context.PicProps,
                             _context.SettingProps.Proxy,
-                            request.OriginalPrompt,
-                            token)
+                            request.OriginalPrompt)
                         .ConfigureAwait(false);
 
                     if (bitmap != null)
