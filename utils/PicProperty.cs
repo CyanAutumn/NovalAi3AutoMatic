@@ -64,9 +64,18 @@ namespace AutoNai3Tools.utils {
         [Category("生成")] [DisplayName("Prompt Guidance Rescale(CFG)")] public float CFG { get; set; }
         [Category("生成")] [DisplayName("Decrisp")] public Switch Decrisp { get; set; }
         [Category("生成")] [DisplayName("分辨率切换模式")] public ResolutionMode ResolutionMode { get; set; }
-        [Category("生成")] [DisplayName("分辨率列表")][Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))] public string ResolutionList { get; set; } = "832x1216\r\n1216x832\r\n1024x1024";
-        [Category("生成")][DisplayName("width")] public int Width { get; set; } = 832;
-        [Category("生成")][DisplayName("height")] public int Height { get; set; } = 1216;
+        [Category("生成")] [DisplayName("分辨率列表")][Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))][RefreshProperties(RefreshProperties.All)] public string ResolutionList { get; set; } = "832x1216\r\n1216x832\r\n1024x1024";
+        [Category("生成")] [DisplayName("分辨率")][TypeConverter(typeof(ResolutionValueConverter))][RefreshProperties(RefreshProperties.All)] public string ResolutionSelection {
+            get => $"{Width}x{Height}";
+            set {
+                if (ResolutionHelper.TryParse(value, out int width, out int height)) {
+                    Width = width;
+                    Height = height;
+                }
+            }
+        }
+        [Category("生成")][DisplayName("width")][RefreshProperties(RefreshProperties.All)] public int Width { get; set; } = 832;
+        [Category("生成")][DisplayName("height")][RefreshProperties(RefreshProperties.All)] public int Height { get; set; } = 1216;
         [Category("生成")][DisplayName("固定种子")] public Switch FixedSeeds { get; set; } = Switch.关;
 
         [Category("生成")] [DisplayName("Seed(种子)")] public long Seeds { get; set; }
@@ -109,6 +118,10 @@ namespace AutoNai3Tools.utils {
         [Category("优化")] [DisplayName("Variety自定义值")] public double VarietyNum { get; set; }
         [Category("运行")][DisplayName("跑图数量")] public int RunNum { get; set; } = 1;
         [Category("运行")][DisplayName("参数固定数量")] public int RunKeepParams { get; set; } = 1;
+
+        public IEnumerable<string> GetResolutionOptions() {
+            return ResolutionHelper.BuildResolutionOptions(ResolutionList);
+        }
 
         public Dictionary<string, object> GetProperty() {
             if (FixedSeeds == Switch.关) {
@@ -190,6 +203,37 @@ namespace AutoNai3Tools.utils {
         自定义_风险参数
     }
 
+    internal static class ResolutionHelper {
+        public static bool TryParse(string value, out int width, out int height) {
+            width = 0;
+            height = 0;
+
+            if (string.IsNullOrWhiteSpace(value))
+                return false;
+
+            var segments = value.ToLowerInvariant().Split('x');
+            if (segments.Length < 2)
+                return false;
+
+            return int.TryParse(segments[0].Trim(), out width) && int.TryParse(segments[1].Trim(), out height);
+        }
+
+        public static IEnumerable<string> BuildResolutionOptions(string resolutionList) {
+            if (resolutionList == null)
+                yield break;
+
+            var items = resolutionList
+                .Split(new[] { "\r\n" }, StringSplitOptions.None)
+                .Select(item => item?.Trim())
+                .Where(item => !string.IsNullOrWhiteSpace(item));
+
+            foreach (var item in items) {
+                if (TryParse(item, out _, out _))
+                    yield return item;
+            }
+        }
+    }
+
     public class MultiLineTextForm : Form {
         private TextBox textBox;
         private Button btnOK;
@@ -236,6 +280,32 @@ namespace AutoNai3Tools.utils {
             }
 
             return value; 
+        }
+    }
+
+    public class ResolutionValueConverter : StringConverter {
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) {
+            return true;
+        }
+
+        public override bool GetStandardValuesExclusive(ITypeDescriptorContext context) {
+            return false;
+        }
+
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) {
+            var picProperty = ResolvePicProperty(context?.Instance);
+            var options = picProperty?.GetResolutionOptions().ToList() ?? new List<string>();
+            return new StandardValuesCollection(options);
+        }
+
+        private static PicProperty ResolvePicProperty(object instance) {
+            if (instance is PicProperty picProperty)
+                return picProperty;
+
+            if (instance is object[] instanceArray)
+                return instanceArray.OfType<PicProperty>().FirstOrDefault();
+
+            return null;
         }
     }
 

@@ -81,10 +81,7 @@ namespace AutoNai3Tools.Controllers {
 
             if (runNum == 0 || (runNum % picProps.RunKeepParams == 0 && settingProps.KeepResolution) ||
                 !settingProps.KeepResolution) {
-                var resolutionList = picProps.ResolutionList
-                    .Split(new string[] { "\r\n" }, StringSplitOptions.None)
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .ToArray();
+                var resolutionList = picProps.GetResolutionOptions().ToArray();
                 if (resolutionList.Length == 0) {
                     Logger.Warn("分辨率列表为空，继续使用当前分辨率",
                         context: Logger.Context(("run", runNum)));
