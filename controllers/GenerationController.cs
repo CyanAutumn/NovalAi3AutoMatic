@@ -42,8 +42,15 @@ namespace AutoNai3Tools.Controllers {
                 input.Img2Img,
                 dataProvider.PicProps.RunNum);
 
-            currentPipeline = new GenerationPipeline(context,
-                index => requestPipeline.BuildRequest(context, dataProvider.PromptContext, index));
+            currentPipeline = new GenerationPipeline(context, index => {
+                GenerationInput iterationInput = index == 0 ? input : dataProvider.CaptureInput();
+                context.UpdateDynamicInput(
+                    iterationInput?.PromptText,
+                    iterationInput?.NegativePromptText,
+                    iterationInput?.Vibes,
+                    iterationInput?.Img2Img);
+                return requestPipeline.BuildRequest(context, dataProvider.PromptContext, index);
+            });
             AttachPipelineEvents();
 
             cancellationTokenSource = new CancellationTokenSource();

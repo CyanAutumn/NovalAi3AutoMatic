@@ -14,21 +14,28 @@ namespace AutoNai3Tools.utils {
             int runCount) {
             PicProps = picProps ?? throw new ArgumentNullException(nameof(picProps));
             SettingProps = settingProps ?? throw new ArgumentNullException(nameof(settingProps));
-            PromptText = promptText ?? string.Empty;
-            NegativePrompt = negativePrompt ?? string.Empty;
-            Vibes = vibes?.Select(CloneVibe).ToList() ?? new List<VibeSelection>();
-            Img2Img = img2Img;
             RunCount = Math.Max(1, runCount);
+            UpdateDynamicInput(promptText, negativePrompt, vibes, img2Img);
         }
 
         public PicProperty PicProps { get; }
         public SettingProperty SettingProps { get; }
-        public string PromptText { get; }
-        public string NegativePrompt { get; }
-        public List<VibeSelection> Vibes { get; }
-        public Img2ImgOptions Img2Img { get; }
+        public string PromptText { get; private set; }
+        public string NegativePrompt { get; private set; }
+        public List<VibeSelection> Vibes { get; private set; }
+        public Img2ImgOptions Img2Img { get; private set; }
         public int RunCount { get; }
         public bool HasImg2Img => Img2Img != null && !string.IsNullOrWhiteSpace(Img2Img.ImagePath);
+
+        public void UpdateDynamicInput(string promptText, string negativePrompt, IEnumerable<VibeSelection> vibes,
+            Img2ImgOptions img2Img) {
+            PromptText = promptText ?? string.Empty;
+            NegativePrompt = negativePrompt ?? string.Empty;
+            Vibes = vibes?.Select(CloneVibe).ToList() ?? new List<VibeSelection>();
+            Img2Img = img2Img == null
+                ? null
+                : new Img2ImgOptions(img2Img.ImagePath, img2Img.Strength, img2Img.Noise);
+        }
 
         private static VibeSelection CloneVibe(VibeSelection source) {
             if (source == null)
