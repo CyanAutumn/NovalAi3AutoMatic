@@ -31,6 +31,7 @@ namespace AutoNai3Tools.tag
             List<List<Artist>> artistGroupList = ArtistTools.ParseArtistTxtToArtistGroupList(context.ArtistRandomText);
             string randomArtist = ArtistTools.GetArtistPrompt(artistGroupList,
                 context.DefaultArtistWeightReduceMax, context.DefaultArtistWeightIncreaseMax,
+                context.DefaultArtistWeightReduceDoubleColonMax, context.DefaultArtistWeightIncreaseDoubleColonMax,
                 context.ArtistModify, context.ArtistMin, context.ArtistMax);
             Logger.Info($"<随机画师>：{randomArtist}",
                 context: Logger.Context(("value", randomArtist)));

@@ -41,6 +41,8 @@ namespace AutoNai3Tools {
                 ArtistRandom = txtArtistRandom.Text,
                 DefaultArtistWeightReduceMax = (int)numDefaultArtistWeightReduceMax.Value,
                 DefaultArtistWeightIncreaseMax = (int)numDefaultArtistWeightIncreaseMax.Value,
+                DefaultArtistWeightReduceDoubleColonMax = (double)numDefaultArtistWeightReduceDoubleColonMax.Value,
+                DefaultArtistWeightIncreaseDoubleColonMax = (double)numDefaultArtistWeightIncreaseDoubleColonMax.Value,
                 ArtistMin = (int)numArtistMin.Value,
                 ArtistMax = (int)numArtistMax.Value,
                 ArtistModify = chkArtistModify.Checked,
@@ -98,6 +100,10 @@ namespace AutoNai3Tools {
             txtArtistRandom.Text = data.ArtistRandom ?? string.Empty;
             numDefaultArtistWeightReduceMax.Value = data.DefaultArtistWeightReduceMax;
             numDefaultArtistWeightIncreaseMax.Value = data.DefaultArtistWeightIncreaseMax;
+            if (data.DefaultArtistWeightReduceDoubleColonMax.HasValue)
+                numDefaultArtistWeightReduceDoubleColonMax.Value = (decimal)data.DefaultArtistWeightReduceDoubleColonMax.Value;
+            if (data.DefaultArtistWeightIncreaseDoubleColonMax.HasValue)
+                numDefaultArtistWeightIncreaseDoubleColonMax.Value = (decimal)data.DefaultArtistWeightIncreaseDoubleColonMax.Value;
             numArtistMin.Value = data.ArtistMin;
             numArtistMax.Value = data.ArtistMax;
             chkArtistModify.Checked = data.ArtistModify;

@@ -10,6 +10,8 @@ namespace AutoNai3Tools {
         string IPromptContext.ArtistRandomText => txtArtistRandom.Text;
         int IPromptContext.DefaultArtistWeightReduceMax => (int)numDefaultArtistWeightReduceMax.Value;
         int IPromptContext.DefaultArtistWeightIncreaseMax => (int)numDefaultArtistWeightIncreaseMax.Value;
+        double IPromptContext.DefaultArtistWeightReduceDoubleColonMax => (double)numDefaultArtistWeightReduceDoubleColonMax.Value;
+        double IPromptContext.DefaultArtistWeightIncreaseDoubleColonMax => (double)numDefaultArtistWeightIncreaseDoubleColonMax.Value;
         bool IPromptContext.ArtistModify => chkArtistModify.Checked;
         int IPromptContext.ArtistMin => (int)numArtistMin.Value;
         int IPromptContext.ArtistMax => (int)numArtistMax.Value;

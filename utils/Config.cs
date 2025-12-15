@@ -78,6 +78,8 @@ namespace AutoNai3Tools.utils {
         public string ArtistRandom { get; set; }
         public int DefaultArtistWeightReduceMax { get; set; }
         public int DefaultArtistWeightIncreaseMax { get; set; }
+        public double? DefaultArtistWeightReduceDoubleColonMax { get; set; }
+        public double? DefaultArtistWeightIncreaseDoubleColonMax { get; set; }
         public int ArtistMin { get; set; }
         public int ArtistMax { get; set; }
         public bool ArtistModify { get; set; }

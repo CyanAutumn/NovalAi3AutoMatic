@@ -58,6 +58,8 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.labelArtistWeightIncreaseDoubleColonMax = new System.Windows.Forms.Label();
+            this.labelArtistWeightReduceDoubleColonMax = new System.Windows.Forms.Label();
             this.numArtistMin = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.numArtistMax = new System.Windows.Forms.NumericUpDown();
@@ -65,6 +67,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.numDefaultArtistWeightIncreaseMax = new System.Windows.Forms.NumericUpDown();
             this.numDefaultArtistWeightReduceMax = new System.Windows.Forms.NumericUpDown();
+            this.numDefaultArtistWeightIncreaseDoubleColonMax = new System.Windows.Forms.NumericUpDown();
+            this.numDefaultArtistWeightReduceDoubleColonMax = new System.Windows.Forms.NumericUpDown();
             this.grpArtistFixed = new System.Windows.Forms.GroupBox();
             this.txtArtistFixed = new System.Windows.Forms.TextBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
@@ -202,6 +206,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numArtistMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDefaultArtistWeightIncreaseMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDefaultArtistWeightReduceMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDefaultArtistWeightIncreaseDoubleColonMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDefaultArtistWeightReduceDoubleColonMax)).BeginInit();
             this.grpArtistFixed.SuspendLayout();
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTagSnippet)).BeginInit();
@@ -589,10 +595,10 @@
             // 
             this.txtArtistRandom.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtArtistRandom.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtArtistRandom.Location = new System.Drawing.Point(4, 148);
+            this.txtArtistRandom.Location = new System.Drawing.Point(4, 178);
             this.txtArtistRandom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtArtistRandom.Name = "txtArtistRandom";
-            this.txtArtistRandom.Size = new System.Drawing.Size(464, 499);
+            this.txtArtistRandom.Size = new System.Drawing.Size(464, 469);
             this.txtArtistRandom.TabIndex = 5;
             this.txtArtistRandom.Text = "画师A\n画师B,1,2,1,2\n画师C,0,0,1,2\n画师D,0,0,1,2|画师E,1,2,0,0";
             // 
@@ -600,6 +606,8 @@
             // 
             this.panel7.Controls.Add(this.label13);
             this.panel7.Controls.Add(this.label12);
+            this.panel7.Controls.Add(this.labelArtistWeightIncreaseDoubleColonMax);
+            this.panel7.Controls.Add(this.labelArtistWeightReduceDoubleColonMax);
             this.panel7.Controls.Add(this.numArtistMin);
             this.panel7.Controls.Add(this.label7);
             this.panel7.Controls.Add(this.numArtistMax);
@@ -607,11 +615,13 @@
             this.panel7.Controls.Add(this.label6);
             this.panel7.Controls.Add(this.numDefaultArtistWeightIncreaseMax);
             this.panel7.Controls.Add(this.numDefaultArtistWeightReduceMax);
+            this.panel7.Controls.Add(this.numDefaultArtistWeightIncreaseDoubleColonMax);
+            this.panel7.Controls.Add(this.numDefaultArtistWeightReduceDoubleColonMax);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(4, 28);
             this.panel7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(464, 120);
+            this.panel7.Size = new System.Drawing.Size(464, 150);
             this.panel7.TabIndex = 32;
             // 
             // label13
@@ -634,9 +644,29 @@
             this.label12.TabIndex = 31;
             this.label12.Text = "全局减权[]Max：";
             // 
+            // labelArtistWeightIncreaseDoubleColonMax
+            // 
+            this.labelArtistWeightIncreaseDoubleColonMax.AutoSize = true;
+            this.labelArtistWeightIncreaseDoubleColonMax.Location = new System.Drawing.Point(238, 39);
+            this.labelArtistWeightIncreaseDoubleColonMax.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelArtistWeightIncreaseDoubleColonMax.Name = "labelArtistWeightIncreaseDoubleColonMax";
+            this.labelArtistWeightIncreaseDoubleColonMax.Size = new System.Drawing.Size(146, 24);
+            this.labelArtistWeightIncreaseDoubleColonMax.TabIndex = 34;
+            this.labelArtistWeightIncreaseDoubleColonMax.Text = "全局加权::Max：";
+            // 
+            // labelArtistWeightReduceDoubleColonMax
+            // 
+            this.labelArtistWeightReduceDoubleColonMax.AutoSize = true;
+            this.labelArtistWeightReduceDoubleColonMax.Location = new System.Drawing.Point(4, 39);
+            this.labelArtistWeightReduceDoubleColonMax.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelArtistWeightReduceDoubleColonMax.Name = "labelArtistWeightReduceDoubleColonMax";
+            this.labelArtistWeightReduceDoubleColonMax.Size = new System.Drawing.Size(146, 24);
+            this.labelArtistWeightReduceDoubleColonMax.TabIndex = 33;
+            this.labelArtistWeightReduceDoubleColonMax.Text = "全局减权::Max：";
+            // 
             // numArtistMin
             // 
-            this.numArtistMin.Location = new System.Drawing.Point(190, 44);
+            this.numArtistMin.Location = new System.Drawing.Point(190, 64);
             this.numArtistMin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numArtistMin.Minimum = new decimal(new int[] {
             1,
@@ -655,7 +685,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(316, 46);
+            this.label7.Location = new System.Drawing.Point(316, 66);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(23, 24);
@@ -664,7 +694,7 @@
             // 
             // numArtistMax
             // 
-            this.numArtistMax.Location = new System.Drawing.Point(358, 44);
+            this.numArtistMax.Location = new System.Drawing.Point(358, 64);
             this.numArtistMax.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numArtistMax.Minimum = new decimal(new int[] {
             1,
@@ -683,7 +713,7 @@
             // chkArtistModify
             // 
             this.chkArtistModify.AutoSize = true;
-            this.chkArtistModify.Location = new System.Drawing.Point(3, 87);
+            this.chkArtistModify.Location = new System.Drawing.Point(3, 107);
             this.chkArtistModify.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkArtistModify.Name = "chkArtistModify";
             this.chkArtistModify.Size = new System.Drawing.Size(210, 28);
@@ -694,7 +724,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 48);
+            this.label6.Location = new System.Drawing.Point(4, 68);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(190, 24);
@@ -732,6 +762,54 @@
             this.numDefaultArtistWeightReduceMax.Size = new System.Drawing.Size(74, 31);
             this.numDefaultArtistWeightReduceMax.TabIndex = 28;
             this.numDefaultArtistWeightReduceMax.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numDefaultArtistWeightIncreaseDoubleColonMax
+            // 
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.DecimalPlaces = 2;
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.Location = new System.Drawing.Point(390, 33);
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.Name = "numDefaultArtistWeightIncreaseDoubleColonMax";
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.Size = new System.Drawing.Size(74, 31);
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.TabIndex = 36;
+            this.numDefaultArtistWeightIncreaseDoubleColonMax.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numDefaultArtistWeightReduceDoubleColonMax
+            // 
+            this.numDefaultArtistWeightReduceDoubleColonMax.DecimalPlaces = 2;
+            this.numDefaultArtistWeightReduceDoubleColonMax.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numDefaultArtistWeightReduceDoubleColonMax.Location = new System.Drawing.Point(156, 33);
+            this.numDefaultArtistWeightReduceDoubleColonMax.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numDefaultArtistWeightReduceDoubleColonMax.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.numDefaultArtistWeightReduceDoubleColonMax.Name = "numDefaultArtistWeightReduceDoubleColonMax";
+            this.numDefaultArtistWeightReduceDoubleColonMax.Size = new System.Drawing.Size(74, 31);
+            this.numDefaultArtistWeightReduceDoubleColonMax.TabIndex = 35;
+            this.numDefaultArtistWeightReduceDoubleColonMax.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -2176,6 +2254,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numArtistMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDefaultArtistWeightIncreaseMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDefaultArtistWeightReduceMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDefaultArtistWeightIncreaseDoubleColonMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numDefaultArtistWeightReduceDoubleColonMax)).EndInit();
             this.grpArtistFixed.ResumeLayout(false);
             this.grpArtistFixed.PerformLayout();
             this.tabPage8.ResumeLayout(false);
@@ -2255,6 +2335,8 @@
         public System.Windows.Forms.Panel panel7;
         public System.Windows.Forms.Label label13;
         public System.Windows.Forms.Label label12;
+        public System.Windows.Forms.Label labelArtistWeightIncreaseDoubleColonMax;
+        public System.Windows.Forms.Label labelArtistWeightReduceDoubleColonMax;
         public System.Windows.Forms.NumericUpDown numArtistMin;
         public System.Windows.Forms.Label label7;
         public System.Windows.Forms.NumericUpDown numArtistMax;
@@ -2262,6 +2344,8 @@
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.NumericUpDown numDefaultArtistWeightIncreaseMax;
         public System.Windows.Forms.NumericUpDown numDefaultArtistWeightReduceMax;
+        public System.Windows.Forms.NumericUpDown numDefaultArtistWeightIncreaseDoubleColonMax;
+        public System.Windows.Forms.NumericUpDown numDefaultArtistWeightReduceDoubleColonMax;
         public System.Windows.Forms.GroupBox grpArtistFixed;
         public System.Windows.Forms.TextBox txtArtistFixed;
         public System.Windows.Forms.TabPage tabPage8;
