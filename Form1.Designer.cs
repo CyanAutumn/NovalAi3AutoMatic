@@ -263,7 +263,7 @@
             this.dreamForm1.Size = new System.Drawing.Size(1953, 1249);
             this.dreamForm1.TabIndex = 1;
             this.dreamForm1.TabStop = false;
-            this.dreamForm1.Text = "Nai3自动roll图工具 v2.3.0";
+            this.dreamForm1.Text = "Nai3自动roll图工具";
             this.dreamForm1.TitleAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dreamForm1.TitleHeight = 33;
             this.dreamForm1.UseCompatibleTextRendering = true;
@@ -2392,4 +2392,3 @@
         private System.Windows.Forms.Panel panel17;
     }
 }
-

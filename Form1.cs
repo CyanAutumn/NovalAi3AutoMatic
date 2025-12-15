@@ -20,11 +20,16 @@ namespace AutoNai3Tools {
 
         public Form1() {
             InitializeComponent();
+            SyncWindowTitleVersion();
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer,
                 true);
             UpdateStyles();
             EnableDoubleBuffer(this);
             Control.CheckForIllegalCrossThreadCalls = false;
+
+            configService = new ConfigService();
+            wildcardService = new WildcardService();
+
             RefreshConfig();
             InitGrpEventArgs();
             cmbColorizeDerfy.SelectedIndex = 0;
@@ -35,9 +40,6 @@ namespace AutoNai3Tools {
             tabControl2.TabPages.Remove(tabPage18);
             propertyGrid1.SelectedObject = picProps;
             propertyGridSettings.SelectedObject = settingProps;
-
-            configService = new ConfigService();
-            wildcardService = new WildcardService();
 
             generationDataProvider = new GenerationUiDataProvider(
                 picProps,
@@ -53,6 +55,30 @@ namespace AutoNai3Tools {
             var directorProcessor = new DirectorToolProcessor();
             directorToolController = new DirectorToolController(directorProcessor, picProps, settingProps);
             AttachDirectorToolEvents();
+        }
+
+        private void SyncWindowTitleVersion() {
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            string displayVersion;
+            if (version == null) {
+                displayVersion = "unknown";
+            }
+            else if (version.Revision <= 0) {
+                displayVersion = $"{version.Major}.{version.Minor}.{version.Build}";
+            }
+            else {
+                displayVersion = version.ToString();
+            }
+
+            string baseTitle = dreamForm1?.Text;
+            if (string.IsNullOrWhiteSpace(baseTitle))
+                baseTitle = "Nai3自动roll图工具";
+
+            string fullTitle = $"{baseTitle} v{displayVersion}";
+            if (dreamForm1 != null)
+                dreamForm1.Text = fullTitle;
+
+            Text = fullTitle;
         }
 
         private void EnableDoubleBuffer(Control control) {

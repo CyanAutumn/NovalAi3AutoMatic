@@ -153,6 +153,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official">
+      <Version>1.9.2</Version>
+    </PackageReference>
     <PackageReference Include="log4net">
       <Version>3.0.2</Version>
     </PackageReference>
