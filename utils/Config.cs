@@ -73,6 +73,8 @@ namespace AutoNai3Tools.utils {
         public int Noise { get; set; }
         public bool Smea { get; set; }
         public bool Dyn { get; set; }
+        public int? ImageFormat { get; set; }
+        public bool? QualityToggle { get; set; }
         public string[] ResolutionList { get; set; }
         public string ArtistFixed { get; set; }
         public string ArtistRandom { get; set; }

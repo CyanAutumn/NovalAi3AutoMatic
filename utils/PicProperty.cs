@@ -114,6 +114,8 @@ namespace AutoNai3Tools.utils {
         [DisplayName("输出路径")]
         [Editor(typeof(FolderPathEditor), typeof(UITypeEditor))]
         public string OutputPath { get; set; } = ".\\output";
+        [Category("优化")] [DisplayName("输出文件格式")] public ImageFormatOptions ImageFormat { get; set; } = ImageFormatOptions.png;
+        [Category("优化")] [DisplayName("qualityToggle")] public bool QualityToggle { get; set; } = true;
         [Category("优化")] [DisplayName("Variety")] public VarietyOptions Variety { get; set; }
         [Category("优化")] [DisplayName("Variety自定义值")] public double VarietyNum { get; set; }
         [Category("运行")][DisplayName("跑图数量")] public int RunNum { get; set; } = 1;
@@ -137,6 +139,8 @@ namespace AutoNai3Tools.utils {
                 ["scale"] = Scale,
                 ["dynamic_thresholding"] = Decrisp == Switch.开,
                 ["cfg_rescale"] = CFG,
+                ["image_format"] = GetEnumDescription(ImageFormat),
+                ["qualityToggle"] = QualityToggle,
                 ["seed"] = Seeds,
                 ["width"] = Width,
                 ["height"] = Height,
@@ -185,6 +189,11 @@ namespace AutoNai3Tools.utils {
         [Description("karras")] karras,
         [Description("exponential")] exponential,
         [Description("polyexponential")] polyexponential
+    }
+
+    public enum ImageFormatOptions {
+        [Description("webp")] webp = 0,
+        [Description("png")] png = 1
     }
 
     public enum SamplerOptions {
@@ -315,16 +324,31 @@ namespace AutoNai3Tools.utils {
         }
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value) {
-            string currentValue = value as string ?? "";
+            string currentValue = value as string ?? string.Empty;
             var owner = provider?.GetService(typeof(IWin32Window)) as IWin32Window;
             IntPtr ownerHandle = owner?.Handle ?? IntPtr.Zero;
 
-            string selectedPath = FolderPicker.PickFolder(currentValue, ownerHandle);
-            if (!string.IsNullOrEmpty(selectedPath)) {
-                return selectedPath;
+            string selectedPath = FolderPicker.PickFolder(currentValue, ownerHandle, preferLegacy: true);
+            if (string.IsNullOrWhiteSpace(selectedPath))
+                return value;
+
+            if (context != null) {
+                context.OnComponentChanging();
+                if (context.Instance is object[] instances) {
+                    foreach (var instance in instances) {
+                        context.PropertyDescriptor?.SetValue(instance, selectedPath);
+                    }
+                }
+                else if (context.Instance != null) {
+                    context.PropertyDescriptor?.SetValue(context.Instance, selectedPath);
+                }
+
+                context.OnComponentChanged();
+                if (context.Instance != null)
+                    TypeDescriptor.Refresh(context.Instance);
             }
 
-            return value;
+            return selectedPath;
         }
     }
 }

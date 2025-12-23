@@ -8,8 +8,6 @@ namespace AutoNai3Tools.body {
     class Nai2 : NovalAIBase {
         public Nai2(Dictionary<string, object> kwargs) : base(kwargs) {
             this.model = BodyTools.GetEnumDescription(BodyTools.Model.Nai2);
-            this.parameters.sm = false;
-            this.parameters.sm_dyn = false;
             this.parameters.extra_noise_seed = 0;
             this.parameters.strength = 0;
             this.parameters.noise = 0;

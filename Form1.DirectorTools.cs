@@ -126,7 +126,7 @@ namespace AutoNai3Tools {
         }
 
         private void btnSelectLineArtInputFolderPath_Click(object sender, EventArgs e) {
-            string folderPath = Tools.SelectFolder();
+            string folderPath = Tools.SelectFolder(txtLineArtInputFolder.Text);
             if (folderPath != null) {
                 txtLineArtInputFolder.Text = folderPath;
             }

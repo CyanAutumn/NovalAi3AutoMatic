@@ -36,6 +36,8 @@ namespace AutoNai3Tools {
                 Noise = (int)picProps.Noise,
                 Smea = picProps.Smea == Switch.开,
                 Dyn = picProps.Dyn == Switch.开,
+                ImageFormat = (int)picProps.ImageFormat,
+                QualityToggle = picProps.QualityToggle,
                 ResolutionList = resolutionList.Length > 0 ? resolutionList : new[] { "832x1216" },
                 ArtistFixed = txtArtistFixed.Text,
                 ArtistRandom = txtArtistRandom.Text,
@@ -93,6 +95,10 @@ namespace AutoNai3Tools {
             picProps.Noise = (NoiseOptions)data.Noise;
             picProps.Smea = data.Smea ? Switch.开 : Switch.关;
             picProps.Dyn = data.Dyn ? Switch.开 : Switch.关;
+            if (data.ImageFormat.HasValue)
+                picProps.ImageFormat = (ImageFormatOptions)data.ImageFormat.Value;
+            if (data.QualityToggle.HasValue)
+                picProps.QualityToggle = data.QualityToggle.Value;
             if (data.ResolutionList != null)
                 picProps.ResolutionList = string.Join("\r\n", data.ResolutionList);
 

@@ -22,7 +22,8 @@ namespace AutoNai3Tools.body {
             parameters.add_original_image = true;
             parameters.controlnet_strength = 1;
             parameters.n_samples = 1;
-            parameters.qualityToggle = true;
+            if (!kwargs.ContainsKey(nameof(GenerationParameters.qualityToggle)))
+                parameters.qualityToggle = true;
             parameters.ucPreset = 0;
             if (kwargs.ContainsKey("image")) {
                 this.action = "img2img";
@@ -122,6 +123,7 @@ namespace AutoNai3Tools.body {
         public int? extra_noise_seed { get; set; }
         public int ucPreset { get; set; }
         public bool prefer_brownian { get; set; }
+        [JsonProperty("qualityToggle")]
         public bool qualityToggle { get; set; }
         public bool? sm { get; set; }
         public bool? sm_dyn { get; set; }
@@ -140,6 +142,8 @@ namespace AutoNai3Tools.body {
         public bool autoSmea { get; set; }
         public List<string> characterPrompts { get; set; }
         public string negative_prompt { get; set; }
+        [JsonProperty("image_format")]
+        public string image_format { get; set; }
         public List<string> reference_image_multiple { get; set; }
         public List<float> reference_information_extracted_multiple { get; set; }
         public List<float> reference_strength_multiple { get; set; }

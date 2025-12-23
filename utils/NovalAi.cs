@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Net;
 using AutoNai3Tools.body;
 using AutoNai3Tools.novalai;
+using SkiaSharp;
 
 namespace AutoNai3Tools.utils {
     class VibeData:Object {
@@ -79,6 +80,7 @@ namespace AutoNai3Tools.utils {
         public bool deliberate_euler_ancestral_bug { get; set; } = false;
         public bool prefer_brownian { get; set; } = true;
         public string negative_prompt { get; set; } = null;
+        public string image_format { get; set; } = null;
         public V4Prompt v4_negative_prompt { get; set; } = null;
         public V4Prompt v4_prompt { get; set; } = null;
         public List<string> reference_image_multiple { get; set; } = null;
@@ -239,6 +241,7 @@ namespace AutoNai3Tools.utils {
             int counter = 1;
             string candidate = baseName;
             while (File.Exists(Path.Combine(directory, candidate + ".png")) ||
+                   File.Exists(Path.Combine(directory, candidate + ".webp")) ||
                    File.Exists(Path.Combine(directory, candidate + ".txt"))) {
                 candidate = $"{baseName} ({counter})";
                 counter++;
@@ -267,6 +270,38 @@ namespace AutoNai3Tools.utils {
             return EnsureUniqueFileName(outputDirectory, baseName);
         }
 
+        private static Bitmap TryDecodeWebpPreview(byte[] bytes, string imagePath) {
+            try {
+                using (var skData = SKData.CreateCopy(bytes))
+                using (var skBitmap = SKBitmap.Decode(skData)) {
+                    if (skBitmap == null) {
+                        Logger.Warn("WebP 图片预览解码失败（SKBitmap.Decode 返回空），已跳过预览但仍保存文件",
+                            context: Logger.Context(("path", imagePath), ("reason", "SKBitmap.Decode returned null")));
+                        return null;
+                    }
+
+                    using (var image = SKImage.FromBitmap(skBitmap))
+                    using (var encoded = image.Encode(SKEncodedImageFormat.Png, 100)) {
+                        if (encoded == null) {
+                            Logger.Warn("WebP 图片预览转码失败（SKImage.Encode 返回空），已跳过预览但仍保存文件",
+                                context: Logger.Context(("path", imagePath), ("reason", "SKImage.Encode returned null")));
+                            return null;
+                        }
+
+                        using (var stream = encoded.AsStream())
+                        using (var tempBitmap = new Bitmap(stream)) {
+                            return new Bitmap(tempBitmap);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) {
+                Logger.Warn($"WebP 图片预览解码失败（{ex.GetType().Name}: {ex.Message}），已跳过预览但仍保存文件",
+                    context: Logger.Context(("path", imagePath), ("reason", ex.Message)));
+                return null;
+            }
+        }
+
         private Bitmap UnZipAndSaveImage(RestResponse response, PicProperty picProps, SettingProperty settingProps,
             string prompt, string noArtistPrompt, string artistSummary) {
             if (!response.IsSuccessful) {
@@ -287,8 +322,28 @@ namespace AutoNai3Tools.utils {
                         using (Stream entryStream = entry.Open()) {
                             using (MemoryStream entryMemoryStream = new MemoryStream()) {
                                 entryStream.CopyTo(entryMemoryStream);
-                                File.WriteAllBytes(entryFileName + ".png", entryMemoryStream.ToArray());
-                                Bitmap bitmap = new Bitmap(entryMemoryStream);
+                                byte[] bytes = entryMemoryStream.ToArray();
+                                string extension = Path.GetExtension(entry.Name);
+                                if (string.IsNullOrWhiteSpace(extension))
+                                    extension = ".png";
+
+                                string imagePath = entryFileName + extension;
+                                File.WriteAllBytes(imagePath, bytes);
+                                entryMemoryStream.Position = 0;
+
+                                Bitmap bitmap = null;
+                                if (string.Equals(extension, ".webp", StringComparison.OrdinalIgnoreCase)) {
+                                    bitmap = TryDecodeWebpPreview(bytes, imagePath);
+                                }
+                                else {
+                                    try {
+                                        bitmap = new Bitmap(entryMemoryStream);
+                                    }
+                                    catch (Exception ex) {
+                                        Logger.Warn("图片预览解码失败，已跳过预览但仍保存文件",
+                                            context: Logger.Context(("path", imagePath), ("reason", ex.Message)));
+                                    }
+                                }
                                 if (picProps.SavePromptToTxt)
                                     if (picProps.SavePromptToTxtNoArtist)
                                         File.WriteAllText(entryFileName + ".txt", noArtistPrompt);

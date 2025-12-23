@@ -31,8 +31,8 @@ namespace AutoNai3Tools.utils {
             return null;
         }
 
-        public static string SelectFolder() {
-            return SelectFile("Folders|no.files", false);
+        public static string SelectFolder(string initialPath = null) {
+            return FolderPicker.PickFolder(initialPath);
         }
         public static string SelectIMGFile() {
             return SelectFile("Image Files|*.jpg;*.jpeg;*.png;*.bmp", true);

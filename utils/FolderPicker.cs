@@ -8,7 +8,11 @@ namespace AutoNai3Tools.utils {
         private const int ERROR_CANCELLED = unchecked((int)0x800704C7);
         private static readonly Guid IID_IShellItem = new Guid("43826D1E-E718-42EE-BC55-A1E261C37BFE");
 
-        public static string PickFolder(string initialPath = null, IntPtr ownerHandle = default) {
+        public static string PickFolder(string initialPath = null, IntPtr ownerHandle = default,
+            bool preferLegacy = false) {
+            if (preferLegacy)
+                return PickWithLegacyDialog(initialPath, ownerHandle);
+
             if (Environment.OSVersion.Version.Major >= 6) {
                 try {
                     return PickWithCommonItemDialog(initialPath, ownerHandle);
