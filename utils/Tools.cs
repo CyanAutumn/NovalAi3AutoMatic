@@ -14,9 +14,9 @@ namespace AutoNai3Tools.utils {
     internal class Tools {
         public static string SelectFile(string filter, bool is_file) {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "请选择";
+            openFileDialog.Title = Properties.Resources.Dialog_SelectTitle;
             openFileDialog.CheckFileExists = false;
-            openFileDialog.FileName = "选择"; // 设置一个默认的文件名
+            openFileDialog.FileName = Properties.Resources.Dialog_SelectDefaultFileName; // 设置一个默认的文件名
             openFileDialog.Filter = filter;
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 string path = null;

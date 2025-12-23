@@ -5,54 +5,59 @@ using System.Reflection;
 
 namespace AutoNai3Tools.utils {
     public class SettingProperty {
-        [Category("认证")]
-        [DisplayName("Token")]
+        [LocalizedCategory("Category_Auth")]
+        [LocalizedDisplayName("Display_Token")]
         public string Token { get; set; }
 
-        [Category("认证")]
-        [DisplayName("代理地址")]
+        [LocalizedCategory("Category_Auth")]
+        [LocalizedDisplayName("Display_Proxy")]
         public string Proxy { get; set; }
 
-        [Category("显示")]
-        [DisplayName("关闭图片预览")]
+        [LocalizedCategory("Category_Display")]
+        [LocalizedDisplayName("Display_ClosePicPreview")]
         public bool ClosePicPreview { get; set; }
 
-        [Category("参数保持")]
-        [DisplayName("随机画师不变")]
+        [LocalizedCategory("Category_KeepParams")]
+        [LocalizedDisplayName("Display_KeepRandomArtist")]
         public bool KeepRandomArtist { get; set; } = true;
 
-        [Category("参数保持")]
-        [DisplayName("Wildcard 不变")]
+        [LocalizedCategory("Category_KeepParams")]
+        [LocalizedDisplayName("Display_KeepWildcard")]
         public bool KeepWildcard { get; set; } = true;
 
-        [Category("参数保持")]
-        [DisplayName("随机提示词不变")]
+        [LocalizedCategory("Category_KeepParams")]
+        [LocalizedDisplayName("Display_KeepRandomPrompt")]
         public bool KeepRandomPrompt { get; set; } = true;
 
-        [Category("参数保持")]
-        [DisplayName("生图尺寸不变")]
+        [LocalizedCategory("Category_KeepParams")]
+        [LocalizedDisplayName("Display_KeepResolution")]
         public bool KeepResolution { get; set; } = true;
 
-        [Category("休眠")]
-        [DisplayName("短休最小秒")]
+        [LocalizedCategory("Category_Sleep")]
+        [LocalizedDisplayName("Display_SleepTimeShortLow")]
         public int SleepTimeShortLow { get; set; } = 5;
 
-        [Category("休眠")]
-        [DisplayName("短休最大秒")]
+        [LocalizedCategory("Category_Sleep")]
+        [LocalizedDisplayName("Display_SleepTimeShortHigh")]
         public int SleepTimeShortHigh { get; set; } = 8;
 
-        [Category("休眠")]
-        [DisplayName("长休最小秒")]
+        [LocalizedCategory("Category_Sleep")]
+        [LocalizedDisplayName("Display_SleepTimeLongLow")]
         public int SleepTimeLongLow { get; set; } = 20;
 
-        [Category("休眠")]
-        [DisplayName("长休最大秒")]
+        [LocalizedCategory("Category_Sleep")]
+        [LocalizedDisplayName("Display_SleepTimeLongHigh")]
         public int SleepTimeLongHigh { get; set; } = 25;
 
-        [Category("输出")]
-        [DisplayName("输出文件名格式")]
+        [LocalizedCategory("Category_Output")]
+        [LocalizedDisplayName("Display_OutputFileNameFormat")]
         [TypeConverter(typeof(OutputFileNameFormatConverter))]
         public OutputFileNameFormat OutputFileNameFormat { get; set; } = OutputFileNameFormat.NovalAI;
+
+        [LocalizedCategory("Category_System")]
+        [LocalizedDisplayName("Display_UiLanguage")]
+        [TypeConverter(typeof(UiLanguageConverter))]
+        public UiLanguage UiLanguage { get; set; } = UiLanguage.ChineseSimplified;
     }
 
     public enum OutputFileNameFormat {
@@ -90,7 +95,88 @@ namespace AutoNai3Tools.utils {
         }
 
         private static string GetDescription(OutputFileNameFormat value) {
+            var localized = Properties.Resources.ResourceManager.GetString(
+                $"OutputFileNameFormat_{value}", CultureInfo.CurrentUICulture);
+            if (!string.IsNullOrWhiteSpace(localized)) {
+                return localized;
+            }
+
             var field = typeof(OutputFileNameFormat).GetField(value.ToString());
+            var attr = field?.GetCustomAttribute<DescriptionAttribute>();
+            return attr?.Description ?? value.ToString();
+        }
+    }
+
+    public enum UiLanguage {
+        [Description("English")]
+        English,
+        [Description("简体中文")]
+        ChineseSimplified,
+        [Description("日本語")]
+        Japanese
+    }
+
+    public static class UiLanguageExtensions {
+        public static string ToCultureName(this UiLanguage language) {
+            switch (language) {
+                case UiLanguage.English:
+                    return "en";
+                case UiLanguage.Japanese:
+                    return "ja-JP";
+                default:
+                    return "zh-CN";
+            }
+        }
+
+        public static UiLanguage FromCultureName(string cultureName) {
+            if (string.IsNullOrWhiteSpace(cultureName)) {
+                return UiLanguage.ChineseSimplified;
+            }
+
+            var normalized = cultureName.Trim().ToLowerInvariant();
+            if (normalized.StartsWith("en")) {
+                return UiLanguage.English;
+            }
+
+            if (normalized.StartsWith("ja")) {
+                return UiLanguage.Japanese;
+            }
+
+            if (normalized.StartsWith("zh")) {
+                return UiLanguage.ChineseSimplified;
+            }
+
+            return UiLanguage.ChineseSimplified;
+        }
+    }
+
+    public class UiLanguageConverter : EnumConverter {
+        public UiLanguageConverter() : base(typeof(UiLanguage)) {
+        }
+
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+            Type destinationType) {
+            if (destinationType == typeof(string) && value is UiLanguage language) {
+                return GetDescription(language);
+            }
+
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) {
+            if (value is string text) {
+                foreach (UiLanguage language in Enum.GetValues(typeof(UiLanguage))) {
+                    if (string.Equals(text, GetDescription(language), StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(text, language.ToString(), StringComparison.OrdinalIgnoreCase))
+                        return language;
+                }
+            }
+
+            return base.ConvertFrom(context, culture, value);
+        }
+
+        private static string GetDescription(UiLanguage value) {
+            var field = typeof(UiLanguage).GetField(value.ToString());
             var attr = field?.GetCustomAttribute<DescriptionAttribute>();
             return attr?.Description ?? value.ToString();
         }

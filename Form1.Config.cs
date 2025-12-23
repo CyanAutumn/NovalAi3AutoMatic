@@ -143,7 +143,8 @@ namespace AutoNai3Tools {
                 SleepTimeShortLow = settingProps.SleepTimeShortLow,
                 SleepTimeShortHigh = settingProps.SleepTimeShortHigh,
                 SleepTimeLongLow = settingProps.SleepTimeLongLow,
-                SleepTimeLongHigh = settingProps.SleepTimeLongHigh
+                SleepTimeLongHigh = settingProps.SleepTimeLongHigh,
+                UiLanguage = settingProps.UiLanguage.ToCultureName()
             };
         }
 
@@ -165,6 +166,8 @@ namespace AutoNai3Tools {
                 settingProps.SleepTimeLongLow = data.SleepTimeLongLow.Value;
             if (data.SleepTimeLongHigh.HasValue)
                 settingProps.SleepTimeLongHigh = data.SleepTimeLongHigh.Value;
+            if (!string.IsNullOrWhiteSpace(data.UiLanguage))
+                settingProps.UiLanguage = UiLanguageExtensions.FromCultureName(data.UiLanguage);
         }
 
         private void RefreshConfig() {
@@ -182,7 +185,8 @@ namespace AutoNai3Tools {
         private void btnAddOrEditConfig_Click(object sender, EventArgs e) {
             string name = cmbConfigName.Text?.Trim();
             if (string.IsNullOrEmpty(name)) {
-                MessageBox.Show("配置名称不能为空", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Properties.Resources.Msg_ConfigNameEmpty, Properties.Resources.Title_Info,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -194,7 +198,8 @@ namespace AutoNai3Tools {
             catch (Exception ex) {
                 Logger.Error("保存配置失败", exception: ex,
                     context: Logger.Context(("config", name)));
-                MessageBox.Show("保存配置失败，请查看日志", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.Msg_SaveConfigFailed, Properties.Resources.Title_Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -211,7 +216,8 @@ namespace AutoNai3Tools {
         private void btnDeleteConfig_Click(object sender, EventArgs e) {
             string name = cmbConfigName.Text?.Trim();
             if (string.IsNullOrEmpty(name)) {
-                MessageBox.Show("请选择要删除的配置", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Properties.Resources.Msg_SelectConfigToDelete, Properties.Resources.Title_Info,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -222,7 +228,8 @@ namespace AutoNai3Tools {
             catch (Exception ex) {
                 Logger.Error("删除配置失败", exception: ex,
                     context: Logger.Context(("config", name)));
-                MessageBox.Show("删除配置失败，请查看日志", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.Msg_DeleteConfigFailed, Properties.Resources.Title_Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -241,7 +248,8 @@ namespace AutoNai3Tools {
             catch (Exception ex) {
                 Logger.Error("读取配置失败", exception: ex,
                     context: Logger.Context(("config", name)));
-                MessageBox.Show("读取配置失败，请查看日志", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.Msg_ReadConfigFailed, Properties.Resources.Title_Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

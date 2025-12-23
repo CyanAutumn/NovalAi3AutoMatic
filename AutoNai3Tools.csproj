@@ -35,6 +35,9 @@
   <PropertyGroup>
     <ApplicationIcon>a4ru9-lkcj4-001.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <SatelliteResourceLanguages>en;en-US;zh;zh-CN;zh-Hans;ja;ja-JP</SatelliteResourceLanguages>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -119,6 +122,7 @@
     <Compile Include="utils\GenerationContext.cs" />
     <Compile Include="utils\GenerationPipeline.cs" />
     <Compile Include="utils\FolderPicker.cs" />
+    <Compile Include="utils\LocalizedAttributes.cs" />
     <Compile Include="utils\PicProperty.cs" />
     <Compile Include="utils\SettingProperty.cs" />
     <Compile Include="utils\Request.cs" />
@@ -130,10 +134,22 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form1.en.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.ja-JP.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.en.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.ja-JP.resx">
+      <DependentUpon>Resources.resx</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -185,5 +201,18 @@
     <Content Include="a4ru9-lkcj4-001.ico" />
   </ItemGroup>
   <ItemGroup />
+  <Target Name="MoveSatelliteResourcesToLanguageFolder" AfterTargets="CopyFilesToOutputDirectory">
+    <ItemGroup>
+      <SatelliteResourceFiles Include="$(TargetDir)**\*.resources.dll"
+                              Exclude="$(TargetDir)language\**\*.resources.dll" />
+    </ItemGroup>
+    <MakeDir Directories="@(SatelliteResourceFiles->'$(TargetDir)language\%(RecursiveDir)')" />
+    <Move SourceFiles="@(SatelliteResourceFiles)"
+          DestinationFiles="@(SatelliteResourceFiles->'$(TargetDir)language\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <ItemGroup>
+      <SatelliteResourceDirs Include="@(SatelliteResourceFiles->'%(RootDir)%(Directory)')" />
+    </ItemGroup>
+    <RemoveDir Directories="@(SatelliteResourceDirs)" />
+  </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

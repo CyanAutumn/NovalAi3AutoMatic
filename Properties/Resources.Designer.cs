@@ -67,5 +67,245 @@ namespace AutoNai3Tools.Properties
                 resourceCulture = value;
             }
         }
+
+        internal static string AppTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+
+        internal static string AppVersionUnknown
+        {
+            get
+            {
+                return ResourceManager.GetString("AppVersionUnknown", resourceCulture);
+            }
+        }
+
+        internal static string Button_Generate
+        {
+            get
+            {
+                return ResourceManager.GetString("Button_Generate", resourceCulture);
+            }
+        }
+
+        internal static string Button_Run
+        {
+            get
+            {
+                return ResourceManager.GetString("Button_Run", resourceCulture);
+            }
+        }
+
+        internal static string Button_Running
+        {
+            get
+            {
+                return ResourceManager.GetString("Button_Running", resourceCulture);
+            }
+        }
+
+        internal static string Button_Stop
+        {
+            get
+            {
+                return ResourceManager.GetString("Button_Stop", resourceCulture);
+            }
+        }
+
+        internal static string Dialog_SelectDefaultFileName
+        {
+            get
+            {
+                return ResourceManager.GetString("Dialog_SelectDefaultFileName", resourceCulture);
+            }
+        }
+
+        internal static string Dialog_SelectTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("Dialog_SelectTitle", resourceCulture);
+            }
+        }
+
+        internal static string GroupBox_FixedArtist
+        {
+            get
+            {
+                return ResourceManager.GetString("GroupBox_FixedArtist", resourceCulture);
+            }
+        }
+
+        internal static string GroupBox_RandomArtist
+        {
+            get
+            {
+                return ResourceManager.GetString("GroupBox_RandomArtist", resourceCulture);
+            }
+        }
+
+        internal static string Hover_InsertRemoveFixedArtist
+        {
+            get
+            {
+                return ResourceManager.GetString("Hover_InsertRemoveFixedArtist", resourceCulture);
+            }
+        }
+
+        internal static string Hover_InsertRemoveRandomArtist
+        {
+            get
+            {
+                return ResourceManager.GetString("Hover_InsertRemoveRandomArtist", resourceCulture);
+            }
+        }
+
+        internal static string Msg_AddSnippetFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_AddSnippetFailed", resourceCulture);
+            }
+        }
+
+        internal static string Msg_ConfigNameEmpty
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_ConfigNameEmpty", resourceCulture);
+            }
+        }
+
+        internal static string Msg_DeleteConfigFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_DeleteConfigFailed", resourceCulture);
+            }
+        }
+
+        internal static string Msg_DeleteSnippetFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_DeleteSnippetFailed", resourceCulture);
+            }
+        }
+
+        internal static string Msg_DirectorToolFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_DirectorToolFailed", resourceCulture);
+            }
+        }
+
+        internal static string Msg_InvalidGenerationParams
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_InvalidGenerationParams", resourceCulture);
+            }
+        }
+
+        internal static string Msg_LanguageRestartPrompt
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_LanguageRestartPrompt", resourceCulture);
+            }
+        }
+
+        internal static string Msg_NoImagesInFolder
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_NoImagesInFolder", resourceCulture);
+            }
+        }
+
+        internal static string Msg_ReadConfigFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_ReadConfigFailed", resourceCulture);
+            }
+        }
+
+        internal static string Msg_SaveConfigFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_SaveConfigFailed", resourceCulture);
+            }
+        }
+
+        internal static string Msg_SelectConfigToDelete
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_SelectConfigToDelete", resourceCulture);
+            }
+        }
+
+        internal static string Msg_SelectImageFirst
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_SelectImageFirst", resourceCulture);
+            }
+        }
+
+        internal static string Msg_SelectValidInputFolder
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_SelectValidInputFolder", resourceCulture);
+            }
+        }
+
+        internal static string Msg_UpdateSnippetFailed
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_UpdateSnippetFailed", resourceCulture);
+            }
+        }
+
+        internal static string Msg_WildcardFolderNotConfigured
+        {
+            get
+            {
+                return ResourceManager.GetString("Msg_WildcardFolderNotConfigured", resourceCulture);
+            }
+        }
+
+        internal static string Title_Error
+        {
+            get
+            {
+                return ResourceManager.GetString("Title_Error", resourceCulture);
+            }
+        }
+
+        internal static string Title_Info
+        {
+            get
+            {
+                return ResourceManager.GetString("Title_Info", resourceCulture);
+            }
+        }
+
+        internal static string Title_Prompt
+        {
+            get
+            {
+                return ResourceManager.GetString("Title_Prompt", resourceCulture);
+            }
+        }
     }
 }

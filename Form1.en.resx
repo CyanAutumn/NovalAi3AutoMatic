@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dreamForm1.Text" xml:space="preserve">
+    <value>Nai3 Auto Roll Tool</value>
+  </data>
+  <data name="panel16.Text" xml:space="preserve">
+    <value>panel16</value>
+  </data>
+  <data name="foreverMinimize1.Text" xml:space="preserve">
+    <value>foreverMinimize1</value>
+  </data>
+  <data name="foreverMaximize1.Text" xml:space="preserve">
+    <value>foreverMaximize1</value>
+  </data>
+  <data name="foreverClose1.Text" xml:space="preserve">
+    <value>foreverClose1</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Negative Prompt</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Positive Prompt</value>
+  </data>
+  <data name="txtPrompt.Text" xml:space="preserve">
+    <value> &lt;原神&gt;,&lt;固定画师&gt;,&lt;随机画师&gt;,1girl,loli,solo,catgirl,white hair,blue eyes,&lt;衣服&gt;</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>Artist</value>
+  </data>
+  <data name="grpArtistRandom.Text" xml:space="preserve">
+    <value>Random Artist</value>
+  </data>
+  <data name="txtArtistRandom.Text" xml:space="preserve">
+    <value>画师A
+画师B,1,2,1,2
+画师C,0,0,1,2
+画师D,0,0,1,2|画师E,1,2,0,0</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>Global Weight {} Max:</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Global Down-weight [] Max:</value>
+  </data>
+  <data name="labelArtistWeightIncreaseDoubleColonMax.Text" xml:space="preserve">
+    <value>Global Weight :: Max:</value>
+  </data>
+  <data name="labelArtistWeightReduceDoubleColonMax.Text" xml:space="preserve">
+    <value>Global Down-weight :: Max:</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>~</value>
+  </data>
+  <data name="chkArtistModify.Text" xml:space="preserve">
+    <value>Add 'artist:' prefix</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Random artist count range:</value>
+  </data>
+  <data name="grpArtistFixed.Text" xml:space="preserve">
+    <value>Fixed Artist</value>
+  </data>
+  <data name="txtArtistFixed.Text" xml:space="preserve">
+    <value>artist:画师1,artist:画师2</value>
+  </data>
+  <data name="tabPage8.Text" xml:space="preserve">
+    <value>Wildcard</value>
+  </data>
+  <data name="btnTagSnippetEdit.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="btnTagSnippetDelete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="btnTagSnippetAdd.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Snippet Name:</value>
+  </data>
+  <data name="tabPage7.Text" xml:space="preserve">
+    <value>Vibe</value>
+  </data>
+  <data name="groupBox9.Text" xml:space="preserve">
+    <value>Vibe</value>
+  </data>
+  <data name="btnVibeAdd.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="btnVibeDelete.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="btnVibeEdit.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>Reference Strength</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>Information Extracted</value>
+  </data>
+  <data name="tabPage5.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="tabPage14.Text" xml:space="preserve">
+    <value>Img2Img</value>
+  </data>
+  <data name="btnImg2ImgDel.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>Noise:</value>
+  </data>
+  <data name="label32.Text" xml:space="preserve">
+    <value>Strength:</value>
+  </data>
+  <data name="tabPage15.Text" xml:space="preserve">
+    <value>tabPage15</value>
+  </data>
+  <data name="tabPage18.Text" xml:space="preserve">
+    <value>tabPage18</value>
+  </data>
+  <data name="groupBox5.Text" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="btnGenerate.Text" xml:space="preserve">
+    <value>Generate</value>
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>Presets</value>
+  </data>
+  <data name="btnAddOrEditConfig.Text" xml:space="preserve">
+    <value>Add/Save</value>
+  </data>
+  <data name="btnOpenConfigFolder.Text" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="btnDeleteConfig.Text" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="tabPage9.Text" xml:space="preserve">
+    <value>Director Tools</value>
+  </data>
+  <data name="rdoLineArtParseSignPic.Text" xml:space="preserve">
+    <value>Process selected image(s)</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>Runs per image:</value>
+  </data>
+  <data name="rdoLineArtParseFolderPic.Text" xml:space="preserve">
+    <value>Process folder</value>
+  </data>
+  <data name="txtLineArtInputFolder.Text" xml:space="preserve">
+    <value>.\output</value>
+  </data>
+  <data name="btnSelectLineArtInputFolderPath.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="tabPage16.Text" xml:space="preserve">
+    <value>RemoveBG</value>
+  </data>
+  <data name="tabPage17.Text" xml:space="preserve">
+    <value>LineArt</value>
+  </data>
+  <data name="label26.Text" xml:space="preserve">
+    <value>No additional parameters for this feature.
+</value>
+  </data>
+  <data name="tabPage10.Text" xml:space="preserve">
+    <value>Sketch</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>No additional parameters for this feature.
+</value>
+  </data>
+  <data name="tabPage11.Text" xml:space="preserve">
+    <value>Colorize</value>
+  </data>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>Prompt</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>Derfy:</value>
+  </data>
+  <data name="tabPage12.Text" xml:space="preserve">
+    <value>Emotion</value>
+  </data>
+  <data name="label29.Text" xml:space="preserve">
+    <value>defry:</value>
+  </data>
+  <data name="groupBox6.Text" xml:space="preserve">
+    <value>Prompt</value>
+  </data>
+  <data name="label27.Text" xml:space="preserve">
+    <value>Emotion:</value>
+  </data>
+  <data name="tabPage13.Text" xml:space="preserve">
+    <value>Declutter</value>
+  </data>
+  <data name="label28.Text" xml:space="preserve">
+    <value>No additional parameters for this feature.
+</value>
+  </data>
+  <data name="btnDirectorToolsRemoveBGRun.Text" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="btnClearLog.Text" xml:space="preserve">
+    <value>Clear Log</value>
+  </data>
+  <data name="tabPage6.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="btnPushBackPic.Text" xml:space="preserve">
+    <value>Reverse Image (Online)</value>
+  </data>
+  <data name="btnParsePrompt.Text" xml:space="preserve">
+    <value>Parse Image Prompt (Online)</value>
+  </data>
+  <data name="btnDocGithub.Text" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
+  <data name="btnGetMorePrompt.Text" xml:space="preserve">
+    <value>Get More Random Prompts</value>
+  </data>
+  <data name="btnGetRollDoc.Text" xml:space="preserve">
+    <value>Nai3-Roll Style Sheet (Karakara) - QQ login required</value>
+  </data>
+  <data name="btnDocToolsBook.Text" xml:space="preserve">
+    <value>Stable Diffusion Hidden Toolbook (September)</value>
+  </data>
+  <data name="btnTutorial.Text" xml:space="preserve">
+    <value>User Guide</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>            This feature is provided for convenience only
+  Note: large images will consume points!!!
+For a clearer view of point usage, please use the web page
+
+            No additional parameters for this feature
+</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>This software is for learning and communication only and is free.
+
+The developer assumes no liability for any legal responsibility or loss caused by using this software.
+Users are responsible for their use of this software and its results.
+
+Please ensure the files come from a trusted source to avoid tampered software.
+
+Before running, make sure your proxy tool is on and can access the nai3 page.
+The delay between runs is to prevent account abuse and bans.
+
+Please do not run too many times consecutively.
+
+Feedback &amp; bug report group: 119125703</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>Snippet Name</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="Column1.HeaderText" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="Column2.HeaderText" xml:space="preserve">
+    <value>Extracted Info (IE)</value>
+  </data>
+  <data name="Column3.HeaderText" xml:space="preserve">
+    <value>Reference Strength (RS)</value>
+  </data>
+</root>

@@ -25,7 +25,8 @@ namespace AutoNai3Tools {
             string folderPath = picProps.WildcardFolderPath;
             string name = txtTagSnippetName.Text;
             if (string.IsNullOrWhiteSpace(folderPath)) {
-                MessageBox.Show("请先在设置中配置 Wildcard 目录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Properties.Resources.Msg_WildcardFolderNotConfigured, Properties.Resources.Title_Info,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -46,7 +47,8 @@ namespace AutoNai3Tools {
             catch (Exception ex) {
                 Logger.Warn("添加片段失败",
                     context: Logger.Context(("snippet", name), ("reason", ex.Message)));
-                MessageBox.Show($"添加片段失败：{ex.Message}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(Properties.Resources.Msg_AddSnippetFailed, ex.Message),
+                    Properties.Resources.Title_Info, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -59,7 +61,8 @@ namespace AutoNai3Tools {
 
             string folderPath = picProps.WildcardFolderPath;
             if (string.IsNullOrWhiteSpace(folderPath)) {
-                MessageBox.Show("请先在设置中配置 Wildcard 目录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Properties.Resources.Msg_WildcardFolderNotConfigured, Properties.Resources.Title_Info,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -80,7 +83,8 @@ namespace AutoNai3Tools {
             catch (Exception ex) {
                 Logger.Warn("更新片段失败",
                     context: Logger.Context(("snippet", fileName), ("reason", ex.Message)));
-                MessageBox.Show($"更新片段失败：{ex.Message}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(Properties.Resources.Msg_UpdateSnippetFailed, ex.Message),
+                    Properties.Resources.Title_Info, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -96,7 +100,8 @@ namespace AutoNai3Tools {
                 catch (Exception ex) {
                     Logger.Warn("删除片段失败",
                         context: Logger.Context(("snippet", fileName), ("reason", ex.Message)));
-                    MessageBox.Show($"删除片段失败：{ex.Message}", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(string.Format(Properties.Resources.Msg_DeleteSnippetFailed, ex.Message),
+                        Properties.Resources.Title_Info, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else {

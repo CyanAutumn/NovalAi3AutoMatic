@@ -16,6 +16,7 @@ namespace AutoNai3Tools.utils {
         public int? SleepTimeShortHigh { get; set; }
         public int? SleepTimeLongLow { get; set; }
         public int? SleepTimeLongHigh { get; set; }
+        public string UiLanguage { get; set; }
     }
 
     internal class SystemConfigRepository {

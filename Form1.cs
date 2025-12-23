@@ -1,6 +1,7 @@
 ﻿using AutoNai3Tools.Services;
 using AutoNai3Tools.utils;
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
@@ -20,6 +21,7 @@ namespace AutoNai3Tools {
 
         public Form1() {
             InitializeComponent();
+            ApplyLocalization();
             SyncWindowTitleVersion();
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer,
                 true);
@@ -40,6 +42,7 @@ namespace AutoNai3Tools {
             tabControl2.TabPages.Remove(tabPage18);
             propertyGrid1.SelectedObject = picProps;
             propertyGridSettings.SelectedObject = settingProps;
+            propertyGridSettings.PropertyValueChanged += HandleSettingsPropertyValueChanged;
 
             generationDataProvider = new GenerationUiDataProvider(
                 picProps,
@@ -61,7 +64,7 @@ namespace AutoNai3Tools {
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             string displayVersion;
             if (version == null) {
-                displayVersion = "unknown";
+                displayVersion = Properties.Resources.AppVersionUnknown;
             }
             else if (version.Revision <= 0) {
                 displayVersion = $"{version.Major}.{version.Minor}.{version.Build}";
@@ -72,7 +75,7 @@ namespace AutoNai3Tools {
 
             string baseTitle = dreamForm1?.Text;
             if (string.IsNullOrWhiteSpace(baseTitle))
-                baseTitle = "Nai3自动roll图工具";
+                baseTitle = Properties.Resources.AppTitle;
 
             string fullTitle = $"{baseTitle} v{displayVersion}";
             if (dreamForm1 != null)
@@ -94,6 +97,58 @@ namespace AutoNai3Tools {
             }
         }
 
+        private void ApplyLocalization() {
+            var resources = new ComponentResourceManager(typeof(Form1));
+            ApplyResourcesRecursive(resources, this);
+            ApplyLocalizationToDataGridViewColumns(resources);
+        }
+
+        private static void ApplyResourcesRecursive(ComponentResourceManager resources, Control control) {
+            resources.ApplyResources(control, control.Name);
+            foreach (Control child in control.Controls) {
+                ApplyResourcesRecursive(resources, child);
+            }
+        }
+
+        private void ApplyLocalizationToDataGridViewColumns(ComponentResourceManager resources) {
+            ApplyHeaderText(resources, dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+            ApplyHeaderText(resources, dataGridViewTextBoxColumn2, "dataGridViewTextBoxColumn2");
+            ApplyHeaderText(resources, Column1, "Column1");
+            ApplyHeaderText(resources, Column2, "Column2");
+            ApplyHeaderText(resources, Column3, "Column3");
+        }
+
+        private static void ApplyHeaderText(ComponentResourceManager resources, DataGridViewColumn column, string name) {
+            if (column == null)
+                return;
+
+            var headerText = resources.GetString($"{name}.HeaderText");
+            if (!string.IsNullOrWhiteSpace(headerText)) {
+                column.HeaderText = headerText;
+            }
+        }
+
+        private void HandleSettingsPropertyValueChanged(object sender, PropertyValueChangedEventArgs e) {
+            if (e?.ChangedItem?.PropertyDescriptor?.Name != nameof(SettingProperty.UiLanguage))
+                return;
+
+            var result = MessageBox.Show(Properties.Resources.Msg_LanguageRestartPrompt,
+                Properties.Resources.Title_Prompt, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result != DialogResult.Yes)
+                return;
+
+            try {
+                configService.SaveSystemConfig(CaptureSystemConfig());
+            }
+            catch (Exception ex) {
+                Logger.Warn("保存系统配置失败",
+                    context: Logger.Context(("config", "system"), ("reason", ex.Message)));
+            }
+
+            Application.Restart();
+            Environment.Exit(0);
+        }
+
         #region 固定画师，随机画师，随机提示词快速插入
 
         private void InitGrpEventArgs() {
@@ -108,11 +163,11 @@ namespace AutoNai3Tools {
         private void EventGRBMouseHover(object sender, EventArgs e) {
             GroupBox groupBox = sender as GroupBox;
             if (groupBox == grpArtistFixed) {
-                groupBox.Text = "光标处插入/删除<固定画师>";
+                groupBox.Text = Properties.Resources.Hover_InsertRemoveFixedArtist;
                 return;
             }
             else if (groupBox == grpArtistRandom) {
-                groupBox.Text = "光标处插入/删除<随机画师>";
+                groupBox.Text = Properties.Resources.Hover_InsertRemoveRandomArtist;
                 return;
             }
 
@@ -121,11 +176,11 @@ namespace AutoNai3Tools {
         private void EventGRBMouseLeave(object sender, EventArgs e) {
             GroupBox groupBox = sender as GroupBox;
             if (groupBox == grpArtistFixed) {
-                groupBox.Text = "固定画师";
+                groupBox.Text = Properties.Resources.GroupBox_FixedArtist;
                 return;
             }
             else if (groupBox == grpArtistRandom) {
-                groupBox.Text = "随机画师";
+                groupBox.Text = Properties.Resources.GroupBox_RandomArtist;
                 return;
             }
 
@@ -170,7 +225,7 @@ namespace AutoNai3Tools {
                 return;
             }
 
-            btnGenerate.Text = "停止";
+            btnGenerate.Text = Properties.Resources.Button_Stop;
             btnGenerate.Enabled = true;
         }
 
@@ -189,7 +244,9 @@ namespace AutoNai3Tools {
                 return;
             }
 
-            btnDirectorToolsRemoveBGRun.Text = isBusy ? "运行中" : "运行";
+            btnDirectorToolsRemoveBGRun.Text = isBusy
+                ? Properties.Resources.Button_Running
+                : Properties.Resources.Button_Run;
             btnDirectorToolsRemoveBGRun.Enabled = !isBusy;
         }
 
@@ -232,11 +289,12 @@ namespace AutoNai3Tools {
             if (exception is OperationCanceledException)
                 return;
 
-            MessageBox.Show("导演工具运行失败，详情请查看日志。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Properties.Resources.Msg_DirectorToolFailed, Properties.Resources.Title_Error,
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ResetGenerationState() {
-            btnGenerate.Text = "生成";
+            btnGenerate.Text = Properties.Resources.Button_Generate;
             btnGenerate.Enabled = true;
         }
 
@@ -252,7 +310,8 @@ namespace AutoNai3Tools {
             catch (Exception ex) {
                 Logger.Error("构建生成参数失败", exception: ex,
                     context: Logger.Context(("action", "StartGeneration")));
-                MessageBox.Show("生成参数无效，请检查设置", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.Msg_InvalidGenerationParams, Properties.Resources.Title_Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -267,7 +326,7 @@ namespace AutoNai3Tools {
         }
 
         private void RequestStopGeneration() {
-            btnGenerate.Text = "停止";
+            btnGenerate.Text = Properties.Resources.Button_Stop;
             btnGenerate.Enabled = false;
             generationController.RequestStopGeneration();
         }

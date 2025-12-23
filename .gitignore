@@ -46,7 +46,7 @@ x64/
 *.scc
 *.cmd
 *.ps1
-
+剧本.md
 # Visual C++ cache files
 ipch/
 *.aps

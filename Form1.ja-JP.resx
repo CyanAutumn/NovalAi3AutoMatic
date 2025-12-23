@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="dreamForm1.Text" xml:space="preserve">
+    <value>Nai3自動ロールツール</value>
+  </data>
+  <data name="panel16.Text" xml:space="preserve">
+    <value>panel16</value>
+  </data>
+  <data name="foreverMinimize1.Text" xml:space="preserve">
+    <value>foreverMinimize1</value>
+  </data>
+  <data name="foreverMaximize1.Text" xml:space="preserve">
+    <value>foreverMaximize1</value>
+  </data>
+  <data name="foreverClose1.Text" xml:space="preserve">
+    <value>foreverClose1</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>ネガティブプロンプト</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>ポジティブプロンプト</value>
+  </data>
+  <data name="txtPrompt.Text" xml:space="preserve">
+    <value> &lt;原神&gt;,&lt;固定画师&gt;,&lt;随机画师&gt;,1girl,loli,solo,catgirl,white hair,blue eyes,&lt;衣服&gt;</value>
+  </data>
+  <data name="tabPage2.Text" xml:space="preserve">
+    <value>生成パラメータ</value>
+  </data>
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>画師</value>
+  </data>
+  <data name="grpArtistRandom.Text" xml:space="preserve">
+    <value>ランダム画師</value>
+  </data>
+  <data name="txtArtistRandom.Text" xml:space="preserve">
+    <value>画师A
+画师B,1,2,1,2
+画师C,0,0,1,2
+画师D,0,0,1,2|画师E,1,2,0,0</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>全体加重{}Max：</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>全体減重[]Max：</value>
+  </data>
+  <data name="labelArtistWeightIncreaseDoubleColonMax.Text" xml:space="preserve">
+    <value>全体加重::Max：</value>
+  </data>
+  <data name="labelArtistWeightReduceDoubleColonMax.Text" xml:space="preserve">
+    <value>全体減重::Max：</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>~</value>
+  </data>
+  <data name="chkArtistModify.Text" xml:space="preserve">
+    <value>artist: プレフィックスを追加</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>ランダム画師数の範囲：</value>
+  </data>
+  <data name="grpArtistFixed.Text" xml:space="preserve">
+    <value>固定画師</value>
+  </data>
+  <data name="txtArtistFixed.Text" xml:space="preserve">
+    <value>artist:画师1,artist:画师2</value>
+  </data>
+  <data name="tabPage8.Text" xml:space="preserve">
+    <value>Wildcard</value>
+  </data>
+  <data name="btnTagSnippetEdit.Text" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="btnTagSnippetDelete.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="btnTagSnippetAdd.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>スニペット名：</value>
+  </data>
+  <data name="tabPage7.Text" xml:space="preserve">
+    <value>Vibe</value>
+  </data>
+  <data name="groupBox9.Text" xml:space="preserve">
+    <value>Vibe</value>
+  </data>
+  <data name="btnVibeAdd.Text" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="btnVibeDelete.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="btnVibeEdit.Text" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="label21.Text" xml:space="preserve">
+    <value>参照強度</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>抽出情報</value>
+  </data>
+  <data name="tabPage5.Text" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="tabPage14.Text" xml:space="preserve">
+    <value>Img2Img</value>
+  </data>
+  <data name="btnImg2ImgDel.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="label33.Text" xml:space="preserve">
+    <value>ノイズ：</value>
+  </data>
+  <data name="label32.Text" xml:space="preserve">
+    <value>強度：</value>
+  </data>
+  <data name="tabPage15.Text" xml:space="preserve">
+    <value>tabPage15</value>
+  </data>
+  <data name="tabPage18.Text" xml:space="preserve">
+    <value>tabPage18</value>
+  </data>
+  <data name="groupBox5.Text" xml:space="preserve">
+    <value>実行</value>
+  </data>
+  <data name="btnGenerate.Text" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>設定ファイル</value>
+  </data>
+  <data name="btnAddOrEditConfig.Text" xml:space="preserve">
+    <value>追加/保存</value>
+  </data>
+  <data name="btnOpenConfigFolder.Text" xml:space="preserve">
+    <value>フォルダー</value>
+  </data>
+  <data name="btnDeleteConfig.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="tabPage9.Text" xml:space="preserve">
+    <value>ディレクターツール</value>
+  </data>
+  <data name="rdoLineArtParseSignPic.Text" xml:space="preserve">
+    <value>選択した画像を処理</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>画像ごとの処理回数：</value>
+  </data>
+  <data name="rdoLineArtParseFolderPic.Text" xml:space="preserve">
+    <value>フォルダーを処理</value>
+  </data>
+  <data name="txtLineArtInputFolder.Text" xml:space="preserve">
+    <value>.\output</value>
+  </data>
+  <data name="btnSelectLineArtInputFolderPath.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="tabPage16.Text" xml:space="preserve">
+    <value>RemoveBG</value>
+  </data>
+  <data name="tabPage17.Text" xml:space="preserve">
+    <value>LineArt</value>
+  </data>
+  <data name="label26.Text" xml:space="preserve">
+    <value>この機能には追加パラメータはありません。
+</value>
+  </data>
+  <data name="tabPage10.Text" xml:space="preserve">
+    <value>Sketch</value>
+  </data>
+  <data name="label24.Text" xml:space="preserve">
+    <value>この機能には追加パラメータはありません。
+</value>
+  </data>
+  <data name="tabPage11.Text" xml:space="preserve">
+    <value>Colorize</value>
+  </data>
+  <data name="groupBox3.Text" xml:space="preserve">
+    <value>プロンプト</value>
+  </data>
+  <data name="label25.Text" xml:space="preserve">
+    <value>Derfy：</value>
+  </data>
+  <data name="tabPage12.Text" xml:space="preserve">
+    <value>Emotion</value>
+  </data>
+  <data name="label29.Text" xml:space="preserve">
+    <value>defry：</value>
+  </data>
+  <data name="groupBox6.Text" xml:space="preserve">
+    <value>プロンプト</value>
+  </data>
+  <data name="label27.Text" xml:space="preserve">
+    <value>感情：</value>
+  </data>
+  <data name="tabPage13.Text" xml:space="preserve">
+    <value>Declutter</value>
+  </data>
+  <data name="label28.Text" xml:space="preserve">
+    <value>この機能には追加パラメータはありません。
+</value>
+  </data>
+  <data name="btnDirectorToolsRemoveBGRun.Text" xml:space="preserve">
+    <value>実行</value>
+  </data>
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>ログ</value>
+  </data>
+  <data name="btnClearLog.Text" xml:space="preserve">
+    <value>ログをクリア</value>
+  </data>
+  <data name="tabPage6.Text" xml:space="preserve">
+    <value>情報</value>
+  </data>
+  <data name="btnPushBackPic.Text" xml:space="preserve">
+    <value>オンライン画像逆引き</value>
+  </data>
+  <data name="btnParsePrompt.Text" xml:space="preserve">
+    <value>オンラインで画像プロンプト解析</value>
+  </data>
+  <data name="btnDocGithub.Text" xml:space="preserve">
+    <value>ソースコード</value>
+  </data>
+  <data name="btnGetMorePrompt.Text" xml:space="preserve">
+    <value>ランダムプロンプトを追加取得</value>
+  </data>
+  <data name="btnGetRollDoc.Text" xml:space="preserve">
+    <value>Nai3-Roll 画風専用表（カラカラ）QQログインが必要</value>
+  </data>
+  <data name="btnDocToolsBook.Text" xml:space="preserve">
+    <value>Stable Diffusion 潜ツールブック（九月）</value>
+  </data>
+  <data name="btnTutorial.Text" xml:space="preserve">
+    <value>利用ガイド</value>
+  </data>
+  <data name="label22.Text" xml:space="preserve">
+    <value>            この機能は利便性のためのものです
+  注意：大きな画像はポイントを消費します！！！
+ポイントの変化をより分かりやすく見るにはWeb版をご利用ください
+
+            この機能には追加パラメータはありません
+</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>このソフトは学習と交流目的のみで、無料で提供されています。
+
+開発者は本ソフトの使用により生じるいかなる法的責任や損害についても責任を負いません。
+利用者は本ソフトの使用および結果について全て自己責任でお願いします。
+
+ファイルの入手元が信頼できることを確認し、改変されたソフトを避けてください。
+
+実行前にプロキシツールが有効で、nai3 ページに正常にアクセスできることを確認してください。
+連続実行時の待機は悪用によるアカウント停止を防ぐためです。
+
+連続で実行しすぎないでください。
+
+ご意見・不具合報告グループ：119125703</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
+    <value>スニペット名</value>
+  </data>
+  <data name="dataGridViewTextBoxColumn2.HeaderText" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="Column1.HeaderText" xml:space="preserve">
+    <value>パス</value>
+  </data>
+  <data name="Column2.HeaderText" xml:space="preserve">
+    <value>抽出情報 (IE)</value>
+  </data>
+  <data name="Column3.HeaderText" xml:space="preserve">
+    <value>参照強度 (RS)</value>
+  </data>
+</root>

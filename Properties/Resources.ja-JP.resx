@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Nai3自動ロールツール</value>
+  </data>
+  <data name="AppVersionUnknown" xml:space="preserve">
+    <value>不明</value>
+  </data>
+  <data name="Button_Generate" xml:space="preserve">
+    <value>生成</value>
+  </data>
+  <data name="Button_Run" xml:space="preserve">
+    <value>実行</value>
+  </data>
+  <data name="Button_Running" xml:space="preserve">
+    <value>実行中</value>
+  </data>
+  <data name="Button_Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Category_Auth" xml:space="preserve">
+    <value>認証</value>
+  </data>
+  <data name="Category_Display" xml:space="preserve">
+    <value>表示</value>
+  </data>
+  <data name="Category_KeepParams" xml:space="preserve">
+    <value>パラメータ保持</value>
+  </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>出力</value>
+  </data>
+  <data name="Category_Sleep" xml:space="preserve">
+    <value>休止</value>
+  </data>
+  <data name="Category_System" xml:space="preserve">
+    <value>システム</value>
+  </data>
+  <data name="Dialog_SelectDefaultFileName" xml:space="preserve">
+    <value>選択</value>
+  </data>
+  <data name="Dialog_SelectTitle" xml:space="preserve">
+    <value>選択してください</value>
+  </data>
+  <data name="Display_ClosePicPreview" xml:space="preserve">
+    <value>画像プレビューを無効化</value>
+  </data>
+  <data name="Display_KeepRandomArtist" xml:space="preserve">
+    <value>ランダム画師を固定</value>
+  </data>
+  <data name="Display_KeepRandomPrompt" xml:space="preserve">
+    <value>ランダムプロンプトを固定</value>
+  </data>
+  <data name="Display_KeepResolution" xml:space="preserve">
+    <value>解像度を固定</value>
+  </data>
+  <data name="Display_KeepWildcard" xml:space="preserve">
+    <value>Wildcard を固定</value>
+  </data>
+  <data name="Display_OutputFileNameFormat" xml:space="preserve">
+    <value>出力ファイル名形式</value>
+  </data>
+  <data name="Display_Proxy" xml:space="preserve">
+    <value>プロキシ</value>
+  </data>
+  <data name="Display_SleepTimeLongHigh" xml:space="preserve">
+    <value>長休止 最大秒</value>
+  </data>
+  <data name="Display_SleepTimeLongLow" xml:space="preserve">
+    <value>長休止 最小秒</value>
+  </data>
+  <data name="Display_SleepTimeShortHigh" xml:space="preserve">
+    <value>短休止 最大秒</value>
+  </data>
+  <data name="Display_SleepTimeShortLow" xml:space="preserve">
+    <value>短休止 最小秒</value>
+  </data>
+  <data name="Display_Token" xml:space="preserve">
+    <value>Token</value>
+  </data>
+  <data name="Display_UiLanguage" xml:space="preserve">
+    <value>表示言語</value>
+  </data>
+  <data name="GroupBox_FixedArtist" xml:space="preserve">
+    <value>固定画師</value>
+  </data>
+  <data name="GroupBox_RandomArtist" xml:space="preserve">
+    <value>ランダム画師</value>
+  </data>
+  <data name="Hover_InsertRemoveFixedArtist" xml:space="preserve">
+    <value>カーソル位置に&lt;固定画师&gt;を挿入/削除</value>
+  </data>
+  <data name="Hover_InsertRemoveRandomArtist" xml:space="preserve">
+    <value>カーソル位置に&lt;随机画师&gt;を挿入/削除</value>
+  </data>
+  <data name="Msg_AddSnippetFailed" xml:space="preserve">
+    <value>スニペットの追加に失敗しました：{0}</value>
+  </data>
+  <data name="Msg_ConfigNameEmpty" xml:space="preserve">
+    <value>設定名は空にできません</value>
+  </data>
+  <data name="Msg_DeleteConfigFailed" xml:space="preserve">
+    <value>設定の削除に失敗しました。ログを確認してください。</value>
+  </data>
+  <data name="Msg_DeleteSnippetFailed" xml:space="preserve">
+    <value>スニペットの削除に失敗しました：{0}</value>
+  </data>
+  <data name="Msg_DirectorToolFailed" xml:space="preserve">
+    <value>ディレクターツールの実行に失敗しました。詳細はログを確認してください。</value>
+  </data>
+  <data name="Msg_InvalidGenerationParams" xml:space="preserve">
+    <value>生成パラメータが無効です。設定を確認してください。</value>
+  </data>
+  <data name="Msg_LanguageRestartPrompt" xml:space="preserve">
+    <value>言語が変更されました。今すぐ再起動して適用しますか？</value>
+  </data>
+  <data name="Msg_NoImagesInFolder" xml:space="preserve">
+    <value>選択したフォルダーに使用可能な画像がありません</value>
+  </data>
+  <data name="Msg_ReadConfigFailed" xml:space="preserve">
+    <value>設定の読み込みに失敗しました。ログを確認してください。</value>
+  </data>
+  <data name="Msg_SaveConfigFailed" xml:space="preserve">
+    <value>設定の保存に失敗しました。ログを確認してください。</value>
+  </data>
+  <data name="Msg_SelectConfigToDelete" xml:space="preserve">
+    <value>削除する設定を選択してください</value>
+  </data>
+  <data name="Msg_SelectImageFirst" xml:space="preserve">
+    <value>先に画像を選択してください</value>
+  </data>
+  <data name="Msg_SelectValidInputFolder" xml:space="preserve">
+    <value>有効な入力フォルダーを選択してください</value>
+  </data>
+  <data name="Msg_UpdateSnippetFailed" xml:space="preserve">
+    <value>スニペットの更新に失敗しました：{0}</value>
+  </data>
+  <data name="Msg_WildcardFolderNotConfigured" xml:space="preserve">
+    <value>設定で Wildcard フォルダーを指定してください</value>
+  </data>
+  <data name="OutputFileNameFormat_AllArtists" xml:space="preserve">
+    <value>全画師語</value>
+  </data>
+  <data name="OutputFileNameFormat_DateTime" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="OutputFileNameFormat_NovalAI" xml:space="preserve">
+    <value>NovalAI</value>
+  </data>
+  <data name="Title_Error" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="Title_Info" xml:space="preserve">
+    <value>お知らせ</value>
+  </data>
+  <data name="Title_Prompt" xml:space="preserve">
+    <value>確認</value>
+  </data>
+</root>

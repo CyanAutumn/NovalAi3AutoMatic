@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using AutoUpdaterDotNET;
+using AutoNai3Tools.utils;
 
 namespace AutoNai3Tools
 {
@@ -17,6 +20,7 @@ namespace AutoNai3Tools
         [STAThread]
         static void Main()
         {
+            ApplySavedCulture();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -45,6 +49,27 @@ namespace AutoNai3Tools
         private static void AutoUpdater_ApplicationExitEvent()
         {
             Application.Exit();
+        }
+
+        private static void ApplySavedCulture()
+        {
+            try
+            {
+                var repository = new SystemConfigRepository();
+                var config = repository.Load();
+                var cultureName = config?.UiLanguage;
+                if (string.IsNullOrWhiteSpace(cultureName))
+                    return;
+
+                var culture = new CultureInfo(cultureName);
+                CultureInfo.DefaultThreadCurrentCulture = culture;
+                CultureInfo.DefaultThreadCurrentUICulture = culture;
+                Thread.CurrentThread.CurrentCulture = culture;
+                Thread.CurrentThread.CurrentUICulture = culture;
+            }
+            catch
+            {
+            }
         }
     }
 }

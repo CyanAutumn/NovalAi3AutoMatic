@@ -33,7 +33,8 @@ namespace AutoNai3Tools {
 
         private async Task ParseLineArtSignAsync(int type) {
             if (directorToolsRemoveBGInputPath == null) {
-                MessageBox.Show("请先选择图片");
+                MessageBox.Show(Properties.Resources.Msg_SelectImageFirst, Properties.Resources.Title_Info,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -44,7 +45,8 @@ namespace AutoNai3Tools {
         private async Task ParseLineArtFolderAsync(int type) {
             string folderPath = txtLineArtInputFolder.Text;
             if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath)) {
-                MessageBox.Show("请选择有效的输入文件夹");
+                MessageBox.Show(Properties.Resources.Msg_SelectValidInputFolder, Properties.Resources.Title_Info,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -53,7 +55,8 @@ namespace AutoNai3Tools {
                 .Where(file => validExtensions.Contains(Path.GetExtension(file).ToLower())).ToList();
 
             if (files.Count == 0) {
-                MessageBox.Show("所选文件夹中未找到可用图片");
+                MessageBox.Show(Properties.Resources.Msg_NoImagesInFolder, Properties.Resources.Title_Info,
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -117,7 +120,8 @@ namespace AutoNai3Tools {
             catch (Exception ex) {
                 Logger.Error("导演工具运行失败", exception: ex,
                     context: Logger.Context(("tabIndex", tabDirectorTools.SelectedIndex)));
-                MessageBox.Show("导演工具运行失败，详情请查看日志。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Properties.Resources.Msg_DirectorToolFailed, Properties.Resources.Title_Error,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
