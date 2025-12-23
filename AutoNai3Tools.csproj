@@ -196,6 +196,7 @@
     <PackageReference Include="SkiaSharp.NativeAssets.Win32">
       <Version>2.88.6</Version>
     </PackageReference>
+    <PackageReference Update="SkiaSharp.NativeAssets.macOS" ExcludeAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="a4ru9-lkcj4-001.ico" />
