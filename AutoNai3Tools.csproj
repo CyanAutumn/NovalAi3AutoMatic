@@ -107,6 +107,8 @@
     <Compile Include="services\WildcardService.cs" />
     <Compile Include="services\WildcardSnippet.cs" />
     <Compile Include="novalai\NovalAIAPI.cs" />
+    <Compile Include="utils\TagDatabase.cs" />
+    <Compile Include="utils\AutoCompleteHelper.cs" />
     <Compile Include="utils\Vibe.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -196,10 +198,16 @@
     <PackageReference Include="SkiaSharp.NativeAssets.Win32">
       <Version>2.88.6</Version>
     </PackageReference>
+    <PackageReference Include="System.Data.SQLite">
+      <Version>1.0.118.0</Version>
+    </PackageReference>
     <PackageReference Update="SkiaSharp.NativeAssets.macOS" ExcludeAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="a4ru9-lkcj4-001.ico" />
+    <Content Include="tag_dictionary.sqlite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Target Name="MoveSatelliteResourcesToLanguageFolder" AfterTargets="CopyFilesToOutputDirectory">
@@ -213,7 +221,8 @@
     <ItemGroup>
       <SatelliteResourceDirs Include="@(SatelliteResourceFiles->'%(RootDir)%(Directory)')" />
     </ItemGroup>
-    <RemoveDir Directories="@(SatelliteResourceDirs)" />
+    <RemoveDir Directories="@(SatelliteResourceDirs)"
+               ContinueOnError="WarnAndContinue" />
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

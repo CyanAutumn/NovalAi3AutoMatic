@@ -75,7 +75,10 @@ namespace AutoNai3Tools.utils {
                         if (i > 0)
                             Logger.Spacer();
 
-                        request = _requestFactory(i);
+                        request = await Task.Run(() => _requestFactory(i), token).ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException) {
+                        throw;
                     }
                     catch (Exception ex) {
                         Logger.Error("第" + iterationNumber + "次生成参数构建失败", exception: ex,

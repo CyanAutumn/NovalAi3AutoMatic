@@ -18,6 +18,8 @@ namespace AutoNai3Tools {
         private readonly DirectorToolController directorToolController;
         private readonly IConfigService configService;
         private readonly IWildcardService wildcardService;
+        private TagDatabase tagDatabase;
+        private AutoCompleteHelper autoCompleteHelper;
 
         public Form1() {
             InitializeComponent();
@@ -58,6 +60,7 @@ namespace AutoNai3Tools {
             var directorProcessor = new DirectorToolProcessor();
             directorToolController = new DirectorToolController(directorProcessor, picProps, settingProps);
             AttachDirectorToolEvents();
+            InitializeAutoComplete();
         }
 
         private void SyncWindowTitleVersion() {
@@ -82,6 +85,30 @@ namespace AutoNai3Tools {
                 dreamForm1.Text = fullTitle;
 
             Text = fullTitle;
+        }
+
+        private void InitializeAutoComplete() {
+            try {
+                string dbPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tag_dictionary.sqlite");
+                tagDatabase = new TagDatabase(dbPath);
+
+                autoCompleteHelper = new AutoCompleteHelper(txtPrompt, tagDatabase, () => {
+                    var list = new System.Collections.Generic.List<string>();
+                    if (dgvTagSnippet != null) {
+                        foreach (DataGridViewRow row in dgvTagSnippet.Rows) {
+                            if (row.Cells[0].Value != null) {
+                                string name = row.Cells[0].Value.ToString();
+                                if (name.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+                                    name = name.Substring(0, name.Length - 4);
+                                list.Add("<" + name + ">");
+                            }
+                        }
+                    }
+                    return list;
+                });
+            } catch (Exception ex) {
+                Logger.Warn($"Failed to init AutoComplete: {ex.Message}");
+            }
         }
 
         private void EnableDoubleBuffer(Control control) {
@@ -147,6 +174,12 @@ namespace AutoNai3Tools {
 
             Application.Restart();
             Environment.Exit(0);
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e) {
+            base.OnFormClosed(e);
+            autoCompleteHelper?.Dispose();
+            tagDatabase?.Dispose();
         }
 
         #region 固定画师，随机画师，随机提示词快速插入

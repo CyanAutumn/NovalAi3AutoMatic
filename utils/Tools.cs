@@ -171,11 +171,76 @@ namespace AutoNai3Tools.utils {
             return txtFiles.Length;
         }
 
-        public static string GetPromptFromFolderTxt(string folderPath,int index) {
+        private const int PromptReadMaxAttempts = 3;
+        private const int PromptReadBaseDelayMs = 200;
+        private const int CloudTimeoutHResult = unchecked((int)0x80070185);
+
+        private static string TryReadPromptFile(string path, out Exception error) {
+            error = null;
+            for (int attempt = 1; attempt <= PromptReadMaxAttempts; attempt++) {
+                try {
+                    return File.ReadAllText(path).Replace(Environment.NewLine, " ");
+                }
+                catch (FileNotFoundException ex) {
+                    error = ex;
+                    return null;
+                }
+                catch (DirectoryNotFoundException ex) {
+                    error = ex;
+                    return null;
+                }
+                catch (UnauthorizedAccessException ex) {
+                    error = ex;
+                    return null;
+                }
+                catch (IOException ex) {
+                    error = ex;
+                    if (ex.HResult == CloudTimeoutHResult) {
+                        return null;
+                    }
+
+                    if (attempt < PromptReadMaxAttempts) {
+                        System.Threading.Thread.Sleep(PromptReadBaseDelayMs * attempt);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public static string GetPromptFromFolderTxt(string folderPath, int index) {
+            if (string.IsNullOrWhiteSpace(folderPath)) {
+                Logger.Warn("随机提示词文件夹路径为空");
+                return string.Empty;
+            }
+
             string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
-            string randomFileName =txtFiles[index];
-            string content = File.ReadAllText(randomFileName).Replace(Environment.NewLine, " ");
-            return content;
+            if (txtFiles.Length == 0) {
+                Logger.Warn("随机提示词文件夹内未找到txt文件",
+                    context: Logger.Context(("folderPath", folderPath)));
+                return string.Empty;
+            }
+
+            int normalizedIndex = ((index % txtFiles.Length) + txtFiles.Length) % txtFiles.Length;
+            Exception readError;
+            string content = TryReadPromptFile(txtFiles[normalizedIndex], out readError);
+            if (content != null) {
+                return content;
+            }
+
+            for (int offset = 1; offset < txtFiles.Length; offset++) {
+                int candidateIndex = (normalizedIndex + offset) % txtFiles.Length;
+                content = TryReadPromptFile(txtFiles[candidateIndex], out _);
+                if (content != null) {
+                    Logger.Warn("随机提示词读取失败，已切换到其他文件",
+                        context: Logger.Context(("path", txtFiles[normalizedIndex]), ("fallback", txtFiles[candidateIndex])));
+                    return content;
+                }
+            }
+
+            Logger.Error("随机提示词读取失败，所有文件不可用", exception: readError,
+                context: Logger.Context(("folderPath", folderPath)));
+            return string.Empty;
         }
     }
 }
