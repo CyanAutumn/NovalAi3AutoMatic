@@ -92,6 +92,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Form1.Metadata.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
@@ -109,6 +113,7 @@
     <Compile Include="novalai\NovalAIAPI.cs" />
     <Compile Include="utils\TagDatabase.cs" />
     <Compile Include="utils\AutoCompleteHelper.cs" />
+    <Compile Include="utils\ImageSourceMetadataReader.cs" />
     <Compile Include="utils\Vibe.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

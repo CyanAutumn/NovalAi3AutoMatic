@@ -23,6 +23,7 @@ namespace AutoNai3Tools {
 
         public Form1() {
             InitializeComponent();
+            InitializeMetadataDragDrop();
             ApplyLocalization();
             SyncWindowTitleVersion();
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer,
