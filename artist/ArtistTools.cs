@@ -25,20 +25,89 @@ namespace AutoNai3Tools.artist {
             if (maxWeight <= 0)
                 return 0;
 
-            if (maxWeight <= 1)
-                return Math.Round(maxWeight, 2);
+            return Math.Round(random.NextDouble() * maxWeight, 2);
+        }
 
-            return Math.Round(1 + (random.NextDouble() * (maxWeight - 1)), 2);
+        private static bool TryParseOneDecimalWeight(string raw, out double value, out bool hasFractional) {
+            value = 0;
+            hasFractional = false;
+            if (raw == null)
+                return false;
+
+            string trimmed = raw.Trim();
+            if (trimmed.IndexOfAny(new[] { 'e', 'E' }) >= 0)
+                return false;
+
+            if (!double.TryParse(trimmed, NumberStyles.Float, CultureInfo.InvariantCulture, out value))
+                return false;
+
+            int dotIndex = trimmed.IndexOf('.');
+            if (dotIndex >= 0) {
+                string fractional = trimmed.Substring(dotIndex + 1);
+                string fractionalTrimmed = fractional.TrimEnd('0');
+                if (fractionalTrimmed.Length > 1)
+                    return false;
+            }
+
+            hasFractional = Math.Abs(value - Math.Round(value)) > 0.0000001;
+            return true;
+        }
+
+        private static double RandomOneDecimalWeight(double min, double max, Random random) {
+            double rangeMin = min;
+            double rangeMax = max;
+            if (rangeMax < rangeMin) {
+                double temp = rangeMin;
+                rangeMin = rangeMax;
+                rangeMax = temp;
+            }
+
+            int minStep = (int)Math.Round(rangeMin * 10, 0, MidpointRounding.AwayFromZero);
+            int maxStep = (int)Math.Round(rangeMax * 10, 0, MidpointRounding.AwayFromZero);
+            if (maxStep < minStep) {
+                int tempStep = minStep;
+                minStep = maxStep;
+                maxStep = tempStep;
+            }
+
+            int step = minStep == maxStep ? minStep : random.Next(minStep, maxStep + 1);
+            return step / 10.0;
         }
 
         private static string ApplyDoubleColonWeighting(string tag, Artist artist, double defaultWeightReduceMax, double defaultWeightIncreaseMax, Random random) {
             if (IsDoubleColonWeightedTag(tag))
                 return tag;
 
+            bool hasCustomDoubleColonWeight = artist.WeightReduceMaxDoubleColon != null || artist.WeightIncreaseMaxDoubleColon != null
+                || artist.WeightReduceMinDoubleColon != null || artist.WeightIncreaseMinDoubleColon != null;
             bool hasCustomWeight = artist.WeightReduceMax != null || artist.WeightIncreaseMax != null;
 
             double weight = 0;
-            if (hasCustomWeight) {
+            if (hasCustomDoubleColonWeight) {
+                double reduceMin = artist.WeightReduceMinDoubleColon ?? 0;
+                double reduceMax = artist.WeightReduceMaxDoubleColon ?? 0;
+                double increaseMin = artist.WeightIncreaseMinDoubleColon ?? 0;
+                double increaseMax = artist.WeightIncreaseMaxDoubleColon ?? 0;
+
+                bool canReduce = reduceMax > 0;
+                bool canIncrease = increaseMax > 0;
+
+                if (canReduce && canIncrease) {
+                    if (random.Next(0, 2) == 0) {
+                        weight = -RandomOneDecimalWeight(reduceMin, reduceMax, random);
+                    }
+                    else {
+                        weight = RandomOneDecimalWeight(increaseMin, increaseMax, random);
+                    }
+                }
+                else if (canReduce) {
+                    weight = -RandomOneDecimalWeight(reduceMin, reduceMax, random);
+                }
+                else if (canIncrease) {
+                    weight = RandomOneDecimalWeight(increaseMin, increaseMax, random);
+                }
+            }
+            else if (hasCustomWeight) {
                 int reduceMin = Math.Max(1, artist.WeightReduceMin ?? 1);
                 int reduceMax = artist.WeightReduceMax ?? 0;
                 int increaseMin = Math.Max(1, artist.WeightIncreaseMin ?? 1);
@@ -98,7 +167,24 @@ namespace AutoNai3Tools.artist {
                 return new Artist(artistName, null, null, null, null);
             }
             else {
-                return new Artist(artistName, int.Parse(strArtistAttrList[1]), int.Parse(strArtistAttrList[2]), int.Parse(strArtistAttrList[3]), int.Parse(strArtistAttrList[4]));
+                bool isDoubleColon = artistName.EndsWith("::", StringComparison.Ordinal);
+                if (!isDoubleColon) {
+                    return new Artist(artistName, int.Parse(strArtistAttrList[1]), int.Parse(strArtistAttrList[2]), int.Parse(strArtistAttrList[3]), int.Parse(strArtistAttrList[4]));
+                }
+
+                if (!TryParseOneDecimalWeight(strArtistAttrList[1], out double reduceMin, out bool reduceMinFrac)
+                    || !TryParseOneDecimalWeight(strArtistAttrList[2], out double reduceMax, out bool reduceMaxFrac)
+                    || !TryParseOneDecimalWeight(strArtistAttrList[3], out double increaseMin, out bool increaseMinFrac)
+                    || !TryParseOneDecimalWeight(strArtistAttrList[4], out double increaseMax, out bool increaseMaxFrac)) {
+                    throw new Exception(artistTag + " 错误，请检查格式");
+                }
+
+                Artist artist = new Artist(artistName, null, null, null, null);
+                artist.WeightReduceMinDoubleColon = reduceMin;
+                artist.WeightReduceMaxDoubleColon = reduceMax;
+                artist.WeightIncreaseMinDoubleColon = increaseMin;
+                artist.WeightIncreaseMaxDoubleColon = increaseMax;
+                return artist;
             }
         }
 
