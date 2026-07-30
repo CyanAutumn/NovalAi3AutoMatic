@@ -111,6 +111,7 @@
     <Compile Include="services\WildcardService.cs" />
     <Compile Include="services\WildcardSnippet.cs" />
     <Compile Include="novalai\NovalAIAPI.cs" />
+    <Compile Include="utils\ApiEndpoint.cs" />
     <Compile Include="utils\TagDatabase.cs" />
     <Compile Include="utils\AutoCompleteHelper.cs" />
     <Compile Include="utils\ImageSourceMetadataReader.cs" />

@@ -7,11 +7,13 @@ using Nett;
 
 namespace AutoNai3Tools.utils {
     internal class SystemConfigData {
+        public string Api { get; set; }
         public string Token { get; set; }
         public List<SnippetItem> SnippetItems { get; set; }
         public string PromptBlackList { get; set; }
         public bool? PromptBlackListEnabled { get; set; }
         public string PromptBlackListRegex { get; set; }
+        public bool? PromptBlackListRegexEnabled { get; set; }
         public int? SleepTimeShortLow { get; set; }
         public int? SleepTimeShortHigh { get; set; }
         public int? SleepTimeLongLow { get; set; }
@@ -58,6 +60,7 @@ namespace AutoNai3Tools.utils {
         public string PromptBlackList { get; set; }
         public bool? PromptBlackListEnabled { get; set; }
         public string PromptBlackListRegex { get; set; }
+        public bool? PromptBlackListRegexEnabled { get; set; }
         public int GenerateMaxNum { get; set; }
         public int KeepParams { get; set; }
         public bool SavePromptToTxt { get; set; }
@@ -66,6 +69,7 @@ namespace AutoNai3Tools.utils {
         public string RandomPromptFolderPath { get; set; }
         public string WildcardFolderPath { get; set; }
         public string OutputPath { get; set; }
+        public string Api { get; set; }
         public string Token { get; set; }
         public int SamplerIndex { get; set; }
         public int Steps { get; set; }
@@ -74,6 +78,7 @@ namespace AutoNai3Tools.utils {
         public int Noise { get; set; }
         public bool Smea { get; set; }
         public bool Dyn { get; set; }
+        public bool? NormalizeReferenceStrengthValues { get; set; }
         public int? ImageFormat { get; set; }
         public bool? QualityToggle { get; set; }
         public string[] ResolutionList { get; set; }
@@ -101,6 +106,15 @@ namespace AutoNai3Tools.utils {
         public Switch FixedSeeds { get; set; }
         public BodyTools.Model ModelSelect { get; set; }
         public OutputFileNameFormat OutputFileNameFormat { get; set; }
+        public List<VibeConfigData> Vibes { get; set; }
+    }
+
+    internal class VibeConfigData {
+        public bool Enabled { get; set; }
+        public string Name { get; set; }
+        public float IE { get; set; }
+        public float RS { get; set; }
+        public string Path { get; set; }
     }
 
     internal class PresetConfigRepository {

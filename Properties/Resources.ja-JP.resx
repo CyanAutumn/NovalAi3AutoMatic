@@ -75,6 +75,9 @@
   <data name="Display_Proxy" xml:space="preserve">
     <value>プロキシ</value>
   </data>
+  <data name="Display_Api" xml:space="preserve">
+    <value>API</value>
+  </data>
   <data name="Display_SleepTimeLongHigh" xml:space="preserve">
     <value>長休止 最大秒</value>
   </data>

@@ -367,7 +367,8 @@ namespace AutoNai3Tools.utils {
             string proxy,
             CancellationToken cancellationToken = default) {
             try {
-                var response = await Request.PostAsync("https://image.novelai.net", "/ai/augment-image", body.ToJson(), token, proxy,
+                string baseUrl = ApiEndpoint.ResolveBaseUrl(settingProps?.Api);
+                var response = await Request.PostAsync(baseUrl, "/ai/augment-image", body.ToJson(), token, proxy,
                         cancellationToken)
                     .ConfigureAwait(false);
                 await Task.Delay(1000, cancellationToken).ConfigureAwait(false);
@@ -402,7 +403,8 @@ namespace AutoNai3Tools.utils {
             string originalPrompt,
             CancellationToken cancellationToken = default) {
             try {
-                var response = await Request.PostAsync("https://image.novelai.net", "/ai/generate-image", body.ToJson(), token, proxy,
+                string baseUrl = ApiEndpoint.ResolveBaseUrl(settingProps?.Api);
+                var response = await Request.PostAsync(baseUrl, "/ai/generate-image", body.ToJson(), token, proxy,
                         cancellationToken)
                     .ConfigureAwait(false);
                 await Task.Delay(1000, cancellationToken).ConfigureAwait(false);

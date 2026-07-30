@@ -164,7 +164,11 @@ namespace AutoNai3Tools.Controllers {
                 return;
 
             try {
-                vibes = Vibe.GetVibe(context.SourceContext.PicProps.Model, vibes, context.SourceContext.SettingProps.Token);
+                vibes = Vibe.GetVibe(
+                    context.SourceContext.PicProps.Model,
+                    vibes,
+                    context.SourceContext.SettingProps.Token,
+                    context.SourceContext.SettingProps.Api);
             }
             catch (Exception ex) {
                 Logger.Error("Vibe 处理失败，已跳过参考图像", exception: ex,

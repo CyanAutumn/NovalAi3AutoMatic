@@ -48,6 +48,10 @@ namespace AutoNai3Tools.Controllers {
                 return selections;
 
             foreach (DataGridViewRow row in vibeGrid.Rows) {
+                var enabledCell = row.Cells["ColumnEnabled"];
+                if (enabledCell != null && enabledCell.Value != null && enabledCell.Value.ToString() == "禁用")
+                    continue;
+
                 var picPath = row.Cells["Column1"].Value;
                 if (picPath == null)
                     continue;

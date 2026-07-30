@@ -12,14 +12,13 @@ namespace AutoNai3Tools.novalai
 {
     class NovalAIAPI
     {
-        private const string VIBE_ENCODE_URL = "https://image.novelai.net";
-
-        public static string GetVibeID(string base64Image, float information_extracted, string model,string token) {
+        public static string GetVibeID(string base64Image, float information_extracted, string model, string token, string api = null) {
             try {
                 var requestBody = new VibeRequest ( base64Image, information_extracted, model );
 
                 var json = JsonConvert.SerializeObject(requestBody);
-                var response = Request.Post(VIBE_ENCODE_URL, "/ai/encode-vibe", json, token);
+                string baseUrl = ApiEndpoint.ResolveBaseUrl(api);
+                var response = Request.Post(baseUrl, "/ai/encode-vibe", json, token);
 
                 if (response.IsSuccessStatusCode) {
                     var vibeBytes = response.RawBytes;

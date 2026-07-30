@@ -45,6 +45,7 @@ namespace AutoNai3Tools.utils {
             }
         }
         [Category("优化")] [DisplayName("DYN")] public Switch Dyn { get; set; }
+        [Category("优化")] [DisplayName("Normalize Reference Strength Values")] public bool NormalizeReferenceStrengthValues { get; set; } = false;
 
         private float _scale;
         [Category("生成")] [DisplayName("Prompt Guidance(Scale)")] public float Scale {
@@ -86,16 +87,18 @@ namespace AutoNai3Tools.utils {
         [DisplayName("提示词黑名单")]
         [Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
         public string PromptBlackList { get; set; } = DefaultPromptBlackList;
+
+        [Category("提示词"), DisplayName("启用提示词黑名单"), Description("EnablePromptBlackList")]
+        public bool EnablePromptBlackList { get; set; } = true;
+
         private const string DefaultPromptBlackListRegex =
             "(?i).*hair.*\r\n(?i).*girls.*\r\n(?i).*eyes.*";
 
-        [Category("提示词")]
-        [DisplayName("提示词黑名单（正则）")]
-        [Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
+        [Category("提示词"), DisplayName("提示词黑名单正则"), Description("PromptBlackListRegex"), Editor(typeof(MultiLineTextEditor), typeof(UITypeEditor))]
         public string PromptBlackListRegex { get; set; } = DefaultPromptBlackListRegex;
-        [Category("提示词")]
-        [DisplayName("启用提示词黑名单")]
-        public bool EnablePromptBlackList { get; set; } = true;
+
+        [Category("提示词"), DisplayName("启用提示词黑名单(正则)"), Description("EnablePromptBlackListRegex")]
+        public bool EnablePromptBlackListRegex { get; set; } = true;
         [Category("提示词")]
         [DisplayName("保存提示词到同名TXT")]
         public bool SavePromptToTxt { get; set; } = false;
@@ -136,6 +139,7 @@ namespace AutoNai3Tools.utils {
                 ["sampler"] = GetEnumDescription(Sampler),
                 ["sm"] = Smea == Switch.开,
                 ["sm_dyn"] = Dyn == Switch.开,
+                ["normalize_reference_strength_multiple"] = NormalizeReferenceStrengthValues,
                 ["scale"] = Scale,
                 ["dynamic_thresholding"] = Decrisp == Switch.开,
                 ["cfg_rescale"] = CFG,

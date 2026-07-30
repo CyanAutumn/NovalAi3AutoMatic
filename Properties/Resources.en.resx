@@ -75,6 +75,9 @@
   <data name="Display_Proxy" xml:space="preserve">
     <value>Proxy</value>
   </data>
+  <data name="Display_Api" xml:space="preserve">
+    <value>API</value>
+  </data>
   <data name="Display_SleepTimeLongHigh" xml:space="preserve">
     <value>Long Sleep Max (s)</value>
   </data>

@@ -8,11 +8,38 @@ namespace AutoNai3Tools {
     public partial class Form1 {
         #region Config
 
+        private static string NormalizeApiValue(string api) {
+            if (string.IsNullOrWhiteSpace(api))
+                return null;
+
+            string normalized = ApiEndpoint.ResolveBaseUrl(api);
+            return string.IsNullOrWhiteSpace(normalized) ? null : normalized;
+        }
+
         private PresetConfigData CapturePresetConfig() {
             var resolutionList = (picProps.ResolutionList ?? string.Empty)
                 .Split(new[] { "\r\n" }, StringSplitOptions.None)
                 .Where(item => !string.IsNullOrWhiteSpace(item))
                 .ToArray();
+
+            var vibes = new System.Collections.Generic.List<VibeConfigData>();
+            foreach (DataGridViewRow row in dgvVibe.Rows) {
+                if (row.IsNewRow) continue;
+                float ie = 0f;
+                float rs = 0f;
+                if (row.Cells["Column2"].Value != null)
+                    float.TryParse(row.Cells["Column2"].Value.ToString(), out ie);
+                if (row.Cells["Column3"].Value != null)
+                    float.TryParse(row.Cells["Column3"].Value.ToString(), out rs);
+
+                vibes.Add(new VibeConfigData {
+                    Enabled = row.Cells["ColumnEnabled"].Value?.ToString() == "启用",
+                    Name = row.Cells["ColumnName"].Value?.ToString(),
+                    IE = ie,
+                    RS = rs,
+                    Path = row.Cells["Column1"].Value?.ToString()
+                });
+            }
 
             return new PresetConfigData {
                 Prompt = txtPrompt.Text,
@@ -20,6 +47,7 @@ namespace AutoNai3Tools {
                 PromptBlackList = picProps.PromptBlackList,
                 PromptBlackListEnabled = picProps.EnablePromptBlackList,
                 PromptBlackListRegex = picProps.PromptBlackListRegex,
+                PromptBlackListRegexEnabled = picProps.EnablePromptBlackListRegex,
                 GenerateMaxNum = picProps.RunNum,
                 KeepParams = picProps.RunKeepParams,
                 SavePromptToTxt = picProps.SavePromptToTxt,
@@ -28,6 +56,7 @@ namespace AutoNai3Tools {
                 RandomPromptFolderPath = picProps.RandomPromptFolderPath,
                 WildcardFolderPath = picProps.WildcardFolderPath,
                 OutputPath = picProps.OutputPath,
+                Api = settingProps.Api,
                 Token = settingProps.Token,
                 SamplerIndex = (int)picProps.Sampler,
                 Steps = picProps.Steps,
@@ -36,6 +65,7 @@ namespace AutoNai3Tools {
                 Noise = (int)picProps.Noise,
                 Smea = picProps.Smea == Switch.开,
                 Dyn = picProps.Dyn == Switch.开,
+                NormalizeReferenceStrengthValues = picProps.NormalizeReferenceStrengthValues,
                 ImageFormat = (int)picProps.ImageFormat,
                 QualityToggle = picProps.QualityToggle,
                 ResolutionList = resolutionList.Length > 0 ? resolutionList : new[] { "832x1216" },
@@ -62,7 +92,8 @@ namespace AutoNai3Tools {
                 VarietyDefault = picProps.Variety == VarietyOptions.自定义_风险参数,
                 VarietyNum = picProps.VarietyNum,
                 ModelSelect = picProps.Model,
-                OutputFileNameFormat = settingProps.OutputFileNameFormat
+                OutputFileNameFormat = settingProps.OutputFileNameFormat,
+                Vibes = vibes
             };
         }
 
@@ -77,6 +108,7 @@ namespace AutoNai3Tools {
             picProps.EnablePromptBlackList = data.PromptBlackListEnabled ?? true;
             if (!string.IsNullOrEmpty(data.PromptBlackListRegex))
                 picProps.PromptBlackListRegex = data.PromptBlackListRegex;
+            picProps.EnablePromptBlackListRegex = data.PromptBlackListRegexEnabled ?? true;
             picProps.RunNum = data.GenerateMaxNum;
             picProps.RunKeepParams = data.KeepParams;
             picProps.SavePromptToTxt = data.SavePromptToTxt;
@@ -88,6 +120,9 @@ namespace AutoNai3Tools {
                 picProps.WildcardFolderPath = data.WildcardFolderPath;
             if (!string.IsNullOrEmpty(data.OutputPath))
                 picProps.OutputPath = data.OutputPath;
+            var normalizedApi = NormalizeApiValue(data.Api);
+            if (!string.IsNullOrEmpty(normalizedApi))
+                settingProps.Api = normalizedApi;
             picProps.Sampler = (SamplerOptions)data.SamplerIndex;
             picProps.Steps = data.Steps;
             picProps.Scale = data.Scale;
@@ -95,6 +130,10 @@ namespace AutoNai3Tools {
             picProps.Noise = (NoiseOptions)data.Noise;
             picProps.Smea = data.Smea ? Switch.开 : Switch.关;
             picProps.Dyn = data.Dyn ? Switch.开 : Switch.关;
+            if (data.NormalizeReferenceStrengthValues.HasValue)
+                picProps.NormalizeReferenceStrengthValues = data.NormalizeReferenceStrengthValues.Value;
+            else
+                picProps.NormalizeReferenceStrengthValues = false;
             if (data.ImageFormat.HasValue)
                 picProps.ImageFormat = (ImageFormatOptions)data.ImageFormat.Value;
             if (data.QualityToggle.HasValue)
@@ -132,14 +171,29 @@ namespace AutoNai3Tools {
             picProps.VarietyNum = data.VarietyNum;
             picProps.Model = data.ModelSelect;
             settingProps.OutputFileNameFormat = data.OutputFileNameFormat;
+
+            dgvVibe.Rows.Clear();
+            if (data.Vibes != null) {
+                foreach (var vibe in data.Vibes) {
+                    dgvVibe.Rows.Add(
+                        vibe.Enabled ? "启用" : "禁用",
+                        vibe.Name,
+                        (decimal)vibe.IE,
+                        (decimal)vibe.RS,
+                        vibe.Path
+                    );
+                }
+            }
         }
 
         private SystemConfigData CaptureSystemConfig() {
             return new SystemConfigData {
+                Api = settingProps.Api,
                 Token = settingProps.Token,
                 PromptBlackList = picProps.PromptBlackList,
                 PromptBlackListEnabled = picProps.EnablePromptBlackList,
                 PromptBlackListRegex = picProps.PromptBlackListRegex,
+                PromptBlackListRegexEnabled = picProps.EnablePromptBlackListRegex,
                 SleepTimeShortLow = settingProps.SleepTimeShortLow,
                 SleepTimeShortHigh = settingProps.SleepTimeShortHigh,
                 SleepTimeLongLow = settingProps.SleepTimeLongLow,
@@ -148,16 +202,23 @@ namespace AutoNai3Tools {
             };
         }
 
-        private void ApplySystemConfig(SystemConfigData data) {
+        private bool ApplySystemConfig(SystemConfigData data) {
             if (data == null)
-                return;
+                return false;
 
+            bool apiNormalized = false;
+            var normalizedApi = NormalizeApiValue(data.Api);
+            if (!string.IsNullOrWhiteSpace(normalizedApi)) {
+                settingProps.Api = normalizedApi;
+                apiNormalized = !string.Equals(data.Api?.Trim(), normalizedApi, StringComparison.Ordinal);
+            }
             settingProps.Token = data.Token ?? settingProps.Token;
             if (!string.IsNullOrEmpty(data.PromptBlackList))
                 picProps.PromptBlackList = data.PromptBlackList;
             picProps.EnablePromptBlackList = data.PromptBlackListEnabled ?? picProps.EnablePromptBlackList;
             if (!string.IsNullOrEmpty(data.PromptBlackListRegex))
                 picProps.PromptBlackListRegex = data.PromptBlackListRegex;
+            picProps.EnablePromptBlackListRegex = data.PromptBlackListRegexEnabled ?? picProps.EnablePromptBlackListRegex;
             if (data.SleepTimeShortLow.HasValue)
                 settingProps.SleepTimeShortLow = data.SleepTimeShortLow.Value;
             if (data.SleepTimeShortHigh.HasValue)
@@ -168,6 +229,8 @@ namespace AutoNai3Tools {
                 settingProps.SleepTimeLongHigh = data.SleepTimeLongHigh.Value;
             if (!string.IsNullOrWhiteSpace(data.UiLanguage))
                 settingProps.UiLanguage = UiLanguageExtensions.FromCultureName(data.UiLanguage);
+
+            return apiNormalized;
         }
 
         private void RefreshConfig() {
@@ -284,7 +347,16 @@ namespace AutoNai3Tools {
 
             try {
                 var systemConfig = configService.LoadSystemConfig();
-                ApplySystemConfig(systemConfig);
+                bool apiNormalized = ApplySystemConfig(systemConfig);
+                if (apiNormalized) {
+                    try {
+                        configService.SaveSystemConfig(CaptureSystemConfig());
+                    }
+                    catch (Exception ex) {
+                        Logger.Warn("系统配置 API 规范化保存失败",
+                            context: Logger.Context(("config", "system"), ("reason", ex.Message)));
+                    }
+                }
             }
             catch (Exception ex) {
                 Logger.Warn("未找到系统配置文件，使用默认配置",

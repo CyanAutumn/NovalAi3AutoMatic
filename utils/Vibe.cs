@@ -109,7 +109,7 @@ namespace AutoNai3Tools.utils {
             return results;
         }
 
-        public static List<VibeData> ParseNai4_UP_Vibe(BodyTools.Model model, List<VibeData> vibe_list, string token) {
+        public static List<VibeData> ParseNai4_UP_Vibe(BodyTools.Model model, List<VibeData> vibe_list, string token, string api) {
             for (int i = 0; i < vibe_list.Count; i++) {
                 if (vibe_list[i].imagePath.EndsWith(".naiv4vibe")) {
                     try {
@@ -148,7 +148,7 @@ namespace AutoNai3Tools.utils {
                             continue;
                         }
 
-                        var vibeBase64img = NovalAIAPI.GetVibeID(base64img, vibe_list[i].informationExtracted, model_name, token);
+                        var vibeBase64img = NovalAIAPI.GetVibeID(base64img, vibe_list[i].informationExtracted, model_name, token, api);
                         File.WriteAllText(vibe_path, vibeBase64img, Encoding.UTF8);
                         Logger.Info("Vibe 缓存已创建",
                             context: Logger.Context(("path", vibe_path)));
@@ -173,9 +173,9 @@ namespace AutoNai3Tools.utils {
             return vibe_list;
         }
 
-        public static List<VibeData> GetVibe(BodyTools.Model model, List<VibeData> vibe_list, string token) {
+        public static List<VibeData> GetVibe(BodyTools.Model model, List<VibeData> vibe_list, string token, string api = null) {
             if (model == BodyTools.Model.Nai4_Full || model == BodyTools.Model.Nai4_5_Full || model == BodyTools.Model.Nai4_5_Curated || model == BodyTools.Model.Nai4_Preview) {
-                return ParseNai4_UP_Vibe(model, vibe_list, token);
+                return ParseNai4_UP_Vibe(model, vibe_list, token, api);
             }
             return ParseOtherVibe(model, vibe_list);
         }
@@ -211,6 +211,60 @@ namespace AutoNai3Tools.utils {
             else {
                 form.nudVibeIE.Visible = true;
                 form.cmbVibeIE.Visible = false;
+            }
+        }
+
+        public static void ImportVibeBundle(string bundlePath, Form1 form) {
+            try {
+                string jsonContent = File.ReadAllText(bundlePath);
+                JObject bundleObj = JObject.Parse(jsonContent);
+                if (bundleObj["vibes"] is JArray vibes) {
+                    string cacheDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "VibeCache");
+                    if (!Directory.Exists(cacheDir)) {
+                        Directory.CreateDirectory(cacheDir);
+                    }
+
+                    int count = 0;
+                    foreach (JObject vibe in vibes) {
+                        try {
+                            // Extract info
+                            float ie = 1.0f;
+                            var options = GetInformationExtractedOptions(vibe, form.picProps.Model);
+                            if (options.Count > 0)
+                                ie = options[0];
+
+                            float rs = vibe["importInfo"]?["strength"]?.Value<float>() ?? 0.6f;
+
+                            string vibeName = vibe["name"]?.ToString() ?? "unknown";
+                            string bundleName = Path.GetFileNameWithoutExtension(bundlePath);
+                            string displayName = $"{bundleName}-{vibeName}";
+
+                            // Generate unique filename
+                            // Use a hash of the content or Guid? content is safer for dedup but Guid is easier.
+                            // Use Guid for now.
+                            string fileName = $"bundle_{Path.GetFileNameWithoutExtension(bundlePath)}_{Guid.NewGuid().ToString().Substring(0, 8)}.naiv4vibe";
+                            string filePath = Path.Combine(cacheDir, fileName);
+
+                            File.WriteAllText(filePath, vibe.ToString());
+
+                            form.dgvVibe.Rows.Add("启用", displayName, (decimal)ie, (decimal)rs, filePath);
+                            count++;
+                        }
+                        catch (Exception ex) {
+                            Logger.Warn("导入 Bundle 中的单个 Vibe 失败",
+                                context: Logger.Context(("reason", ex.Message)));
+                        }
+                    }
+
+                    Logger.Info($"成功从 Bundle 导入 {count} 个 Vibe",
+                        context: Logger.Context(("path", bundlePath)));
+                    MessageBox.Show($"成功导入 {count} 个 Vibe", "导入完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex) {
+                Logger.Error("读取或解析 Vibe Bundle 失败", exception: ex,
+                    context: Logger.Context(("path", bundlePath)));
+                MessageBox.Show("导入失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

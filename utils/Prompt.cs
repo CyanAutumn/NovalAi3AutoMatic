@@ -30,7 +30,7 @@ namespace AutoNai3Tools.utils {
 
         internal static List<Regex> GetPromptBlackListRegex(IPromptContext context) {
             List<Regex> patterns = new List<Regex>();
-            if (context?.PicProps == null || !context.PicProps.EnablePromptBlackList)
+            if (context?.PicProps == null || !context.PicProps.EnablePromptBlackListRegex)
                 return patterns;
 
             string raw = context.PicProps.PromptBlackListRegex ?? string.Empty;

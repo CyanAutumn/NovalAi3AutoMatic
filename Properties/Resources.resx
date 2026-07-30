@@ -177,6 +177,9 @@
   <data name="Display_Proxy" xml:space="preserve">
     <value>代理地址</value>
   </data>
+  <data name="Display_Api" xml:space="preserve">
+    <value>API</value>
+  </data>
   <data name="Display_SleepTimeLongHigh" xml:space="preserve">
     <value>长休最大秒</value>
   </data>

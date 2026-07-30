@@ -58,15 +58,18 @@ namespace AutoNai3Tools.tag
 
             string[] words1 = tPrompt.Split(',').Select(word => word.Trim()).ToArray();
             IEnumerable<string> filtered = words1;
-            if (context.PicProps.EnablePromptBlackList) {
-                string[] words2 = Prompt.GetPromptBlackList(context);
+
+            string[] words2 = Prompt.GetPromptBlackList(context);
+            if (words2.Length > 0)
                 filtered = filtered.Where(word => !words2.Contains(word));
-                string[] words3 = Prompt.GetPromptBlackList(context, true);
+
+            string[] words3 = Prompt.GetPromptBlackList(context, true);
+            if (words3.Length > 0)
                 filtered = filtered.Where(word => !words3.Contains(word));
-                var regexList = Prompt.GetPromptBlackListRegex(context);
-                if (regexList.Count > 0) {
-                    filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word)));
-                }
+
+            var regexList = Prompt.GetPromptBlackListRegex(context);
+            if (regexList.Count > 0) {
+                filtered = filtered.Where(word => !regexList.Any(regex => regex.IsMatch(word)));
             }
 
             string strResult = string.Join(",", filtered).Trim();

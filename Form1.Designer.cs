@@ -96,6 +96,8 @@
             this.cmbVibeIE = new System.Windows.Forms.ComboBox();
             this.nudVibeIE = new System.Windows.Forms.NumericUpDown();
             this.dgvVibe = new System.Windows.Forms.DataGridView();
+            this.ColumnEnabled = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1160,14 +1162,16 @@
             this.dgvVibe.AllowUserToDeleteRows = false;
             this.dgvVibe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVibe.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
+            this.ColumnEnabled,
+            this.ColumnName,
             this.Column2,
-            this.Column3});
+            this.Column3,
+            this.Column1});
             this.dgvVibe.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvVibe.Location = new System.Drawing.Point(4, 28);
             this.dgvVibe.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dgvVibe.Name = "dgvVibe";
-            this.dgvVibe.ReadOnly = true;
+            this.dgvVibe.ReadOnly = false;
             this.dgvVibe.RowHeadersVisible = false;
             this.dgvVibe.RowHeadersWidth = 51;
             this.dgvVibe.RowTemplate.Height = 23;
@@ -1175,9 +1179,31 @@
             this.dgvVibe.TabIndex = 0;
             this.dgvVibe.SelectionChanged += new System.EventHandler(this.dgvSnippet_SelectionChanged);
             // 
+            // ColumnEnabled
+            // 
+            this.ColumnEnabled.Frozen = true;
+            this.ColumnEnabled.HeaderText = "启用";
+            this.ColumnEnabled.Items.AddRange(new object[] {
+            "启用",
+            "禁用"});
+            this.ColumnEnabled.MinimumWidth = 6;
+            this.ColumnEnabled.Name = "ColumnEnabled";
+            this.ColumnEnabled.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnEnabled.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ColumnEnabled.Width = 80;
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.Frozen = true;
+            this.ColumnName.HeaderText = "文件名";
+            this.ColumnName.MinimumWidth = 6;
+            this.ColumnName.Name = "ColumnName";
+            this.ColumnName.ReadOnly = true;
+            this.ColumnName.Width = 125;
+            // 
             // Column1
             // 
-            this.Column1.Frozen = true;
+            this.Column1.Frozen = false;
             this.Column1.HeaderText = "路径";
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
@@ -2476,5 +2502,7 @@
         private System.Windows.Forms.Panel panel8;
         public System.Windows.Forms.ComboBox cmbVibeIE;
         private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ColumnEnabled;
     }
 }

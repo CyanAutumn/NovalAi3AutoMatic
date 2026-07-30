@@ -6,6 +6,10 @@ using System.Reflection;
 namespace AutoNai3Tools.utils {
     public class SettingProperty {
         [LocalizedCategory("Category_Auth")]
+        [LocalizedDisplayName("Display_Api")]
+        public string Api { get; set; } = ApiEndpoint.DefaultBaseUrl;
+
+        [LocalizedCategory("Category_Auth")]
         [LocalizedDisplayName("Display_Token")]
         public string Token { get; set; }
 

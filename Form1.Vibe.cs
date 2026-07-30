@@ -9,14 +9,29 @@ namespace AutoNai3Tools {
         private string vibeCurrentPicPath;
 
         private void picVibeView_Click(object sender, EventArgs e) {
-            var path = Vibe.SelectAndMappingPicToPictureBox(this);
-            if (path != null)
-                vibeCurrentPicPath = path;
+            string filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.naiv4vibe;*.naiv4vibebundle";
+            string path = Tools.SelectFile(filter, true);
+
+            if (path != null) {
+                if (path.EndsWith(".naiv4vibebundle")) {
+                    Vibe.ImportVibeBundle(path, this);
+                    vibeCurrentPicPath = null;
+                    if (picVibeView.Image != null) {
+                        picVibeView.Image.Dispose();
+                        picVibeView.Image = null;
+                    }
+                }
+                else {
+                    Tools.ShowImage(path, picVibeView);
+                    Vibe.SetVibeInterfaceStatus(path, this);
+                    vibeCurrentPicPath = path;
+                }
+            }
         }
 
         private void btnVibeAdd_Click(object sender, EventArgs e) {
             if (vibeCurrentPicPath != null) {
-                dgvVibe.Rows.Add(vibeCurrentPicPath, nudVibeIE.Value, numVibeRS.Value);
+                dgvVibe.Rows.Add("启用", System.IO.Path.GetFileName(vibeCurrentPicPath), nudVibeIE.Value, numVibeRS.Value, vibeCurrentPicPath);
                 if (picVibeView.Image != null) {
                     picVibeView.Image.Dispose();
                     picVibeView.Image = null;
@@ -59,6 +74,7 @@ namespace AutoNai3Tools {
         private void btnVibeEdit_Click(object sender, EventArgs e) {
             if (dgvVibe.CurrentRow != null) {
                 DataGridViewRow selectedRow = dgvVibe.CurrentRow;
+                selectedRow.Cells["ColumnName"].Value = System.IO.Path.GetFileName(vibeCurrentPicPath);
                 selectedRow.Cells["Column1"].Value = vibeCurrentPicPath;
                 selectedRow.Cells["Column2"].Value = nudVibeIE.Value;
                 selectedRow.Cells["Column3"].Value = numVibeRS.Value;

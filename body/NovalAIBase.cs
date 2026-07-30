@@ -147,6 +147,7 @@ namespace AutoNai3Tools.body {
         public List<string> reference_image_multiple { get; set; }
         public List<float> reference_information_extracted_multiple { get; set; }
         public List<float> reference_strength_multiple { get; set; }
+        public bool? normalize_reference_strength_multiple { get; set; }
         public bool deliberate_euler_ancestral_bug { get; set; }
         public V4Prompt v4_negative_prompt { get; set; }
         public V4Prompt v4_prompt { get; set; }
